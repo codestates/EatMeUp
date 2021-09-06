@@ -1,6 +1,8 @@
 # EatMeUp
 ![EatMeUp](https://user-images.githubusercontent.com/75926861/132244896-1db65909-04a0-433a-8a71-87e6a0b6cf48.png)
 
+# 서비스 소개
+
 # 🛠 Tech stack 🛠
 ### COMMON
 
