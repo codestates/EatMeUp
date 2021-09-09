@@ -31,7 +31,7 @@
 
 ## FlowChart
 ### Client
-![Flowchart (2)](https://user-images.githubusercontent.com/80687195/132343235-095199de-f128-443f-9026-e7ab657b9c06.jpg)
+![Flowchart](https://user-images.githubusercontent.com/80687195/132674884-c9203e5e-df75-40a9-8a55-280fd6b99d5a.jpg)
 ### Server
 ![SERVER - FlowChart](https://user-images.githubusercontent.com/83802662/132614622-88385355-c21b-4f37-bdee-10e00e100891.jpg)
 
