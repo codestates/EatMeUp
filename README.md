@@ -30,6 +30,13 @@
 
 
 ## FlowChart
+### Client
+![Flowchart (2)](https://user-images.githubusercontent.com/80687195/132343235-095199de-f128-443f-9026-e7ab657b9c06.jpg)
+### Server
+![SERVER - FlowChart](https://user-images.githubusercontent.com/83802662/132614622-88385355-c21b-4f37-bdee-10e00e100891.jpg)
+
+## API Document
+> [EatMeUp - API Document](https://eatmeup-api-document.gitbook.io/eatmeup/-Mj7S6ZKPtXJjuL7pLLK/)
 
 ## 팀원소개
 | 역할 |  이름  |   담당    | Github                                                                                                                                                                      |
