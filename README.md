@@ -23,7 +23,7 @@
 ### BACK-END
 <img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=Express&logoColor=white"/></a> 
-<img src="https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=MongoDB&logoColor=white"/></a> 
+<img src="https://img.shields.io/badge/PostgreSQL-47A248?style=for-the-badge&logo=postgreSQL&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white"/></a>
 
 ### DEPLOY
