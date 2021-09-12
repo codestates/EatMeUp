@@ -4,14 +4,15 @@ import styled from "styled-components";
 import EditIngre from "./EditIngre/EditIngre";
 
 /* styled-component */
-const IngredientContainer = styled.div`
+const IngredientBox = styled.div`
   max-width: 350px;
   height: 130px;
   border-radius: 15px;
   border: 1px solid black;
   margin: 0 auto;
-  margin-top: 8px;
+  margin: 8px;
   cursor: pointer;
+  background-color: white;
 `;
 
 const Ingredient = () => {
@@ -26,9 +27,11 @@ const Ingredient = () => {
 
   return (
     <>
-      <IngredientContainer onClick={openAddIngreHandler}>
+      <IngredientBox onClick={openAddIngreHandler}>
 
-      </IngredientContainer>
+      </IngredientBox>
+
+
       {openEditIngre ? <EditIngre setOpenEditIngre={setOpenEditIngre} /> : ""}
     </>
   );

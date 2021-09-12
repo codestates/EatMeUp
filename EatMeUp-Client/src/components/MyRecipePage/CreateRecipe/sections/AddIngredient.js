@@ -75,7 +75,7 @@ const AddIngredient = () => {
           <Input
             onChange={(e) => setFoodQuantity(e.currentTarget.value)}
             value={foodQuantity}
-            type='text'
+            type='date'
           />
         </div>
         <div>

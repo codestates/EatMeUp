@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
 /* styled component */
 
@@ -34,7 +34,7 @@ const PlusBtn = styled.div`
 
 const AddRecipe = () => {
   const [recipeBox, setRecipeBox] = useState([]);
-
+// [{ step1  image: image, recipe : recipe }, {image: image, recipe: recipe}
   const addRecipeHandler = () => {
 
     const textarea = <textarea></textarea>

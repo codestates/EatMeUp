@@ -5,7 +5,7 @@ const CardContainer = styled.div`
   height: 100%;
   margin: 1.5rem auto;
   column-width: 250px;
-  column-gap: 10px;
+  column-gap: 15px;
 `;
 
 export default CardContainer;

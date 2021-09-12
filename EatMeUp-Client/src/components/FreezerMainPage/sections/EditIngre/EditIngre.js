@@ -47,7 +47,6 @@ const ModalDialog = styled.div`
   background: rgba(255, 255, 255);
   z-index: 999999;
   opacity: 1;
-  transition: 0.3s;
   animation: ${showDialog} .5s forwards;
 `
 

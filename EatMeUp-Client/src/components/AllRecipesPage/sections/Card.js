@@ -6,13 +6,13 @@ import Image from "../../StyledComponent/Image";
 
 /* styled-component */
 const TitleCaption = styled.figcaption`
-  margin-top: 4px;
-  height: auto;
+  height: 50px;
   font-size: 20px;
   text-indent: 4px;
   overflow: hidden;
   text-overflow: ellipsis;
-  border: 1px solid black;
+  margin: 0;
+  border-radius: 0px 0px 10px 10px;
 `;
 
 const Card = ({ image }) => {

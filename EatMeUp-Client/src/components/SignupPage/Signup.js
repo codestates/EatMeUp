@@ -14,6 +14,13 @@ const Signup = () => {
 
     e.preventDefault();
 
+    const data = {
+      username: name,
+      email: email,
+      password: password
+    }
+
+    
   }
   return (
     <div

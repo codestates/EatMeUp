@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 /* components */
 import Card from "./sections/Card";
-
+import SideBar from "../Util/Sidebar";
 /* styled-component */
 import GridContainer from "../StyledComponent/GridContainer";
 
@@ -63,10 +63,9 @@ const MyRecipe = () => {
       ></header>
       <section>
         {/* page title area */}
-        <TitleArea>
-
-        </TitleArea>
-
+        <TitleArea></TitleArea>
+        {/* side bar area */}
+        <SideBar />
         {/* recipe add button area */}
         <AddbtnArera>
           <AddRecipeBtnBox>
