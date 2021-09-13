@@ -9,10 +9,10 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    username: process.env.DATABASE_USERNAME,
-    password: process.env.DATABASE_PASSWORD,
-    database: process.env.DATABASE_DATABASE,
-    host: process.env.DATABASE_HOST,
-    dialect: process.env.DATABASE_DIALECT,
+    username: process.env.EATMEUP_DATABASE_USERNAME,
+    password: process.env.EATMEUP_DATABASE_PASSWORD,
+    database: process.env.EATMEUP_DATABASE_DATABASE,
+    host: process.env.EATMEUP_DATABASE_HOST,
+    dialect: process.env.EATMEUP_DATABASE_DIALECT,
   },
 };
