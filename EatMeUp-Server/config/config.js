@@ -12,6 +12,7 @@ module.exports = {
     username: process.env.EATMEUP_DATABASE_USERNAME,
     password: process.env.EATMEUP_DATABASE_PASSWORD,
     database: process.env.EATMEUP_DATABASE_DATABASE,
+    port: process.env.EATMEUP_DATABASE_PORT,
     host: process.env.EATMEUP_DATABASE_HOST,
     dialect: process.env.EATMEUP_DATABASE_DIALECT,
   },
