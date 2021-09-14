@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+
+/* import components */
 import RefrigeInner from "./sections/RefrigeInner";
 import SideBar from "../Util/Sidebar";
+import Footer from "../Util/Footer";
+import PlusBtn from "./sections/PlusBtn";
+import RefrigeHeader from "./sections/RefrigeHeader";
+
+/* style component */
 const RecommandBtnContainer = styled.div`
   width: 70%;
   height: 70px;
@@ -19,10 +26,33 @@ const Refrigerator = styled.div`
 
 const FreezerMain = () => {
   const data = [
-    { group: 0, item: ["1", "2"] },
-    { group: 1, item: ["3", "4", "5"] },
-    { group: 2, item: ["6", "7"] },
+    { group: 0, item: ["cheese.jpeg", "apple.jpeg"] },
+    { group: 1, item: ["banana.jpeg", "beancurd.jpeg", "carrot.jpeg"] },
+    { group: 2, item: ["egg.jpeg", "filsh.jpeg"] },
   ];
+  
+  const today = new Date()
+  const todayDate = today.getDate();
+  const todayMonth = today.getMonth() + 1 ; 
+  const thisYear = today.getFullYear();
+  console.log(`${thisYear}-${todayMonth}-${todayDate}`)
+  const [showEditBtn, setShowEditBtn] = useState(false)
+
+  const showEditBtnHandler = (e) => {
+    e.preventDefault();
+    console.log("clicked")
+    setShowEditBtn(!showEditBtn)
+
+  }
+
+  /**
+   * 위험한 식품은 7일정도
+   * 보통 식품은 기준 15일정도
+   * 신선 식품은 기준 한달이상 남은 음식
+   * 일년이상이 되는 식품 D-30일 이상
+   * 한달이상이 되는 식품 D-30일 이상
+   */
+
   return (
     <>
       <header
@@ -35,18 +65,30 @@ const FreezerMain = () => {
           style={{ width: "100%", height: "75px", border: "1px solid black" }}
         ></div>
 
-        {/* freezer main section */}
+        {/* refrigerator section */}
         <div>
           {/* go to recommanded recipes */}
-          <RecommandBtnContainer></RecommandBtnContainer>
+          <RecommandBtnContainer>
+
+          </RecommandBtnContainer>
 
           {/* managing ingredients in refrigerator */}
           <Refrigerator>
+
+            {/* refrigerator header */}
+            <RefrigeHeader data={data} />
+
             {/* refrigerator inner */}
-            <RefrigeInner data={data} />
+          <RefrigeInner data={data} showEditBtn={showEditBtn} />
+            
           </Refrigerator>
+
+          {/* Click to Add, edit an ingredient to the refrigerator */}
+
+          <PlusBtn showEditBtnHandler={showEditBtnHandler}/>
         </div>
       </section>
+      <Footer />
     </>
   );
 };

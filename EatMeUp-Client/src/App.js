@@ -14,6 +14,7 @@ import FreezerMainPage from "./components/FreezerMainPage/FreezerMain";
 import MyRecipePage from "./components/MyRecipePage/MyRecipe";
 import CreateRecipePage from "./components/MyRecipePage/CreateRecipe/CreateRecipe";
 import EditRecipePage from "./components/MyRecipePage/EditRecipe/EditRecipe";
+import MenuPlannerPage from "./components/MenuPlannerPage/MenuPlanner"
 
 function App() {
   return (
@@ -28,6 +29,8 @@ function App() {
         <Route path='/user/myrecipe' exact component={MyRecipePage} />
         <Route path='/user/myrecipe/create' exact component={CreateRecipePage} />
         <Route path='/user/myrecipe/edit' exact component={EditRecipePage} />
+        <Route path='/user/myplanner' exact component={MenuPlannerPage} />
+
       </div>
     </Router>
   );

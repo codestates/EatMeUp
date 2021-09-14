@@ -19,38 +19,38 @@ const Sidebar = () => {
       <ul className='nav-list'>
         <li>
           <Link to='/user'>
-            <i className='bx bx-grid-alt'></i>
-            <span className='links_name'>Dashboard</span>
+            <i class='bx bx-fridge'></i>
+            <span className='links_name'>My Fridge</span>
           </Link>
-          <span className='tooltip'>Dashboard</span>
+          <span className='tooltip'>Fridge</span>
         </li>
         <li>
           <Link to='/user/myrecipe'>
-            <i className='bx bx-user'></i>
-            <span className='links_name'>User</span>
+            <i class='bx bx-restaurant'></i>
+            <span className='links_name'>My Recipe</span>
           </Link>
-          <span className='tooltip'>User</span>
+          <span className='tooltip'>My Recipe</span>
         </li>
         <li>
           <Link to='/user/myrecipe/create'>
-            <i className='bx bx-chat'></i>
-            <span className='links_name'>Messages</span>
+            <i class='bx bx-heart'></i>
+            <span className='links_name'>My Favorite</span>
           </Link>
-          <span className='tooltip'>Messages</span>
+          <span className='tooltip'>My Favorite</span>
         </li>
         <li>
-          <Link to='/recipes'>
-            <i className='bx bx-pie-chart-alt-2'></i>
-            <span className='links_name'>Analytics</span>
+          <Link to='/user/myplanner'>
+            <i class='bx bx-calendar'></i>
+            <span className='links_name'>Calendar</span>
           </Link>
-          <span className='tooltip'>Analytics</span>
+          <span className='tooltip'>Calendar</span>
         </li>
         <li>
           <Link to='#'>
-            <i className='bx bx-folder'></i>
-            <span className='links_name'>File Manager</span>
+            <i class='bx bx-cog'></i>
+            <span className='links_name'>Setting</span>
           </Link>
-          <span className='tooltip'>Files</span>
+          <span className='tooltip'>Setting</span>
         </li>
       </ul>
     </div>
