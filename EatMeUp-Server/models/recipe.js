@@ -1,5 +1,5 @@
 "use strict";
-const { Model } = require("sequelize");
+const { Model, Sequelize } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Recipe extends Model {
     /**
@@ -11,14 +11,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Recipe.belongsTo(models.User, {
         foreignKey: "post_user_id",
-        targetKey: "id",
+        as: "user",
       });
     }
   }
   Recipe.init(
     {
-      recipe_title: DataTypes.STRING,
-      content: DataTypes.STRING,
+      title: DataTypes.STRING,
+      description: DataTypes.STRING,
+      main_image: DataTypes.STRING,
+      foods: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.TEXT)),
+      steps: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.TEXT)),
     },
     {
       sequelize,

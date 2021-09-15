@@ -11,14 +11,14 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.Food.belongsTo(models.User, {
         foreignKey: "own_user_id",
-        targetKey: "id",
+        as: "user",
       });
     }
   }
   Food.init(
     {
       food_name: DataTypes.STRING,
-      avatar: DataTypes.STRING,
+      food_image: DataTypes.STRING,
       frez_type: DataTypes.STRING,
       life: DataTypes.STRING,
     },
