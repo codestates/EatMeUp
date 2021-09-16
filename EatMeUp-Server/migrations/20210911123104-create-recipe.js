@@ -21,10 +21,10 @@ module.exports = {
         type: Sequelize.STRING,
       },
       foods: {
-        type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.TEXT)),
+        type: Sequelize.JSONB,
       },
       steps: {
-        type: Sequelize.ARRAY(Sequelize.ARRAY(Sequelize.TEXT)),
+        type: Sequelize.JSONB,
       },
       post_user_id: {
         type: Sequelize.INTEGER,

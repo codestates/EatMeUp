@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
       title: DataTypes.STRING,
       description: DataTypes.STRING,
       main_image: DataTypes.STRING,
-      foods: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.TEXT)),
-      steps: DataTypes.ARRAY(DataTypes.ARRAY(DataTypes.TEXT)),
+      foods: DataTypes.JSONB,
+      steps: DataTypes.JSONB,
     },
     {
       sequelize,
