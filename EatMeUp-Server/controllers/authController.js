@@ -48,8 +48,6 @@ const login = async (req, res) => {
   try {
     //유저확인
     const userCheck = await User.findOne({ where: { email: req.body.email } });
-    console.log("1-----");
-    console.log(userCheck);
     //유저가 없으면
     if (!userCheck) {
       return res.status(400).json({
@@ -62,8 +60,6 @@ const login = async (req, res) => {
       req.body.password,
       userCheck.password,
     );
-    console.log("2-----");
-    console.log(passwordCheck);
     //비밀번호 불일치
     if (!passwordCheck) {
       return res.status(400).json({
@@ -77,21 +73,12 @@ const login = async (req, res) => {
       username: userCheck.username,
       email: userCheck.email,
     };
-    console.log("3-----");
-    console.log(userData);
     //토큰생성
     const accessToken = genAccessToken(userData);
     const refreshToken = genRefreshToken(userData);
-
-    console.log("4-----");
-    console.log(accessToken);
-    console.log(refreshToken);
     //Db에 refresh 저장
     userCheck.refresh_token = refreshToken;
     const updateUser = await userCheck.save();
-
-    console.log("5-----");
-    console.log(updateUser);
     //쿠키,응답보내주기
     res.status(201).cookie("accessToken", accessToken, {
       domain: process.env.NODE_ENV ? "api.eatmeup.me" : "localhost",
