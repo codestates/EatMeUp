@@ -2,14 +2,20 @@ const express = require("express");
 const logger = require("morgan");
 const request = require("request-promise-native");
 const cors = require("cors");
+const cookieParser = require("cookie-parser");
 const app = express();
 const port = 80;
 const { sequelize, Recipe } = require("./models");
+<<<<<<< HEAD
+const authRouter = require("./routers/authRouters");
+const imageRouter = require("./routers/imageRouter");
+=======
 const userRouter = require("./routers/userRouters");
+>>>>>>> 5213d97ea0397422910ca1b80a661825b6281275
 
 app.use(logger("tiny"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(
   cors({
     origin: true,
@@ -29,6 +35,10 @@ app.get("/", (req, res) => {
   res.send("Hello World!");
 });
 
+<<<<<<< HEAD
+app.use("/auth", authRouter);
+app.use("/image", imageRouter);
+=======
 app.post("/recipeApi", async (req, res) => {
   let api = null;
   let options = {
@@ -79,6 +89,7 @@ app.post("/recipeApi", async (req, res) => {
   };
   test();
 });
+>>>>>>> 5213d97ea0397422910ca1b80a661825b6281275
 
 app.listen(port, () => {
   console.log(`Server open`);
