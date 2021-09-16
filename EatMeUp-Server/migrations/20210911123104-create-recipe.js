@@ -1,4 +1,5 @@
 "use strict";
+
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable("Recipes", {
@@ -8,17 +9,26 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      recipe_title: {
+      title: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      content: {
+      description: {
         allowNull: false,
         type: Sequelize.STRING,
+      },
+      main_image: {
+        type: Sequelize.STRING,
+      },
+      foods: {
+        type: Sequelize.JSONB,
+      },
+      steps: {
+        type: Sequelize.JSONB,
       },
       post_user_id: {
+        type: Sequelize.INTEGER,
         allowNull: false,
-        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,

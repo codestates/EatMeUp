@@ -11,20 +11,19 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       models.User.hasMany(models.Recipe, {
         foreignKey: "post_user_id",
-        sourceKey: "id",
       });
       models.User.hasMany(models.Food, {
         foreignKey: "own_user_id",
-        sourceKey: "id",
       });
     }
   }
   User.init(
     {
-      user_name: DataTypes.STRING,
+      username: DataTypes.STRING,
       email: DataTypes.STRING,
       password: DataTypes.STRING,
       avatar: DataTypes.STRING,
+      refresh_token: DataTypes.STRING,
     },
     {
       sequelize,

@@ -23,6 +23,9 @@ module.exports = {
       avatar: {
         type: Sequelize.STRING,
       },
+      refresh_token: {
+        type: Sequelize.STRING,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -34,6 +37,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Users");
+    // await queryInterface.dropTable("Users");
   },
 };
