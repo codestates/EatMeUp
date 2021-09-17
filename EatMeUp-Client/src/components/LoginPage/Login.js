@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory, Link } from 'react-router-dom';
+import axios from "axios";
 
 const Login = () => {
-
 
   const history = useHistory();
 
@@ -12,8 +12,10 @@ const Login = () => {
 
   const loginHandler = (e) => {
     e.preventDefault();
-
-
+    const data = {
+      email: email,
+      password: password
+    }
   }
   return (
     <div
