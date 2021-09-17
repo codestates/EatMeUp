@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import styled from "styled-components";
 import EditFridge from "./EditFridge";
 
 const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
@@ -13,18 +14,18 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
 
   /* check foodbox handler */
   const checkedFoodBox = (e, food) => {
-    console.log(e.currentTarget.checked)
-    if(e.currentTarget.checked) {
-      setCheckedFoods([...checkedFoods, food])
+    console.log(e.currentTarget.checked);
+    if (e.currentTarget.checked) {
+      setCheckedFoods([...checkedFoods, food]);
     } else if (!e.currentTarget.checked) {
       const deleteCheckedfood = checkedFoods.filter((item) => {
-        if(item.food_name !== food.food_name ) {
-          return item
+        if (item.food_name !== food.food_name) {
+          return item;
         }
-      })  
-      setCheckedFoods(deleteCheckedfood)
+      });
+      setCheckedFoods(deleteCheckedfood);
     }
-  }
+  };
 
   /* drag and drop */
   const handlerDragStart = (e, params) => {
@@ -75,9 +76,9 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
       currentItem.typeIdx === params.typeIdx &&
       currentItem.foodIdx === params.foodIdx
     ) {
-      return { color: "white", border: "none" };
+      return { color: "white", border: "none", borderRadius: "30px", boxShadow: "none" };
     }
-    return { backgroundColor: "white" };
+    return { backgroundColor: "white", borderRadius: "30px" };
   };
 
   const getImgStyle = (params) => {
@@ -94,12 +95,11 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
   return showEditBtn ? (
     <EditFridge foods={list} />
   ) : (
-    <div className='fridgeInner_box'>
+    <FridgeInnerBox>
       {list.map((type, typeIdx) => {
         return (
-          <div
+          <FoodContainer
             key={typeIdx}
-            className='food_container'
             onDragEnter={
               dragging && !type.items.length
                 ? (e) => handlerDragEnter(e, { typeIdx, foodIdx: 0 })
@@ -109,13 +109,13 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
           >
             {type.items.map((food, foodIdx) => {
               return (
-                <div
-                  className='food_box'
+                <FoodBox
                   style={
                     dragging
                       ? getStyles({ typeIdx, foodIdx })
-                      : { backgroundColor: "white" }
+                      : { background: "white", borderRadius: "30px" }
                   }
+
                   draggable
                   key={foodIdx}
                   onDragEnter={
@@ -126,6 +126,8 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
                   onDragStart={(e) => handlerDragStart(e, { typeIdx, foodIdx })}
                   onDragOver={handlerDragOver}
                 >
+
+
                   <div className='check_box'>
                     <input
                       style={
@@ -152,16 +154,88 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
                     <span className='name'>{food.food_name}</span>
                   </div>
                   <div className='foodlife_box'>
-                    <span className='foodlife'>D-{food.life}</span>
+                    <span 
+                    style={
+                      dragging
+                        ? getImgStyle({ typeIdx, foodIdx })
+                        : { opacity: 1 }
+                    }
+                    className='foodlife'>D-{food.life}</span>
                   </div>
-                </div>
+                </FoodBox>
               );
             })}
-          </div>
+          </FoodContainer>
         );
       })}
-    </div>
+    </FridgeInnerBox>
   );
 };
+
+const FridgeInnerBox = styled.div`
+  width: 100%;
+  min-height: 450px;
+  margin: 5px auto;
+  display: flex;
+`;
+
+const FoodContainer = styled.div`
+  width: 400px;
+  min-height: 500px;
+  border-radius: 0px 0px 20px 20px;
+  margin: 0px 10px 0px 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+`;
+
+const FoodBox = styled.div`
+  width: 350px;
+  height: 80px;
+  background: #ffffff;
+  border-radius: 30px;
+  display: flex;
+  position: relative;
+  margin: 10px auto;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  font-weight: 500;
+
+  .check_box {
+    width: 15%;
+    text-align: center;
+    line-height: 80px;
+    padding: 5px auto;
+    border-radius: 30px;
+  }
+
+  .food {
+    width: 60%;
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    border-radius: 30px;
+  }
+
+  .food_img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  .foodlife_box {
+    width: 25%;
+    text-align: center;
+    line-height: 80px;
+    margin-right: 10px;
+  }
+
+  .foodlife {
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 15px;
+    background-color:#EAEAEA
+   
+  }
+`;
 
 export default FridgeInner;
