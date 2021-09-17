@@ -17,6 +17,12 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING,
       },
+      cooking_time: {
+        type: Sequelize.STRING,
+      },
+      level: {
+        type: Sequelize.STRING,
+      },
       main_image: {
         type: Sequelize.STRING,
       },
@@ -41,6 +47,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable("Recipes");
+    // await queryInterface.dropTable("Recipes");
   },
 };
