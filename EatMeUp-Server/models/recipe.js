@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       title: DataTypes.STRING,
       description: DataTypes.STRING,
+      cooking_time: DataTypes.STRING,
+      level: DataTypes.STRING,
       main_image: DataTypes.STRING,
       foods: DataTypes.JSONB,
       steps: DataTypes.JSONB,
