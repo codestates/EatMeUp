@@ -1,0 +1,53 @@
+.today {
+  background-color: rgb(235, 226, 202);
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+#body {
+  width: 100%;
+  margin: 2rem auto;
+  border: 1px solid black;
+}
+.cell {
+  width: calc(100%/7);
+  height: 80px;
+  border: 1px solid black;
+  position: relative;
+}
+
+.day {
+  position: absolute;
+  top: 0;
+}
+
+#calendar-table {
+  width: 100%;
+}
+
+#calendar-controler {
+  width: 100%;
+  height: 50px;
+}
+
+.week_cell {
+  width: calc(100%/7);
+  border: 1px solid black;
+  position: relative;
+}
+
+._week {
+  width: 94%;
+  min-height: 500px;
+  border: 1px solid black;
+  margin: 0px 4px 4px 4px;
+}
+
+.morning {
+  width: 100%;
+  min-height:  150px;
+  border: 1px solid black;
+  margin-top: 10px;
+}
