@@ -5,10 +5,11 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const app = express();
 const port = 80;
-const { sequelize, Recipe } = require("./models");
+const { sequelize } = require("./models");
 const authRouter = require("./routers/authRouters");
-const imageRouter = require("./routers/imageRouter");
+const imageRouter = require("./routers/imageRouters");
 const userRouter = require("./routers/userRouters");
+const foodRouter = require("./routers/foodRouters");
 
 app.use(logger("tiny"));
 app.use(express.json());
@@ -22,6 +23,9 @@ app.use(
 );
 
 app.use("/user", userRouter);
+app.use("/food", foodRouter);
+app.use("/auth", authRouter);
+app.use("/image", imageRouter);
 
 sequelize
   .sync({ force: false })
