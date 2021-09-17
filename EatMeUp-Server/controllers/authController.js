@@ -1,4 +1,5 @@
 const { User } = require("../models");
+require("dotenv").config();
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
@@ -75,11 +76,9 @@ const login = async (req, res) => {
     //토큰생성
     const accessToken = genAccessToken(userData);
     const refreshToken = genRefreshToken(userData);
-
     //Db에 refresh 저장
     userCheck.refresh_token = refreshToken;
-    await userCheck.save();
-
+    const updateUser = await userCheck.save();
     //쿠키,응답보내주기
     res.status(201).cookie("accessToken", accessToken, {
       domain: process.env.NODE_ENV ? "api.eatmeup.me" : "localhost",

@@ -3,8 +3,8 @@ require("dotenv").config();
 module.exports = {
   development: {
     username: "postgres",
-    password: "pgadmin",
-    database: "eatmeup",
+    password: "1324",
+    database: "tutorial",
     host: "127.0.0.1",
     dialect: "postgres",
     accessSecret: "devtest",

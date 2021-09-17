@@ -6,6 +6,7 @@ const app = express();
 const port = 80;
 const { sequelize } = require("./models");
 const authRouter = require("./routers/authRouters");
+const foodRouter = require("./routers/foodRouters");
 const imageRouter = require("./routers/imageRouter");
 const userRouter = require("./routers/userRouters");
 const apiRouter = require("./routers/apiRouters");
@@ -23,6 +24,7 @@ app.use(
 );
 
 app.use("/user", userRouter);
+app.use("/food", foodRouter);
 app.use("/myRecipe", recipeRouter);
 app.use("/recipeAPI", apiRouter);
 app.use("/auth", authRouter);
