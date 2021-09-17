@@ -5,7 +5,7 @@ import './create_recipe.css'
 import AddIngredient from "./sections/AddIngredient";
 import AddRecipe from "./sections/AddRecipe";
 import Description from "./sections/Description";
-import SideBar from '../../Util/Sidebar'
+
 /* styled component */
 const TitleArea = styled.div`
   width: 100%;
@@ -30,7 +30,7 @@ const CreateRecipe = () => {
         style={{ width: "100%", height: "75px", border: "1px solid black" }}
       ></header>
       <section>
-        <SideBar />
+    
         {/* title area */}
         <TitleArea></TitleArea>
 

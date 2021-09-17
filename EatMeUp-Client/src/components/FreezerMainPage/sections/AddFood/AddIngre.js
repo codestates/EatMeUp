@@ -3,10 +3,10 @@ import Dropzone from "react-dropzone";
 import { BackGroundModal, ModalDialog, DropzoneArea, FoodInfoBox, AddToRefriBtn } from "../styled/Style";
 
 
-const AddIngre = ({ setOpenAddIngre }) => {
+const AddIngre = ({ setOpenAddWindow }) => {
   /* function area */
   const openHandler = () => {
-    setOpenAddIngre(false);
+    setOpenAddWindow(false);
   };
 
   const submitHandler = () => {};

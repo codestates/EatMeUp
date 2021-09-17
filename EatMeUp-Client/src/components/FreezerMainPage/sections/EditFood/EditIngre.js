@@ -3,12 +3,12 @@ import Dropzone from 'react-dropzone'
 import { BackGroundModal, ModalDialog, DropzoneArea, FoodInfoBox, AddToRefriBtn } from "../styled/Style";
 
 
-const EditIngre = ({ setOpenEditIngre }) => {
+const EditIngre = ({ setOpenEditWindow, food }) => {
 
   /* function area */
   const closeEditModal = (e) => {
     e.preventDefault();
-    setOpenEditIngre(false)
+    setOpenEditWindow(false)
   }
 
   const submitHandler = () => {}
@@ -39,7 +39,9 @@ const EditIngre = ({ setOpenEditIngre }) => {
             <FoodInfoBox>
               <div className='foodname-box'>
                 <span>음식이름 : </span>
-                <input type='text' placeholder='음식이름을 입력해주세요.' />
+                <input 
+                type='text' 
+                value={food.food_name} />
               </div>
 
               <div className='buydate-box'>

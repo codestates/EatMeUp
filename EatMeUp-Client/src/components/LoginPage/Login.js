@@ -16,9 +16,6 @@ const Login = () => {
       email: email,
       password: password
     }
-
-    
-
   }
   return (
     <div

@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import "../create_recipe.css";
 /* styled-component */
-import Button from "../../../StyledComponent/Button";
-import Input from "../../../StyledComponent/Input";
 
 /* styled-component */
 const AddIngredientArea = styled.div`
@@ -65,21 +63,21 @@ const AddIngredient = () => {
       {/* input area */}
       <FlexContainer>
         <div>
-          <Input
+          <input
             onChange={(e) => setFoodname(e.currentTarget.value)}
             value={foodname}
             type='text'
           />
         </div>
         <div>
-          <Input
+          <input
             onChange={(e) => setFoodQuantity(e.currentTarget.value)}
             value={foodQuantity}
             type='date'
           />
         </div>
         <div>
-          <Button onClick={AddIngredientHandler}>ADD</Button>
+          <button onClick={AddIngredientHandler}>ADD</button>
         </div>
       </FlexContainer>
 
