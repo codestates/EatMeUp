@@ -10,7 +10,7 @@ const foodRouter = require("./routers/foodRouters");
 const imageRouter = require("./routers/imageRouters");
 const userRouter = require("./routers/userRouters");
 const apiRouter = require("./routers/apiRouters");
-const recipeRouter = require("./routers/recipeRouters");
+const myRecipeRouter = require("./routers/myRecipeRouters");
 
 app.use(logger("tiny"));
 app.use(express.json());
@@ -24,8 +24,8 @@ app.use(
 );
 
 app.use("/user", userRouter);
+app.use("/myRecipe", myRecipeRouter);
 app.use("/food", foodRouter);
-app.use("/myRecipe", recipeRouter);
 app.use("/recipeAPI", apiRouter);
 app.use("/auth", authRouter);
 app.use("/image", imageRouter);

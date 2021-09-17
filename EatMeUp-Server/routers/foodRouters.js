@@ -4,7 +4,7 @@ const {
   getFood,
   modFood,
   delFood,
-} = require("../controllers/userFoodController");
+} = require("../controllers/myFoodController");
 const { auth } = require("../utils/checkAuth");
 
 const foodRouter = Router();
