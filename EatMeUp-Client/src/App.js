@@ -13,8 +13,8 @@ import FreezerMainPage from "./components/FreezerMainPage/FreezerMain";
 
 /* 마이페이지 - 내 레시피 페이지 */
 import MyRecipePage from "./components/MyRecipePage/MyRecipe";
-import CreateRecipePage from "./components/MyRecipePage/CreateRecipe/CreateRecipe";
-import EditRecipePage from "./components/MyRecipePage/EditRecipe/EditRecipe";
+import CreateRecipePage from "./components/CreateRecipePage/CreateRecipe";
+import EditRecipePage from "./components/EditRecipePage/EditRecipe";
 
 /* 마이페이지 - 식단짜기 페이지 */
 import MenuPlannerPage from "./components/MenuPlannerPage/MenuPlanner"
@@ -27,7 +27,6 @@ function App() {
         <Route path="/" exact component={LandingPage} />
         <Route path="/login" exact component={LoginPage} />
         <Route path="/signup" exact component={SignupPage} />
-
         <Route path='/recipes' exact component={AllRecipesPage} />
         <Route path='/fridge' exact component={FreezerMainPage} />
         <Route path='/user/myrecipe' exact component={MyRecipePage} />
