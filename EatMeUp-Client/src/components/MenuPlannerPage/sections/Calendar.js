@@ -1,12 +1,19 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
+import { MiddleBtn } from "../../StyledComponent/buttons";
+import theme from "../../StyledComponent/theme";
+import styled from "styled-components";
+import Daily from './Daily'
 import "./Calendar.css";
 
 function Calendar({ showWeekHandler, showMonthHandler }) {
+  
   const [getMoment, setMoment] = useState(moment());
+  const [openDaily, setOpenDaily] = useState(false)
+  const openModalHandler = () => {
+    setOpenDaily(true)
+  }
   const today = getMoment;
   const firstWeek = today.clone().startOf("month").week();
   const lastWeek =
@@ -32,36 +39,21 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
 
               if (moment().format("YYYYMMDD") === days.format("YYYYMMDD")) {
                 return (
-                  <td key={index} className='cell today'>
-                    <Link
-                      className='eachDay-link'
-                      to={`/calendar/${days.format("YYYYMMDD")}`}
-                    >
-                      <span className='day'>{days.format("D")}</span>
-                    </Link>
-                  </td>
+                  <TodayCell key={index} onClick={openModalHandler}>
+                    <span className='day'>{days.format("D")}</span>
+                  </TodayCell>
                 );
               } else if (days.format("MM") !== today.format("MM")) {
                 return (
-                  <td key={index} className='cell month'>
-                    <Link
-                      className='eachDay-link'
-                      to={`/calendar/${days.format("YYYYMMDD")}`}
-                    >
-                      <span className='day'>{days.format("D")}</span>
-                    </Link>
-                  </td>
+                  <Cell key={index} onClick={openModalHandler}>
+                    <span className='day'>{days.format("D")}</span>
+                  </Cell>
                 );
               } else {
                 return (
-                  <td key={index} className='cell'>
-                    <Link
-                      className='eachDay-link'
-                      to={`/calendar/${days.format("YYYYMMDD")}`}
-                    >
-                      <span className='day'>{days.format("D")}</span>
-                    </Link>
-                  </td>
+                  <Cell key={index} onClick={openModalHandler}>
+                    <span className='day'>{days.format("D")}</span>
+                  </Cell>
                 );
               }
             })}
@@ -72,52 +64,197 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
   };
 
   return (
-    <div id='body'>
-      <div id='calendar-controler'>
-        <button
-          id='left'
-          onClick={() => setMoment(getMoment.clone().subtract(1, "month"))}
-        >
-          <i className='far fa-caret-square-left'></i>
-        </button>
-        <span id='date'>{today.format("YYYY년 MM월")}</span>
-        <button
-          id='right'
-          onClick={() => {
-            setMoment(getMoment.clone().add(1, "month"));
-          }}
-        >
-          <i className='far fa-caret-square-right'></i>
-        </button>
-        <button
-          id='today'
-          onClick={() => {
-            setMoment(moment());
-          }}
-        >
-          Today
-        </button>
-        <button id='week' onClick={showMonthHandler}>Month</button>
-        <button id='week' onClick={showWeekHandler}>Week</button>
-      </div>
+    <>
+      <CalendarControls>
+        <div>
+          <Link to="/user/myplanner/create"><CalendarBtn fillColor={theme.colors.lightgrey}><span>식단짜기</span></CalendarBtn></Link>
+          <CalendarBtn
+            fillColor={theme.colors.yellow}
+            id='today'
+            onClick={() => {
+              setMoment(moment());
+            }}
+          >
+            Today
+          </CalendarBtn>
+        </div>
+        <div>
+          <LeftControl
+          
+            onClick={() => setMoment(getMoment.clone().subtract(1, "month"))}
+          >
+            <i class="fas fa-caret-left"></i>
+          </LeftControl>
+          <ThisMonth>{today.format("YYYY년 MM월")}</ThisMonth>
+          <RightControl
+           
+            onClick={() => {
+              setMoment(getMoment.clone().add(1, "month"));
+            }}
+          >
+            <i class="fas fa-caret-right"></i>
+          </RightControl>
+        </div>
+
+        <div>
+          <MonthBtn onClick={showMonthHandler}>Month</MonthBtn>
+          <WeekBtn onClick={showWeekHandler}>Week</WeekBtn>
+        </div>
+      </CalendarControls>
       <div>
-        <table id='calendar-table'>
+        <Table>
           <thead>
             <tr>
-              <td id='weekend'>SUN</td>
-              <td id='thead'>MON</td>
-              <td id='thead'>TUE</td>
-              <td id='thead'>WED</td>
-              <td id='thead'>THU</td>
-              <td id='thead'>FRI</td>
-              <td id='thead'>SAT</td>
+              <THead><span className="weekend">SUN</span></THead>
+              <THead>MON</THead>
+              <THead>TUE</THead>
+              <THead>WED</THead>
+              <THead>THU</THead>
+              <THead>FRI</THead>
+              <THead>SAT</THead>
             </tr>
           </thead>
-          <tbody className='calendar-body'>{calendarArr()}</tbody>
-        </table>
+          <Tbody>{calendarArr()}</Tbody>
+        </Table>
       </div>
-    </div>
+      {openDaily ? <Daily setOpenDaily={setOpenDaily} /> : ""}
+    </>
   );
 }
+
+const CalendarBtn = styled(MiddleBtn)`
+  margin-right: 8px;
+  color: white;
+  cursor : pointer;
+  font-weight: bold;
+
+  span {
+    color: #303030;
+  }
+`;
+
+const MonthBtn = styled.button`
+  width: 100px;
+  height: 45px;
+  border-radius: 20px 0px 0px 20px;
+  border: none;
+  font-weight: bold;
+  cursor : pointer;
+
+`;
+
+const WeekBtn = styled.button`
+  width: 100px;
+  height: 45px;
+  border-radius: 0px 20px 20px 0px;
+  border: none;
+  background-color: white;
+  border: 1px solid #eaeaea;
+  font-weight: bold;
+  cursor : pointer;
+
+`;
+
+const ThisMonth = styled.span`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  color: #303030;
+`;
+
+const LeftControl = styled.button`
+  background-color: white;
+  border:none;
+  font-size: 30px;
+  margin-right: 8px;
+  cursor : pointer;
+`;
+
+const RightControl = styled.button`
+  background-color: white;
+  border: none;
+  font-size: 30px;
+  margin-left: 8px;
+  cursor : pointer;
+
+`;
+const CalendarControls = styled.div`
+  width: 90%;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+`;
+
+const Table = styled.table`
+  width: 90%;
+  border-spacing: 10px;
+  margin: 0 auto;
+  margin-bottom: 10px;
+`;
+
+const THead = styled.td`
+  width: 100px;
+  height: 25px;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  text-align: center;
+
+  .weekend {
+    color: ${theme.colors.red}
+  }
+`;
+
+
+const Tbody = styled.tbody`
+  width: 90%;
+  margin: 0px 10px;
+
+`;
+
+
+const Cell = styled.td`
+  width: 100px;
+  height: 120px;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+
+  &:hover {
+    border: 1px solid ${theme.colors.lightgrey};
+  }
+  .day {
+    position: absolute;
+    top: 0;
+    margin-top: 5px;
+  }
+
+`;
+
+
+
+const TodayCell = styled.td`
+  width: 100px;
+  height: 120px;
+  background: ${theme.colors.lightgrey};
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  text-align: center;
+  position: relative;
+
+  .day {
+    position: absolute;
+    top: 0;
+    margin-top: 5px;
+  }
+
+`;
+
 
 export default Calendar;

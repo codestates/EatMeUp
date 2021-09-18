@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./fridge.css";
 import { foodData } from "../dummydata";
 import FridgeInner from "./sections/FridgeInner";
 import FridgeBtn from "./sections/FridgeBtn";
@@ -151,7 +150,7 @@ const FreezerMain = () => {
 
   return (
     <>
-      <Header />
+      <Header id={1} />
       <section>
         
         {/* 유통기한이 임박한 음식 추천기능 */}

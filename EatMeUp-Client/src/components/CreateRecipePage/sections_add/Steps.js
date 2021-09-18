@@ -34,7 +34,9 @@ const Steps = () => {
                   <i class='far fa-image'></i>
                 </div>
                 <div className='recipe-dc_box'>
-                  <textarera></textarera>
+                  <textarea placeholder='요리 레시피를 입력해 주세요.'>
+
+                  </textarea>
                 </div>
                 <div>
                   <i
@@ -98,15 +100,17 @@ const AddRecipeBox = styled.div`
   .recipe-dc_box {
     width: 60%;
     height: 90%;
-    border: 1px solid ${theme.colors.lightgrey};
+  
     margin: 10px;
     border-radius: 20px;
   }
 
   .recipe-dc_box > textarea {
-    width: 90%;
-    height: 90%;
+    width: 95%;
+    height: 98%;
     border-radius: 10px;
+    border: 1px solid ${theme.colors.lightgrey};
+    text-indent: 10px;
   }
 
   .fa-times {

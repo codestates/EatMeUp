@@ -1,22 +1,23 @@
 import React from "react";
 import styled from "styled-components";
-
+import { Link } from 'react-router-dom'
 /* import component */
 import Header from "../Util/Header";
 import Description from "./sections_add/Description";
 import AddIngredient from "./sections_add/AddIngredient";
 import Steps from "./sections_add/Steps";
 import { LargeBtn } from "../StyledComponent/buttons";
-import theme from '../StyledComponent/theme'
+import theme from "../StyledComponent/theme";
 const CreateRecipe = () => {
   /* function */
 
   return (
     <>
-      <Header />
+      <Header id={2} />
       <section>
         <ContentBox>
-          <Sidebar>Home</Sidebar>
+          <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
+         
           <Container>
             <MainDCBox>
               <TitleBox>
@@ -27,14 +28,16 @@ const CreateRecipe = () => {
             <MainDCBox>
               <AddIngredient />
             </MainDCBox>
-            <MainDCBox>
+            <StepsBox>
               <TitleBox>
                 <div className='title'>Cook Recipe</div>
               </TitleBox>
               <Steps />
-            </MainDCBox>
+            </StepsBox>
             <BtnContainer>
-              <LargeBtn fillColor={theme.colors.yellow}>레시피 추가하기</LargeBtn>
+              <LargeBtn fillColor={theme.colors.yellow}>
+                레시피 추가하기
+              </LargeBtn>
             </BtnContainer>
           </Container>
         </ContentBox>
@@ -47,11 +50,11 @@ const ContentBox = styled.div`
   width: 90%;
   margin: 0 auto;
   display: flex;
-
+  margin-top: 50px;
 `;
 
 const Sidebar = styled.div`
-  width: 200px;
+  width: 170px;
   height: 48px;
   background: #febd2f;
   box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
@@ -59,7 +62,6 @@ const Sidebar = styled.div`
   text-align: center;
   font-weight: bold;
   line-height: 46px;
-  margin-top: 20px;
 `;
 
 const Container = styled.div`
@@ -74,7 +76,6 @@ const BtnContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  
 `;
 const TitleBox = styled.div`
   width: 100%;
@@ -92,7 +93,14 @@ const MainDCBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
-  margin-top: 25px;
+`;
+
+const StepsBox = styled.div`
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  margin-top: 18px;
 `;
 
 export default CreateRecipe;

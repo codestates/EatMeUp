@@ -1,12 +1,12 @@
 import React from "react";
 import "./recipes.css";
-
+import Header from '../Util/Header'
 const AllRecipes = () => {
   
   return (
-    <div>
-     
-    </div>
+    <>
+     <Header id={0} />
+    </>
   );
 };
 
