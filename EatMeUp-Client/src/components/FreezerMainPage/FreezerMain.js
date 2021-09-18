@@ -3,7 +3,9 @@ import "./fridge.css";
 import { foodData } from "../dummydata";
 import FridgeInner from "./sections/FridgeInner";
 import FridgeBtn from "./sections/FridgeBtn";
+import Header from '../Util/Header'
 import styled from "styled-components";
+import { SmallBtn } from "../StyledComponent/buttons";
 
 const FOODS = foodData.map((food) => {
   const splited = food.life.split("-");
@@ -149,60 +151,62 @@ const FreezerMain = () => {
 
   return (
     <>
-      <header></header>
+      <Header />
       <section>
-        <div className='pagetitle_box'>
-          <h1>My Fridge</h1>
-        </div>
-        <div className='content_box'>
-          {/* 유통기한이 임박한 음식 추천기능 */}
-          <div className='checkedfood_box'>
-            <div className='checkedfood_area'>
-              {checkedFoods.map((food, idx) => {
-                return (
-                  <span key={idx} className='name'>
-                    {food.food_name}
-                  </span>
-                );
-              })}
-            </div>
-            <div className='gotoBtn_area'>
-              <button>추천 레시피 보러가기</button>
-            </div>
-          </div>
+        
+        {/* 유통기한이 임박한 음식 추천기능 */}
+        <SearchBox>
+          <FridgeTitle>
+              마이 냉장고
+          </FridgeTitle>
+          <CheckedFoodsBox>
+            {checkedFoods.map((food, idx) => {
+              return (
+                <span key={idx} className='name'>
+                  {food.food_name}
+                </span>
+              );
+            })}
+          </CheckedFoodsBox>
+          <GotoBtnBox>
+            <button>레시피 보기 <i class="fas fa-chevron-right"></i></button>
+          </GotoBtnBox>
+        </SearchBox>
 
+        {/* fridge */}
+        <ContentBox>
           {/* fridge header */}
-          <div className='fridgeHeader_box'>
+          <FridgeHeader>
             {foods.map((food, idx) => {
               return (
-                <div className='frez_type' key={idx}>
+                <FrezType key={idx}>
                   <div className='type_box'>
                     <span className='type'>{convertStr(idx)}</span>
                   </div>
                   <div className='filterBtn_box'>
-                    <Button
-                      color="green"
+                    <FridgeButton
+                      fillColor='white'
                       onClick={() => GreenFoodHandler(idx)}
                     >
-                      신선
-                    </Button>
-                    <button
-                      className='filterBtn yellow'
+                      <i class='far fa-laugh-squint'></i> 신선
+                    </FridgeButton>
+                    <FridgeButton
+                      fillColor='white'
                       onClick={() => yellowFoodHandler(idx)}
                     >
-                      보통
-                    </button>
-                    <button
-                      className='filterBtn red'
+                      <i class='far fa-smile'></i> 보통
+                    </FridgeButton>
+                    <FridgeButton
+                      fillColor='white'
                       onClick={() => redFoodHandler(idx)}
                     >
-                      위험
-                    </button>
+                      <i class='far fa-tired'></i> 위험
+                    </FridgeButton>
                   </div>
-                </div>
+                </FrezType>
               );
             })}
-          </div>
+          </FridgeHeader>
 
           {/* fridge inner */}
           <FridgeInner
@@ -214,19 +218,115 @@ const FreezerMain = () => {
 
           {/* fridge button  */}
           <FridgeBtn showEditBtnHandler={showEditBtnHandler} />
-        </div>
+        </ContentBox>
       </section>
       <footer></footer>
     </>
   );
 };
 
-const Button = styled.button`
-  width: calc(100% / 3);
-  height: 75%;
-  margin: 0 auto;
-  background-color: ${(props) => props.color};
+
+
+
+const SearchBox = styled.div`
+  width: 85%;
+  margin: 0.5rem auto;
+  display: flex;
+  margin-top: 25px;
+`
+
+const FridgeTitle = styled.div`
+  font-size: 40px;
+  font-weight: bold;
+`
+
+const CheckedFoodsBox = styled.div`
+  width: 70%;
+  height: 40px;
+  border: 1px solid #E1E0DC;
+  border-radius: 30px 0px 0px 30px;
+  margin-top: 15px;
+  margin-left: 18px;
+  line-height: 40px;
+
+  .name {
+    margin-left: 15px;
+    padding: 5px 20px;
+    background-color: #E1E0DC;
+    border-radius: 30px;
+  }
+`
+
+const GotoBtnBox = styled.div`
+  margin-top: 15px;
+ 
+  button {
+    border: 1px solid #E1E0DC;
+    width: 150px;
+    height: 42px;
+    border-radius: 0px 30px 30px 0px;
+  
+    background: white;
+    font-weight: bold;
+    padding: 8px;
+  }
+`
+
+const ContentBox = styled.div`
+   width: 85%;
+  margin: 0.5rem auto;
+`
+const FridgeHeader = styled.div`
+  width: 100%;
+  height: 50px;
+  margin: 5px auto;
+  display: flex;
+`;
+
+const FrezType = styled.div`
+  width: 400px;
+  height: auto;
+  border-radius: 20px 20px 0px 0px;
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 10px 0px 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  font-weight: bold;
+
+  .type_box {
+    width: 20%;
+    text-align: center;
+    line-height: 50px;
+  }
+
+  .type {
+    text-align: center;
+  }
+
+  .filterBtn_box {
+    width: 75%;
+    display: flex;
+    align-items: center;
+  }
+`;
+
+const FridgeButton = styled(SmallBtn)`
+  border: 1px solid #e1e0dc;
+  margin-right: 8px;
+  font-weight: bold;
   cursor: pointer;
+  i {
+    font-size: 18px;
+  }
+
+  &:hover {
+    background-color: #FEBD2F;
+  }
+
+  &:active, :focus {
+    background-color: #FEBD2F;
+  }
 `;
 
 export default FreezerMain;
