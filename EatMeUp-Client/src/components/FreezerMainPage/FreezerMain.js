@@ -151,7 +151,7 @@ const FreezerMain = () => {
 
   return (
     <>
-      <Header />
+      <Header id={1} />
       <section>
         
         {/* 유통기한이 임박한 음식 추천기능 */}

@@ -11,7 +11,7 @@ import theme from "../StyledComponent/theme";
 const MyRecipe = () => {
   return (
     <>
-      <Header />
+      <Header id={2} />
       <section>
         <ContentBox>
           <Sidebar>Home</Sidebar>
@@ -38,7 +38,7 @@ const ContentBox = styled.div`
   width: 90%;
   margin: 0.5rem auto;
   display: flex;
-
+  margin-top:50px;
 `;
 const Sidebar = styled.div`
   width: 200px;
@@ -89,8 +89,8 @@ const ListBox = styled.div`
   width: 100%;
   min-height: 720px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
- 
+  grid-template-columns : 1fr 1fr 1fr;
+  grid-gap: 0;
 `;
 
 export default MyRecipe;

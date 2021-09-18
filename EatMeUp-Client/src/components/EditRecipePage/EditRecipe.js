@@ -15,7 +15,7 @@ const EditRecipe = () => {
 
   return (
     <>
-      <Header />
+      <Header id={2} />
       <section>
         <ContentBox>
           <Sidebar>Home</Sidebar>
@@ -29,12 +29,12 @@ const EditRecipe = () => {
             <MainDCBox>
               <EditIngredient />
             </MainDCBox>
-            <MainDCBox>
+            <StepsBox>
               <TitleBox>
                 <div className='title'>Cook Recipe</div>
               </TitleBox>
               <Steps />
-            </MainDCBox>
+            </StepsBox>
             <BtnContainer>
               <LargeBtn fillColor={theme.colors.yellow}>레시피 수정하기</LargeBtn>
             </BtnContainer>
@@ -53,7 +53,7 @@ const ContentBox = styled.div`
 `;
 
 const Sidebar = styled.div`
-  width: 200px;
+  width: 170px;
   height: 48px;
   background: #febd2f;
   box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
@@ -93,7 +93,13 @@ const MainDCBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
-  margin-top: 25px;
 `;
 
+const StepsBox = styled.div`
+  width: 100%;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  margin-top: 18px;
+`;
 export default EditRecipe;

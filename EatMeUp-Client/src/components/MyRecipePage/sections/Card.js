@@ -39,12 +39,13 @@ const Card = ({ recipes }) => {
 };
 
 const RecipeCard = styled.div`
-  width: 340px;
+  width: 90%;
   height: 320px;
-  margin: 10px auto;
+  margin: 0.5rem auto;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
   position: relative;
+  display: inline-block;
 
   .recipe-card-tag {
     position: absolute;
