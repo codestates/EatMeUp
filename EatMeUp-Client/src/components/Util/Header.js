@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <EatMeUpHeader>
       <LogoContainer>
-        <img src='../food_img/EatMeUp.png' alt='logo' />
+        <img src='../../food_img/EatMeUp.png' alt='logo' />
       </LogoContainer>
     </EatMeUpHeader>
   )
