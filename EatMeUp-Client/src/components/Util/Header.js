@@ -7,7 +7,7 @@ const Header = ({ id }) => {
   const menu = [
     { menu: "모든 레시피", link: "/recipes" },
     { menu: "마이 냉장고", link: "/fridge" },
-    { menu: "마이 페이지", link: "/user/myrecipe" },
+    { menu: "마이 페이지", link: "/user/myplanner" },
   ];
   const [currentIdx, setCurrentIdx] = useState(id);
 
@@ -54,6 +54,10 @@ const MenuButton = styled(XSmallBtn)`
   transition: 0.3s;
   border-radius: 30px;
   border: none;
+
+  &:hover {
+    background-color: ${theme.colors.yellow}
+  }
 `;
 
 const EatMeUpHeader = styled.div`

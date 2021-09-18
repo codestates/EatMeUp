@@ -7,21 +7,26 @@ import Header from "../Util/Header";
 import { LargeBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
 
-
 const MyRecipe = () => {
   return (
     <>
       <Header id={2} />
       <section>
         <ContentBox>
-          <Sidebar>Home</Sidebar>
+          <Link to='/user/myrecipe'>
+            <Sidebar>Home</Sidebar>
+          </Link>
+         
+
           <ListContainer>
             <TitleBox>
               <div className='title'>My Recipes</div>
               <div>
-                <Link to="/user/myrecipe/create"><Button fillColor={theme.colors.yellow}>
-                  레시피 만들기 <i class="fas fa-play"></i>
-                </Button></Link>
+                <Link to='/user/myrecipe/create'>
+                  <Button fillColor={theme.colors.yellow}>
+                    레시피 만들기 <i class='fas fa-play'></i>
+                  </Button>
+                </Link>
               </div>
             </TitleBox>
             <ListBox>
@@ -38,7 +43,7 @@ const ContentBox = styled.div`
   width: 90%;
   margin: 0.5rem auto;
   display: flex;
-  margin-top:50px;
+  margin-top: 50px;
 `;
 const Sidebar = styled.div`
   width: 200px;
@@ -50,7 +55,6 @@ const Sidebar = styled.div`
   font-weight: bold;
   line-height: 46px;
   margin-right: 20px;
-
 `;
 
 const ListContainer = styled.div`
@@ -59,7 +63,6 @@ const ListContainer = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
-
 `;
 
 const TitleBox = styled.div`
@@ -89,7 +92,7 @@ const ListBox = styled.div`
   width: 100%;
   min-height: 720px;
   display: grid;
-  grid-template-columns : 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 0;
 `;
 

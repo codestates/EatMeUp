@@ -102,6 +102,11 @@ const FlexContainer = styled.div`
     border: 1px solid ${theme.colors.lightgrey};
     text-indent: 5px;
   }
+
+  input:focus {
+    outline: none;
+    }
+
 `;
 
 const TagContainer = styled.div`

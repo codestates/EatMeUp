@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./fridge.css";
 import { foodData } from "../dummydata";
 import FridgeInner from "./sections/FridgeInner";
 import FridgeBtn from "./sections/FridgeBtn";

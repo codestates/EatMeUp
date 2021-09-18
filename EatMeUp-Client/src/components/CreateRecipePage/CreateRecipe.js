@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-
+import { Link } from 'react-router-dom'
 /* import component */
 import Header from "../Util/Header";
 import Description from "./sections_add/Description";
@@ -16,7 +16,8 @@ const CreateRecipe = () => {
       <Header id={2} />
       <section>
         <ContentBox>
-          <Sidebar>Home</Sidebar>
+          <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
+         
           <Container>
             <MainDCBox>
               <TitleBox>
