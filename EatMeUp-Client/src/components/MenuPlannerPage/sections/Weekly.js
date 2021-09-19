@@ -2,11 +2,12 @@ import React from "react";
 import { useState } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+
+/* 스타일 컴포넌트 */
 import { MiddleBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
 import styled from "styled-components";
 
-import "./Calendar.css";
 
 const Weekly = ({ showWeekHandler, showMonthHandler }) => {
   const [getMoment, setMoment] = useState(moment());

@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
+/* 컴포넌트 */
 import Calendar from "./sections/Calendar";
 import Weekly from "./sections/Weekly";
 import Header from "../Util/Header";
 import Footer from '../Util/Footer'
+
+/* 스타일 컴포넌트 */
+import { Container, SectionBox } from '../StyledComponent/containers'
 
 const MenuPlanner = () => {
   const [showMonth, setShowMonth] = useState(true);
@@ -21,7 +26,7 @@ const MenuPlanner = () => {
     <>
       <Header id={2} />
       <section>
-        <ContentBox>
+        <Container>
           <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
          
           <CalendarContainer>
@@ -37,19 +42,13 @@ const MenuPlanner = () => {
               />
             )}
           </CalendarContainer>
-        </ContentBox>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
 
-const ContentBox = styled.div`
-  width: 90%;
-  margin: 0.5rem auto;
-  display: flex;
-  margin-top: 50px;
-`;
 
 const Sidebar = styled.div`
   width: 200px;
@@ -63,11 +62,8 @@ const Sidebar = styled.div`
   margin-right: 20px;
 `;
 
-const CalendarContainer = styled.div`
-  width: 90%;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
+const CalendarContainer = styled(SectionBox)`
+  width: 100%;
 `;
 
 export default MenuPlanner;

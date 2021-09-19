@@ -36,6 +36,8 @@ const SwiperCompo = () => {
               <div className='blog-slider__text'>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Recusandae voluptate repellendus magni illo ea animi?
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Recusandae voluptate repellendus magni illo ea animi?
               </div>
             </div>
           </div>
@@ -50,6 +52,8 @@ const SwiperCompo = () => {
               <span className='blog-slider__code'>26 December 2019</span>
               <div className='blog-slider__title'>Lorem Ipsum Dolor2</div>
               <div className='blog-slider__text'>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Recusandae voluptate repellendus magni illo ea animi?
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Recusandae voluptate repellendus magni illo ea animi?
               </div>
@@ -67,6 +71,8 @@ const SwiperCompo = () => {
               <span className='blog-slider__code'>26 December 2019</span>
               <div className='blog-slider__title'>Lorem Ipsum Dolor</div>
               <div className='blog-slider__text'>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Recusandae voluptate repellendus magni illo ea animi?
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                 Recusandae voluptate repellendus magni illo ea animi?
               </div>

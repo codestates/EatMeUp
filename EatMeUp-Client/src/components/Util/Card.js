@@ -21,7 +21,6 @@ const RecipeCard = styled.div`
     line-height: 35px;
   }
 
-
   .recipe-dc-left_box {
     width: 80%;
     margin-left: 10px;
@@ -82,8 +81,6 @@ const RecipeCard = styled.div`
     border-radius: 20px;
     background-color: #eaeaea;
   }
-
-
 
   .userimg_box {
     width: 50px;
