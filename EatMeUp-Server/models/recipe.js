@@ -13,6 +13,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "post_user_id",
         as: "user",
       });
+      models.Recipe.belongsToMany(models.User, {
+        through: "User_Like_Recipe",
+        as: "likeUser",
+        foreignKey: "recipe_id",
+      });
     }
   }
   Recipe.init(
