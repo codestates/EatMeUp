@@ -7,19 +7,18 @@ import theme from "../StyledComponent/theme";
 import Header from "../Util/Header";
 import MealPlanCard from "./sections/MealPlanCard";
 import RecipeCards from "./sections/RecipeCard";
+import Footer from '../Util/Footer'
 
 const PlanningPage = () => {
-  console.log(myRecipes);
-  const [openPopOver, setOpenPopOver] = useState(false);
-
- 
   return (
     <>
       <Header id={2} />
       <section>
         <ContentBox>
-         <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
-        
+          <Link to='/user/myrecipe'>
+            <Sidebar>Home</Sidebar>
+          </Link>
+
           <PlannerContainer>
             <TitleBox>
               <div>
@@ -51,6 +50,7 @@ const PlanningPage = () => {
           </PlannerContainer>
         </ContentBox>
       </section>
+      <Footer />
     </>
   );
 };
@@ -63,7 +63,7 @@ const ContentBox = styled.div`
 `;
 
 const Sidebar = styled.div`
-  width: 170px;
+  width: 200px;
   height: 48px;
   background: #febd2f;
   box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
@@ -75,7 +75,7 @@ const Sidebar = styled.div`
 `;
 
 const PlannerContainer = styled.div`
-  width: 90%;
+  width: 100%;
   background: #ffffff;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
@@ -105,7 +105,7 @@ const CalendarBtn = styled(MiddleBtn)`
 `;
 
 const MealPlaner = styled.div`
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   display: flex;
 `;
@@ -114,23 +114,23 @@ const RecommandRecipesBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
-  margin: 10px;
+  margin: 0px 10px 10px 10px;
+  min-height: 400px;
 `;
 
 const PlannerBox = styled.div`
   width: 70%;
-  margin-left: 17px;
+  margin-left: 5px;
 `;
 
 const IngredientBox = styled.div`
-  width: 95%;
+  width: 97%;
   height: 150px;
   margin: 0 auto;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
 `;
-
 
 const MealPlanCardBox = styled.div`
   width: 100%;

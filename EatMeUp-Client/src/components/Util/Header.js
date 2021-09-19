@@ -7,7 +7,7 @@ const Header = ({ id }) => {
   const menu = [
     { menu: "모든 레시피", link: "/recipes" },
     { menu: "마이 냉장고", link: "/fridge" },
-    { menu: "마이 페이지", link: "/user/myplanner" },
+    { menu: "마이 페이지", link: "/user/myrecipe" },
   ];
   const [currentIdx, setCurrentIdx] = useState(id);
 

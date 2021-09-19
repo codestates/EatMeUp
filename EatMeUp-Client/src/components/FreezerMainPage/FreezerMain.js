@@ -5,6 +5,7 @@ import FridgeBtn from "./sections/FridgeBtn";
 import Header from '../Util/Header'
 import styled from "styled-components";
 import { SmallBtn } from "../StyledComponent/buttons";
+import Footer from '../Util/Footer'
 
 const FOODS = foodData.map((food) => {
   const splited = food.life.split("-");
@@ -219,7 +220,7 @@ const FreezerMain = () => {
           <FridgeBtn showEditBtnHandler={showEditBtnHandler} />
         </ContentBox>
       </section>
-      <footer></footer>
+      <Footer />
     </>
   );
 };

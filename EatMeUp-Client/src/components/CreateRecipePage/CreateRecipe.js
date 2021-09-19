@@ -8,6 +8,8 @@ import AddIngredient from "./sections_add/AddIngredient";
 import Steps from "./sections_add/Steps";
 import { LargeBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
+import Footer from '../Util/Footer'
+
 const CreateRecipe = () => {
   /* function */
 
@@ -42,6 +44,7 @@ const CreateRecipe = () => {
           </Container>
         </ContentBox>
       </section>
+      <Footer />
     </>
   );
 };
@@ -54,7 +57,7 @@ const ContentBox = styled.div`
 `;
 
 const Sidebar = styled.div`
-  width: 170px;
+  width: 200px;
   height: 48px;
   background: #febd2f;
   box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);

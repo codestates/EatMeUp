@@ -8,6 +8,7 @@ import EditIngredient from "./sections_edit/EditIngredient";
 import Steps from "./sections_edit/Steps";
 import { LargeBtn } from "../StyledComponent/buttons";
 import theme from '../StyledComponent/theme'
+import Footer from '../Util/Footer'
 
 
 const EditRecipe = () => {
@@ -42,6 +43,7 @@ const EditRecipe = () => {
           </Container>
         </ContentBox>
       </section>
+      <Footer />
     </>
   );
 };

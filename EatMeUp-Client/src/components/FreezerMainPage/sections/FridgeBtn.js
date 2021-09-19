@@ -37,7 +37,7 @@ const FridgeBtn = ({ showEditBtnHandler }) => {
 const FridgeBtnBox = styled.div`
  width: 100%;
   height: 50px;
-  margin: 5px auto;
+  margin: 10px auto;
   display: flex;
   justify-content: flex-end;
 }
