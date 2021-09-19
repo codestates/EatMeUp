@@ -1,136 +1,140 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { myRecipes } from '../dummydata'
-
-const TitleArea = styled.div`
-  width: 100%;
-  height: 80px;
-  margin-top: 10px;
-  margin-bottom: 8px;
-  border: 1px solid black;
-`;
+import { myRecipes } from "../dummydata";
+import { MiddleBtn } from "../StyledComponent/buttons";
+import theme from "../StyledComponent/theme";
+import Header from "../Util/Header";
+import MealPlanCard from "./sections/MealPlanCard";
+import RecipeCards from "./sections/RecipeCard";
 
 const PlanningPage = () => {
-  console.log(myRecipes)
- const [openPopOver, setOpenPopOver] = useState(false)
+  console.log(myRecipes);
+  const [openPopOver, setOpenPopOver] = useState(false);
 
- const openPopOverHandler = () => {
-   setOpenPopOver(!openPopOver)
- }
+ 
   return (
-    <div>
-      <header
-        style={{ width: "100%", height: "75px", border: "1px solid black" }}
-      ></header>
+    <>
+      <Header id={2} />
       <section>
-        <TitleArea></TitleArea>
+        <ContentBox>
+         <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
+        
+          <PlannerContainer>
+            <TitleBox>
+              <div>
+                <ThisMonth>식단짜기</ThisMonth>
+              </div>
+              <div>
+                <ThisMonth>2021.9.18</ThisMonth>
+              </div>
+              <div>
+                <Link to='/user/myplanner'>
+                  <CalendarBtn fillColor={theme.colors.lightgrey}>
+                    달력보러 가기
+                  </CalendarBtn>
+                </Link>
+              </div>
+            </TitleBox>
+            <MealPlaner>
+              <RecommandRecipesBox>
+                <RecipeCards />
+              </RecommandRecipesBox>
 
-        <div
-          style={{
-            width: "70%",
-            margin: "0.5rem auto",
-            border: "1px solid black",
-            height: "50px",
-          }}
-        >
-          <Link to='/user/myplanner'>
-            <button>달력보러 가기</button>
-          </Link>
-        </div>
-        <SectionArea>
-          <RecommandRecipeArea>
-            <div></div>
-
-            <div>
-              <RecipeCard>
-                <i className='bx bx-add-to-queue' onClick={openPopOverHandler}></i>
-               {openPopOver ? 
-              <Balloon>
-                <button>아침 추가</button>
-                <button>점심 추가</button>
-                <button>저녁 추가</button>
-               </Balloon> : ""} 
-              </RecipeCard>
-            </div>
-          </RecommandRecipeArea>
-
-          <PlannerArea>
-            <PlannerCard></PlannerCard>
-
-            <PlannerCard></PlannerCard>
-
-            <PlannerCard></PlannerCard>
-          </PlannerArea>
-        </SectionArea>
+              <PlannerBox>
+                <IngredientBox></IngredientBox>
+                <MealPlanCardBox>
+                  <MealPlanCard />
+                </MealPlanCardBox>
+              </PlannerBox>
+            </MealPlaner>
+          </PlannerContainer>
+        </ContentBox>
       </section>
-    </div>
+    </>
   );
 };
 
-const SectionArea = styled.div`
-  width: 70%;
-  border: 1px solid black;
+const ContentBox = styled.div`
+  width: 90%;
   margin: 0.5rem auto;
   display: flex;
+  margin-top: 50px;
 `;
 
-const PlannerArea = styled.div`
-  width: 75%;
-  min-height: 200px;
-  display: flex;
-
-  span {
-    padding: 15px;
-  }
+const Sidebar = styled.div`
+  width: 170px;
+  height: 48px;
+  background: #febd2f;
+  box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
+  border-radius: 28px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 46px;
+  margin-right: 20px;
 `;
 
-const RecommandRecipeArea = styled.div`
-  width: 230px;
-  height: 700px;
-  overflow-y: scroll;
-`;
-
-const PlannerCard = styled.div`
+const PlannerContainer = styled.div`
   width: 90%;
-  min-height: 200px;
-  border: 1px solid black;
-  margin: 0.5rem;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
 `;
 
-const RecipeCard = styled.div`
-  width: 180px;
-  height: 200px;
-  margin: 5px auto;
-  border: 1px solid black;
-  position: relative;
-  .bx-add-to-queue {
-    font-size: 25px;
-  }
-`;
-
-const Balloon = styled.div`
-  position: relative;
-  margin: 50px;
-  width: 100px;
+const TitleBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
   height: 100px;
-  background: white;
-  border: 1px dashed black;
-  border-radius: 10px;
-  top: -70px;
-  left: -14px;
-  transition: 0.5s;
+  margin: 0 auto;
+`;
 
-  &::after {
-    border-top: 15px solid #333333;
-    border-left: 15px solid transparent;
-    border-right: 0px solid transparent;
-    border-bottom: 0px solid transparent;
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: -15px;
-  }
+const ThisMonth = styled.span`
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  color: #303030;
+`;
+
+const CalendarBtn = styled(MiddleBtn)`
+  margin-right: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #303030;
+`;
+
+const MealPlaner = styled.div`
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+`;
+const RecommandRecipesBox = styled.div`
+  width: 30%;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  margin: 10px;
+`;
+
+const PlannerBox = styled.div`
+  width: 70%;
+  margin-left: 17px;
+`;
+
+const IngredientBox = styled.div`
+  width: 95%;
+  height: 150px;
+  margin: 0 auto;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+`;
+
+
+const MealPlanCardBox = styled.div`
+  width: 100%;
+  display: flex;
 `;
 
 export default PlanningPage;

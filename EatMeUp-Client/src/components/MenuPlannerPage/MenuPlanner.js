@@ -1,16 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import Calendar from "./sections/Calendar";
 import Weekly from "./sections/Weekly";
-
-const TitleArea = styled.div`
-  width: 100%;
-  height: 80px;
-  margin-top: 10px;
-  margin-bottom: 8px;
-  border: 1px solid black;
-`;
+import Header from "../Util/Header";
 
 const MenuPlanner = () => {
   const [showMonth, setShowMonth] = useState(true);
@@ -24,33 +17,55 @@ const MenuPlanner = () => {
   };
 
   return (
-    <div>
-      <header
-        style={{ width: "100%", height: "75px", border: "1px solid black" }}
-      ></header>
+    <>
+      <Header id={2} />
       <section>
-   
-        <TitleArea></TitleArea>
-        <div style={{ width: "70%", margin: "0.5rem auto", display: "flex", justifyContent: "flex-end"}}>
-         <Link to="/user/myplanner/create"><button>식단짜러 가기</button></Link>
-        </div>
-        
-        <div style={{ width: "70%", height: "90%", margin: "2rem auto" }}>
-          {showMonth ? (
-            <Calendar
-              showWeekHandler={showWeekHandler}
-              showMonthHandler={showMonthHandler}
-            />
-          ) : (
-            <Weekly
-              showWeekHandler={showWeekHandler}
-              showMonthHandler={showMonthHandler}
-            />
-          )}
-        </div>
+        <ContentBox>
+          <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
+         
+          <CalendarContainer>
+            {showMonth ? (
+              <Calendar
+                showWeekHandler={showWeekHandler}
+                showMonthHandler={showMonthHandler}
+              />
+            ) : (
+              <Weekly
+                showWeekHandler={showWeekHandler}
+                showMonthHandler={showMonthHandler}
+              />
+            )}
+          </CalendarContainer>
+        </ContentBox>
       </section>
-    </div>
+    </>
   );
 };
+
+const ContentBox = styled.div`
+  width: 90%;
+  margin: 0.5rem auto;
+  display: flex;
+  margin-top: 50px;
+`;
+
+const Sidebar = styled.div`
+  width: 170px;
+  height: 48px;
+  background: #febd2f;
+  box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
+  border-radius: 28px;
+  text-align: center;
+  font-weight: bold;
+  line-height: 46px;
+  margin-right: 20px;
+`;
+
+const CalendarContainer = styled.div`
+  width: 90%;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+`;
 
 export default MenuPlanner;
