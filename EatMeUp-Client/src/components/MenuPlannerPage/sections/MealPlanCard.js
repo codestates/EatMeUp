@@ -1,5 +1,4 @@
 import React from "react";
-import { MiddleBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
 import styled from "styled-components";
 

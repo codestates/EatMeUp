@@ -6,6 +6,7 @@ import Card from "./sections/Card";
 import Header from "../Util/Header";
 import { LargeBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
+import Footer from '../Util/Footer'
 
 const MyRecipe = () => {
   return (
@@ -13,7 +14,7 @@ const MyRecipe = () => {
       <Header id={2} />
       <section>
         <ContentBox>
-          <Link to='/user/myrecipe'>
+          <Link to='/user/myplanner'>
             <Sidebar>Home</Sidebar>
           </Link>
          
@@ -35,6 +36,7 @@ const MyRecipe = () => {
           </ListContainer>
         </ContentBox>
       </section>
+      <Footer />
     </>
   );
 };

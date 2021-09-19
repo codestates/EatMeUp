@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Calendar from "./sections/Calendar";
 import Weekly from "./sections/Weekly";
 import Header from "../Util/Header";
+import Footer from '../Util/Footer'
 
 const MenuPlanner = () => {
   const [showMonth, setShowMonth] = useState(true);
@@ -38,6 +39,7 @@ const MenuPlanner = () => {
           </CalendarContainer>
         </ContentBox>
       </section>
+      <Footer />
     </>
   );
 };
@@ -50,7 +52,7 @@ const ContentBox = styled.div`
 `;
 
 const Sidebar = styled.div`
-  width: 170px;
+  width: 200px;
   height: 48px;
   background: #febd2f;
   box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
