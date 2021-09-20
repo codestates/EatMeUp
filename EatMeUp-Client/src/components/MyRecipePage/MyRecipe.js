@@ -5,6 +5,7 @@ import { myRecipes } from "../dummydata";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import { LargeBtn } from "../StyledComponent/buttons";
+import { Container, SectionBox } from '../StyledComponent/containers'
 import theme from "../StyledComponent/theme";
 import Footer from '../Util/Footer'
 
@@ -13,11 +14,10 @@ const MyRecipe = () => {
     <>
       <Header id={2} />
       <section>
-        <ContentBox>
+        <Container>
           <Link to='/user/myplanner'>
             <Sidebar>Home</Sidebar>
           </Link>
-         
 
           <ListContainer>
             <TitleBox>
@@ -34,19 +34,15 @@ const MyRecipe = () => {
               <Card recipes={myRecipes} />
             </ListBox>
           </ListContainer>
-        </ContentBox>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
 
-const ContentBox = styled.div`
-  width: 90%;
-  margin: 0.5rem auto;
-  display: flex;
-  margin-top: 50px;
-`;
+
+
 const Sidebar = styled.div`
   width: 200px;
   height: 48px;
@@ -59,12 +55,9 @@ const Sidebar = styled.div`
   margin-right: 20px;
 `;
 
-const ListContainer = styled.div`
+const ListContainer = styled(SectionBox)`
   width: 100%;
   min-height: 720px;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
 `;
 
 const TitleBox = styled.div`

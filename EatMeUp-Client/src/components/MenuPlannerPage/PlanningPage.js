@@ -2,19 +2,24 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { myRecipes } from "../dummydata";
-import { MiddleBtn } from "../StyledComponent/buttons";
-import theme from "../StyledComponent/theme";
+
+/* 컴포넌트 */
 import Header from "../Util/Header";
 import MealPlanCard from "./sections/MealPlanCard";
 import RecipeCards from "./sections/RecipeCard";
-import Footer from '../Util/Footer'
+import Footer from "../Util/Footer";
+
+/* 스타일 컴포넌트 */
+import { MiddleBtn } from "../StyledComponent/buttons";
+import theme from "../StyledComponent/theme";
+import { Container, SectionBox } from "../StyledComponent/containers";
 
 const PlanningPage = () => {
   return (
     <>
       <Header id={2} />
       <section>
-        <ContentBox>
+        <Container>
           <Link to='/user/myrecipe'>
             <Sidebar>Home</Sidebar>
           </Link>
@@ -48,19 +53,12 @@ const PlanningPage = () => {
               </PlannerBox>
             </MealPlaner>
           </PlannerContainer>
-        </ContentBox>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
-
-const ContentBox = styled.div`
-  width: 90%;
-  margin: 0.5rem auto;
-  display: flex;
-  margin-top: 50px;
-`;
 
 const Sidebar = styled.div`
   width: 200px;
@@ -74,11 +72,8 @@ const Sidebar = styled.div`
   margin-right: 20px;
 `;
 
-const PlannerContainer = styled.div`
+const PlannerContainer = styled(SectionBox)`
   width: 100%;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
 `;
 
 const TitleBox = styled.div`
@@ -109,6 +104,7 @@ const MealPlaner = styled.div`
   margin: 0 auto;
   display: flex;
 `;
+
 const RecommandRecipesBox = styled.div`
   width: 30%;
   background: #ffffff;

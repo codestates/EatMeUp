@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import EditFridge from "./EditFridge";
+import theme from '../../StyledComponent/theme'
+
 
 const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
   const [list, setList] = useState(foods);
@@ -68,7 +70,6 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
 
   const handlerDragOver = (e) => {
     e.preventDefault();
-    
   };
 
   const getStyles = (params) => {
@@ -129,7 +130,7 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
                 >
 
 
-                  <div className='check_box'>
+                  {/* <div className='check_box'>
                     <input
                       style={
                         dragging
@@ -139,7 +140,7 @@ const FridgeInner = ({ foods, showEditBtn, checkedFoods, setCheckedFoods }) => {
                       onChange={(e) => checkedFoodBox(e, food)}
                       type='checkbox'
                     />
-                  </div>
+                  </div> */}
                   <div className='food' draggable={false}>
                     <img
                       src={`../food_img/${food.food_image}`}
@@ -195,9 +196,11 @@ const FoodBox = styled.div`
   background: #ffffff;
   border-radius: 30px;
   display: flex;
+  justify-content: space-between;
   position: relative;
   margin: 10px auto;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  border: 1px solid ${theme.colors.lightgrey};
+  /* box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15); */
   font-weight: 500;
 
   .check_box {

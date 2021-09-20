@@ -5,7 +5,7 @@ import { MiddleBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
 import styled from "styled-components";
 import Daily from './Daily'
-import "./Calendar.css";
+
 
 function Calendar({ showWeekHandler, showMonthHandler }) {
   

@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { foodData } from "../dummydata";
 import FridgeInner from "./sections/FridgeInner";
 import FridgeBtn from "./sections/FridgeBtn";
-import Header from '../Util/Header'
+import Header from "../Util/Header";
 import styled from "styled-components";
 import { SmallBtn } from "../StyledComponent/buttons";
-import Footer from '../Util/Footer'
+import Footer from "../Util/Footer";
 
 const FOODS = foodData.map((food) => {
   const splited = food.life.split("-");
@@ -153,12 +153,9 @@ const FreezerMain = () => {
     <>
       <Header id={1} />
       <section>
-        
         {/* 유통기한이 임박한 음식 추천기능 */}
         <SearchBox>
-          <FridgeTitle>
-              마이 냉장고
-          </FridgeTitle>
+          <FridgeTitle>마이 냉장고</FridgeTitle>
           <CheckedFoodsBox>
             {checkedFoods.map((food, idx) => {
               return (
@@ -169,7 +166,9 @@ const FreezerMain = () => {
             })}
           </CheckedFoodsBox>
           <GotoBtnBox>
-            <button>레시피 보기 <i class="fas fa-chevron-right"></i></button>
+            <button>
+              레시피 보기 <i class='fas fa-chevron-right'></i>
+            </button>
           </GotoBtnBox>
         </SearchBox>
 
@@ -225,25 +224,22 @@ const FreezerMain = () => {
   );
 };
 
-
-
-
 const SearchBox = styled.div`
   width: 85%;
   margin: 0.5rem auto;
   display: flex;
   margin-top: 25px;
-`
+`;
 
 const FridgeTitle = styled.div`
   font-size: 40px;
   font-weight: bold;
-`
+`;
 
 const CheckedFoodsBox = styled.div`
   width: 70%;
   height: 40px;
-  border: 1px solid #E1E0DC;
+  border: 1px solid #e1e0dc;
   border-radius: 30px 0px 0px 30px;
   margin-top: 15px;
   margin-left: 18px;
@@ -252,30 +248,29 @@ const CheckedFoodsBox = styled.div`
   .name {
     margin-left: 15px;
     padding: 5px 20px;
-    background-color: #E1E0DC;
+    background-color: #e1e0dc;
     border-radius: 30px;
   }
-`
+`;
 
 const GotoBtnBox = styled.div`
   margin-top: 15px;
- 
+
   button {
-    border: 1px solid #E1E0DC;
+    border: 1px solid #e1e0dc;
     width: 150px;
     height: 42px;
     border-radius: 0px 30px 30px 0px;
-  
     background: white;
     font-weight: bold;
     padding: 8px;
   }
-`
+`;
 
 const ContentBox = styled.div`
-   width: 85%;
-  margin: 0.5rem auto;
-`
+  width: 85%;
+  margin: 2rem auto;
+`;
 const FridgeHeader = styled.div`
   width: 100%;
   height: 50px;
@@ -321,11 +316,12 @@ const FridgeButton = styled(SmallBtn)`
   }
 
   &:hover {
-    background-color: #FEBD2F;
+    background-color: #febd2f;
   }
 
-  &:active, :focus {
-    background-color: #FEBD2F;
+  &:active,
+  :focus {
+    background-color: #febd2f;
   }
 `;
 

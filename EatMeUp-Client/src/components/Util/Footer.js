@@ -6,8 +6,12 @@ const Footer = () => {
   return (
     <FooterBox>
       <div className='copyright'>
-        Copyright <i class='far fa-copyright'></i> 2021 by <span className="eatmeup">EatMeUp</span>
-    </div>
+        Copyright <i class='far fa-copyright'></i> 2021 by{" "}
+        <span className='eatmeup'>EatMeUp</span>
+      </div>
+      <div>
+        <i class='fab fa-github'></i>
+      </div>
       <div className='names'>
         <span>오동욱</span>
         <span>강주오</span>
@@ -26,7 +30,8 @@ const FooterBox = styled.div`
   justify-content: space-between;
   align-items: center;
   color: ${theme.colors.darkgray};
-  
+  margin-top: 50px;
+
   .copyright {
     margin: 20px;
   }
@@ -41,6 +46,10 @@ const FooterBox = styled.div`
 
   .eatmeup {
     font-weight: bold;
+  }
+
+  .fa-github {
+    font-size: 30px;
   }
 `;
 

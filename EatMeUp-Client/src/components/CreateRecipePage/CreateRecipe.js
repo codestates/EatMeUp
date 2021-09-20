@@ -1,14 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom'
-/* import component */
+
+/* 컴포넌트 */
 import Header from "../Util/Header";
 import Description from "./sections_add/Description";
 import AddIngredient from "./sections_add/AddIngredient";
 import Steps from "./sections_add/Steps";
-import { LargeBtn } from "../StyledComponent/buttons";
-import theme from "../StyledComponent/theme";
 import Footer from '../Util/Footer'
+
+/* 스타일 컴포넌트 */
+import { LargeBtn } from "../StyledComponent/buttons";
+import { Container, SectionBox } from '../StyledComponent/containers'
+import theme from "../StyledComponent/theme";
+
 
 const CreateRecipe = () => {
   /* function */
@@ -17,10 +22,10 @@ const CreateRecipe = () => {
     <>
       <Header id={2} />
       <section>
-        <ContentBox>
+        <Container>
           <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
          
-          <Container>
+          <BoxContainer>
             <MainDCBox>
               <TitleBox>
                 <div className='title'>New Recipe</div>
@@ -41,20 +46,14 @@ const CreateRecipe = () => {
                 레시피 추가하기
               </LargeBtn>
             </BtnContainer>
-          </Container>
-        </ContentBox>
+          </BoxContainer>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
 
-const ContentBox = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  display: flex;
-  margin-top: 50px;
-`;
 
 const Sidebar = styled.div`
   width: 200px;
@@ -67,9 +66,9 @@ const Sidebar = styled.div`
   line-height: 46px;
 `;
 
-const Container = styled.div`
+const BoxContainer = styled.div`
   width: 85%;
-  margin-left: 25px;
+  margin-left: 20px;
 `;
 
 const BtnContainer = styled.div`
@@ -80,6 +79,7 @@ const BtnContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 const TitleBox = styled.div`
   width: 100%;
   height: 90px;
@@ -91,18 +91,12 @@ const TitleBox = styled.div`
   justify-content: space-between;
 `;
 
-const MainDCBox = styled.div`
+const MainDCBox = styled(SectionBox)`
   width: 100%;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
 `;
 
-const StepsBox = styled.div`
+const StepsBox = styled(SectionBox)`
   width: 100%;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
   margin-top: 18px;
 `;
 

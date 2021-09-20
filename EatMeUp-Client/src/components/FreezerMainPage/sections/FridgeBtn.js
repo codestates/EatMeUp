@@ -5,11 +5,12 @@ import styled from "styled-components";
 import theme from "../../StyledComponent/theme";
 
 const FridgeBtn = ({ showEditBtnHandler }) => {
-  const [openAddWindow, setOpenAddWindow] = useState(false);
 
+  const [openAddWindow, setOpenAddWindow] = useState(false);
   const openAddWindowHandler = () => {
     setOpenAddWindow(true);
   };
+  
   return (
     <FridgeBtnBox>
       <FridgeBtns>
@@ -47,8 +48,6 @@ const FridgeBtns = styled.div`
   display: flex;
   align-items: center;
 `;
-
-
 
 const FridgeButton = styled(LargeBtn)`
   font-weight: 500;

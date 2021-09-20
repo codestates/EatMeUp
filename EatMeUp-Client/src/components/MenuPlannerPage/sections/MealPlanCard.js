@@ -52,11 +52,10 @@ const AddTodo = styled.div`
 
   input {
     width: 70%;
-    height: 30px;
+    height: 35px;
     border-radius: 10px 0px 0px 10px;
     border: 1px solid ${theme.colors.lightgrey};
     font-size: 13px;
-    
   }
 
   input:focus {
