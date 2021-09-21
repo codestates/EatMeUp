@@ -55,7 +55,7 @@ const Sidebar = styled.div`
   margin-right: 20px;
 `;
 
-const ListContainer = styled(SectionBox)`
+const ListContainer = styled.div`
   width: 100%;
   min-height: 720px;
 `;
