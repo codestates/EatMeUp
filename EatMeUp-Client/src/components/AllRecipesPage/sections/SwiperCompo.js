@@ -32,12 +32,17 @@ const SwiperCompo = () => {
             </div>
             <div className='blog-slider__content'>
               <span className='blog-slider__code'>26 December 2019</span>
-              <div className='blog-slider__title'>Lorem Ipsum Dolor</div>
+              <div className='blog-slider__title'>제육볶음</div>
               <div className='blog-slider__text'>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Recusandae voluptate repellendus magni illo ea animi?
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Recusandae voluptate repellendus magni illo ea animi?
+              양지머리로 육수를 낸 후 식혀 기름을 걷어낸 후, 불린 쌀을 넣어 고슬고슬하게 밥을 짓는다.
+              안심은 불고기 양념하여 30분간 재워 국물 없이 구워 한 김 식으면 한입 크기로 자른다.
+              </div>
+              <div>
+                <span>#돼지전지 </span>
+                <span>#돼지전지 </span>
+                <span>#돼지전지 </span>
+                <span>#돼지전지 </span>
+
               </div>
             </div>
           </div>

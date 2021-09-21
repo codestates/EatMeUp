@@ -4,28 +4,29 @@ import Card from "./sections/Card";
 import styled from "styled-components";
 import { myRecipes } from "../dummydata";
 import SwiperCompo from "./sections/SwiperCompo";
-import Footer from '../Util/Footer'
+import Footer from "../Util/Footer";
 const AllRecipes = () => {
   return (
     <>
       <Header id={0} />
       <section>
-      <TitleBox>
-        <h1>
-          <i class='fas fa-utensils'></i> 오늘의 레시피
-        </h1>
-      </TitleBox>
+        <TitleBox>
+          <h1>
+            <i class='fas fa-utensils'></i> 오늘의 레시피
+          </h1>
+        </TitleBox>
 
-      <SwiperCompo />
+        <SwiperCompo />
 
-      <SearchBox>
-
-      </SearchBox>
-      <Container>
-        {myRecipes.map((recipe, idx) => {
-          return <Card recipe={recipe} key={idx} />;
-        })}
-      </Container>
+        <SearchBox></SearchBox>
+        <TitleBox>
+          <h1>추천 레시피</h1>
+        </TitleBox>
+        <Container>
+          {myRecipes.map((recipe, idx) => {
+            return <Card recipe={recipe} key={idx} />;
+          })}
+        </Container>
       </section>
       <Footer />
     </>
@@ -40,19 +41,17 @@ const TitleBox = styled.div`
 `;
 
 const SearchBox = styled.div`
-  max-width: 80%;
+  max-width: 75%;
   margin: 15px auto;
-  min-height: 100px;
-  background: #febd2f;
-  box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
-  border-radius: 28px;
-`
+  min-height: 130px;
+  background: #ffffff;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+`;
 const Container = styled.div`
-  width: 80%;
+  width: 85%;
   margin: 10px auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 10px;
+  column-width: calc(100% / 4);
 `;
 
 export default AllRecipes;
