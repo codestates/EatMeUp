@@ -1,5 +1,5 @@
 # EatMeUp
-![EatMeUp](https://user-images.githubusercontent.com/75926861/134329454-9fca8bb2-b431-458a-82d2-0f459687faf8.png)
+![EatMeUp](https://user-images.githubusercontent.com/75926861/134337149-eb32c681-e9fa-4b59-9c37-45b725653bb6.png)
 
 ## 서비스 소개
 - 식재료 구입 후 냉장고 한 구석에 방치해 놓고 있진 않으신가요?
