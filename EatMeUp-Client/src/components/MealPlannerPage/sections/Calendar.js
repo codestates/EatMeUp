@@ -136,7 +136,7 @@ const CalendarBtn = styled(MiddleBtn)`
 const MonthBtn = styled.button`
   width: 100px;
   height: 45px;
-  border-radius: 20px 0px 0px 20px;
+  border-radius: 30px 0px 0px 30px;
   border: none;
   font-weight: bold;
   cursor : pointer;
@@ -146,7 +146,7 @@ const MonthBtn = styled.button`
 const WeekBtn = styled.button`
   width: 100px;
   height: 45px;
-  border-radius: 0px 20px 20px 0px;
+  border-radius: 0px 30px 30px 0px;
   border: none;
   background-color: white;
   border: 1px solid #eaeaea;
@@ -179,7 +179,7 @@ const RightControl = styled.button`
 
 `;
 const CalendarControls = styled.div`
-  width: 90%;
+  width: 92%;
   height: 150px;
   display: flex;
   align-items: center;
@@ -188,7 +188,7 @@ const CalendarControls = styled.div`
 `;
 
 const Table = styled.table`
-  width: 90%;
+  width: 93%;
   border-spacing: 10px;
   margin: 0 auto;
   margin-bottom: 10px;

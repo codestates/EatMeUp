@@ -1,20 +1,20 @@
 # EatMeUp
-![EatMeUp](https://user-images.githubusercontent.com/75926861/132244896-1db65909-04a0-433a-8a71-87e6a0b6cf48.png)
+![EatMeUp](https://user-images.githubusercontent.com/75926861/134337149-eb32c681-e9fa-4b59-9c37-45b725653bb6.png)
 
-# 서비스 소개
-- 식재료 구입 후 냉장고 한구석에 방치해 놓고 있진 않으신가요?
+## 서비스 소개
+- 식재료 구입 후 냉장고 한 구석에 방치해 놓고 있진 않으신가요?
 - 사용하고 애매하게 남은 식재료로 뭘 해먹을 수 있을지 고민이라구요?
-### 이런분들에게 필요한 EatMeUp 입니다.
-- 냉장고 안의 식재료를 기반으로한 레시피 추천!
-- 정석적인 레시피 뿐만아니라 다른 사용자가 만든 인기있는 레시피도 추천해드려요!
+### 👉 이런분들에게 필요한 EatMeUp 입니다
+- 냉장고 안의 식재료를 기반으로 레시피 추천!
+- 정석적인 레시피 뿐만 아니라 다른 사용자가 만든 인기 있는 레시피도 추천해드려요!
 - 레시피를 개발하셨다구요?
 - 고민하고 있는 다른 유저들에게 본인이 만든 레시피를 공유해주세요
 
-### 더 이상 냉장고를 보며 고민하지 말고 EatMeUp 하세요! 
+### 🍽 더 이상 냉장고를 보며 고민하지 말고 EatMeUp 하세요! 
 
 
 
-# 🛠 Tech stack 🛠
+## 🛠 Tech stack 🛠
 ### COMMON
 
 <img src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a> 
@@ -53,7 +53,7 @@
 | 역할 |  이름  |   담당    | Github                                                                                                                                                                      |
 | :--: | :----: | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 팀장 | 오동욱 | BACK-END  |  <a href="https://github.com/wookieOH" target="_blank"><img src="https://img.shields.io/badge/wookieOH-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
+| 팀원 | 강주오 | BACK-END  |  <a href="https://github.com/KangJuO" target="_blank"><img src="https://img.shields.io/badge/KangJuO-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 이세경 | FRONT-END |  <a href="https://github.com/segyong56" target="_blank"><img src="https://img.shields.io/badge/segyong56-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 오가영 | FRONT-END |  <a href="https://github.com/5gazero" target="_blank"><img src="https://img.shields.io/badge/5gazero-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
-| 팀원 | 강주오 | BACK-END  |  <a href="https://github.com/KangJuO" target="_blank"><img src="https://img.shields.io/badge/KangJuO-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 

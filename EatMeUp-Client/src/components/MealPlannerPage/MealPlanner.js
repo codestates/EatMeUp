@@ -27,8 +27,8 @@ const MealPlanner = () => {
       <Header id={2} />
       <section>
         <Container>
-          <Sidebar />
-         
+          <Sidebar id={3} />
+        
           <CalendarContainer>
             {showMonth ? (
               <Calendar
@@ -50,7 +50,7 @@ const MealPlanner = () => {
 };
 
 const CalendarContainer = styled(SectionBox)`
-  width: 100%;
+  width: 77%;
 `;
 
 export default MealPlanner;
