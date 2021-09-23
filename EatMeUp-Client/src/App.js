@@ -1,9 +1,10 @@
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import LoginPage from './components/LoginPage/Login'
-import SignupPage from './components/SignupPage/Signup'
-import LandingPage from './components/LandingPage/Landing'
+import LoginPage from "./components/LoginPage/Login";
+import SignupPage from "./components/SignupPage/Signup";
+import LandingPage from "./components/LandingPage/Landing";
+import MyPage from "./components/MyPage/MyPage";
 
 /* 모든 레시피 메인페이지 */
 import AllRecipesPage from "./components/AllRecipesPage/AllRecipes";
@@ -15,26 +16,30 @@ import FreezerMainPage from "./components/FreezerMainPage/FreezerMain";
 import MyRecipePage from "./components/MyRecipePage/MyRecipe";
 import CreateRecipePage from "./components/CreateRecipePage/CreateRecipe";
 import EditRecipePage from "./components/EditRecipePage/EditRecipe";
+import LikedRecipe from "./components/LikedRecipe/LikedRecipe"
+import MyInfo from "./components/MyInfo/MyInfo";
 
 /* 마이페이지 - 식단짜기 페이지 */
-import MenuPlannerPage from "./components/MenuPlannerPage/MenuPlanner"
-import PlanningPage from './components/MenuPlannerPage/PlanningPage'
+import MenuPlannerPage from "./components/MenuPlannerPage/MenuPlanner";
+import PlanningPage from "./components/MenuPlannerPage/PlanningPage";
 
 function App() {
   return (
     <Router>
       <div className='App'>
-        <Route path="/" exact component={LandingPage} />
-        <Route path="/login" exact component={LoginPage} />
-        <Route path="/signup" exact component={SignupPage} />
+        <Route path='/' exact component={LandingPage} />
+        <Route path='/login' exact component={LoginPage} />
+        <Route path='/signup' exact component={SignupPage} />
         <Route path='/recipes' exact component={AllRecipesPage} />
         <Route path='/fridge' exact component={FreezerMainPage} />
         <Route path='/user/myrecipe' exact component={MyRecipePage} />
-        <Route path='/user/myrecipe/create' exact component={CreateRecipePage} />
+        <Route path='/user/myrecipe/create' component={CreateRecipePage} />
         <Route path='/user/myrecipe/edit' exact component={EditRecipePage} />
+        <Route path='/user/likerecipe' component={LikedRecipe} />
         <Route path='/user/myplanner' exact component={MenuPlannerPage} />
         <Route path='/user/myplanner/create' exact component={PlanningPage} />
-      
+        <Route path='/user/mypage' component={MyPage} />
+        <Route path='/user/info' component={MyInfo} />
       </div>
     </Router>
   );
