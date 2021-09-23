@@ -17,47 +17,40 @@ const RecipeCards = () => {
         <ShowLikelist>좋아요 리스트</ShowLikelist>
       </ButtonArea>
       <RecipesArea>
-      {myRecipes.map((recipe, idx) => {
-        return (
-          <RecipeCard key={idx}>
-            <ImgBox>
-              <div>
-              <img src={recipe.main_image} alt='recipe' />
-              </div>
-            </ImgBox>
-            <DCbox>
-              <div className='DCbox-upper'>
-                <div className='recipe-title_box'>
-                  <span>{recipe.title}</span>
-                  <span className='level'>EASY</span>
+        {myRecipes.map((recipe, idx) => {
+          return (
+            <RecipeCard key={idx}>
+              <ImgBox>
+                <div>
+                  <img src={recipe.main_image} alt='recipe' />
                 </div>
-                <div className='recipe-addBtn_box'>
-                  <i class='bx bx-plus-circle' onClick={openPopOverHandler}></i>
+              </ImgBox>
+              <DCbox>
+                <div className='DCbox-upper'>
+                  <div className='recipe-title_box'>
+                    <span>{recipe.title}</span>
+                    <span className='level'>EASY</span>
+                  </div>
+                  <div className='recipe-addBtn_box'>
+                    <i
+                      className='bx bx-plus-circle'
+                      onClick={openPopOverHandler}
+                    ></i>
+                  </div>
                 </div>
-              </div>
-              <div className='DCbox-lower'>
-                <div>주재료</div>
-                <div className='tags'>
-                  <span>돼지전지</span>
-                  <span>양파</span>
-                  <span>대파</span>
+                <div className='DCbox-lower'>
+                  <div>주재료</div>
+                  <div className='tags'>
+                    <span>돼지전지</span>
+                    <span>양파</span>
+                    <span>대파</span>
+                  </div>
                 </div>
-              </div>
-            </DCbox>
-          </RecipeCard>
-        );
-      })}
+              </DCbox>
+            </RecipeCard>
+          );
+        })}
       </RecipesArea>
-
-      {openPopOver ? (
-        <Balloon>
-          <button>아침 추가</button>
-          <button>점심 추가</button>
-          <button>저녁 추가</button>
-        </Balloon>
-      ) : (
-        ""
-      )}
     </>
   );
 };
@@ -74,7 +67,7 @@ const RecipesArea = styled.div`
   height: 495px;
   margin-top: 5px;
   overflow: scroll;
-`
+`;
 const ShowRecommands = styled.button`
   width: 45%;
   height: 40px;
@@ -103,6 +96,7 @@ const RecipeCard = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 28px;
+ 
 `;
 
 const ImgBox = styled.div`
@@ -124,14 +118,12 @@ const DCbox = styled.div`
   flex-direction: column;
   justify-content: center;
 
-
   .DCbox-upper {
     display: flex;
     justify-content: space-between;
     font-weight: 500;
     font-size: 14px;
   }
-
 
   .level {
     font-size: 10px;
@@ -142,10 +134,10 @@ const DCbox = styled.div`
     margin-left: 5px;
   }
 
-
   .bx-plus-circle {
     font-size: 20px;
     margin-right: 18px;
+    cursor: pointer;
   }
 
   .DCbox-lower {
@@ -162,26 +154,5 @@ const DCbox = styled.div`
     margin-right: 5px;
   }
 `;
-const Balloon = styled.div`
-  position: relative;
-  margin: 50px;
-  width: 80px;
-  background: white;
-  border: 1px dashed black;
-  border-radius: 10px;
-  top: -70px;
-  left: -14px;
-  transition: 0.5s;
 
-  &::after {
-    border-top: 15px solid #333333;
-    border-left: 15px solid transparent;
-    border-right: 0px solid transparent;
-    border-bottom: 0px solid transparent;
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: -15px;
-  }
-`;
 export default RecipeCards;

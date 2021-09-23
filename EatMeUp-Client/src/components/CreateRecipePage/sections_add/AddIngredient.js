@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
-import theme from "../../StyledComponent/theme";
-import { MiddleBtn } from "../../StyledComponent/buttons";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import styled from "styled-components";
 
-/* styled-component */
+import theme from "../../StyledComponent/theme";
+import { MiddleBtn } from "../../StyledComponent/buttons";
 
 const AddIngredient = () => {
   /* function */
@@ -36,45 +35,48 @@ const AddIngredient = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <AddIngredientBox>
-        {/* input area */}
-        <FlexContainer>
-          <input
-            onChange={(e) => setFoodname(e.currentTarget.value)}
-            value={foodname}
-            placeholder="재료 이름을 적어주세요"
-            type='text'
-          />
+    <AddIngredientBox>
+      {/* 재료 추가 작성 영역 */}
+      <FlexContainer>
+        <input
+          onChange={(e) => setFoodname(e.currentTarget.value)}
+          value={foodname}
+          placeholder='재료 이름을 적어주세요'
+          type='text'
+        />
 
-          <input
-            onChange={(e) => setFoodQuantity(e.currentTarget.value)}
-            value={foodQuantity}
-            placeholder="재료의 양을 적어주세요"
-            type='text'
-          />
+        <input
+          onChange={(e) => setFoodQuantity(e.currentTarget.value)}
+          value={foodQuantity}
+          placeholder='재료의 양을 적어주세요'
+          type='text'
+        />
 
-          <div>
-            <AddIngreBtn
-              fillColor={theme.colors.yellow}
-              onClick={AddIngredientHandler}
-            >
-              재료 추가
-            </AddIngreBtn>
-          </div>
-        </FlexContainer>
-        <TagContainer>
-        {/* tag area */}
-        <Stack direction="row" spacing={1}>
-        {ingredientTag.map((food, idx) => {
-          return (
-            <Chip label={food} onDelete={() => deleteIngredientHandler(idx)} key={idx} />
-          );
-        })}
+        <div>
+          <AddIngreBtn
+            fillColor={theme.colors.yellow}
+            onClick={AddIngredientHandler}
+          >
+            재료 추가
+          </AddIngreBtn>
+        </div>
+      </FlexContainer>
+
+      {/* 재료추가 영역 */}
+      <TagContainer>
+        <Stack direction='row' spacing={1}>
+          {ingredientTag.map((food, idx) => {
+            return (
+              <Chip
+                label={food}
+                onDelete={() => deleteIngredientHandler(idx)}
+                key={idx}
+              />
+            );
+          })}
         </Stack>
-        </TagContainer>
-      </AddIngredientBox>
-    </ThemeProvider>
+      </TagContainer>
+    </AddIngredientBox>
   );
 };
 
@@ -99,18 +101,17 @@ const FlexContainer = styled.div`
     height: 40px;
     margin-right: 8px;
     border-radius: 30px;
-    border: 1px solid ${theme.colors.lightgrey};
+    border: 2px solid ${theme.colors.lightgrey};
     text-indent: 5px;
   }
 
   input:focus {
     outline: none;
-    }
-
+  }
 `;
 
 const TagContainer = styled.div`
-  width:90%; 
+  width: 90%;
   margin: 0 auto;
 `;
 

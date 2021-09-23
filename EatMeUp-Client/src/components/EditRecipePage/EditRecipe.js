@@ -8,6 +8,7 @@ import Description from "./sections_edit/Description";
 import EditIngredient from "./sections_edit/EditIngredient";
 import Steps from "./sections_edit/Steps";
 import Footer from '../Util/Footer'
+import Sidebar from '../Util/Sidebar'
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
@@ -23,24 +24,31 @@ const EditRecipe = () => {
       <Header id={2} />
       <section>
         <Container>
-        <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
+         <Sidebar />
      
           <BoxContainer>
+            {/* 레시피 제목, 설명, 메인이미지 업로드영역 */}
             <MainDCBox>
               <TitleBox>
                 <div className='title'>Edit Recipe</div>
               </TitleBox>
               <Description />
             </MainDCBox>
+
+            {/* 재료 추가하는 영역 */}
             <MainDCBox>
               <EditIngredient />
             </MainDCBox>
+            
+            {/* 요리 단계별 설명하는 영역 */}
             <StepsBox>
               <TitleBox>
                 <div className='title'>Cook Recipe</div>
               </TitleBox>
               <Steps />
             </StepsBox>
+
+            {/* 수정완료버튼 영역 */}
             <BtnContainer>
               <LargeBtn fillColor={theme.colors.yellow}>레시피 수정하기</LargeBtn>
             </BtnContainer>
@@ -52,18 +60,6 @@ const EditRecipe = () => {
   );
 };
 
-
-
-const Sidebar = styled.div`
-  width: 200px;
-  height: 48px;
-  background: #febd2f;
-  box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
-  border-radius: 28px;
-  text-align: center;
-  font-weight: bold;
-  line-height: 46px;
-`;
 
 const BoxContainer = styled.div`
   width: 85%;

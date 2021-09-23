@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 
 /* 컴포넌트 */
 import EditIngre from "./EditFood/EditIngre";
-import FridgeInner from "./FridgeInner";
 
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
@@ -12,14 +11,9 @@ import { SmallBtn } from "../../StyledComponent/buttons";
 const EditFridge = ({ foods, showEditBtn, setFoods }) => {
   const [openEditWindow, setOpenEditWindow] = useState(false);
   const [clickedFood, setClickedFood] = useState("");
-  const [list, setList] = useState(foods);
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
   const dragNode = useRef();
-  
-  // useEffect(() => {
-    
-  // }, [foods])
   
 
   const openEditWindowHandler = (food) => {
@@ -110,6 +104,7 @@ const EditFridge = ({ foods, showEditBtn, setFoods }) => {
 
   return (
     <FridgeInnerBox>
+       
       {foods.map((type, typeIdx) => {
         return (
           <FoodContainer
@@ -127,13 +122,13 @@ const EditFridge = ({ foods, showEditBtn, setFoods }) => {
               </div>
               <div className='filterBtn_box'>
                 <FridgeButton fillColor='white'>
-                  <i class='far fa-laugh-squint'></i> 신선
+                <i className='far fa-grin-beam'></i> 신선
                 </FridgeButton>
                 <FridgeButton fillColor='white'>
-                  <i class='far fa-smile'></i> 보통
+                  <i className='far fa-smile'></i> 보통
                 </FridgeButton>
                 <FridgeButton fillColor='white'>
-                  <i class='far fa-tired'></i> 위험
+                  <i className='far fa-tired'></i> 위험
                 </FridgeButton>
               </div>
             </FridgeHeader>
@@ -247,11 +242,17 @@ const FridgeButton = styled(SmallBtn)`
     font-size: 18px;
   }
 `;
+
 const FridgeInnerBox = styled.div`
-  width: 100%;
+  
+  width: 1280px;
   min-height: 450px;
-  margin: 5px auto;
+  margin: 0 auto;
   display: flex;
+  
+  @media screen and (max-width: 1500px) {
+    width: 100%;
+  }
 `;
 
 const FoodContainer = styled.div`
@@ -274,7 +275,8 @@ const FoodBox = styled.div`
   margin: 13px auto;
   align-items: center;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
-
+  cursor: pointer;
+  
   .check_box {
     position: absolute;
     left: 5px;

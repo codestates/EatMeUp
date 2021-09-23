@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
+import Dropzone from "react-dropzone";
+
 import theme from "../../StyledComponent/theme";
 
 const Steps = () => {
@@ -21,38 +23,55 @@ const Steps = () => {
     setRecipeBox(deleteBox);
   };
 
+  const dropHandler = () => {};
+
   console.log(recipeBox);
   return (
-    <ThemeProvider theme={theme}>
-      <AddRecipeArea>
-        {recipeBox.map((recipe, idx) => {
-          return (
-            <AddRecipeBox key={idx}>
-              <div className='steps'>Step {idx + 1}</div>
-              <div className='cook-recipe_box'>
-                <div className='recipeImg_box'>
-                  <i class='far fa-image'></i>
-                </div>
-                <div className='recipe-dc_box'>
-                  <textarera></textarera>
-                </div>
-                <div>
-                  <i
-                    className='fas fa-times'
-                    onClick={() => deleteRecipeHandler(idx)}
-                  ></i>
-                </div>
+    <AddRecipeArea>
+      {recipeBox.map((recipe, idx) => {
+        return (
+          <AddRecipeBox key={idx}>
+            <div className='steps'>Step {idx + 1}</div>
+            <div className='cook-recipe_box'>
+              {/* 이미지 업로드 영역 */}
+              <Dropzone
+                onDrop={dropHandler}
+                multiple={false}
+                maxSize={800000000}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <div className='recipeImg_box' {...getRootProps()}>
+                    <input {...getInputProps()} />
+
+                    <i class='far fa-image'></i>
+                  </div>
+                )}
+              </Dropzone>
+
+              {/* 레시피 쓰는 영역 */}
+              <div className='recipe-dc_box'>
+                <textarera></textarera>
               </div>
-            </AddRecipeBox>
-          );
-        })}
-        <BtnArea>
-          <PlusBtn>
-            <i class='far fa-plus-square' onClick={addRecipeHandler}></i>
-          </PlusBtn>
-        </BtnArea>
-      </AddRecipeArea>
-    </ThemeProvider>
+
+              {/* 삭제버튼 영역 */}
+              <div>
+                <i
+                  className='fas fa-times'
+                  onClick={() => deleteRecipeHandler(idx)}
+                ></i>
+              </div>
+            </div>
+          </AddRecipeBox>
+        );
+      })}
+
+      {/* 단계별 레시피 추가버튼영역 */}
+      <BtnArea>
+        <PlusBtn>
+          <i class='far fa-plus-square' onClick={addRecipeHandler}></i>
+        </PlusBtn>
+      </BtnArea>
+    </AddRecipeArea>
   );
 };
 
@@ -85,7 +104,7 @@ const AddRecipeBox = styled.div`
   .recipeImg_box {
     width: 40%;
     height: 90%;
-    border: 1px solid ${theme.colors.lightgrey};
+    border: 2px solid ${theme.colors.lightgrey};
     margin: 10px;
     border-radius: 20px;
     display: flex;
@@ -93,12 +112,14 @@ const AddRecipeBox = styled.div`
     align-items: center;
     font-size: 40px;
     color: ${theme.colors.gray};
+    cursor: pointer;
+
   }
 
   .recipe-dc_box {
     width: 60%;
     height: 90%;
-    border: 1px solid ${theme.colors.lightgrey};
+    border: 2px solid ${theme.colors.lightgrey};
     margin: 10px;
     border-radius: 20px;
   }
@@ -111,8 +132,8 @@ const AddRecipeBox = styled.div`
 
   .fa-times {
     font-size: 30px;
-    padding:10px;
-    color: ${theme.colors.gray}
+    padding: 10px;
+    color: ${theme.colors.gray};
   }
 `;
 

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { foodData } from "../dummydata";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 
 /* 컴포넌트 */
 import FridgeInner from "./sections/FridgeInner";
@@ -67,9 +69,20 @@ const FridgeMain = () => {
   const [checkedFoods, setCheckedFoods] = useState(defaultRedFoods);
   const [foods, setFoods] = useState(foodlist);
   const [showEditBtn, setShowEditBtn] = useState(false);
+  const [currentIdx, setCurrentIdx] = useState(0);
 
   const showEditBtnHandler = () => {
     setShowEditBtn(!showEditBtn);
+  };
+
+  const handleDelete = (idx) => {
+    const deleteFood = checkedFoods.filter((food, id) => {
+      if (id !== idx) {
+        return food;
+      }
+    });
+    setCheckedFoods(deleteFood);
+    setCurrentIdx(idx);
   };
 
   return (
@@ -79,18 +92,24 @@ const FridgeMain = () => {
         {/* 유통기한이 임박한 음식 추천기능 */}
         <SearchBox>
           <FridgeTitle>마이 냉장고</FridgeTitle>
-          <CheckedFoodsBox>
-            <i class='fas fa-shopping-basket'></i>
-            {checkedFoods.map((food, idx) => {
-              return (
-                <span key={idx} className='name'>
-                  {food.food_name}
-                </span>
-              );
-            })}
-          </CheckedFoodsBox>
+          
+            <CheckedFoodsBox>
+              <Stack direction='row' spacing={1}>
+              <i className='fas fa-shopping-basket'></i>
+              {checkedFoods.map((food, idx) => {
+                return (
+                  <Chip
+                    key={idx}
+                    label={food.food_name}
+                    onDelete={() => handleDelete(idx)}
+                  />
+                );
+              })}
+              </Stack>
+            </CheckedFoodsBox>
+          
           <GotoBtnBox>
-            레시피 보기 <i class='fas fa-chevron-right'></i>
+            레시피 보기 <i className='fas fa-chevron-right'></i>
           </GotoBtnBox>
         </SearchBox>
 
@@ -98,7 +117,11 @@ const FridgeMain = () => {
         <ContentBox>
           {/* fridge inner */}
           {showEditBtn ? (
-            <EditFridge foods={foods} setFoods={setFoods} showEditBtn={showEditBtn} />
+            <EditFridge
+              foods={foods}
+              setFoods={setFoods}
+              showEditBtn={showEditBtn}
+            />
           ) : (
             <FridgeInner
               foods={foods}
@@ -135,11 +158,13 @@ const CheckedFoodsBox = styled.div`
   border-radius: 30px 0px 0px 30px;
   margin-top: 15px;
   margin-left: 18px;
-  line-height: 40px;
+  padding-top: 5px;
+
 
   .fa-shopping-basket {
     margin-left: 20px;
     color: #a8a7a3;
+    line-height: 30px;
   }
 
   .name {

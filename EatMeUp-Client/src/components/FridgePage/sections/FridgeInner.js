@@ -1,28 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import EditFridge from "./EditFridge";
+import Snackbar from "@mui/material/Snackbar";
+
+/* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";
+import MuiAlert from "@mui/material/Alert";
 
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
+});
 const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
-  
-  const [list, setList] = useState(foods);
 
-  /* 선택된 음식을 search 박스에 넣기위한 함수 */
-  const checkedFoodBox = (e, food) => {
-    console.log(e.currentTarget.checked);
-    if (e.currentTarget.checked) {
-      setCheckedFoods([...checkedFoods, food]);
-    } else if (!e.currentTarget.checked) {
-      const deleteCheckedfood = checkedFoods.filter((item) => {
-        if (item.food_name !== food.food_name) {
-          return item;
-        }
-      });
-      setCheckedFoods(deleteCheckedfood);
+  /*  */
+  const [alreadyHas, setAlreadyHas] = useState(false);
+  const [state, setState] = useState({
+    open: false,
+    vertical: "top",
+    horizontal: "center",
+  });
+
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => () => {
+    
+     /* 이미 추가된 재료인지 파악하기 위한 조건문  */
+    if (checkedFoods.includes(newState.food)) {
+      setCheckedFoods([...checkedFoods]);
+      setAlreadyHas(true); //재료추가된 재료가 이미 있을 경우 true
+    } else {
+      setCheckedFoods([...checkedFoods, newState.food]);
+      setAlreadyHas(false); //재료추가된 재료가 없는 경우 false
     }
+    setState({ open: true, ...newState });
+
+    setTimeout(() => {
+      setState({ ...state, open: false });
+    }, 1000);
   };
 
+
+/* <i class="fas fa-wind"></i> 실온
+<i class="fas fa-thermometer-half"></i> 냉장
+<i class="fas fa-snowflake"></i> 냉동 */
   const convertStr = (idx) => {
     if (idx === 0) {
       return "실온";
@@ -34,58 +54,88 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
   };
 
   return (
-    <FridgeInnerBox>
-      {list.map((type, typeIdx) => {
-        return (
-          <FoodContainer key={typeIdx}>
-            <FridgeHeader>
-              <div className='type_box'>
-                <span className='type'>{convertStr(typeIdx)}</span>
-              </div>
-              <div className='filterBtn_box'>
-                <FridgeButton fillColor='white'>
-                  <i class='far fa-laugh-squint'></i> 신선
-                </FridgeButton>
-                <FridgeButton fillColor='white'>
-                  <i class='far fa-smile'></i> 보통
-                </FridgeButton>
-                <FridgeButton fillColor='white'>
-                  <i class='far fa-tired'></i> 위험
-                </FridgeButton>
-              </div>
-            </FridgeHeader>
+    <div>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        message='I love snacks'
+        key={vertical + horizontal}
+      >
 
-            {type.items.map((food, foodIdx) => {
-              return (
-                <FoodBox key={foodIdx}>
-                  <div className='food'>
-                    <div>
-                      <img
-                        src={`../food_img/${food.food_image}`}
-                        alt='food'
-                        className='food_img'
-                        draggable={false}
-                      />
-                    </div>
-                    <div className='name_box'>
+        {/* 이미추가된 재료를 판별하여 다르게 메세지를 보여줌 */}
+        {alreadyHas ? (
+          <Alert severity='warning'>이미 추가된 재료 입니다.</Alert>
+        ) : (
+          <Alert severity='success'> 재료가 추가되었습니다.</Alert>
+        )}
+      </Snackbar>
+      <FridgeInnerBox>
+        {foods.map((type, typeIdx) => {
+          return (
+            <FoodContainer key={typeIdx}>
+              <FridgeHeader>
+                <div className='type_box'>
+                  <span className='type'>{convertStr(typeIdx)}</span>
+                </div>
+                <div className='filterBtn_box'>
+                  <FridgeButton fillColor='white'>
+                    <i className='far fa-grin-beam'></i> 신선
+                  </FridgeButton>
+                  <FridgeButton fillColor='white'>
+                    <i className='far fa-smile'></i> 보통
+                  </FridgeButton>
+                  <FridgeButton fillColor='white'>
+                    <i className='far fa-tired'></i> 위험
+                  </FridgeButton>
+                </div>
+              </FridgeHeader>
+
+              {type.items.map((food, foodIdx) => {
+                return (
+                  <FoodBox
+                    key={foodIdx}
+                    onClick={handleClick({
+                      vertical: "top",
+                      horizontal: "center",
+                      food: food,
+                    })}
+                  >
+
+                    <div className='food'>
+
+                      {/* 음식사진 */}
                       <div>
-                        <span className='name'>{food.food_name}</span>
+                        <img
+                          src={`../food_img/${food.food_image}`}
+                          alt='food'
+                          className='food_img'
+                          draggable={false}
+                        />
                       </div>
-                      <div>
-                        <span className='date'>2021.09.20</span>
+
+                      {/* 음식이름과 구매일자 */}
+                      <div className='name_box'>
+                        <div>
+                          <span className='name'>{food.food_name}</span>
+                        </div>
+                        <div>
+                          <span className='date'>2021.09.20</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className='foodlife_box'>
-                    <span className='foodlife'>D-{food.life}</span>
-                  </div>
-                </FoodBox>
-              );
-            })}
-          </FoodContainer>
-        );
-      })}
-    </FridgeInnerBox>
+
+                    {/* 유통기한 디데이표시 */}
+                    <div className='foodlife_box'>
+                      <span className='foodlife'>D-{food.life}</span>
+                    </div>
+                  </FoodBox>
+                );
+              })}
+            </FoodContainer>
+          );
+        })}
+      </FridgeInnerBox>
+    </div>
   );
 };
 
@@ -100,6 +150,12 @@ const FridgeHeader = styled.div`
   font-weight: bold;
   margin: 0 auto;
   border-bottom: 1px solid ${theme.colors.lightgrey};
+
+  @media screen and (max-width: 1300px) {
+    .type {
+      display: none;
+    }
+  }
 `;
 
 const FridgeButton = styled(SmallBtn)`
@@ -122,14 +178,18 @@ const FridgeButton = styled(SmallBtn)`
 `;
 
 const FridgeInnerBox = styled.div`
-  width: 100%;
+  width: 1280px;
   min-height: 450px;
-  margin: 0;
+  margin: 0 auto;
   display: flex;
+  
+  @media screen and (max-width: 1500px) {
+    width: 100%;
+  }
 `;
 
 const FoodContainer = styled.div`
-  width: calc(100% / 3);
+  width: 400px;
   min-height: 500px;
   border-radius: 20px;
   margin: 0px 10px 0px 10px;
@@ -147,17 +207,10 @@ const FoodBox = styled.div`
   position: relative;
   margin: 13px auto;
   align-items: center;
+  cursor: pointer;
 
   &:hover {
     border: 1px solid ${theme.colors.lightgrey};
-  }
-
-  .check_box {
-    width: 15%;
-    text-align: center;
-    line-height: 80px;
-    padding: 5px auto;
-    border-radius: 30px;
   }
 
   .food {
@@ -196,6 +249,23 @@ const FoodBox = styled.div`
     border-radius: 30px;
     font-size: 15px;
     background-color: #eaeaea;
+  }
+  @media screen and (max-width: 1300px) {
+    justify-content: center;
+    height: 100px;
+
+    .foodlife_box {
+      text-align: center;
+      line-height: 80px;
+      margin-right: 10px;
+    }
+
+    .foodlife {
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      background-color: #eaeaea;
+    }
   }
 `;
 

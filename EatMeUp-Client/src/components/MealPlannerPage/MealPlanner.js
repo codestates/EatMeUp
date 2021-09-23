@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 /* 컴포넌트 */
 import Calendar from "./sections/Calendar";
 import Weekly from "./sections/Weekly";
 import Header from "../Util/Header";
 import Footer from '../Util/Footer'
+import Sidebar from '../Util/Sidebar'
 
 /* 스타일 컴포넌트 */
 import { Container, SectionBox } from '../StyledComponent/containers'
@@ -27,7 +27,7 @@ const MealPlanner = () => {
       <Header id={2} />
       <section>
         <Container>
-          <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
+          <Sidebar />
          
           <CalendarContainer>
             {showMonth ? (
@@ -48,19 +48,6 @@ const MealPlanner = () => {
     </>
   );
 };
-
-
-const Sidebar = styled.div`
-  width: 200px;
-  height: 48px;
-  background: #febd2f;
-  box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
-  border-radius: 28px;
-  text-align: center;
-  font-weight: bold;
-  line-height: 46px;
-  margin-right: 20px;
-`;
 
 const CalendarContainer = styled(SectionBox)`
   width: 100%;

@@ -22,9 +22,10 @@ const Header = ({ id }) => {
       <RightMemu>
         {menu.map((item, idx) => {
           return (
-            <Link to={item.link}>
+            <Link to={item.link} key={idx}>
              
               <MenuButton
+                
                 onClick={() => {
                   tabHandler(idx);
                 }}

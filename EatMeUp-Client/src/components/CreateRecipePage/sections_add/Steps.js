@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import styled, { ThemeProvider } from "styled-components";
+import styled from "styled-components";
+import Dropzone from "react-dropzone";
+
 import theme from "../../StyledComponent/theme";
 
 const Steps = () => {
   const [recipeBox, setRecipeBox] = useState(["recipe"]);
-  // [{ step1  image: image, recipe : recipe }, {image: image, recipe: recipe}
   const addRecipeHandler = () => {
     const textarea = "add";
     setRecipeBox([...recipeBox, textarea]);
@@ -21,47 +22,60 @@ const Steps = () => {
     setRecipeBox(deleteBox);
   };
 
-  console.log(recipeBox);
-  return (
-    <ThemeProvider theme={theme}>
-      <AddRecipeArea>
-        {recipeBox.map((recipe, idx) => {
-          return (
-            <AddRecipeBox key={idx}>
-              <div className='steps'>Step {idx + 1}</div>
-              <div className='cook-recipe_box'>
-                <div className='recipeImg_box'>
-                  <i class='far fa-image'></i>
-                </div>
-                <div className='recipe-dc_box'>
-                  <textarea placeholder='요리 레시피를 입력해 주세요.'>
+  const dropHandler = () => {};
 
-                  </textarea>
-                </div>
-                <div>
-                  <i
-                    className='fas fa-times'
-                    onClick={() => deleteRecipeHandler(idx)}
-                  ></i>
-                </div>
+  return (
+    <AddRecipeArea>
+      {recipeBox.map((recipe, idx) => {
+        return (
+          <AddRecipeBox key={idx}>
+            <div className='steps'>Step {idx + 1}</div>
+
+            {/* 단계별 레시피 쓰는 영역 */}
+            <div className='cook-recipe_box'>
+              {/* 이미지 업로드 영역 */}
+              <Dropzone
+                onDrop={dropHandler}
+                multiple={false}
+                maxSize={800000000}
+              >
+                {({ getRootProps, getInputProps }) => (
+                  <div className='recipeImg_box' {...getRootProps()}>
+                    <input {...getInputProps()} />
+
+                    <i class='far fa-image'></i>
+                  </div>
+                )}
+              </Dropzone>
+
+              {/* 단계별 요리법 설명 영역 */}
+              <div className='recipe-dc_box'>
+                <textarea placeholder='요리 레시피를 입력해 주세요.'></textarea>
               </div>
-            </AddRecipeBox>
-          );
-        })}
-        <BtnArea>
-          <PlusBtn>
-            <i class='far fa-plus-square' onClick={addRecipeHandler}></i>
-          </PlusBtn>
-        </BtnArea>
-      </AddRecipeArea>
-    </ThemeProvider>
+
+              {/* 단계 삭제버튼 영역 */}
+              <div>
+                <i
+                  className='fas fa-times'
+                  onClick={() => deleteRecipeHandler(idx)}
+                ></i>
+              </div>
+            </div>
+          </AddRecipeBox>
+        );
+      })}
+      <BtnArea>
+        <PlusBtn>
+          <i class='far fa-plus-square' onClick={addRecipeHandler}></i>
+        </PlusBtn>
+      </BtnArea>
+    </AddRecipeArea>
   );
 };
 
 const AddRecipeArea = styled.div`
   width: 100%;
   min-height: 300px;
-  transition: 0.3s;
 `;
 
 const AddRecipeBox = styled.div`
@@ -87,7 +101,7 @@ const AddRecipeBox = styled.div`
   .recipeImg_box {
     width: 40%;
     height: 90%;
-    border: 1px solid ${theme.colors.lightgrey};
+    border: 2px solid ${theme.colors.lightgrey};
     margin: 10px;
     border-radius: 20px;
     display: flex;
@@ -95,12 +109,13 @@ const AddRecipeBox = styled.div`
     align-items: center;
     font-size: 40px;
     color: ${theme.colors.gray};
+    cursor: pointer;
   }
 
   .recipe-dc_box {
     width: 60%;
     height: 90%;
-  
+
     margin: 10px;
     border-radius: 20px;
   }
@@ -109,14 +124,14 @@ const AddRecipeBox = styled.div`
     width: 95%;
     height: 98%;
     border-radius: 10px;
-    border: 1px solid ${theme.colors.lightgrey};
+    border: 2px solid ${theme.colors.lightgrey};
     text-indent: 10px;
   }
 
   .fa-times {
     font-size: 30px;
-    padding:10px;
-    color: ${theme.colors.gray}
+    padding: 10px;
+    color: ${theme.colors.gray};
   }
 `;
 
