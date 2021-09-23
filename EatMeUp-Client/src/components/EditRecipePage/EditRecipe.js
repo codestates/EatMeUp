@@ -1,74 +1,69 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from 'react-router-dom'
-/* import component */
+
+/* 컴포넌트 */
 import Header from "../Util/Header";
 import Description from "./sections_edit/Description";
 import EditIngredient from "./sections_edit/EditIngredient";
 import Steps from "./sections_edit/Steps";
-import { LargeBtn } from "../StyledComponent/buttons";
-import theme from '../StyledComponent/theme'
 import Footer from '../Util/Footer'
+import Sidebar from '../Util/Sidebar'
+
+/* 스타일 컴포넌트 */
+import { LargeBtn } from "../StyledComponent/buttons";
+import { Container, SectionBox } from '../StyledComponent/containers'
+import theme from '../StyledComponent/theme'
 
 
 const EditRecipe = () => {
-  /* function */
+ 
 
   return (
     <>
       <Header id={2} />
       <section>
-        <ContentBox>
-        <Link to="/user/myrecipe"><Sidebar>Home</Sidebar></Link>
+        <Container>
+         <Sidebar />
      
-          <Container>
+          <BoxContainer>
+            {/* 레시피 제목, 설명, 메인이미지 업로드영역 */}
             <MainDCBox>
               <TitleBox>
                 <div className='title'>Edit Recipe</div>
               </TitleBox>
               <Description />
             </MainDCBox>
+
+            {/* 재료 추가하는 영역 */}
             <MainDCBox>
               <EditIngredient />
             </MainDCBox>
+            
+            {/* 요리 단계별 설명하는 영역 */}
             <StepsBox>
               <TitleBox>
                 <div className='title'>Cook Recipe</div>
               </TitleBox>
               <Steps />
             </StepsBox>
+
+            {/* 수정완료버튼 영역 */}
             <BtnContainer>
               <LargeBtn fillColor={theme.colors.yellow}>레시피 수정하기</LargeBtn>
             </BtnContainer>
-          </Container>
-        </ContentBox>
+          </BoxContainer>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
 
-const ContentBox = styled.div`
-  width: 90%;
-  margin: 0.5rem auto;
-  display: flex;
-  margin-top: 50px;
-`;
 
-const Sidebar = styled.div`
-  width: 170px;
-  height: 48px;
-  background: #febd2f;
-  box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
-  border-radius: 28px;
-  text-align: center;
-  font-weight: bold;
-  line-height: 46px;
-`;
-
-const Container = styled.div`
+const BoxContainer = styled.div`
   width: 85%;
-  margin-left: 25px;
+  margin-left: 20px;
 `;
 
 const BtnContainer = styled.div`
@@ -91,18 +86,13 @@ const TitleBox = styled.div`
   justify-content: space-between;
 `;
 
-const MainDCBox = styled.div`
+const MainDCBox = styled(SectionBox)`
   width: 100%;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
 `;
 
-const StepsBox = styled.div`
+const StepsBox = styled(SectionBox)`
   width: 100%;
-  background: #ffffff;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 30px;
   margin-top: 18px;
 `;
+
 export default EditRecipe;

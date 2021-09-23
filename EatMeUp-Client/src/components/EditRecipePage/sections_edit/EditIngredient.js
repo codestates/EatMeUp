@@ -63,8 +63,9 @@ const EditIngredient = () => {
             </AddIngreBtn>
           </div>
         </FlexContainer>
-        <TagContainer>
+
         {/* tag area */}
+        <TagContainer>
         <Stack direction="row" spacing={1}>
         {ingredientTag.map((food, idx) => {
           return (
@@ -99,7 +100,7 @@ const FlexContainer = styled.div`
     height: 40px;
     margin-right: 8px;
     border-radius: 30px;
-    border: 1px solid ${theme.colors.lightgrey};
+    border: 2px solid ${theme.colors.lightgrey};
     text-indent: 5px;
   }
 `;

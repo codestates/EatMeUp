@@ -7,38 +7,31 @@ import Footer from "../Util/Footer";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
-import theme from "../StyledComponent/theme";
 
 /* 데이터 */
 import { myRecipes } from "../dummydata";
 
-const MyRecipe = () => {
+const MyLikelist = () => {
   return (
     <>
       <Header id={2} />
       <section>
         <Container>
-          {/* 사이드바 영역 */}
-          <Sidebar id={1}/>
+          {/* 사이드바영역 */}
+          <Sidebar id={2}/>
 
-          {/* 레시피 리스트 영역 */}
+          {/* 좋아요한 레시피 리스트 영역 */}
           <ListContainer>
-            {/* 레시피만들기버튼 영역 */}
+            {/* 좋아요한 레시피 리스트 페이지 타이틀 */}
             <TitleBox>
-              <div className='title'>My Recipes</div>
-              <div>
-                <Link to='/user/myrecipe/create'>
-                  <Button fillColor={theme.colors.lightgrey}>
-                    <span>레시피 만들기</span> <i className="fas fa-chevron-right"></i>
-                  </Button>
-                </Link>
-              </div>
+              <div className='title'>My Favorite Recipes</div>
             </TitleBox>
 
-            {/* 레시피 리스트 */}
+            {/* 좋아요한 레시피들 */}
             <ListBox>
               <Card recipes={myRecipes} />
             </ListBox>
@@ -52,10 +45,10 @@ const MyRecipe = () => {
 
 const ListContainer = styled(SectionBox)`
   width: 77%;
-  min-height: 720px;
+  /* min-height: 720px;
   @media screen and (max-width: 1500px){
     width: 100%;
-  }
+  } */
 `;
 
 const TitleBox = styled.div`
@@ -72,13 +65,13 @@ const TitleBox = styled.div`
 `;
 
 const Button = styled(LargeBtn)`
-  margin-right: 70px;
+  margin-right: 20px;
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  span {
-    margin: 8px;
-  }
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid white;
+  margin: 10px;
 `;
 
 const ListBox = styled.div`
@@ -91,4 +84,4 @@ const ListBox = styled.div`
   padding: 10px;
 `;
 
-export default MyRecipe;
+export default MyLikelist;

@@ -7,13 +7,12 @@ const Footer = () => {
     <FooterBox>
       <div className='copyright'>
         Copyright <i class='far fa-copyright'></i> 2021 by{" "}
-        <span className='eatmeup'>EatMeUp</span>
-      </div>
-      <div className='repo'>
         <a href='https://github.com/codestates/EatMeUp'>
-        <i className="fas fa-utensils fa-2x"></i>
+          <span className='eatmeup'>EatMeUp</span>
+          <i className='fas fa-utensils fa-lg'></i>
         </a>
       </div>
+      <div className='repo'></div>
       <div className='names'>
         <i className='fab fa-github fa-lg'></i>
         <a href='https://github.com/wookieOH'>wookieOH</a>
@@ -37,15 +36,20 @@ const FooterBox = styled.div`
   font-weight: 300;
   .copyright {
     margin: 5vw;
+    i {
+      margin: 3px;
+    }
+    a {
+      padding: 0;
+    }
   }
 
   .names {
     margin: 5vw;
     i {
-      padding: 10px
+      padding: 10px;
     }
   }
-
 
   a {
     padding: 10px 10px;
@@ -58,6 +62,10 @@ const FooterBox = styled.div`
 
   .eatmeup {
     font-weight: 600;
+  }
+
+  .fa-github {
+    font-size: 30px;
   }
 `;
 

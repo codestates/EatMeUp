@@ -8,7 +8,7 @@ const Sidebar = ({ id }) => {
   const menu = [
     { menu: "My Page", link: "/user/mypage", icon: "fas fa-home"},
     { menu: "My Recipes", link: "/user/myrecipe", icon: "fas fa-utensils"},
-    { menu: "Liked Recipes", link: "/user/likerecipe", icon: "fas fa-heart"},
+    { menu: "Liked Recipes", link: "/user/likelist", icon: "fas fa-heart"},
     { menu: "Meal Planner", link: "/user/myplanner", icon: "far fa-calendar-alt"},
     { menu: "My Info", link: "/user/info", icon: "fas fa-user"},
   ];
@@ -49,9 +49,8 @@ const SideMenu = styled.div`
   display: block;
   width: 200px;
   border-radius: 30px;
-  padding: 10px 15px;
   align-items: left;
-  margin-left: 3.6vw;
+  margin: 0 2vw 0 4vw;
   `;
 
 const MenuBtn = styled(XSmallBtn)`
@@ -62,7 +61,7 @@ const MenuBtn = styled(XSmallBtn)`
   transition: 0.3s;
   border-radius: 30px;
   border: solid 1px ${theme.colors.lightgrey};
-  margin: 10px;
+  margin: 0 0 15px 15px;
   font-family: Noto Sans KR;
   font-size: 14px;
   font-weight: 500;

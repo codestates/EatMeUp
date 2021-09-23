@@ -1,144 +1,116 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
+import theme from "../../StyledComponent/theme";
 
-const RecipeCard = styled.div`
-  width: 340px;
-  height: 320px;
-  margin: 20px;
+const RecipeCard = styled.figure`
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 25px;
-  position: relative;
+  border-radius: 20px;
+  background-color: #ffffff;
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 30px;
+  
 
-  .recipe-card-tag {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    width: 80px;
-    height: 35px;
-    background-color: rgba(229, 229, 229, 0.8);
-    border-radius: 30px;
-    text-align: center;
-    line-height: 35px;
+  img {
+    width: 95%;
+    height: 250px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin: 10px 7px 0px 7px;
   }
 
-
-  .recipe-dc-left_box {
-    width: 80%;
+  .recipe-info_box {
+    display: flex;
+    font-size: 12px;
+    color: ${theme.colors.gray};
+    padding: 5px;
     margin-left: 10px;
   }
 
-  .recipe-dc-right_box {
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 15px 30px;
+  .fa-stopwatch {
+    color: gray;
+    font-size: 14px;
   }
 
-  .recipe-img_box {
-    width: 100%;
-    height: 65%;
-  }
-
-  .recipe-img_box > img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px 25px 0px 0px;
-  }
-
-  .recipe-dc_box {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .recipe-title_box {
-    font-size: 20px;
+  .title_box {
+    text-indent: 5px;
+    margin-left: 15px;
     font-weight: 500;
-    font-family: Noto Sans KR;
-    text-indent: 20px;
-    margin-top: 10px;
   }
 
   .recipe-ingre_box {
-    margin-top: 8px;
+    font-size: 14px;
+    display: flex;
+    margin: 10px 0px 15px 10px;
   }
 
-  .recipe-ingre-label {
-    font-size: 12px;
-    text-indent: 20px;
-    margin-bottom: 5px;
+  .ingre-label {
+    text-indent: 10px;
+    font-size: 13px;
   }
 
-  .recipe-ingres {
-    font-size: 10px;
-    margin-left: 12px;
+  .ingres {
+    font-size: 11px;
+    margin-left: 5px;
   }
 
-  .recipe-ingres > span {
-    padding: 3px 5px 3px 5px;
-    margin: 3px;
-    border-radius: 20px;
-    background-color: #eaeaea;
+  .ingres > span {
+    padding: 3px 8px;
+    background-color: ${theme.colors.lightgrey};
+    border-radius: 30px;
+    margin-right:5px;ƒ
   }
 
-  .userimg_box {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    
+  .userprofile_box {
+    display: flex;
+    width: 95%;
+    align-items:center;
+   
   }
 
-  .userimg_box > img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
+  #userimg {
+    width: 40px;
+    height: 40px;
   }
 
-  .username_box {
+  .username {
     font-size: 12px;
   }
 `;
 
 const Card = ({ recipe }) => {
   return (
-   
-          <RecipeCard>
-            <div className='recipe-card-tag'>Medium</div>
-            <div className='recipe-img_box'>
-              <img
-                src={recipe.main_image}
-                alt='recipe'
-                className='recipe-img'
-              />
-            </div>
-            <div className='recipe-dc_box'>
-              <div className='recipe-dc-left_box'>
-                <div className='recipe-title_box'>제육볶음</div>
-                <div className='recipe-ingre_box'>
-                  <div className='recipe-ingre-label'>
-                    <span>주재료</span>
-                  </div>
-                  <div className='recipe-ingres'>
-                    <span>돼지전지</span>
-                    <span>양파</span>
-                    <span>대파</span>
-                  </div>
-                </div>
-              </div>
-              <div className='recipe-dc-right_box'>
-                <div className='userimg_box'>
-                  <img src='../food_img/food3.jpg' alt='userimg' id='userimg' />
-                </div>
-                <div className='username_box'>
-                  <span className='username'>Segyondgdgg</span>
-                </div>
-              </div>
-            </div>
-          </RecipeCard>
-       
+    <RecipeCard>
+      <div className='userprofile_box'>
+        <div className='userimg_box'>
+          <img src='../food_img/people.jpeg' alt='userimg' id='userimg' />
+        </div>
+        <div className='username_box'>
+          <span className='username'>Segyondgdgg</span>
+        </div>
+      </div>
+      <img src={recipe.main_image} alt='recipe' className='recipe-img' />
+      <figcaption>
+        <div className='recipe-info_box'>
+          <div className='time'>
+            <i class='fas fa-stopwatch'></i> 요리시간 20min
+          </div>
+        </div>
+        <div className='title_box'>{recipe.title}</div>
+        <div className='recipe-ingre_box'>
+          {/* <div className='ingre-label'>
+            <span>주재료</span>
+          </div> */}
+          <div className='ingres'>
+            <span>#돼지전지</span>
+            <span>#양파</span>
+            <span>#대파</span>
+          </div>
+        </div>
+      </figcaption>
+    </RecipeCard>
   );
 };
 
