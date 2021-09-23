@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { myRecipes } from "../dummydata";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import MealPlanCard from "./sections/MealPlanCard";
 import RecipeCards from "./sections/RecipeCard";
 import Footer from "../Util/Footer";
+import Sidebar from "../Util/Sidebar";
 
 /* 스타일 컴포넌트 */
 import { MiddleBtn } from "../StyledComponent/buttons";
@@ -15,14 +15,14 @@ import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
 const PlanningPage = () => {
+
+
   return (
     <>
       <Header id={2} />
       <section>
         <Container>
-          <Link to='/user/myrecipe'>
-            <Sidebar>Home</Sidebar>
-          </Link>
+          <Sidebar />
 
           <PlannerContainer>
             <TitleBox>
@@ -30,7 +30,9 @@ const PlanningPage = () => {
                 <ThisMonth>식단짜기</ThisMonth>
               </div>
               <div>
-                <ThisMonth>2021.9.18</ThisMonth>
+                <ThisMonth>
+                  <input type='date' />
+                </ThisMonth>
               </div>
               <div>
                 <Link to='/user/myplanner'>
@@ -40,17 +42,15 @@ const PlanningPage = () => {
                 </Link>
               </div>
             </TitleBox>
+            
             <MealPlaner>
               <RecommandRecipesBox>
                 <RecipeCards />
               </RecommandRecipesBox>
 
               <PlannerBox>
-                <IngredientBox>
+                <IngredientBox></IngredientBox>
 
-
-                </IngredientBox>
-            
                 <MealPlanCardBox>
                   <MealPlanCard />
                 </MealPlanCardBox>
@@ -64,18 +64,6 @@ const PlanningPage = () => {
   );
 };
 
-const Sidebar = styled.div`
-  width: 200px;
-  height: 48px;
-  background: #febd2f;
-  box-shadow: 2px 2px 8px rgba(254, 189, 47, 0.4);
-  border-radius: 28px;
-  text-align: center;
-  font-weight: bold;
-  line-height: 46px;
-  margin-right: 20px;
-`;
-
 const PlannerContainer = styled(SectionBox)`
   width: 100%;
 `;
@@ -87,6 +75,14 @@ const TitleBox = styled.div`
   width: 90%;
   height: 100px;
   margin: 0 auto;
+
+  input {
+    height: 40px;
+    width: 220px;
+    font-size: 20px;
+    border-radius: 20px;
+    border: none;
+  }
 `;
 
 const ThisMonth = styled.span`
@@ -94,6 +90,10 @@ const ThisMonth = styled.span`
   font-weight: bold;
   font-size: 30px;
   color: #303030;
+
+  input {
+
+  }
 `;
 
 const CalendarBtn = styled(MiddleBtn)`

@@ -34,9 +34,31 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
                 
                   <span>{thisweekDays.format("D")}</span>
                   <div className='_week'>
-                    <MealCell ><span>아침</span></MealCell>
-                    <MealCell ><span>점심</span></MealCell>
-                    <MealCell ><span>저녁</span></MealCell>
+                    <MealCell >
+                      <span>아침</span>
+                      <div>꽃게된장국</div>
+                      <div>치킨까스*허니소스</div>
+                      <div>꽈리고추액젓무침</div>
+                      <div>우채청포묵무침</div>
+                    </MealCell>
+                    <MealCell >
+                      <span>점심</span>
+                      <div>꽃게된장국</div>
+                      <div>치킨까스*허니소스</div>
+                      <div>꽈리고추액젓무침</div>
+                      <div>우채청포묵무침</div>
+                      <div>꽃게된장국</div>
+                      
+                    </MealCell>
+                    <MealCell >
+                      <span>저녁</span>
+                      <div>꽃게된장국</div>
+                      <div>우채청포묵무침</div>
+                      <div>꽈리고추액젓무침</div>
+                      <div>치킨까스*허니소스</div>
+                      <div>꽃게된장국</div>
+                      
+                    </MealCell>
                   </div>
               
               </WeekCell>
@@ -228,6 +250,11 @@ const MealCell = styled.div`
   border-radius: 20px;
   margin-top: 10px;
   margin: 1rem auto;
+
+  div {
+    font-size: 12px;
+    margin-top: 4px;
+  }
 `;
 
 

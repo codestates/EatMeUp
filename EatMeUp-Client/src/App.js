@@ -20,6 +20,9 @@ import EditRecipePage from "./components/EditRecipePage/EditRecipe";
 import MealPlannerPage from "./components/MealPlannerPage/MealPlanner"
 import PlanningPage from './components/MealPlannerPage/PlanningPage'
 
+/* 마이페이지 - 좋아요 레시피리스트 페이지 */
+import MyLikelistPage from './components/MyLikelistPage/MyLikelist'
+
 function App() {
   return (
     <Router>
@@ -32,6 +35,7 @@ function App() {
         <Route path='/user/myrecipe' exact component={MyRecipePage} />
         <Route path='/user/myrecipe/create' exact component={CreateRecipePage} />
         <Route path='/user/myrecipe/edit' exact component={EditRecipePage} />
+        <Route path='/user/likelist' exact component={MyLikelistPage} />
         <Route path='/user/myplanner' exact component={MealPlannerPage} />
         <Route path='/user/myplanner/create' exact component={PlanningPage} />
       

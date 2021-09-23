@@ -22,10 +22,10 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
   const dataPickerHandler = () => {};
   return (
     <div>
-      <BackGroundModal onClick={closeEditModal}>
+      <BackGroundModal>
         <ModalDialog>
           <div className='closeBtn'>
-            <i onClick={closeEditModal} class='fas fa-times'></i>
+            <i onClick={closeEditModal} className='fas fa-times'></i>
           </div>
           <form onSubmit={submitHandler}>
             <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
@@ -34,7 +34,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                   <input {...getInputProps()} />
 
                   <div>
-                    <i class='bx bxs-camera-plus'></i>
+                    <i className='bx bxs-camera-plus'></i>
                   </div>
                 </DropzoneArea>
               )}

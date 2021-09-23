@@ -7,6 +7,7 @@ const RecipeCard = styled.div`
   margin: 20px;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
+  background-color: #ffffff;
   position: relative;
 
   .recipe-card-tag {

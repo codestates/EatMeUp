@@ -26,7 +26,7 @@ const AddIngre = ({ setOpenAddWindow }) => {
       <BackGroundModal>
         <ModalDialog>
           <div className='closeBtn'>
-            <i onClick={openHandler} class='fas fa-times'></i>
+            <i onClick={openHandler} className='fas fa-times'></i>
           </div>
           <form onSubmit={submitHandler}>
             <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
@@ -35,7 +35,7 @@ const AddIngre = ({ setOpenAddWindow }) => {
                   <input {...getInputProps()} />
 
                   <div>
-                    <i class='bx bxs-camera-plus'></i>
+                    <i className='bx bxs-camera-plus'></i>
                   </div>
                 </DropzoneArea>
               )}

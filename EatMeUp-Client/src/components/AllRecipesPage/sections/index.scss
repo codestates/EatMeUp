@@ -6,10 +6,10 @@
 .blog-slider {
   width: 95%;
   position: relative;
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 20px auto;
-  background: #fff;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.2);
+  background: #ffffff;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   padding: 25px;
   border-radius: 25px;
   height: 400px;
@@ -62,14 +62,13 @@
 
   &__img {
     // width: 40%;
-    width: 350px;
+    width: 400px;
     flex-shrink: 0;
     height: 350px;
-
-    box-shadow: 4px 13px 30px 1px rgba(129, 127, 127, 0.2);
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     transform: translateX(-80px);
-
+    object-fit: cover;
     overflow: hidden;
 
     &:after {
@@ -150,13 +149,43 @@
     line-height: 1.5em;
   }
 
+  &__recipeinfo {
+    display: flex;
+    font-size: 16px;
+  }
+
+  &__ingredients {
+    margin-left: 30px;
+  }
+
+  .ingre-label {
+    text-indent: 5px;
+  }
+
+  .cooking-level {
+    font-size: 14px;
+    padding: 3px 8px;
+    border-radius: 30px;
+    background-color: black;
+    color: white;
+    margin-left: 10px;
+  }
+
+  &__ingredients > div > span {
+    margin-right: 10px;
+    padding: 3px 8px;
+    background-color: #EAEAEA;
+    border-radius: 30px;
+    font-size: 14px;
+  }
+
   &__button {
     display: inline-flex;
-    background-image: linear-gradient(147deg, #fe8a39 0%, #fd3838 74%);
-    padding: 15px 35px;
-    border-radius: 50px;
+    background-image: linear-gradient(147deg, #f8dc3b 0%, #fdcf38 74%);
+    padding: 8px 25px;
+    border-radius: 10px;
+    margin-top: 20px;
     color: #fff;
-    box-shadow: 0px 14px 80px rgba(252, 56, 56, 0.4);
     text-decoration: none;
     font-weight: 500;
     justify-content: center;

@@ -6,11 +6,11 @@ const Footer = () => {
   return (
     <FooterBox>
       <div className='copyright'>
-        Copyright <i class='far fa-copyright'></i> 2021 by{" "}
+        Copyright <i className='far fa-copyright'></i> 2021 by{" "}
         <span className='eatmeup'>EatMeUp</span>
       </div>
       <div>
-        <i class='fab fa-github'></i>
+        <i className='fab fa-github'></i>
       </div>
       <div className='names'>
         <span>오동욱</span>
