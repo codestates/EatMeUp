@@ -82,23 +82,37 @@ const BtnContainer = styled.div`
 `;
 
 const TitleBox = styled.div`
-  width: 100%;
+  width: 85%;
   height: 90px;
   font-weight: bold;
   font-size: 30px;
-  text-indent: 30px;
   line-height: 100px;
   display: flex;
   justify-content: space-between;
+  margin: 0 auto;
+
+  @media screen and (max-width: 1500px){
+    width: 100%;
+  }
 `;
 
 const MainDCBox = styled(SectionBox)`
-  width: 100%;
+  width: 85%;
+  margin: 0 auto;
+
+  @media screen and (max-width: 1500px){
+    width: 100%;
+  }
 `;
 
-const StepsBox = styled(SectionBox)`
-  width: 100%;
-  margin-top: 18px;
+const StepsBox = styled(SectionBox)` 
+  
+  width: 85%;
+  margin: 18px auto;
+
+  @media screen and (max-width: 1500px){
+    width: 100%;
+  }
 `;
 
 export default CreateRecipe;

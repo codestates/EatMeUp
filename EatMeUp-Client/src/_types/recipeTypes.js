@@ -1,0 +1,5 @@
+/* 모든레시피 불러오기 */
+export const ALL_RECIPES_REQUEST = 'ALL_RECIPES_REQUEST'
+export const ALL_RECIPES_SUCCESS = 'ALL_RECIPES_SUCCESS'
+export const ALL_RECIPES_FAIL = 'ALL_RECIPES_FAIL'
+

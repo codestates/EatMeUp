@@ -56,9 +56,9 @@ const SwiperCompo = () => {
                   </div>
                 </div>
               </div>
-              <div className='blog-slider__button'>
+              {/* <div className='blog-slider__button'>
                   View Recipe
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -93,9 +93,9 @@ const SwiperCompo = () => {
                   </div>
                 </div>
               </div>
-              <div className='blog-slider__button'>
+              {/* <div className='blog-slider__button'>
                   View Recipe
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -130,9 +130,9 @@ const SwiperCompo = () => {
                   </div>
                 </div>
               </div>
-              <div className='blog-slider__button'>
+              {/* <div className='blog-slider__button'>
                   View Recipe
-              </div>
+              </div> */}
             </div>
           </div>
         </div>

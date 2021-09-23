@@ -36,7 +36,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
     setTimeout(() => {
       setState({ ...state, open: false });
-    }, 1000);
+    }, 2000);
   };
 
 
@@ -149,7 +149,7 @@ const FridgeHeader = styled.div`
   font-size: 20px;
   font-weight: bold;
   margin: 0 auto;
-  border-bottom: 1px solid ${theme.colors.lightgrey};
+  border-bottom: 1px solid #ced0ce;
 
   @media screen and (max-width: 1300px) {
     .type {
@@ -159,7 +159,7 @@ const FridgeHeader = styled.div`
 `;
 
 const FridgeButton = styled(SmallBtn)`
-  border: 1px solid #e1e0dc;
+  border: 1px solid #ced0ce;
   margin-right: 8px;
   font-weight: bold;
   cursor: pointer;
@@ -193,7 +193,7 @@ const FoodContainer = styled.div`
   min-height: 500px;
   border-radius: 20px;
   margin: 0px 10px 0px 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   background-color: #ffffff;
 `;
 

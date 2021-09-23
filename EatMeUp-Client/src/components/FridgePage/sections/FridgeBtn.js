@@ -52,6 +52,7 @@ const FridgeBtns = styled.div`
 const FridgeButton = styled(LargeBtn)`
   font-weight: 500;
   font-size: 15px;
+  border: 1px solid #ced0ce;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   height: 80%;

@@ -154,7 +154,7 @@ const FridgeTitle = styled.div`
 const CheckedFoodsBox = styled.div`
   width: 70%;
   height: 43px;
-  border: 1px solid #e1e0dc;
+  border: 1px solid #ced0ce;
   border-radius: 30px 0px 0px 30px;
   margin-top: 15px;
   margin-left: 18px;
@@ -177,7 +177,7 @@ const CheckedFoodsBox = styled.div`
 
 const GotoBtnBox = styled.div`
   margin-top: 15px;
-  border: 1px solid #e1e0dc;
+  border: 1px solid #ced0ce;
   width: 150px;
   height: 43px;
   border-radius: 0px 30px 30px 0px;

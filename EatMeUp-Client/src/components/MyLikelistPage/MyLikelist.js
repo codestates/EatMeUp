@@ -77,7 +77,7 @@ const ListBox = styled.div`
   width: 95%;
   margin: 0 auto;
   min-height: 720px;
-  column-width: 250px;
+  column-width: 300px;
   gap: 15px;
 `;
 

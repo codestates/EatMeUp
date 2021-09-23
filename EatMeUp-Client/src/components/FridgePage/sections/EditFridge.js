@@ -32,7 +32,7 @@ const EditFridge = ({ foods, showEditBtn, setFoods }) => {
     }
   };
 
-  /* drag and drop */
+  /* drag and drop 구현 코드*/
   const handlerDragStart = (e, params) => {
     dragItem.current = params;
     dragNode.current = e.target;
@@ -235,9 +235,10 @@ const FridgeHeader = styled.div`
 `;
 
 const FridgeButton = styled(SmallBtn)`
-  border: 1px solid ${theme.colors.lightgrey};
+  
   margin-right: 8px;
   font-weight: bold;
+  border: 1px solid #ced0ce;
   i {
     font-size: 18px;
   }
@@ -260,7 +261,7 @@ const FoodContainer = styled.div`
   min-height: 500px;
   border-radius: 20px;
   margin: 0px 10px 0px 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
 `;
 
@@ -274,7 +275,7 @@ const FoodBox = styled.div`
   position: relative;
   margin: 13px auto;
   align-items: center;
-  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   
   .check_box {

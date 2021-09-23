@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
+import { useDispatch } from 'react-redux'
+import { allRecipes } from '../../_actions/recipeActions';
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -9,24 +11,27 @@ import Card from "./sections/Card";
 import SwiperCompo from "./sections/SwiperCompo";
 import Footer from "../Util/Footer";
 
-
 import { myRecipes } from "../dummydata";
 
-
 const AllRecipes = () => {
-
   // Todo
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const deleteIngredientHandler = () => {};
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+
+    dispatch(allRecipes());
+    
+  }, [dispatch])
+
+  const deleteIngredientHandler = () => {};
 
   return (
     <>
       <Header id={0} />
       <section>
-
         {/* 페이지 제목 */}
         <TitleBox>
           <h1>
@@ -34,15 +39,13 @@ const AllRecipes = () => {
           </h1>
         </TitleBox>
 
-       {/* 오늘의 레시피 */}
+        {/* 오늘의 레시피 */}
         <SwiperCompo />
-
-
 
         {/* 냉장고 재료기반 추천된 재료리스트 */}
         <SearchBox>
           <div className='title'>추천 레시피</div>
-          
+
           <div className='search_box'>
             <Stack direction='row' spacing={1}>
               <i class='fas fa-shopping-basket'></i>
@@ -51,8 +54,6 @@ const AllRecipes = () => {
           </div>
           <div className='searchBtn_box'>검색하기</div>
         </SearchBox>
-
-
 
         {/* 카드리스트 컨테이너 */}
         <Container>
@@ -73,7 +74,7 @@ const TitleBox = styled.div`
 `;
 
 const SearchBox = styled.div`
-  width: 90%;
+  width: 80%;
   display: flex;
   margin: 15px auto;
   align-items: center;
@@ -85,9 +86,9 @@ const SearchBox = styled.div`
   }
 
   .search_box {
+    border: 1px solid #ced0ce;
     width: 70%;
     height: 43px;
-    border: 1px solid #e1e0dc;
     border-radius: 30px 0px 0px 30px;
     margin-left: 18px;
     line-height: 40px;
@@ -104,7 +105,7 @@ const SearchBox = styled.div`
   }
 
   .searchBtn_box {
-   border: 1px solid #e1e0dc;
+    border: 1px solid #ced0ce;
    width: 150px;
    height: 43px;
    border-radius: 0px 30px 30px 0px;
@@ -118,10 +119,15 @@ const SearchBox = styled.div`
   .
 `;
 const Container = styled.div`
-  width: 90%;
-  column-width: 250px;
+  width: 85%;
+  column-width: 350px;
   margin: 0 auto;
   gap: 15px;
+
+  @media screen and (max-width: 1700px) {
+    width: 90%;
+    column-width: 300px;
+  }
 `;
 
 export default AllRecipes;
