@@ -1,11 +1,56 @@
-import React from 'react'
+import React from "react";
+import styled from "styled-components";
+import theme from "../StyledComponent/theme";
 
 const Footer = () => {
   return (
-    <footer style={{border: "1px solid black", width: "100%", height: "100px"}}>
-      
-    </footer>
-  )
-}
+    <FooterBox>
+      <div className='copyright'>
+        Copyright <i className='far fa-copyright'></i> 2021 by{" "}
+        <span className='eatmeup'>EatMeUp</span>
+      </div>
+      <div>
+        <i className='fab fa-github'></i>
+      </div>
+      <div className='names'>
+        <span>오동욱</span>
+        <span>강주오</span>
+        <span>이세경</span>
+        <span>오가영</span>
+      </div>
+    </FooterBox>
+  );
+};
 
-export default Footer
+const FooterBox = styled.div`
+  background: #eaeaea;
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: ${theme.colors.darkgray};
+  margin-top: 50px;
+
+  .copyright {
+    margin: 20px;
+  }
+
+  .names {
+    margin: 20px;
+  }
+
+  .names > span {
+    padding: 10px 10px;
+  }
+
+  .eatmeup {
+    font-weight: bold;
+  }
+
+  .fa-github {
+    font-size: 30px;
+  }
+`;
+
+export default Footer;

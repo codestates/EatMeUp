@@ -7,38 +7,31 @@ import Footer from "../Util/Footer";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
-import theme from "../StyledComponent/theme";
 
 /* 데이터 */
 import { myRecipes } from "../dummydata";
 
-const MyRecipe = () => {
+const MyLikelist = () => {
   return (
     <>
       <Header id={2} />
       <section>
         <Container>
-          {/* 사이드바 영역 */}
+          {/* 사이드바영역 */}
           <Sidebar />
 
-          {/* 레시피 리스트 영역 */}
+          {/* 좋아요한 레시피 리스트 영역 */}
           <ListContainer>
-            {/* 레시피만들기버튼 영역 */}
+            {/* 좋아요한 레시피 리스트 페이지 타이틀 */}
             <TitleBox>
-              <div className='title'>My Recipes</div>
-              <div>
-                <Link to='/user/myrecipe/create'>
-                  <Button fillColor={theme.colors.yellow}>
-                    레시피 만들기 <i className='fas fa-play'></i>
-                  </Button>
-                </Link>
-              </div>
+              <div className='title'>My Favorite Recipes</div>
             </TitleBox>
 
-            {/* 레시피 리스트 */}
+            {/* 좋아요한 레시피들 */}
             <ListBox>
               <Card recipes={myRecipes} />
             </ListBox>
@@ -88,4 +81,4 @@ const ListBox = styled.div`
   gap: 15px;
 `;
 
-export default MyRecipe;
+export default MyLikelist;

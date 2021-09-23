@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { Recipe } from "../../StyledComponent/card";
+import theme from "../../StyledComponent/theme";
 
 const Card = ({ recipes }) => {
   return recipes.map((recipe, idx) => {
@@ -18,21 +18,16 @@ const Card = ({ recipes }) => {
               <span className='username'>Segyondgdgg</span>
             </div>
           </div>
-
           {/* 삭제버튼과 수정버튼 영역 */}
           <div>
             <div className='recipe-dc-right_box'>
-              <Link to='/user/myrecipe/edit'>
-                <i class='far fa-edit'></i>
-              </Link>
+              <i class='fas fa-heart'></i>
               <i class='far fa-trash-alt'></i>
             </div>
           </div>
         </div>
-
         {/* 레시피메인이미지사진 영역 */}
         <img src={recipe.main_image} alt='recipe' className='recipe-img' />
-
         {/* figure태그의 캡션 */}
         <figcaption>
           <div className='recipe-info_box'>
@@ -41,10 +36,8 @@ const Card = ({ recipes }) => {
               <i class='fas fa-stopwatch'></i> 요리시간 20min
             </div>
           </div>
-
           {/* 레시피제목 */}
           <div className='title_box'>{recipe.title}</div>
-          
           {/* 레시피 주재료들 */}
           <div className='recipe-ingre_box'>
             <div className='ingres'>
@@ -69,13 +62,16 @@ const Recipes = styled(Recipe)`
     display: flex;
     align-items: center;
   }
-  .far {
+
+  .fa-heart {
+    color: ${theme.colors.red};
     font-size: 20px;
     margin-right: 10px;
   }
-
   .fa-trash-alt {
     margin-top: 3px;
+    font-size: 20px;
+    margin-right: 10px;
   }
 `;
 
