@@ -68,5 +68,13 @@ const device = {
 
 const theme = {
   colors,
+  device,
+  fontSizes,
+  paddings,
+  margins,
+  interval,
+  verticalInterval,
+  
+
 };
 export default theme;

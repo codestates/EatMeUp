@@ -2,39 +2,36 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.bulkInsert(
-      "Users",
-      [
-        {
-          id: 1,
-          username: "test1",
-          email: "test1@test.test",
-          password: "1234",
-          avatar: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: 2,
-          username: "test2",
-          email: "test2@test.test",
-          password: "1234",
-          avatar: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-        {
-          id: 3,
-          username: "test3",
-          email: "test3@test.test",
-          password: "1234",
-          avatar: null,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        },
-      ],
-      {},
-    );
+    // await queryInterface.bulkInsert(
+    //   "Users",
+    //   [
+    //     {
+    //       username: "test1",
+    //       email: "test1@test.test",
+    //       password: "1234",
+    //       avatar: null,
+    //       createdAt: new Date(),
+    //       updatedAt: new Date(),
+    //     },
+    //     {
+    //       username: "test2",
+    //       email: "test2@test.test",
+    //       password: "1234",
+    //       avatar: null,
+    //       createdAt: new Date(),
+    //       updatedAt: new Date(),
+    //     },
+    //     {
+    //       username: "test3",
+    //       email: "test3@test.test",
+    //       password: "1234",
+    //       avatar: null,
+    //       createdAt: new Date(),
+    //       updatedAt: new Date(),
+    //     },
+    //   ],
+    //   {},
+    // );
   },
 
   down: async (queryInterface, Sequelize) => {
