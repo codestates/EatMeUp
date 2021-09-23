@@ -6,13 +6,20 @@ const Footer = () => {
   return (
     <FooterBox>
       <div className='copyright'>
-        Copyright <i class='far fa-copyright'></i> 2021 by <span className="eatmeup">EatMeUp</span>
-    </div>
+        Copyright <i class='far fa-copyright'></i> 2021 by{" "}
+        <span className='eatmeup'>EatMeUp</span>
+      </div>
+      <div className='repo'>
+        <a href='https://github.com/codestates/EatMeUp'>
+        <i className="fas fa-utensils fa-2x"></i>
+        </a>
+      </div>
       <div className='names'>
-        <span>오동욱</span>
-        <span>강주오</span>
-        <span>이세경</span>
-        <span>오가영</span>
+        <i className='fab fa-github fa-lg'></i>
+        <a href='https://github.com/wookieOH'>wookieOH</a>
+        <a href='https://github.com/KangJuO'>KangJuO</a>
+        <a href='https://github.com/segyong56'>segyong56</a>
+        <a href='https://github.com/5gazero'>5gazero</a>
       </div>
     </FooterBox>
   );
@@ -21,26 +28,36 @@ const Footer = () => {
 const FooterBox = styled.div`
   background: #eaeaea;
   width: 100%;
-  height: 100px;
+  height: 10vh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: ${theme.colors.darkgray};
-  
+  color: ${theme.colors.black};
+  font-size: 16px;
+  font-weight: 300;
   .copyright {
-    margin: 20px;
+    margin: 5vw;
   }
 
   .names {
-    margin: 20px;
+    margin: 5vw;
+    i {
+      padding: 10px
+    }
   }
 
-  .names > span {
+
+  a {
     padding: 10px 10px;
+    cursor: pointer;
+    text-decoration: none;
+    :visited {
+      color: ${theme.colors.black};
+    }
   }
 
   .eatmeup {
-    font-weight: bold;
+    font-weight: 600;
   }
 `;
 
