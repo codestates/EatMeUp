@@ -14,10 +14,8 @@ const userRouter = express.Router();
 
 userRouter.route("/info").get(getInfo).put(putInfo).delete(deleteInfo);
 
-userRouter
-  .route("/likelist")
-  .post(addLikeRecipe)
-  .get(getLikeList)
-  .delete(delLikeRecipe);
+userRouter.route("/likelist").post(addLikeRecipe);
+
+userRouter.route("/likelist/:id").get(getLikeList).delete(delLikeRecipe);
 
 module.exports = userRouter;

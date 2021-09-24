@@ -3,6 +3,10 @@ const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
 
+//디비에 추가 => 스키마 맞춰서 추가
+
+//응답 => 디비에서 꺼내서 맵핑해서 바꿔준다음에 보내주기
+
 const addFood = async (req, res) => {
   try {
     const food = req.body;

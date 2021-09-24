@@ -23,9 +23,10 @@ const getLikeList = async (req, res) => {
 
 const addLikeRecipe = async (req, res) => {
   try {
+    const recipeId = req.params.id;
     const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
     const likeUser = await User.findOne({ where: { id: user.id } });
-    const likeRecipe = await Recipe.findOne({ where: { id: req.body.id } });
+    const likeRecipe = await Recipe.findOne({ where: { id: recipeId } });
 
     await likeUser.addLikeRecipe(likeRecipe);
 
@@ -42,9 +43,10 @@ const addLikeRecipe = async (req, res) => {
 
 const delLikeRecipe = async (req, res) => {
   try {
+    const recipeId = req.params.id;
     const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
     const likeUser = await User.findOne({ where: { id: user.id } });
-    const likeRecipe = await Recipe.findOne({ where: { id: req.body.id } });
+    const likeRecipe = await Recipe.findOne({ where: { id: recipeId } });
 
     await likeUser.removeLikeRecipe(likeRecipe);
 
