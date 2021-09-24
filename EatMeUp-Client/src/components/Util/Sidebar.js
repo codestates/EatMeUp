@@ -67,6 +67,7 @@ const MenuBtn = styled(XSmallBtn)`
   font-weight: 500;
   &:hover {
     background-color: ${theme.colors.yellow};
+    cursor: pointer;
   }
   #icon {
     margin: 10px 20px 10px 10px;

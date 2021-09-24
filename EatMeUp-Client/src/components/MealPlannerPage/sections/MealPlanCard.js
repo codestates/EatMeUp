@@ -37,7 +37,7 @@ const PlanCard = styled.div`
   min-height: 400px;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
+  border-radius: 30px;
   margin-top: 10px;
   line-height: 30px;
   font-size: 15px;
@@ -57,7 +57,7 @@ const AddTodo = styled.div`
   .input {
     width: 75%;
     height: 35px;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 20px 0px 0px 20px;
     border: 1px solid ${theme.colors.lightgrey};
     font-size: 13px;
   }
@@ -73,7 +73,7 @@ const AddTodo = styled.div`
   }
 
   .addBtn {
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 0px 20px 20px 0px;
     width: 25%;
     height: 35px;
     font-size: 12px;

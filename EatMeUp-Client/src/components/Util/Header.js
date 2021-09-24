@@ -8,6 +8,7 @@ const Header = ({ id }) => {
     { menu: "모든 레시피", link: "/recipes" },
     { menu: "마이 냉장고", link: "/fridge" },
     { menu: "마이 페이지", link: "/user/mypage" },
+    { menu: "로그아웃", link: "/logout" },
   ];
   const [currentIdx, setCurrentIdx] = useState(id);
 
@@ -25,9 +26,7 @@ const Header = ({ id }) => {
         {menu.map((item, idx) => {
           return (
             <Link to={item.link} key={idx}>
-            
               <MenuButton
-                
                 onClick={() => {
                   tabHandler(idx);
                 }}
@@ -46,14 +45,13 @@ const Header = ({ id }) => {
 
 const RightMemu = styled.div`
   border-radius: 30px;
-  padding: 10px 15px;
   margin-right: 5vw;
 `;
 
 const MenuButton = styled(XSmallBtn)`
-  width: 130px;
-  height: 55px;
-  margin-left: 1vw;
+  width: 120px;
+  height: 50px;
+  margin-left: 5px;
   transition: 0.3s;
   border-radius: 30px;
   border: none;
@@ -62,6 +60,7 @@ const MenuButton = styled(XSmallBtn)`
   font-weight: 500;
   &:hover {
     background-color: ${theme.colors.yellow};
+    cursor: pointer;
   }
 `;
 
