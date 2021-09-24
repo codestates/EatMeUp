@@ -22,7 +22,7 @@ const MyRecipe = () => {
       <section>
         <Container>
           {/* 사이드바 영역 */}
-          <Sidebar />
+          <Sidebar id={1}/>
 
           {/* 레시피 리스트 영역 */}
           <ListContainer>
@@ -31,8 +31,8 @@ const MyRecipe = () => {
               <div className='title'>My Recipes</div>
               <div>
                 <Link to='/user/myrecipe/create'>
-                  <Button fillColor={theme.colors.yellow}>
-                    레시피 만들기 <i className='fas fa-play'></i>
+                  <Button fillColor={theme.colors.lightgrey}>
+                    <span>레시피 만들기</span> <i className="fas fa-chevron-right"></i>
                   </Button>
                 </Link>
               </div>
@@ -50,11 +50,9 @@ const MyRecipe = () => {
   );
 };
 
-const ListContainer = styled.div`
-  width: 75%;
+const ListContainer = styled(SectionBox)`
+  width: 77%;
   min-height: 720px;
-  margin: 0 auto;
-
   @media screen and (max-width: 1500px){
     width: 100%;
   }
@@ -69,23 +67,28 @@ const TitleBox = styled.div`
   line-height: 90px;
   display: flex;
   justify-content: space-between;
+  margin: 5px 20px 10px 20px;
+  padding: 10px;
 `;
 
 const Button = styled(LargeBtn)`
-  margin-right: 20px;
+  margin-right: 70px;
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid white;
+  span {
+    margin: 8px;
+  }
 `;
 
 const ListBox = styled.div`
   width: 95%;
+  max-width: 1329px;
   margin: 0 auto;
   min-height: 720px;
   column-width: 250px;
   gap: 15px;
+  padding: 10px;
 `;
 
 export default MyRecipe;

@@ -1,12 +1,15 @@
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import LoginPage from './components/LoginPage/Login'
-import SignupPage from './components/SignupPage/Signup'
-import LandingPage from './components/LandingPage/Landing'
+import LoginPage from "./components/LoginPage/Login";
+import SignupPage from "./components/SignupPage/Signup";
+import LandingPage from "./components/LandingPage/Landing";
 
 /* 모든 레시피 메인페이지 */
 import AllRecipesPage from "./components/AllRecipesPage/AllRecipes";
+
+/* 마이페이지 메인 페이지 */
+import MyPage from "./components/MyPage/MyPage";
 
 /* 마이페이지 - 냉장고메인페이지 */
 import FridgePage from "./components/FridgePage/FridgeMain";
@@ -23,22 +26,26 @@ import PlanningPage from './components/MealPlannerPage/PlanningPage'
 /* 마이페이지 - 좋아요 레시피리스트 페이지 */
 import MyLikelistPage from './components/MyLikelistPage/MyLikelist'
 
+/* 마이페이지 - 유저정보 페이지 */
+import MyInfo from "./components/MyPage/MyInfo";
+
 function App() {
   return (
     <Router>
       <div className='App'>
-        <Route path="/" exact component={LandingPage} />
-        <Route path="/login" exact component={LoginPage} />
-        <Route path="/signup" exact component={SignupPage} />
+        <Route path='/' exact component={LandingPage} />
+        <Route path='/login' exact component={LoginPage} />
+        <Route path='/signup' exact component={SignupPage} />
         <Route path='/recipes' exact component={AllRecipesPage} />
         <Route path='/fridge' exact component={FridgePage} />
         <Route path='/user/myrecipe' exact component={MyRecipePage} />
-        <Route path='/user/myrecipe/create' exact component={CreateRecipePage} />
+        <Route path='/user/myrecipe/create' component={CreateRecipePage} />
         <Route path='/user/myrecipe/edit' exact component={EditRecipePage} />
         <Route path='/user/likelist' exact component={MyLikelistPage} />
         <Route path='/user/myplanner' exact component={MealPlannerPage} />
         <Route path='/user/myplanner/create' exact component={PlanningPage} />
-      
+        <Route path='/user/mypage' component={MyPage} />
+        <Route path='/user/info' component={MyInfo} />
       </div>
     </Router>
   );

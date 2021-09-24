@@ -7,7 +7,8 @@ const Header = ({ id }) => {
   const menu = [
     { menu: "모든 레시피", link: "/recipes" },
     { menu: "마이 냉장고", link: "/fridge" },
-    { menu: "마이 페이지", link: "/user/myrecipe" },
+    { menu: "마이 페이지", link: "/user/mypage" },
+    { menu: "로그아웃", link: "/logout" },
   ];
   const [currentIdx, setCurrentIdx] = useState(id);
 
@@ -17,19 +18,20 @@ const Header = ({ id }) => {
   return (
     <EatMeUpHeader>
       <LogoContainer>
-        <img src='../../food_img/EatMeUp.png' alt='logo' />
+        <Link to='/'>
+          <img src='../../food_img/EatMeUp.png' alt='logo' />
+        </Link>
       </LogoContainer>
       <RightMemu>
         {menu.map((item, idx) => {
           return (
             <Link to={item.link} key={idx}>
-             
               <MenuButton
-                
                 onClick={() => {
                   tabHandler(idx);
                 }}
                 fillColor={currentIdx === idx ? theme.colors.yellow : "white"}
+                color={currentIdx === idx ? "white" : theme.colors.black}
               >
                 {item.menu}
               </MenuButton>
@@ -42,28 +44,29 @@ const Header = ({ id }) => {
 };
 
 const RightMemu = styled.div`
- 
   border-radius: 30px;
-  padding: 10px 15px;
-  margin-right: 20px;
+  margin-right: 5vw;
 `;
 
 const MenuButton = styled(XSmallBtn)`
-  width: 100px;
-  height: 35px;
-  margin-left: 15px;
+  width: 120px;
+  height: 50px;
+  margin-left: 5px;
   transition: 0.3s;
   border-radius: 30px;
   border: none;
-
+  font-family: Noto Sans KR;
+  font-size: 17px;
+  font-weight: 500;
   &:hover {
-    background-color: ${theme.colors.yellow}
+    background-color: ${theme.colors.yellow};
+    cursor: pointer;
   }
 `;
 
 const EatMeUpHeader = styled.div`
   width: 100%;
-  height: 130px;
+  height: 12vh;
   background-color: white;
   display: flex;
   align-items: center;
@@ -71,10 +74,9 @@ const EatMeUpHeader = styled.div`
 `;
 
 const LogoContainer = styled.div`
-  width: 150px;
+  width: 190px;
   height: 80%;
-  margin-left: 30px;
-
+  margin-left: 5vw;
   img {
     width: 100%;
     height: 100%;

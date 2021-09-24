@@ -22,7 +22,7 @@ const PlanningPage = () => {
       <Header id={2} />
       <section>
         <Container>
-          <Sidebar />
+          <Sidebar id={3}/>
 
           <PlannerContainer>
             <TitleBox>
@@ -65,14 +65,14 @@ const PlanningPage = () => {
 };
 
 const PlannerContainer = styled(SectionBox)`
-  width: 100%;
+  width: 77%;
 `;
 
 const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 90%;
+  width: 95%;
   height: 100px;
   margin: 0 auto;
 
@@ -101,6 +101,7 @@ const CalendarBtn = styled(MiddleBtn)`
   cursor: pointer;
   font-weight: bold;
   color: #303030;
+  width: 130px;
 `;
 
 const MealPlaner = styled.div`
@@ -113,7 +114,7 @@ const RecommandRecipesBox = styled.div`
   width: 30%;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
+  border-radius: 30px;
   height: 560px;
   margin: 0px 10px 0px 20px;
 `;
@@ -130,7 +131,7 @@ const IngredientBox = styled.div`
   margin: 0 auto;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
+  border-radius: 30px;
 `;
 
 const MealPlanCardBox = styled.div`
