@@ -36,6 +36,7 @@ const AddIngredient = () => {
 
   return (
     <AddIngredientBox>
+     
       {/* 재료 추가 작성 영역 */}
       <FlexContainer>
         <input
@@ -93,14 +94,13 @@ const FlexContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 1.5rem auto;
-  padding-top: 20px;
+  margin: 10px auto;
 
   input {
     width: 200px;
     height: 40px;
     margin-right: 8px;
-    border-radius: 30px;
+    border-radius: 10px;
     border: 2px solid ${theme.colors.lightgrey};
     text-indent: 5px;
   }
@@ -111,8 +111,13 @@ const FlexContainer = styled.div`
 `;
 
 const TagContainer = styled.div`
-  width: 90%;
-  margin: 0 auto;
+  width: 1000px;
+  margin: 10px auto;
+  overflow-x: scroll;
+  height: 50px;
+  border: 2px solid ${theme.colors.lightgrey};
+  border-radius: 10px;
+  padding: 8px;
 `;
 
 const AddIngreBtn = styled(MiddleBtn)`

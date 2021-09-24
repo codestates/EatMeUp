@@ -9,6 +9,7 @@ import Daily from './Daily'
 
 function Calendar({ showWeekHandler, showMonthHandler }) {
   
+  // 달력 알고리즘 (moment.js를 이용한 달력만들기)
   const [getMoment, setMoment] = useState(moment());
   const [openDaily, setOpenDaily] = useState(false)
   const openModalHandler = () => {
@@ -36,7 +37,8 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
                 .week(week)
                 .startOf("week")
                 .add(index, "day");
-
+              
+              //오늘날짜를 달력에 표시
               if (moment().format("YYYYMMDD") === days.format("YYYYMMDD")) {
                 return (
                   <TodayCell key={index} onClick={openModalHandler}>
@@ -65,6 +67,7 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
 
   return (
     <>
+      {/* 식단짜기버튼, 날짜핸들러, 월별/주별버튼 영역 */}
       <CalendarControls>
         <div>
           <Link to="/user/myplanner/create"><CalendarBtn fillColor={theme.colors.lightgrey}><span>식단짜기</span></CalendarBtn></Link>
@@ -101,6 +104,8 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
           <WeekBtn onClick={showWeekHandler}>Week</WeekBtn>
         </div>
       </CalendarControls>
+
+      {/* 달력영역 */}
       <div>
         <Table>
           <thead>
@@ -117,6 +122,8 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
           <Tbody>{calendarArr()}</Tbody>
         </Table>
       </div>
+
+      {/* 일별 일정보여주는 모달창 핸들러 */}
       {openDaily ? <Daily setOpenDaily={setOpenDaily} /> : ""}
     </>
   );

@@ -44,7 +44,7 @@ const Card = ({ recipes }) => {
 
           {/* 레시피제목 */}
           <div className='title_box'>{recipe.title}</div>
-          
+
           {/* 레시피 주재료들 */}
           <div className='recipe-ingre_box'>
             <div className='ingres'>
@@ -60,6 +60,7 @@ const Card = ({ recipes }) => {
 };
 
 const Recipes = styled(Recipe)`
+  border: 1px solid #e6e8e6;
   .userprofile_box {
     display: flex;
     justify-content: space-between;
