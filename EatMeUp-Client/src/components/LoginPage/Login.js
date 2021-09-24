@@ -16,9 +16,17 @@ const Login = ({ isModalOpen, closeModal }) => {
       email: email,
       password: password,
     };
+
+    axios.post("https://api.eatmeup.me/auth/login", data).then((response)=> {
+      console.log(response.data)
+      if(response.data.success) {
+        history.push('/')
+      }
+      
+    })
   };
-  // const loginClickHandler = () => {
-  //   const { email, password } = axios
+  // const loginClickHandler = async () => {
+  //   const { email, password } = await axios
   //     .post("https://eatmeup.me/login", {
   //       headers: {
   //         "Content-Type": "application/json",
@@ -33,7 +41,7 @@ const Login = ({ isModalOpen, closeModal }) => {
 
   return (
     <>
-      {isModalOpen ? (
+      {/* {isModalOpen ? (
         <div className='modal'>
           <div OnClick={closeModal()}>
             <div className='loginModal'>
@@ -86,9 +94,9 @@ const Login = ({ isModalOpen, closeModal }) => {
                 </div>
               </div>
             </div>
-          </div>
-          {/* <div>
-          <form>
+          </div> */}
+          <div>
+          <form onSubmit={loginHandler}>
             <div>
               <label>email</label>
               <input
@@ -108,9 +116,9 @@ const Login = ({ isModalOpen, closeModal }) => {
             <button onClick={loginHandler}>Login</button>
           </form>
           <Link to='/signup'>회원가입하러 가기</Link>
-        </div> */}
         </div>
-      ) : null}
+        {/* </div> */}
+      {/* ) : null} */}
     </>
   );
 };

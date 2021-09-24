@@ -5,7 +5,7 @@ import theme from "../../StyledComponent/theme";
 
 const RecipeCard = styled.figure`
  border: 1px solid #e6e8e6;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   background-color: #ffffff;
   display: inline-block;
@@ -123,9 +123,6 @@ const Card = ({ recipe }) => {
         </div>
         <div className='title_box'>{recipe.title}</div>
         <div className='recipe-ingre_box'>
-          {/* <div className='ingre-label'>
-            <span>주재료</span>
-          </div> */}
           <div className='ingres'>
             <span>#돼지전지</span>
             <span>#양파</span>

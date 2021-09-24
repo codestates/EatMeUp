@@ -43,9 +43,9 @@ const SwiperCompo = () => {
                 국물 없이 구워 한 김 식으면 한입 크기로 자른다.
               </div>
               <div className='blog-slider__recipeinfo'>
-                <div claName='blog-slider__cookingtime'>
+                <div className='blog-slider__cookingtime'>
                   <div>조리시간</div>
-                  <div><i class="fas fa-stopwatch"></i> 60MIN</div>
+                  <div><i className="fas fa-stopwatch"></i> 60MIN</div>
                 </div>
                 <div className='blog-slider__ingredients'>
                   <div className='ingre-label'>주재료</div>
@@ -80,9 +80,9 @@ const SwiperCompo = () => {
                 국물 없이 구워 한 김 식으면 한입 크기로 자른다.
               </div>
               <div className='blog-slider__recipeinfo'>
-                <div claName='blog-slider__cookingtime'>
+                <div className='blog-slider__cookingtime'>
                   <div>조리시간</div>
-                  <div><i class="fas fa-stopwatch"></i> 60MIN</div>
+                  <div><i className="fas fa-stopwatch"></i> 60MIN</div>
                 </div>
                 <div className='blog-slider__ingredients'>
                   <div className='ingre-label'>주재료</div>
@@ -117,9 +117,9 @@ const SwiperCompo = () => {
                 국물 없이 구워 한 김 식으면 한입 크기로 자른다.
               </div>
               <div className='blog-slider__recipeinfo'>
-                <div claName='blog-slider__cookingtime'>
+                <div className='blog-slider__cookingtime'>
                   <div>조리시간</div>
-                  <div><i class="fas fa-stopwatch"></i> 60MIN</div>
+                  <div><i className="fas fa-stopwatch"></i> 60MIN</div>
                 </div>
                 <div className='blog-slider__ingredients'>
                   <div className='ingre-label'>주재료</div>

@@ -8,8 +8,8 @@
   position: relative;
   max-width: 1100px;
   margin: 20px auto;
-  background: #ffffff;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.15);
+  background: white;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.2);
   padding: 25px;
   border-radius: 25px;
   height: 400px;
@@ -138,7 +138,7 @@
   }
 
   &__title {
-    font-size: 24px;
+    font-size: 26px;
     font-weight: 700;
     color: #0d0925;
     margin-bottom: 20px;

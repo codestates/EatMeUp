@@ -12,25 +12,33 @@ const RecipeCards = () => {
 
   return (
     <>
+      {/* 추천레시피, 좋아요리스트 버튼 영역 */}
       <ButtonArea>
         <ShowRecommands>추천</ShowRecommands>
         <ShowLikelist>좋아요 리스트</ShowLikelist>
       </ButtonArea>
+
+      {/* 추천된레시피를 보여주는 영역 */}
       <RecipesArea>
         {myRecipes.map((recipe, idx) => {
           return (
             <RecipeCard key={idx}>
+              {/* 요리사진 */}
               <ImgBox>
                 <div>
                   <img src={recipe.main_image} alt='recipe' />
                 </div>
               </ImgBox>
+
+              {/* 레시피주요정보 */}
               <DCbox>
                 <div className='DCbox-upper'>
                   <div className='recipe-title_box'>
                     <span>{recipe.title}</span>
                     <span className='level'>EASY</span>
                   </div>
+
+                  {/* 식단에 추가버튼 */}
                   <div className='recipe-addBtn_box'>
                     <i
                       className='bx bx-plus-circle'
@@ -96,7 +104,6 @@ const RecipeCard = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 28px;
- 
 `;
 
 const ImgBox = styled.div`

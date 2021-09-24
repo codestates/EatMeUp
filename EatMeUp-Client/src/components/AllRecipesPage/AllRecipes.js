@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { allRecipes } from '../../_actions/recipeActions';
 
 /* 컴포넌트 */
@@ -11,23 +11,35 @@ import Card from "./sections/Card";
 import SwiperCompo from "./sections/SwiperCompo";
 import Footer from "../Util/Footer";
 
-import { myRecipes } from "../dummydata";
-
 const AllRecipes = () => {
   // Todo
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
   const dispatch = useDispatch();
-
+  const { loading, recipes } = useSelector(state => state.allRecipes)
+  
+  const slicedArr = recipes.slice(0, 8);
+  const loadMore = 4;
+  const [showRecipes, setShowRecipes] = useState(slicedArr);
+  
+  
   useEffect(() => {
 
     dispatch(allRecipes());
-    
+ 
+   
   }, [dispatch])
 
-  const deleteIngredientHandler = () => {};
+  const loadMoreHandler = () => {
 
+    const loadmore = recipes.slice(0, showRecipes.length+loadMore);
+    setShowRecipes(loadmore)
+
+  }
+
+  const deleteIngredientHandler = () => {};
+  console.log(showRecipes)
   return (
     <>
       <Header id={0} />
@@ -35,7 +47,7 @@ const AllRecipes = () => {
         {/* 페이지 제목 */}
         <TitleBox>
           <h1>
-            <i class='fas fa-utensils'></i> 오늘의 레시피
+            <i className='fas fa-utensils'></i> 오늘의 레시피
           </h1>
         </TitleBox>
 
@@ -48,7 +60,7 @@ const AllRecipes = () => {
 
           <div className='search_box'>
             <Stack direction='row' spacing={1}>
-              <i class='fas fa-shopping-basket'></i>
+              <i className='fas fa-shopping-basket'></i>
               <Chip label='감자' onDelete={() => deleteIngredientHandler()} />
             </Stack>
           </div>
@@ -57,10 +69,16 @@ const AllRecipes = () => {
 
         {/* 카드리스트 컨테이너 */}
         <Container>
-          {myRecipes.map((recipe, idx) => {
+          {showRecipes.map((recipe, idx) => {
             return <Card recipe={recipe} key={idx} />;
           })}
         </Container>
+        <LoadMoreBtn>
+          <div>
+          {recipes.length === showRecipes.length ? "" : (<button onClick={loadMoreHandler}>더보기</button>)}
+          </div>
+        </LoadMoreBtn>
+        
       </section>
       <Footer />
     </>
@@ -70,13 +88,13 @@ const AllRecipes = () => {
 const TitleBox = styled.div`
   width: 80%;
   text-indent: 10px;
-  margin: 0 auto;
+  margin: 20px auto;
 `;
 
 const SearchBox = styled.div`
   width: 80%;
   display: flex;
-  margin: 15px auto;
+  margin: 50px auto;
   align-items: center;
 
   .title {
@@ -121,7 +139,7 @@ const SearchBox = styled.div`
 const Container = styled.div`
   width: 85%;
   column-width: 350px;
-  margin: 0 auto;
+  margin: 30px auto;
   gap: 15px;
 
   @media screen and (max-width: 1700px) {
@@ -130,4 +148,22 @@ const Container = styled.div`
   }
 `;
 
+const LoadMoreBtn = styled.div`
+  width: 90%;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  
+  button {
+    width: 150px;
+    height: 40px;
+    background-color: #ced0ce;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+`
 export default AllRecipes;

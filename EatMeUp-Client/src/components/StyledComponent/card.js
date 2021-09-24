@@ -82,7 +82,7 @@ export const RecipeCard = styled.div`
 `;
 
 export const Recipe = styled.figure`
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   display: inline-block;
   background-color: #ffffff;
@@ -100,7 +100,7 @@ export const Recipe = styled.figure`
 
   .recipe-info_box {
     display: flex;
-    font-size: 15px;
+    font-size: 12px;
     color: #A9A7A3;
     padding: 5px;
     margin-left: 10px;
@@ -108,7 +108,7 @@ export const Recipe = styled.figure`
 
   .fa-stopwatch {
     color: gray;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .title_box {

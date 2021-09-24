@@ -8,7 +8,7 @@ import EditIngre from "./EditFood/EditIngre";
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";
 
-const EditFridge = ({ foods, showEditBtn, setFoods }) => {
+const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
   const [openEditWindow, setOpenEditWindow] = useState(false);
   const [clickedFood, setClickedFood] = useState("");
   const [dragging, setDragging] = useState(false);
@@ -17,7 +17,7 @@ const EditFridge = ({ foods, showEditBtn, setFoods }) => {
   
 
   const openEditWindowHandler = (food) => {
-    console.log(food);
+  
     setClickedFood(food);
     setOpenEditWindow(true);
   };
@@ -47,7 +47,7 @@ const EditFridge = ({ foods, showEditBtn, setFoods }) => {
     const currentItem = dragItem.current;
 
     if (e.target !== dragNode.current) {
-      setFoods((oldList) => {
+      setFoodList((oldList) => {
         // deep deep deep deeply copy list array
         let newList = JSON.parse(JSON.stringify(oldList));
 
@@ -105,7 +105,7 @@ const EditFridge = ({ foods, showEditBtn, setFoods }) => {
   return (
     <FridgeInnerBox>
        
-      {foods.map((type, typeIdx) => {
+      {foodList.map((type, typeIdx) => {
         return (
           <FoodContainer
             key={typeIdx}

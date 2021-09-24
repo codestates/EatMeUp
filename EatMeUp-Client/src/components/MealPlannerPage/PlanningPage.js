@@ -15,16 +15,18 @@ import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
 const PlanningPage = () => {
-
-
   return (
     <>
       <Header id={2} />
       <section>
         <Container>
-          <Sidebar />
+          {/* 사이드바영역 */}
+          <Sidebar id={3} />
 
+          {/* 콘텐츠영역 */}
           <PlannerContainer>
+
+            {/* 타이틀/날짜핸들러/달력보러가기버튼 영역 */}
             <TitleBox>
               <div>
                 <ThisMonth>식단짜기</ThisMonth>
@@ -42,15 +44,21 @@ const PlanningPage = () => {
                 </Link>
               </div>
             </TitleBox>
-            
+
+            {/* 식단짜기영역 */}
             <MealPlaner>
+              {/* 레시피 추천 */}
               <RecommandRecipesBox>
                 <RecipeCards />
               </RecommandRecipesBox>
 
+              {/* 아침/점심/저녁 식단 */}
               <PlannerBox>
+                
+                {/* 사야할 재료 */}
                 <IngredientBox></IngredientBox>
 
+                {/* 아침/점심/저녁 적는 식단 */}
                 <MealPlanCardBox>
                   <MealPlanCard />
                 </MealPlanCardBox>
@@ -65,7 +73,7 @@ const PlanningPage = () => {
 };
 
 const PlannerContainer = styled(SectionBox)`
-  width: 100%;
+  width: 77%;
 `;
 
 const TitleBox = styled.div`
@@ -92,7 +100,6 @@ const ThisMonth = styled.span`
   color: #303030;
 
   input {
-
   }
 `;
 
