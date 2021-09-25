@@ -1,4 +1,5 @@
 const { Food, User } = require("../models");
+const { toDB, toClient } = require("../utils/foodConverter");
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
@@ -21,10 +22,12 @@ const addFood = async (req, res) => {
     });
 
     res.status(201).json({
+      success: true,
       message: "post success",
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "post fail",
       error: error,
     });
@@ -40,12 +43,17 @@ const getFood = async (req, res) => {
       include: "Food",
     });
 
+    const frezFoods = toClient(userFood.Food);
+
     res.status(200).json({
+      success: true,
       message: "load success",
       foods: userFood.Food,
+      foodData: frezFoods,
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "load fail",
       error: error,
     });
@@ -67,10 +75,12 @@ const modFood = async (req, res) => {
     await modFood.save();
 
     res.status(200).json({
+      success: true,
       message: "edit success",
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "edit fail",
       error: error,
     });
@@ -84,11 +94,14 @@ const delFood = async (req, res) => {
     await Food.destroy({ where: { id: delFoodId } });
 
     res.status(200).json({
+      success: true,
       message: "delete success",
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "delete fail",
+      error: error,
     });
   }
 };

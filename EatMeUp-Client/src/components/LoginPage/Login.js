@@ -17,13 +17,12 @@ const Login = ({ isModalOpen, closeModal }) => {
       password: password,
     };
 
-    axios.post("https://api.eatmeup.me/auth/login", data).then((response)=> {
-      console.log(response.data)
-      if(response.data.success) {
-        history.push('/')
+    axios.post("https://api.eatmeup.me/auth/login", data).then((response) => {
+      console.log(response.data);
+      if (response.data.success) {
+        history.push("/");
       }
-      
-    })
+    });
   };
   // const loginClickHandler = async () => {
   //   const { email, password } = await axios
@@ -95,29 +94,29 @@ const Login = ({ isModalOpen, closeModal }) => {
               </div>
             </div>
           </div> */}
+      <div>
+        <form onSubmit={loginHandler}>
           <div>
-          <form onSubmit={loginHandler}>
-            <div>
-              <label>email</label>
-              <input
-                type='text'
-                value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
-              />
-            </div>
-            <div>
-              <label>password</label>
-              <input
-                value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
-                type='password'
-              />
-            </div>
-            <button onClick={loginHandler}>Login</button>
-          </form>
-          <Link to='/signup'>회원가입하러 가기</Link>
-        </div>
-        {/* </div> */}
+            <label>email</label>
+            <input
+              type='text'
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
+            />
+          </div>
+          <div>
+            <label>password</label>
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
+              type='password'
+            />
+          </div>
+          <button onClick={loginHandler}>Login</button>
+        </form>
+        <Link to='/signup'>회원가입하러 가기</Link>
+      </div>
+      {/* </div> */}
       {/* ) : null} */}
     </>
   );
