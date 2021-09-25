@@ -1,5 +1,5 @@
 # EatMeUp
-![EatMeUp4](https://user-images.githubusercontent.com/75926861/133115482-88270167-98b2-4ede-81eb-e9f1ee63f643.png)
+![EatMeUp](https://user-images.githubusercontent.com/75926861/134337149-eb32c681-e9fa-4b59-9c37-45b725653bb6.png)
 
 ## 서비스 소개
 - 식재료 구입 후 냉장고 한 구석에 방치해 놓고 있진 않으신가요?
@@ -53,7 +53,7 @@
 | 역할 |  이름  |   담당    | Github                                                                                                                                                                      |
 | :--: | :----: | :-------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | 팀장 | 오동욱 | BACK-END  |  <a href="https://github.com/wookieOH" target="_blank"><img src="https://img.shields.io/badge/wookieOH-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
+| 팀원 | 강주오 | BACK-END  |  <a href="https://github.com/KangJuO" target="_blank"><img src="https://img.shields.io/badge/KangJuO-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 이세경 | FRONT-END |  <a href="https://github.com/segyong56" target="_blank"><img src="https://img.shields.io/badge/segyong56-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 오가영 | FRONT-END |  <a href="https://github.com/5gazero" target="_blank"><img src="https://img.shields.io/badge/5gazero-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
-| 팀원 | 강주오 | BACK-END  |  <a href="https://github.com/KangJuO" target="_blank"><img src="https://img.shields.io/badge/KangJuO-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 

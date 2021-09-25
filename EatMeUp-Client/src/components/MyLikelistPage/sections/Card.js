@@ -53,6 +53,7 @@ const Card = ({ recipes }) => {
 };
 
 const Recipes = styled(Recipe)`
+ border: 1px solid #e6e8e6;
   .userprofile_box {
     display: flex;
     justify-content: space-between;

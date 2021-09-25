@@ -5,13 +5,15 @@ import Dropzone from "react-dropzone";
 import theme from "../../StyledComponent/theme";
 
 const Steps = () => {
+
+  // 단계별 요리법 추가하는 핸들러
   const [recipeBox, setRecipeBox] = useState(["recipe"]);
-  // [{ step1  image: image, recipe : recipe }, {image: image, recipe: recipe}
   const addRecipeHandler = () => {
     const textarea = "add";
     setRecipeBox([...recipeBox, textarea]);
   };
 
+  // 삭제핸들러
   const deleteRecipeHandler = (idx) => {
     console.log(idx);
     const deleteBox = recipeBox.filter((recipe, id) => {
@@ -23,6 +25,7 @@ const Steps = () => {
     setRecipeBox(deleteBox);
   };
 
+  // 이미지 업로드 핸들러
   const dropHandler = () => {};
 
   console.log(recipeBox);
@@ -113,7 +116,6 @@ const AddRecipeBox = styled.div`
     font-size: 40px;
     color: ${theme.colors.gray};
     cursor: pointer;
-
   }
 
   .recipe-dc_box {

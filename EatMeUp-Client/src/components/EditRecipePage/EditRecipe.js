@@ -24,7 +24,7 @@ const EditRecipe = () => {
       <Header id={2} />
       <section>
         <Container>
-         <Sidebar />
+         <Sidebar id={1}/>
      
           <BoxContainer>
             {/* 레시피 제목, 설명, 메인이미지 업로드영역 */}
@@ -62,8 +62,7 @@ const EditRecipe = () => {
 
 
 const BoxContainer = styled.div`
-  width: 85%;
-  margin-left: 20px;
+  width: 77%;
 `;
 
 const BtnContainer = styled.div`

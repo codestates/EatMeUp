@@ -1,0 +1,147 @@
+> .modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6); ///배경에 픽스를 주고 투명도를 준다.
+  > .loginModal {
+    width: 480px;
+    height: 621px;
+    background-color: white;
+    position: relative;
+    box-sizing: border-box;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff; //로그인 배경이다
+    > .close {
+      float: right;
+      font-size: 25px;
+    }
+    .modalContents {
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      padding: 0 20px 32px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      > .signinIcon {
+        width: 150px;
+        margin: 0 auto;
+      }
+      > .loginId {
+        margin-top: 30px;
+        border-radius: 2px;
+        width: 100%;
+        height: 40px;
+        border: 1px solid #e5e5e5;
+        padding: 9px 12px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      input::placeholder {
+        color: #999999;
+      }
+      .loginPw {
+        margin-top: 15px;
+        border-radius: 2px;
+        width: 100%;
+        height: 40px;
+        border: 1px solid #e5e5e5;
+        padding: 9px 12px;
+        outline: none;
+        box-sizing: border-box;
+      }
+      > .loginMid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .autoLogin {
+          font-size: 12px;
+          color: #8d8d8d;
+          line-height: 3;
+        }
+      }
+      .loginBtn {
+        height: 40px;
+        font-size: 14px;
+        padding: 13px 30px;
+        cursor: pointer;
+        background-color: black;
+        color: white;
+        line-height: 1px;
+        margin-top: 20px;
+        margin-bottom: 12px;
+        border-radius: 3px;
+        border-style: none;
+      }
+      > .socialBox {
+        margin-bottom: 30px;
+        .kakao {
+          background-color: #feec34;
+          border-color: #feec34;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-sizing: border-box;
+          margin-bottom: 10px;
+          border-radius: 3px;
+          > .kakaoLogo {
+            width: 24px;
+            height: 25px;
+          }
+          .kakaoText {
+            width: 300px;
+            font-size: 15px;
+            text-align: center;
+            display: inline-block;
+            box-sizing: border-box;
+          }
+        }
+        > .facebook {
+          background-color: #21538a;
+          border-color: #21538a;
+          height: 40px;
+          display: flex;
+          justify-content: center;
+          box-sizing: border-box;
+          color: #fff;
+          border-radius: 3px;
+          > .facebookText {
+            padding-top: 12px;
+            width: 310px;
+            color: #fff;
+            font-size: 15px;
+            text-align: center;
+            box-sizing: border-box;
+          }
+          > .facebookLogo {
+            padding-top: 7px;
+            width: 24px;
+            height: 25px;
+          }
+        }
+      }
+      .loginEnd {
+        text-align: center;
+        font-size: 11px;
+        > .loginLine {
+          color: #bcbcbc;
+          font-size: 11px;
+          margin-bottom: 35px;
+          a {
+            color: black;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+        .noUser {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
