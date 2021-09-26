@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 
-const Login = ({ isModalOpen, closeModal }) => {
+const Login = () => {
   const history = useHistory();
 
   const [email, setEmail] = useState("");
@@ -18,20 +18,19 @@ const Login = ({ isModalOpen, closeModal }) => {
       password: password,
     };
 
-    axios.post("https://api.eatmeup.me/auth/login", data).then((response)=> {
-      console.log(response.data)
-      if(response.data.success) {
-        history.push('/')
+    axios.post("https://api.eatmeup.me/auth/login", data).then((response) => {
+      console.log(response.data);
+      if (response.data.success) {
+        history.push("/");
       }
-      
-    })
+    });
   };
-  
+
   return (
     <>
       <Header id={2} />
       <LoginContainer>
-        <div className='modal'>
+        {/* <div className='modal'>
           <div OnClick={closeModal}>
             <div className='loginModal'>
               <span className='close' onClick={closeModal}>
@@ -71,7 +70,7 @@ const Login = ({ isModalOpen, closeModal }) => {
                 </button>
                 <div className='socialBox'>
                   <div className='google'>
-                    {/* <img className='googleLogo' src='../food_img/EatMeUp.png' /> */}
+                    {/* <img className='googleLogo' src='../food_img/EatMeUp.png' />
                     <div className='googleText'>구글계정으로 로그인</div>
                   </div>
                 </div>
@@ -84,7 +83,28 @@ const Login = ({ isModalOpen, closeModal }) => {
               </div>
             </div>
           </div>
-          
+        </div> */}
+        <div>
+          <form onSubmit={loginHandler}>
+            <div>
+              <label>email</label>
+              <input
+                type='text'
+                value={email}
+                onChange={(e) => setEmail(e.currentTarget.value)}
+              />
+            </div>
+            <div>
+              <label>password</label>
+              <input
+                value={password}
+                onChange={(e) => setPassword(e.currentTarget.value)}
+                type='password'
+              />
+            </div>
+            <button onClick={loginHandler}>Login</button>
+          </form>
+          <Link to='/signup'>회원가입하러 가기</Link>
         </div>
       </LoginContainer>
       <Footer />
