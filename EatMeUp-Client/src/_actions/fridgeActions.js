@@ -9,6 +9,7 @@ import axios from 'axios'
 
 import { foodData } from '../components/dummydata';
 
+// 등록된 유통기한을 디데이로 변환하는 함수
 const FOODS = foodData.map((type, typeIdx) => {
   const itemarray = type.items.map((food) => {
      const splited = food.life.split("-");
@@ -43,6 +44,9 @@ const FOODS = foodData.map((type, typeIdx) => {
      items: itemarray,
    };
  });
+
+
+
 /* 유저냉장고 정보 가져오기 */
 export const allFoods = () => {
   return {
@@ -60,13 +64,26 @@ export const saveFridgeInfo = (foodlist) => {
 }
 
 /* 냉장고에 음식정보 추가하기 */
-export const addToFridge = (food) => {
+export const addToFridge = (foodlist) => {
+
   return {
     type: NEW_FOOD_SUCCESS,
-    payload: food
+    payload: foodlist
   };
 }
+
 /* 냉장고에 저장된 음식 수정하기 */
+export const editFood = (foodId) => {
+  return {
+    type: EDIT_FOOD_SUCCESS,
+    payload: foodId
+  }
+}
 
 /* 냉장고에 저장된 음식 삭제하기 */
-
+export const deleteFood = (foodId) => {
+  return {
+    type: DELETE_FOOD_SUCCESS,
+    payload: foodId
+  }
+}

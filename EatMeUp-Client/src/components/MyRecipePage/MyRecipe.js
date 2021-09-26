@@ -7,6 +7,7 @@ import Footer from "../Util/Footer";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+import EmptyState from './sections/EmptyState'
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
@@ -41,7 +42,8 @@ const MyRecipe = () => {
 
             {/* 레시피 리스트 */}
             <ListBox>
-              <Card recipes={myRecipes} />
+              {/* <Card recipes={myRecipes} /> */}
+              <EmptyState />
             </ListBox>
           </ListContainer>
         </Container>

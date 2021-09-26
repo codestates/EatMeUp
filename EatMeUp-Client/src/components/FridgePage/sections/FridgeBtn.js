@@ -27,7 +27,7 @@ const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
     <FridgeBtnBox>
       <FridgeBtns>
         <FridgeButton
-          fillColor={showEditBtn ? theme.colors.lightgrey : theme.colors.yellow}
+          fillColor={showEditBtn ? theme.colors.lightgrey : "#F4C050"}
           onClick={openAddWindowHandler}
         >
           음식 추가
@@ -64,7 +64,6 @@ const FridgeBtns = styled.div`
 const FridgeButton = styled(LargeBtn)`
   font-weight: 500;
   font-size: 15px;
-  border: 1px solid #ced0ce;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   height: 80%;

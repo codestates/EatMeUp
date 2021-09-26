@@ -33,9 +33,7 @@ const MyInfo = () => {
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
-  @media screen and (max-width: 1500px){
-    width: 100%;
-  }
+ 
 `;
 
 const TitleBox = styled.div`

@@ -107,6 +107,8 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
        
       {foodList.map((type, typeIdx) => {
         return (
+
+          // 드랍영역
           <FoodContainer
             key={typeIdx}
             onDragEnter={
@@ -135,6 +137,8 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
 
             {type.items.map((food, foodIdx) => {
               return (
+
+                //냉장고 음식 박스 (drag하는 target)
                 <FoodBox
                   key={foodIdx}
                   draggable
@@ -165,6 +169,7 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
                     ></i>
                   </div>
                   <div className='food'>
+                    {/* 음식사진 */}
                     <img
                       src={`../food_img/${food.food_image}`}
                       alt='food'
@@ -176,6 +181,8 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
                           : { opacity: "1" }
                       }
                     />
+
+                    {/* 음식이름 */}
                     <div
                       draggable={false}
                       className='name_box'
@@ -188,11 +195,15 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
                       <div>
                         <span className='name'>{food.food_name}</span>
                       </div>
+
+                      {/* 구매일자 */}
                       <div>
                         <span className='date'>2021.09.20</span>
                       </div>
                     </div>
                   </div>
+
+                  {/* 남은 유통기한 */}
                   <div
                     draggable={false}
                     className='foodlife_box'
@@ -235,7 +246,6 @@ const FridgeHeader = styled.div`
 `;
 
 const FridgeButton = styled(SmallBtn)`
-  
   margin-right: 8px;
   font-weight: bold;
   border: 1px solid #ced0ce;
@@ -245,7 +255,6 @@ const FridgeButton = styled(SmallBtn)`
 `;
 
 const FridgeInnerBox = styled.div`
-  
   width: 1280px;
   min-height: 450px;
   margin: 0 auto;
@@ -264,6 +273,7 @@ const FoodContainer = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
   background-color: #ffffff;
 `;
+
 
 const FoodBox = styled.div`
   width: 88%;

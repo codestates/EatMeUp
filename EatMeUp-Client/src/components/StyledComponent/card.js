@@ -92,7 +92,7 @@ export const Recipe = styled.figure`
 
   img {
     width: 95%;
-    height: 250px;
+    height: 200px;
     border-radius: 20px;
     object-fit: cover;
     margin: 10px 7px 0px 7px;
@@ -106,7 +106,7 @@ export const Recipe = styled.figure`
     margin-left: 10px;
   }
 
-  .fa-stopwatch {
+  .fa-clock {
     color: gray;
     font-size: 12px;
   }

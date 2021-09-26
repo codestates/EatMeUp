@@ -34,8 +34,13 @@ const Sidebar = ({ id }) => {
                 }
                 color={currentId === idx ? "white" : theme.colors.black}
               >
-                <i className={item.icon} id="icon"></i>
-                {item.menu}
+                <div className="point">
+                  <i className={item.icon} id="icon"></i>
+                </div>
+                <div className="menu">
+                  {item.menu}
+                </div>
+                
               </MenuBtn>
             </Link>
           );
@@ -51,11 +56,17 @@ const SideMenu = styled.div`
   border-radius: 30px;
   align-items: left;
   margin: 0 2vw 0 4vw;
+  
+
+  a {
+    text-decoration: none;
+  }
   `;
 
 const MenuBtn = styled(XSmallBtn)`
   display: inline-block;
-  text-align: left;
+  display: flex;
+  align-items: center;
   width: 170px;
   height: 48px;
   transition: 0.3s;
@@ -65,13 +76,37 @@ const MenuBtn = styled(XSmallBtn)`
   font-family: Noto Sans KR;
   font-size: 14px;
   font-weight: 500;
+
   &:hover {
     background-color: ${theme.colors.yellow};
     cursor: pointer;
+    color: white;
   }
+
+  .point {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: white;
+    text-align: center;
+    line-height: 32px;
+    margin-left: 5px;
+  }
+
+  .menu {
+    margin-left: 10px;
+    font-size: 14px;
+    text-decoration: none;
+  }
+ 
+
   #icon {
-    margin: 10px 20px 10px 10px;
+    /* margin: 10px 20px 10px 10px; */
+    color: black;
+    font-size: 16px;
   }
+
+  
 `;
 
 export default Sidebar;

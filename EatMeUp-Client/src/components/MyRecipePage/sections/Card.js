@@ -38,7 +38,7 @@ const Card = ({ recipes }) => {
           <div className='recipe-info_box'>
             {/* 요리시간 */}
             <div className='time'>
-              <i class='fas fa-stopwatch'></i> 요리시간 20min
+              <i className='far fa-clock'></i> 요리시간 20min
             </div>
           </div>
 
@@ -77,6 +77,11 @@ const Recipes = styled(Recipe)`
 
   .fa-trash-alt {
     margin-top: 3px;
+  }
+
+  .fa-clock {
+    font-size: 12px;
+    margin: 0;
   }
 `;
 

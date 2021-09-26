@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -19,6 +19,43 @@ import theme from "../StyledComponent/theme";
 const CreateRecipe = () => {
   /* function */
 
+  //description
+  const [title, setTitle] = useState("")
+  const [description, setDescription] = useState("")
+
+  //add cooking info
+  const [cookingTime, setCookingTime] = useState("");
+  const [cookingLevel, setCookingLevel] = useState("");
+
+  //add materials
+  const [foodname, setFoodname] = useState("");
+  const [foodQuantity, setFoodQuantity] = useState("");
+  const [materials, setMaterials] = useState([])
+
+  //steps
+  const [menuals, setMenuals] = useState([]);
+  
+
+  
+
+
+  const createRecipeHandler = () => {
+    console.log('hello')
+
+    const newRecipe = {
+      title: title,
+      description: description,
+      main_image: "http://file.okdab.com/UserFiles/searching/recipe/000200.jpg",
+      cooking_time: cookingTime,
+      cooking_level: cookingLevel,
+      foods: materials,
+      steps: menuals
+    }
+    console.log(newRecipe)
+    
+  }
+
+
   return (
     <>
       <Header id={2} />
@@ -34,7 +71,11 @@ const CreateRecipe = () => {
               <TitleBox>
                 <div className='title'>New Recipe</div>
               </TitleBox>
-              <Description />
+              <Description 
+              title={title} 
+              setTitle={setTitle} 
+              description={description} 
+              setDescription={setDescription} />
             </MainDCBox>
 
              {/* 재료 추가 컴포넌트 */}
@@ -42,7 +83,12 @@ const CreateRecipe = () => {
               <div>
                 <div className='subtitle'>• 요리 정보</div>
               </div>
-              <CookInfo />
+              <CookInfo 
+              cookingTime={cookingTime}
+              setCookingTime={setCookingTime}
+              cookingLevel={cookingLevel}
+              setCookingLevel={setCookingLevel}
+              />
             </MainDCBox>
 
             {/* 재료 추가 컴포넌트 */}
@@ -50,7 +96,14 @@ const CreateRecipe = () => {
               <div>
                 <div className='subtitle'>• 재료 추가</div>
               </div>
-              <AddIngredient />
+              <AddIngredient 
+              foodname={foodname}
+              setFoodname={setFoodname}
+              foodQuantity={foodQuantity}
+              setFoodQuantity={setFoodQuantity}
+              materials={materials}
+              setMaterials={setMaterials}
+              />
             </MainDCBox>
 
             {/* 레시피 메뉴얼 작성 컴포넌트 */}
@@ -58,14 +111,19 @@ const CreateRecipe = () => {
               <div>
                 <div className='subtitle'>• 요리 레시피</div>
               </div>
-              <Steps />
+              <Steps 
+              menuals={menuals} 
+              setMenuals={setMenuals}
+              />
             </StepsBox>
 
             {/* 레시피 추가버튼 영역 */}
             <BtnContainer>
-              <LargeBtn fillColor={theme.colors.yellow}>
+              <AddBtn 
+              onClick={createRecipeHandler}
+              fillColor={theme.colors.yellow}>
                 레시피 추가하기
-              </LargeBtn>
+              </AddBtn>
             </BtnContainer>
           </BoxContainer>
         </Container>
@@ -139,4 +197,11 @@ const StepsBox = styled(SectionBox)`
   }
 `;
 
+const AddBtn = styled(LargeBtn)`
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+  }
+`
 export default CreateRecipe;

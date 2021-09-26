@@ -17,6 +17,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
     setOpenEditWindow(false);
   };
 
+  // 음식을 냉장고에 추가하는 핸들러
   const submitHandler = () => {};
   const dropHandler = () => {};
   const dataPickerHandler = () => {};
@@ -28,6 +29,8 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
             <i onClick={closeEditModal} className='fas fa-times'></i>
           </div>
           <form onSubmit={submitHandler}>
+
+            {/* 이미지 업로드 */}
             <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
               {({ getRootProps, getInputProps }) => (
                 <DropzoneArea {...getRootProps()}>
@@ -40,16 +43,19 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
               )}
             </Dropzone>
             <FoodInfoBox>
+              {/* 음식이름 입력창 */}
               <div className='foodname-box'>
                 <span>음식이름 : </span>
                 <input type='text' value={food.food_name} />
               </div>
 
+              {/* 구매일자 입력창 */}
               <div className='buydate-box'>
                 <span>구매일자 : </span>
                 <input onChange={dataPickerHandler} type='date' />
               </div>
 
+              {/* 유통기한 입력창 */}
               <div className='foodlife-box'>
                 <span>유통기한 : </span>
                 <input type='date' onChange={dataPickerHandler} />

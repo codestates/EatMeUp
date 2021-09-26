@@ -25,11 +25,11 @@
     "redux-thunk": "^2.3.0",
     "sass": "^1.41.1",
     "styled-components": "^5.3.1",
-    "swiper": "^7.0.6",
+    "swiper": "^6.8.4",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "HTTPS=true SSL_CRT_FILE=localhost+2.pem SSL_KEY_FILE=localhost+2-key.pem react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
