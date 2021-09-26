@@ -1,24 +1,36 @@
 import React, { useState } from "react";
-import AddIngre from "./AddFood/AddIngre";
-import { LargeBtn } from "../../StyledComponent/buttons";
 import styled from "styled-components";
+
+/* 컴포넌트 */
+import AddIngre from "./AddFood/AddIngre";
+
+/* 스타일 컴포넌트 */
+import { LargeBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
 
-const FridgeBtn = ({ showEditBtnHandler }) => {
+const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
 
+ 
   const [openAddWindow, setOpenAddWindow] = useState(false);
+
+
   const openAddWindowHandler = () => {
     setOpenAddWindow(true);
+
+    if(showEditBtn) {
+      setOpenAddWindow(false);
+    }
+
   };
   
   return (
     <FridgeBtnBox>
       <FridgeBtns>
         <FridgeButton
-          fillColor={theme.colors.yellow}
+          fillColor={showEditBtn ? theme.colors.lightgrey : theme.colors.yellow}
           onClick={openAddWindowHandler}
         >
-          음식 추가하기
+          음식 추가
         </FridgeButton>
       </FridgeBtns>
       <FridgeBtns>
@@ -26,7 +38,7 @@ const FridgeBtn = ({ showEditBtnHandler }) => {
           fillColor="#ffffff"
           onClick={showEditBtnHandler}
         >
-          음식 수정하기
+          {showEditBtn ? "수정 완료" : "음식 수정"}
         </FridgeButton>
       </FridgeBtns>
 
@@ -52,6 +64,7 @@ const FridgeBtns = styled.div`
 const FridgeButton = styled(LargeBtn)`
   font-weight: 500;
   font-size: 15px;
+  border: 1px solid #ced0ce;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   height: 80%;

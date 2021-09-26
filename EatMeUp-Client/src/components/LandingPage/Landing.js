@@ -7,6 +7,15 @@ const Landing = () => {
 
   const logoutHandler = (e) => {
     e.preventDefault();
+    axios
+      .get("https://api.eatmeup.me/auth/logout", { withCredentials: true })
+      .then((response) => {
+        if (response.data.success) {
+          history.push("/login");
+        } else {
+          alert("로그아웃에 실패");
+        }
+      });
   };
 
   return (

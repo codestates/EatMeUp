@@ -28,6 +28,7 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
             .startOf("week")
             .add(i, "day");
 
+          // 달력에서 투데이날짜를 표시
           if (moment().format("YYYYMMDD") === thisweekDays.format("YYYYMMDD")) {
             return (
               <WeekCell key={i}>
@@ -48,7 +49,6 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
                       <div>꽈리고추액젓무침</div>
                       <div>우채청포묵무침</div>
                       <div>꽃게된장국</div>
-                      
                     </MealCell>
                     <MealCell >
                       <span>저녁</span>
@@ -57,7 +57,6 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
                       <div>꽈리고추액젓무침</div>
                       <div>치킨까스*허니소스</div>
                       <div>꽃게된장국</div>
-                      
                     </MealCell>
                   </div>
               
@@ -84,6 +83,7 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
 
   return (
     <>
+      {/* 식단짜기버튼, 날짜핸들러, 월별/주별버튼 영역 */}
       <CalendarControls>
         <div>
           <Link to='/user/myplanner/create'>
@@ -123,6 +123,8 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
           <WeekBtn onClick={showWeekHandler}>Week</WeekBtn>
         </div>
       </CalendarControls>
+
+      {/* 달력영역 */}
       <div>
         <Table>
           <thead>
@@ -199,7 +201,7 @@ const RightControl = styled.button`
 `;
 
 const CalendarControls = styled.div`
-  width: 90%;
+  width: 92%;
   height: 150px;
   display: flex;
   align-items: center;
@@ -208,7 +210,7 @@ const CalendarControls = styled.div`
 `;
 
 const Table = styled.table`
-  width: 90%;
+   width: 93%;
   border-spacing: 10px;
   margin: 0 auto;
   margin-bottom: 10px;

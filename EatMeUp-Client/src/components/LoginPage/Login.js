@@ -17,6 +17,14 @@ const Login = ({ isModalOpen, closeModal }) => {
       email: email,
       password: password,
     };
+
+    axios.post("https://api.eatmeup.me/auth/login", data).then((response)=> {
+      console.log(response.data)
+      if(response.data.success) {
+        history.push('/')
+      }
+      
+    })
   };
   
   return (

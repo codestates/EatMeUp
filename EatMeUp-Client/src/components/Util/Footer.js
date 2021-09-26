@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <FooterBox>
       <div className='copyright'>
-        Copyright <i class='far fa-copyright'></i> 2021 by{" "}
+        Copyright <i className='far fa-copyright'></i> 2021 by{" "}
         <a href='https://github.com/codestates/EatMeUp'>
           <span className='eatmeup'>EatMeUp</span>
           <i className='fas fa-utensils fa-lg'></i>
