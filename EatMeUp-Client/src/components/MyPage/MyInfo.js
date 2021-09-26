@@ -42,12 +42,23 @@ const MyInfo = () => {
                 </Dropzone>
               </div>
               <div className='info_box'>
-                <div className='info'>username</div>
-                <Wrapper>
+                <div className='info1'>
+                  username
                   <input placeholder='김코딩' />
-                  <span className='underline'></span>
-                </Wrapper>
+                </div>
+                <div className='info2'>
+                  avatar
+                  <input placeholder='kimcoding' />
+                </div>
+                <div className='info3'>
+                  email
+                  <input placeholder='kimcoding@eatmeup.me' />
+                </div>
               </div>
+            </div>
+            <div className='btn_container'>
+              <EditButton>수정 완료</EditButton>
+              <DeleteButton>계정 삭제</DeleteButton>
             </div>
           </MyInfoContainer>
         </Container>
@@ -56,110 +67,6 @@ const MyInfo = () => {
     </div>
   );
 };
-
-const MyInfoContainer = styled(SectionBox)`
-  width: 77%;
-  min-height: 720px;
-  .info_container {
-    width: 100%;
-    height: 50%;
-    display: flex;
-  }
-  .profile_container {
-    width: 190px;
-    height: 190px;
-    margin: 30px 60px;
-    /* border: 2px solid ${theme.colors.lightgrey}; */
-    color: ${theme.colors.lightgrey};
-    /* border-radius: 100%; */
-    display: flex;
-    position: relative;
-    #userimg {
-      margin: auto;
-      color: ${theme.colors.lightgrey};
-    }
-  }
-  .profileImg_box {
-    width: 30%;
-    height: 30%;
-    border-radius: 30px;
-    /* border: 2px solid ${theme.colors.lightgrey}; */
-    display: flex;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    justify-content: center;
-    align-items: center;
-    font-size: 40px;
-    color: ${theme.colors.gray};
-    cursor: pointer;
-  }
-  .info_box {
-    display: float;
-    width: 80%;
-  }
-  .info {
-    display: flex;
-    margin: 40px;
-    font-size: 17px;
-    width: 100px;
-  }
-`;
-
-const Wrapper = styled.div`
-  /* border: 1px solid ${theme.colors.yellow};
-  border-radius: 2px; */
-  /* box-sizing: border-box; */
-  width: 400px;
-  height: 50px;
-  margin: 32px;
-  /* left: 50%; */
-  /* margin: -150px 0 0 -150px; */
-  /* position: absolute; */
-  /* top: 50%; */
-  input {
-    background-color: transparent;
-    border: none;
-    color: #555;
-    box-sizing: border-box;
-    font-family: "Arvo";
-    font-size: 18px;
-    /* height: 50px; */
-    /* left: 50%; */
-    padding: 10px 0px;
-    position: relative;
-    /* top: 50%; */
-    width: 200px;
-    &:focus {
-      outline: none;
-    }
-  }
-  .underline {
-    background-color: ${theme.colors.black};
-    /* display: inline-block; */
-    height: 2px;
-    width: 400px;
-    margin: 40px auto;
-    left: 810px;
-    position: absolute;
-    /* top: 185px; */
-    -webkit-transform: scale(0, 1);
-    transform: scale(0, 1);
-    -webkit-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-  }
-  input {
-    -webkit-input-placeholder {
-      color: #aaa;
-    }
-    :focus::-webkit-input-placeholder {
-      color: ${theme.colors.black};
-    }
-    :focus + .underline {
-      transform: scale(1);
-    }
-  }
-`;
 
 const TitleBox = styled.div`
   width: 100%;
@@ -172,6 +79,116 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
+`;
+
+const MyInfoContainer = styled(SectionBox)`
+  width: 77%;
+  min-height: 720px;
+  .info_container {
+    width: 100%;
+    height: 485px;
+  }
+  .profile_container {
+    width: 190px;
+    height: 190px;
+    margin: 0 auto;
+    color: ${theme.colors.lightgrey};
+    display: flex;
+    position: relative;
+    #userimg {
+      margin: auto;
+      color: ${theme.colors.lightgrey};
+    }
+  }
+  .profileImg_box {
+    width: 30%;
+    height: 30%;
+    border-radius: 30px;
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    color: ${theme.colors.gray};
+    i {
+      &:hover {
+        cursor: pointer;
+        color: ${theme.colors.black};
+      }
+    }
+  }
+  .info_box {
+    width: 400px;
+    margin: 40px auto;
+  }
+  .info1 {
+    text-align: center;
+    margin: 20px 10px;
+    font-size: 17px;
+    width: 100%;
+    height: 50px;
+  }
+  .info2 {
+    text-align: center;
+    margin: 20px 24px;
+    font-size: 17px;
+    width: 100%;
+    height: 50px;
+  }
+  .info3 {
+    text-align: center;
+    margin: 20px 24px;
+    font-size: 17px;
+    width: 100%;
+    height: 50px;
+  }
+  input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid ${theme.colors.lightgrey};
+    color: #555;
+    box-sizing: border-box;
+    font-size: 18px;
+    height: 50px;
+    width: 250px;
+    font-family: "Noto Sans KR";
+    margin: 0 30px;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid ${theme.colors.black};
+      transition: all 0.2s ease-in-out;
+    }
+  }
+  .btn_container {
+    width: 400px;
+    margin: 0 auto;
+  }
+`;
+
+const EditButton = styled(LargeBtn)`
+  width: 180px;
+  height: 50px;
+  margin: 0 10px;
+  background-color: ${theme.colors.yellow};
+  color: ${theme.colors.black};
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Noto Sans KR";
+  cursor: pointer;
+  `;
+const DeleteButton = styled(LargeBtn)`
+  width: 180px;
+  height: 50px;
+  margin: 0 10px;
+  background-color: white;
+  border: 1px solid ${theme.colors.lightgrey};
+  color: ${theme.colors.black};
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Noto Sans KR";
+  cursor: pointer;
 `;
 
 export default MyInfo;
