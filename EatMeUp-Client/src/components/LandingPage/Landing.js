@@ -1,24 +1,19 @@
-import React from 'react'
-import { useHistory } from 'react-router-dom'
-import axios from 'axios'
+import React from "react";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Landing = () => {
-
   const history = useHistory();
 
   const logoutHandler = (e) => {
     e.preventDefault();
-
-
-  }
+  };
 
   return (
     <div>
-      <button
-      onClick={logoutHandler}
-      >Logout</button>
+      <button onClick={logoutHandler}>Logout</button>
     </div>
-  )
-}
+  );
+};
 
-export default Landing
+export default Landing;

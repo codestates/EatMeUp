@@ -26,7 +26,7 @@ const CreateRecipe = () => {
         <Container>
 
           {/* 사이드바 컴포넌트 */}
-          <Sidebar />
+          <Sidebar id={1}/>
          
          {/* 레시피 만들기 컨테이너 */}
           <BoxContainer>
@@ -68,8 +68,7 @@ const CreateRecipe = () => {
 
 
 const BoxContainer = styled.div`
-  width: 85%;
-  margin-left: 20px;
+  width: 77%;
 `;
 
 const BtnContainer = styled.div`
@@ -87,9 +86,11 @@ const TitleBox = styled.div`
   font-weight: bold;
   font-size: 30px;
   text-indent: 30px;
-  line-height: 100px;
+  line-height: 90px;
   display: flex;
   justify-content: space-between;
+  margin: 0px 20px 0px 20px;
+  padding: 10px;
 `;
 
 const MainDCBox = styled(SectionBox)`
