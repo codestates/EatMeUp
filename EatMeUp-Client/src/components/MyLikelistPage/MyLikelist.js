@@ -22,7 +22,7 @@ const MyLikelist = () => {
       <section>
         <Container>
           {/* 사이드바영역 */}
-          <Sidebar />
+          <Sidebar id={2}/>
 
           {/* 좋아요한 레시피 리스트 영역 */}
           <ListContainer>
@@ -43,14 +43,12 @@ const MyLikelist = () => {
   );
 };
 
-const ListContainer = styled.div`
-  width: 75%;
-  min-height: 720px;
-  margin: 0 auto;
-
+const ListContainer = styled(SectionBox)`
+  width: 77%;
+  /* min-height: 720px;
   @media screen and (max-width: 1500px){
     width: 100%;
-  }
+  } */
 `;
 
 const TitleBox = styled.div`
@@ -62,6 +60,8 @@ const TitleBox = styled.div`
   line-height: 90px;
   display: flex;
   justify-content: space-between;
+  margin: 5px 20px 10px 20px;
+  padding: 10px;
 `;
 
 const Button = styled(LargeBtn)`
@@ -71,14 +71,17 @@ const Button = styled(LargeBtn)`
   cursor: pointer;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   border: 1px solid white;
+  margin: 10px;
 `;
 
 const ListBox = styled.div`
   width: 95%;
+  max-width: 1329px;
   margin: 0 auto;
   min-height: 720px;
-  column-width: 250px;
+  column-width: 300px;
   gap: 15px;
+  padding: 10px;
 `;
 
 export default MyLikelist;

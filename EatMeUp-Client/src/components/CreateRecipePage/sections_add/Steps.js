@@ -79,7 +79,7 @@ const AddRecipeArea = styled.div`
 `;
 
 const AddRecipeBox = styled.div`
-  width: 90%;
+  width: 95%;
   margin: 0 auto;
   margin-top: 15px;
 
@@ -121,7 +121,7 @@ const AddRecipeBox = styled.div`
   }
 
   .recipe-dc_box > textarea {
-    width: 95%;
+    width: 100%;
     height: 98%;
     border-radius: 10px;
     border: 2px solid ${theme.colors.lightgrey};
@@ -139,7 +139,7 @@ const BtnArea = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 20px 0px;
+  margin: 10px auto;
 `;
 
 const PlusBtn = styled.div`

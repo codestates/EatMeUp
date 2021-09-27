@@ -9,14 +9,20 @@ const MealPlanCard = () => {
     <>
       {mealplan.map((plan, idx) => {
         return (
+
+          // 아침/점심/저녁 식단짜는 영역
           <PlanCard key={idx}>
             <span>{plan}</span>
+
+            {/* 식단을 직접입력하는 영역 */}
             <AddTodo>
               <div className='input'>
                 <input type='text' placeholder='식단을 추가해보세요.' />
               </div>
               <div className='addBtn'>추가</div>
             </AddTodo>
+
+            {/* 입력된 식단을 보여주는 영역 */}
             <Plans>
               <MealPlan>
                 <div className="planmeal-img">
@@ -37,7 +43,7 @@ const PlanCard = styled.div`
   min-height: 400px;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-  border-radius: 20px;
+  border-radius: 30px;
   margin-top: 10px;
   line-height: 30px;
   font-size: 15px;
@@ -57,7 +63,7 @@ const AddTodo = styled.div`
   .input {
     width: 75%;
     height: 35px;
-    border-radius: 10px 0px 0px 10px;
+    border-radius: 20px 0px 0px 20px;
     border: 1px solid ${theme.colors.lightgrey};
     font-size: 13px;
   }
@@ -73,7 +79,7 @@ const AddTodo = styled.div`
   }
 
   .addBtn {
-    border-radius: 0px 10px 10px 0px;
+    border-radius: 0px 20px 20px 0px;
     width: 25%;
     height: 35px;
     font-size: 12px;

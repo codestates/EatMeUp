@@ -108,7 +108,7 @@ export const Recipe = styled.figure`
 
   .fa-stopwatch {
     color: gray;
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .title_box {

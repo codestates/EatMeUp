@@ -4,6 +4,7 @@ import styled from "styled-components";
 import theme from "../../StyledComponent/theme";
 
 const RecipeCard = styled.figure`
+ border: 1px solid #e6e8e6;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   background-color: #ffffff;
@@ -11,7 +12,8 @@ const RecipeCard = styled.figure`
   width: 100%;
   margin: 0;
   margin-bottom: 30px;
-  
+  position: relative;
+  cursor: pointer;
 
   img {
     width: 95%;
@@ -35,6 +37,7 @@ const RecipeCard = styled.figure`
   }
 
   .title_box {
+    font-size: 18px;
     text-indent: 5px;
     margin-left: 15px;
     font-weight: 500;
@@ -78,6 +81,26 @@ const RecipeCard = styled.figure`
   .username {
     font-size: 12px;
   }
+
+  .cooking-level {
+    position: absolute;
+    top: 270px;
+    left: 25px;
+    width: 80px;
+    height: 35px;
+    border-radius: 30px;
+    background-color: black;
+    color: white;
+    text-align: center;
+    line-height: 33px;
+    opacity: 0;
+    transition: all 0.3s;
+  }
+  
+  &:hover .cooking-level{
+    opacity: 1;
+  }
+
 `;
 
 const Card = ({ recipe }) => {
@@ -100,9 +123,6 @@ const Card = ({ recipe }) => {
         </div>
         <div className='title_box'>{recipe.title}</div>
         <div className='recipe-ingre_box'>
-          {/* <div className='ingre-label'>
-            <span>주재료</span>
-          </div> */}
           <div className='ingres'>
             <span>#돼지전지</span>
             <span>#양파</span>
@@ -110,6 +130,7 @@ const Card = ({ recipe }) => {
           </div>
         </div>
       </figcaption>
+      <div className="cooking-level">EASY</div>
     </RecipeCard>
   );
 };

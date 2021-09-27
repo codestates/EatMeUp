@@ -11,7 +11,7 @@ const Description = () => {
     <DescriptionBox>
       <DCBox>
         <div>
-          <span>레시피 이름</span>
+          
           <input type='text' placeholder='음식 제목을 입력해 주세요.' />
         </div>
         <div>
@@ -34,7 +34,7 @@ const Description = () => {
 };
 
 const DescriptionBox = styled.div`
-  width: 90%;
+  width: 100%;
   height: 300px;
   margin: 0 auto;
   margin-bottom: 8px;
@@ -43,7 +43,7 @@ const DescriptionBox = styled.div`
 `;
 
 const ImageBox = styled.div`
-  width: 45%;
+  width: 40%;
   height: 85%;
   border: 2px solid ${theme.colors.lightgrey};
   border-radius: 20px;
@@ -59,7 +59,7 @@ const ImageBox = styled.div`
 const DCBox = styled.div`
   width: 50%;
   height: 90%;
-  margin: 8px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,6 +70,7 @@ const DCBox = styled.div`
   }
 
   input {
+    margin-top: 15px;
     width: 100%;
     height: 40px;
     border-radius: 10px;
@@ -79,7 +80,7 @@ const DCBox = styled.div`
 
   textarea {
     width: 100%;
-    min-height: 160px;
+    min-height: 190px;
     margin-top: 10px;
     border-radius: 10px;
     border: 2px solid ${theme.colors.lightgrey};
