@@ -20,12 +20,12 @@ userRouter
   .put(putInfo)
   .delete(deleteInfo);
 
-userRouter.route("/likelist").all(auth).post(addLikeRecipe);
+userRouter.route("/likelist").all(auth).get(getLikeList);
 
 userRouter
   .route("/likelist/:id")
   .all(auth)
-  .get(getLikeList)
+  .post(addLikeRecipe)
   .delete(delLikeRecipe);
 
 module.exports = userRouter;

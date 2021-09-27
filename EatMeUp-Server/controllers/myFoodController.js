@@ -48,7 +48,6 @@ const getFood = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "load success",
-      foods: userFood.Food,
       foodData: frezFoods,
     });
   } catch (error) {
@@ -106,4 +105,35 @@ const delFood = async (req, res) => {
   }
 };
 
-module.exports = { addFood, getFood, modFood, delFood };
+const modType = async (req, res) => {
+  try {
+    const chgFoods = toDB(req.body);
+
+    const updataFood = async () => {
+      for (let [_, food] of chgFoods.entries()) {
+        const modFoodId = food.id;
+
+        const modFood = await Food.findOne({ where: { id: modFoodId } });
+
+        modFood.frez_type = food.frez_type;
+
+        await modFood.save();
+      }
+    };
+
+    updataFood();
+
+    res.status(200).json({
+      success: true,
+      message: "edit success",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "delete fail",
+      error: error,
+    });
+  }
+};
+
+module.exports = { addFood, getFood, modFood, delFood, modType };
