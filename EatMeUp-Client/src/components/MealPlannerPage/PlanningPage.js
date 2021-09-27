@@ -83,7 +83,6 @@ const TitleBox = styled.div`
   width: 95%;
   height: 100px;
   margin: 0 auto;
-
   input {
     height: 40px;
     width: 220px;
@@ -98,7 +97,6 @@ const ThisMonth = styled.span`
   font-weight: bold;
   font-size: 30px;
   color: #303030;
-
   input {
   }
 `;

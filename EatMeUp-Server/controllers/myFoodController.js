@@ -130,7 +130,7 @@ const modType = async (req, res) => {
   } catch (error) {
     res.status(400).json({
       success: false,
-      message: "delete fail",
+      message: "edit fail",
       error: error,
     });
   }
