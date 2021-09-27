@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { XSmallBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
+
 const Header = ({ id }) => {
   const menu = [
     { menu: "모든 레시피", link: "/recipes" },
@@ -12,9 +13,14 @@ const Header = ({ id }) => {
   ];
   const [currentIdx, setCurrentIdx] = useState(id);
 
+  const logoutHandler = (e) => {
+    e.preventDefault();
+  };
+
   const tabHandler = (idx) => {
     setCurrentIdx(idx);
   };
+
   return (
     <EatMeUpHeader>
       <LogoContainer>
@@ -57,7 +63,7 @@ const MenuButton = styled(XSmallBtn)`
   border: none;
   font-family: Noto Sans KR;
   font-size: 17px;
-  font-weight: 500;
+  font-weight: 400;
   &:hover {
     background-color: ${theme.colors.yellow};
     cursor: pointer;
@@ -74,7 +80,7 @@ const EatMeUpHeader = styled.div`
 `;
 
 const LogoContainer = styled.div`
-  width: 190px;
+  width: 180px;
   height: 80%;
   margin-left: 5vw;
   img {

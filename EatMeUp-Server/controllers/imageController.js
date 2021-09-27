@@ -26,7 +26,8 @@ const s3url = async (req, res) => {
     const params = {
       Bucket: bucketName,
       Key: imageName,
-      Expires: 60,
+      Expires: 300,
+      ContentType: "multipart/form-data",
     };
     //s3url 요청
     const uploadURL = await s3.getSignedUrlPromise("putObject", params);
