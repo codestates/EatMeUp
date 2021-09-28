@@ -3,7 +3,7 @@ import styled from "styled-components";
 /* button tag area */
 export const Button = styled.button`
   width: ${(props) => (props.width ? props.width : "100px")};
-  height: ${(props) => props.heightSize}
+  height: ${(props) => (props.height ? props.height : "30px")} ;
   background-color: ${(props) => (props.fillColor ? props.fillColor : "black")};
   color: ${(props) => (props.color ? props.color : "black")};
   border-radius: 30px;

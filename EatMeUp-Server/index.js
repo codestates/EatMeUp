@@ -6,6 +6,7 @@ const app = express();
 const port = 80;
 const { sequelize } = require("./models");
 const authRouter = require("./routers/authRouters");
+const foodRouter = require("./routers/foodRouters");
 const imageRouter = require("./routers/imageRouters");
 const userRouter = require("./routers/userRouters");
 const apiRouter = require("./routers/apiRouters");

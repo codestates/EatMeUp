@@ -4,10 +4,10 @@ const colors = {
   yellow: "#FEBD2F",
   red: "#FF0000",
   gray: "#A9A7A3",
-  lightgrey: "#EAEAEA",
+  lightgrey: "#e5e5e5",
   background: "#F8F8F8",
   black: "#303030",
-  darkgray: "#505050"
+  darkgrey: "#505050",
 };
 
 const fontSizes = {
@@ -57,7 +57,6 @@ const deviceSizes = {
   tabletL: "1024px",
 };
 
-
 const device = {
   mobileS: `only screen and (max-width: ${deviceSizes.mobileS})`,
   mobileM: `only screen and (max-width: ${deviceSizes.mobileM})`,
@@ -68,5 +67,11 @@ const device = {
 
 const theme = {
   colors,
+  device,
+  fontSizes,
+  paddings,
+  margins,
+  interval,
+  verticalInterval,
 };
 export default theme;

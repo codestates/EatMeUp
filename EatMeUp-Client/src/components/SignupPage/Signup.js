@@ -20,6 +20,14 @@ const Signup = () => {
       password: password
     }
 
+    axios.post("https://api.eatmeup.me/auth/signup", data).then((response) => {
+      console.log(response)
+      if(response.data.success) {
+        history.push('/login')
+      }
+      
+    })
+
     
   }
   return (
@@ -35,7 +43,7 @@ const Signup = () => {
       <div
         style={{ width: "300px", height: "150px", border: "1px solid black" }}
       >
-        <form>
+        <form onSubmit={signupHandler}>
           <div>
             <label>name</label>
             <input
@@ -60,7 +68,7 @@ const Signup = () => {
               type='password'
             />
           </div>
-          <button onClick={signupHandler}>Login</button>
+          <button onClick={signupHandler}>Sign up</button>
         </form>
         <Link to='/login'>로그인 하러 가기</Link>
       </div>

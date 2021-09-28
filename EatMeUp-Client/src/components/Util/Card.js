@@ -7,6 +7,7 @@ const RecipeCard = styled.div`
   margin: 20px;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 25px;
+  background-color: #ffffff;
   position: relative;
 
   .recipe-card-tag {
@@ -20,7 +21,6 @@ const RecipeCard = styled.div`
     text-align: center;
     line-height: 35px;
   }
-
 
   .recipe-dc-left_box {
     width: 80%;
@@ -83,8 +83,6 @@ const RecipeCard = styled.div`
     background-color: #eaeaea;
   }
 
-
-
   .userimg_box {
     width: 50px;
     height: 50px;
@@ -100,23 +98,12 @@ const RecipeCard = styled.div`
 
   .username_box {
     font-size: 12px;
-    
   }
 `;
 
 const Card = () => {
   return (
-    <div
-      style={{
-        backgroundColor: "white",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr 1fr",
-        width: "70%",
-        margin: "2rem auto"
-      }}
-    >
-      {["제육볶음", "스파게티", "소갈비찜", "제육볶음", "스파게티", "소갈비찜", "제육볶음", "스파게티", "소갈비찜"].map((food, idx) => {
-        return (
+   
           <RecipeCard>
             <div className='recipe-card-tag'>Medium</div>
             <div className='recipe-img_box'>
@@ -128,7 +115,7 @@ const Card = () => {
             </div>
             <div className='recipe-dc_box'>
               <div className='recipe-dc-left_box'>
-                <div className='recipe-title_box'>{food}</div>
+                <div className='recipe-title_box'>제육볶음</div>
                 <div className='recipe-ingre_box'>
                   <div className='recipe-ingre-label'>
                     <span>주재료</span>
@@ -137,8 +124,6 @@ const Card = () => {
                     <span>돼지전지</span>
                     <span>양파</span>
                     <span>대파</span>
-                
-                  
                   </div>
                 </div>
               </div>
@@ -152,9 +137,7 @@ const Card = () => {
               </div>
             </div>
           </RecipeCard>
-        );
-      })}
-    </div>
+       
   );
 };
 
