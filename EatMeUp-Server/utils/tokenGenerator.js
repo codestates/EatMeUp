@@ -12,4 +12,19 @@ const genRefreshToken = (userData) =>
     expiresIn: "7d",
   });
 
-module.exports = { genAccessToken, genRefreshToken };
+const genGuestAccessToken = (userData) =>
+  jwt.sign(userData, config.accessSecret, {
+    expiresIn: "30m",
+  });
+
+const genGuestRefreshToken = (userData) =>
+  jwt.sign(userData, config.refreshSecret, {
+    expiresIn: "30m",
+  });
+
+module.exports = {
+  genAccessToken,
+  genRefreshToken,
+  genGuestAccessToken,
+  genGuestRefreshToken,
+};
