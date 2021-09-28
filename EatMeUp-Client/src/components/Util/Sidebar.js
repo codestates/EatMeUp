@@ -14,7 +14,7 @@ const Sidebar = ({ id }) => {
       link: "/user/myplanner",
       icon: "far fa-calendar-alt",
     },
-    { menu: "My Info", link: "/user/info", icon: "fas fa-user" },
+    { menu: "MyInfo", link: "/user/info", icon: "fas fa-user" },
   ];
 
   const [currentId, setcurrentId] = useState(id);
