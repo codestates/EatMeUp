@@ -6,24 +6,30 @@ import styled from "styled-components";
 import theme from "../../StyledComponent/theme";
 import { MiddleBtn } from "../../StyledComponent/buttons";
 
-const AddIngredient = () => {
+const AddIngredient = ({ foodname, setFoodname, foodQuantity, setFoodQuantity, materials, setMaterials }) => {
   /* function */
-  const [ingredientTag, setIngredientTag] = useState([]);
-  const [foodname, setFoodname] = useState("");
-  const [foodQuantity, setFoodQuantity] = useState("");
 
+  const [ingredientTag, setIngredientTag] = useState([]); //재료태그
+  
+  //재료 추가하는 핸들러
   const AddIngredientHandler = (e) => {
     e.preventDefault();
 
     const tag = foodname + foodQuantity;
+    const material = {
+      name: foodname,
+      capacity: foodQuantity
+    }
     if (tag === "") {
       return;
     }
     setIngredientTag([...ingredientTag, tag]);
     setFoodname("");
     setFoodQuantity("");
+    setMaterials([...materials, material])
   };
-
+  
+  //추가된 재료 삭제하는 핸들러
   const deleteIngredientHandler = (idx) => {
     const deleteTag = ingredientTag.filter((tag, id) => {
       if (id !== idx) {
@@ -34,13 +40,15 @@ const AddIngredient = () => {
     setIngredientTag(deleteTag);
   };
 
+  
+
   return (
     <AddIngredientBox>
      
       {/* 재료 추가 작성 영역 */}
       <FlexContainer>
         <input
-          onChange={(e) => setFoodname(e.currentTarget.value)}
+          onChange={(e) =>  setFoodname(e.currentTarget.value)}
           value={foodname}
           placeholder='재료 이름을 적어주세요'
           type='text'
@@ -124,6 +132,7 @@ const AddIngreBtn = styled(MiddleBtn)`
   color: white;
   font-weight: bold;
   font-size: 16px;
+  border-radius: 10px;
 `;
 
 export default AddIngredient;

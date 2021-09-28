@@ -1,22 +1,35 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux'
+import axios from 'axios'
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+import EmptyState from './sections/EmptyState'
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
-/* 데이터 */
-import { myRecipes } from "../dummydata";
-
 const MyRecipe = () => {
+
+  const { recipes } = useSelector(state => state.allRecipes)
+
+  useEffect(() => {
+    axios.get('https://api.eatmeup.me/myRecipe/info', {withCredentials: true}).then(response => {
+    if(response.data) {
+      console.log(response.data)
+    }
+  })
+
+  }, [])
+  
+
   return (
     <>
       <Header id={2} />
@@ -41,7 +54,8 @@ const MyRecipe = () => {
 
             {/* 레시피 리스트 */}
             <ListBox>
-              <Card recipes={myRecipes} />
+              <Card recipes={recipes} />
+              {/* <EmptyState /> */}
             </ListBox>
           </ListContainer>
         </Container>

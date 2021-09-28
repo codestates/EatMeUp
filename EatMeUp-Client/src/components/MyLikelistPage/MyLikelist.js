@@ -64,15 +64,6 @@ const TitleBox = styled.div`
   padding: 10px;
 `;
 
-const Button = styled(LargeBtn)`
-  margin-right: 20px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid white;
-  margin: 10px;
-`;
 
 const ListBox = styled.div`
   width: 95%;

@@ -18,6 +18,7 @@ const Card = ({ recipes }) => {
               <span className='username'>Segyondgdgg</span>
             </div>
           </div>
+
           {/* 삭제버튼과 수정버튼 영역 */}
           <div>
             <div className='recipe-dc-right_box'>
@@ -26,18 +27,22 @@ const Card = ({ recipes }) => {
             </div>
           </div>
         </div>
+
         {/* 레시피메인이미지사진 영역 */}
         <img src={recipe.main_image} alt='recipe' className='recipe-img' />
+
         {/* figure태그의 캡션 */}
         <figcaption>
           <div className='recipe-info_box'>
             {/* 요리시간 */}
             <div className='time'>
-              <i class='fas fa-stopwatch'></i> 요리시간 20min
+              <i className='far fa-clock'></i> 요리시간 20min
             </div>
           </div>
+
           {/* 레시피제목 */}
           <div className='title_box'>{recipe.title}</div>
+
           {/* 레시피 주재료들 */}
           <div className='recipe-ingre_box'>
             <div className='ingres'>
@@ -53,7 +58,7 @@ const Card = ({ recipes }) => {
 };
 
 const Recipes = styled(Recipe)`
- border: 1px solid #e6e8e6;
+  border: 1px solid #e6e8e6;
   .userprofile_box {
     display: flex;
     justify-content: space-between;
@@ -73,6 +78,10 @@ const Recipes = styled(Recipe)`
     margin-top: 3px;
     font-size: 20px;
     margin-right: 10px;
+  }
+  .fa-clock {
+    font-size: 12px;
+    margin: 0;
   }
 `;
 
