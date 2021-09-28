@@ -28,7 +28,7 @@ const Header = ({ id }) => {
           <Link to="/"><img src='../food_img/EatMeUp.png' alt='logo' /></Link>
         </div>
         <div className='menuBtns'>
-          <Link to='/recipes/result'>
+          <Link to='/recipes'>
             <div className='menu left'>모든레시피</div>
           </Link>
 

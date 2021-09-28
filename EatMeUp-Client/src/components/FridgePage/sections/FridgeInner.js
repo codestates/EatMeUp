@@ -14,6 +14,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
+
   const [filtered, setFiltered] = useState(null);
   const [alreadyHas, setAlreadyHas] = useState(false);
   const [state, setState] = useState({
