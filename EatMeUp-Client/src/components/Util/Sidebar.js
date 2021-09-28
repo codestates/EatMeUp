@@ -71,6 +71,9 @@ const SideMenu = styled.div`
 
 const MenuBtn = styled(XSmallBtn)`
   width: 170px;
+  height: 48px;
+  display: flex;
+  align-items: center;
   border: solid 1px ${theme.colors.lightgrey};
   margin: 0 0 15px 15px;
   font-family: "Noto Sans KR";
@@ -89,7 +92,6 @@ const MenuBtn = styled(XSmallBtn)`
     border-radius: 50%;
     background-color: white;
     text-align: center;
-    line-height: 32px;
     margin-left: 5px;
   }
 
@@ -101,7 +103,7 @@ const MenuBtn = styled(XSmallBtn)`
  
 
   #icon {
-    /* margin: 10px 20px 10px 10px; */
+    margin: 8px 8px 10px 8px;
     color: black;
     font-size: 16px;
   }
