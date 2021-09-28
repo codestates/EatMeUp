@@ -4,20 +4,32 @@ import Dropzone from "react-dropzone";
 
 import theme from "../../StyledComponent/theme";
 
-const Description = () => {
+const Description = ({ title, setTitle, description, setDescription }) => {
+
 
   const dropHandler = () => {}
   return (
     <DescriptionBox>
       <DCBox>
+        {/* 레시피 제목 입력창 */}
         <div>
-          
-          <input type='text' placeholder='음식 제목을 입력해 주세요.' />
+          <input 
+          value={title}
+          onChange={(e) => setTitle(e.currentTarget.value)}
+          type='text' 
+          placeholder='음식 제목을 입력해 주세요.' />
         </div>
+
+        {/* 레시피 설명 입력창 */}
         <div>
-          <textarea placeholder='음식에 대한 설명을 입력해 주세요.'></textarea>
+          <textarea 
+          value={description}
+          onChange={(e) => setDescription(e.currentTarget.value)}
+          placeholder='음식에 대한 설명을 입력해 주세요.'></textarea>
         </div>
       </DCBox>
+
+      {/* 이미지 업로드 */}
       <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
         {({ getRootProps, getInputProps }) => (
           <ImageBox {...getRootProps()}>

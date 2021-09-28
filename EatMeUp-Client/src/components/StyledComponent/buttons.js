@@ -8,6 +8,7 @@ export const Button = styled.button`
   color: ${(props) => (props.color ? props.color : "black")};
   border-radius: 30px;
   border: none;
+  cursor: pointer;
 `;
 
 export const XSmallBtn = styled.button`
@@ -17,6 +18,7 @@ export const XSmallBtn = styled.button`
   border: none;
   background-color: ${(props) => (props.fillColor ? props.fillColor : "black")};
   color: ${(props) => (props.color ? props.color : "black")};
+  cursor: pointer;
 `;
 
 export const SmallBtn = styled.button`
@@ -26,6 +28,7 @@ export const SmallBtn = styled.button`
   border: none;
   background-color: ${(props) => (props.fillColor ? props.fillColor : "black")};
   color: ${(props) => (props.color ? props.color : "black")};
+  cursor: pointer;
 `;
 
 export const MiddleBtn = styled.button`
@@ -35,6 +38,7 @@ export const MiddleBtn = styled.button`
   border: none;
   background-color: ${(props) => (props.fillColor ? props.fillColor : "black")};
   color: ${(props) => (props.color ? props.color : "black")};
+  cursor: pointer;
 `;
 
 export const LargeBtn = styled.button`
@@ -44,5 +48,6 @@ export const LargeBtn = styled.button`
   border: none;
   background-color: ${(props) => (props.fillColor ? props.fillColor : "black")};
   color: ${(props) => (props.color ? props.color : "black")};
+  cursor: pointer;
 `;
 

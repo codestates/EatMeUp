@@ -14,9 +14,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
-  // const { foods } = useSelector((state) => state.allFoods);
-
-
   const [filtered, setFiltered] = useState(null);
   const [alreadyHas, setAlreadyHas] = useState(false);
   const [state, setState] = useState({
@@ -60,7 +57,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
   /* 신선버튼 핸들러 */
   const GreenFoodHandler = (idx) => {
     const freshFood = foods.map((food) => {
-      if (idx === food.type) {
+      if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
           if (item.life > 30) {
             return item;
@@ -77,14 +74,14 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
         };
       }
     });
-    console.log(freshFood);
+ 
     setFiltered(freshFood);
   };
 
   /* 보통버튼 핸들러 */
   const yellowFoodHandler = (idx) => {
     const yellowFood = foods.map((food) => {
-      if (idx === food.type) {
+      if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
           if (item.life < 30 && item.life > 7) {
             return item;
@@ -106,8 +103,9 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
   /* 위험버튼 핸들러 */
   const redFoodHandler = (idx) => {
+    console.log(typeof idx)
     const redFood = foods.map((food) => {
-      if (idx === food.type) {
+      if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
           if (item.life <= 7) {
             return item;
@@ -154,6 +152,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
         {!filtered ? foods.map((type, typeIdx) => {
           return (
             <FoodContainer key={typeIdx}>
+              
               {/* 냉장고 재료 핸들러 버튼영역 */}
               <FridgeHeader>
                 <div className='type_box'>
@@ -215,6 +214,8 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
           );
         }) : filtered.map((type, typeIdx) => {
           return (
+
+          //  신선, 보통, 위험버튼눌렀을 때
             <FoodContainer key={typeIdx}>
               {/* 냉장고 재료 핸들러 버튼영역 */}
               <FridgeHeader>
@@ -292,7 +293,7 @@ const FridgeHeader = styled.div`
   font-size: 20px;
   font-weight: bold;
   margin: 0 auto;
-  border-bottom: 1px solid #ced0ce;
+  border-bottom: 1px solid ${theme.colors.lightgrey};
 
   .type {
     cursor: pointer;
@@ -305,7 +306,7 @@ const FridgeHeader = styled.div`
 `;
 
 const FridgeButton = styled(SmallBtn)`
-  border: 1px solid #ced0ce;
+  border: 1px solid ${theme.colors.lightgrey};
   margin-right: 8px;
   font-weight: bold;
   cursor: pointer;
@@ -339,7 +340,7 @@ const FoodContainer = styled.div`
   min-height: 500px;
   border-radius: 20px;
   margin: 0px 10px 0px 10px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
 `;
 

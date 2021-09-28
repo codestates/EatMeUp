@@ -7,7 +7,7 @@ html,
   margin: 0;
   padding: 0;
   font-family: "Noto Sans KR", sans-serif;
-  background-color: #F8F8F8;
+  background-color: #F5F3F0;
   color: #404040;
 }
 
@@ -17,7 +17,10 @@ html,
 }
 
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
 .notosanskr * {
   font-family: "Noto Sans KR", sans-serif;
 }
+
+

@@ -6,10 +6,10 @@ import theme from "../StyledComponent/theme";
 
 const Header = ({ id }) => {
   const menu = [
-    { menu: "모든 레시피", link: "/recipes" },
-    { menu: "마이 냉장고", link: "/fridge" },
-    { menu: "마이 페이지", link: "/user/mypage" },
-    { menu: "로그아웃", link: "/logout" },
+    { menu: "모든레시피", link: "/recipes" },
+    { menu: "마이냉장고", link: "/fridge" },
+    { menu: "마이페이지", link: "/user/mypage" },
+    { menu: "Logout", link: "/logout" },
   ];
   const [currentIdx, setCurrentIdx] = useState(id);
 
@@ -20,73 +20,112 @@ const Header = ({ id }) => {
   const tabHandler = (idx) => {
     setCurrentIdx(idx);
   };
-
+  
   return (
     <EatMeUpHeader>
-      <LogoContainer>
-        <Link to='/'>
-          <img src='../../food_img/EatMeUp.png' alt='logo' />
-        </Link>
-      </LogoContainer>
-      <RightMemu>
-        {menu.map((item, idx) => {
-          return (
-            <Link to={item.link} key={idx}>
-              <MenuButton
-                onClick={() => {
-                  tabHandler(idx);
-                }}
-                fillColor={currentIdx === idx ? theme.colors.yellow : "white"}
-                color={currentIdx === idx ? "white" : theme.colors.black}
-              >
-                {item.menu}
-              </MenuButton>
-            </Link>
-          );
-        })}
-      </RightMemu>
+      <div className='left-menu'>
+        <div className='logo'>
+          <Link to="/"><img src='../food_img/EatMeUp.png' alt='logo' /></Link>
+        </div>
+        <div className='menuBtns'>
+          <Link to='/recipes/result'>
+            <div className='menu left'>모든레시피</div>
+          </Link>
+
+          <Link to='/fridge'>
+            <div className='menu left'>마이냉장고</div>
+          </Link>
+        </div>
+      </div>
+
+      {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
+      <div className='right-menu'>
+        <div className='menuBtns'>
+          {/* <Link>
+            <div className='menu right'>LOGIN</div>
+          </Link>
+          <Link>
+            <div className='menu right'>SIGNUP</div>
+          </Link> */}
+           <Link to="/user/mypage">
+            <div className='menu right'>MYPAGE</div>
+          </Link> 
+        </div>
+      </div>
     </EatMeUpHeader>
   );
 };
 
-const RightMemu = styled.div`
-  border-radius: 30px;
-  margin-right: 5vw;
-`;
-
-const MenuButton = styled(XSmallBtn)`
-  width: 120px;
-  height: 50px;
-  margin-left: 5px;
-  transition: 0.3s;
-  border-radius: 30px;
-  border: none;
-  font-family: Noto Sans KR;
-  font-size: 17px;
-  font-weight: 400;
-  &:hover {
-    background-color: ${theme.colors.yellow};
-    cursor: pointer;
-  }
-`;
 
 const EatMeUpHeader = styled.div`
   width: 100%;
-  height: 12vh;
-  background-color: white;
+  height: 8vw;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-`;
+  align-items: center;
+  background-color: white;
 
-const LogoContainer = styled.div`
-  width: 180px;
-  height: 80%;
-  margin-left: 5vw;
-  img {
+  .logo {
+    width: 160px;
+    font-family: Fredoka One;
+    font-size: 35px;
+    text-indent: 30px;
+  }
+
+  .logo > a > img {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+  }
+
+  .left-menu {
+    display: flex;
+    margin-left: 20px;
+  }
+
+  .menuBtns {
+    display: flex;
+    margin-left: 50px;
+  }
+
+  .menu {
+    font-weight: bold;
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 17px;
+    border-radius: 30px;
+    transition: 0.3s;
+  }
+
+  .menu:hover {
+    background-color: white;
+    color: #f4c050;
+  }
+
+  .left {
+    margin-right: 5px;
+  }
+
+  a {
+    text-decoration: none;
+    color: #303030;
+  }
+
+  .right-menu {
+    margin-right: 5vw;
+  }
+
+  .right {
+    width: 100px;
+    height: 35px;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 35px;
+  }
+
+  .right:hover {
+    background-color: #f5f3f0;
   }
 `;
+
 export default Header;

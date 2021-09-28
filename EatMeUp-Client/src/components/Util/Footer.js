@@ -5,20 +5,42 @@ import theme from "../StyledComponent/theme";
 const Footer = () => {
   return (
     <FooterBox>
-      <div className='copyright'>
-        Copyright <i className='far fa-copyright'></i> 2021 by{" "}
-        <a href='https://github.com/codestates/EatMeUp'>
-          <span className='eatmeup'>EatMeUp</span>
-          <i className='fas fa-utensils fa-lg'></i>
-        </a>
+      <div>
+        <div className='right'>
+          <div className='contact-infos'>TOUCH IN US</div>
+          <div className='contact'>
+            <i class='fas fa-phone'></i>
+            <span className='contact-info'>02) 1234.5678</span>
+          </div>
+          <div className='contact'>
+            <i class='fas fa-envelope'></i>
+            <span className='contact-info'>eatmeup@gmail.com</span>
+          </div>
+          <div className='contact'>
+            <i class='fas fa-map-marker-alt'></i>
+            <span className='contact-info'>서울특별시 강동구 성내2길 123</span>
+          </div>
+          <div className='company'>
+            (주) EatMeUp | 공동대표: 오동욱 강주오 오가영 이세경
+          </div>
+        </div>
+
+        <div className='names'>
+          <i className='fab fa-github fa-lg'></i>
+          <a href='https://github.com/wookieOH'>wookieOH</a>
+          <a href='https://github.com/KangJuO'>KangJuO</a>
+          <a href='https://github.com/segyong56'>segyong56</a>
+          <a href='https://github.com/5gazero'>5gazero</a>
+        </div>
       </div>
-      <div className='repo'></div>
-      <div className='names'>
-        <i className='fab fa-github fa-lg'></i>
-        <a href='https://github.com/wookieOH'>wookieOH</a>
-        <a href='https://github.com/KangJuO'>KangJuO</a>
-        <a href='https://github.com/segyong56'>segyong56</a>
-        <a href='https://github.com/5gazero'>5gazero</a>
+      <div className='copyright-box'>
+        <div className='copyright'>
+          Copyright <i className='far fa-copyright'></i> 2021 by{" "}
+          <a href='https://github.com/codestates/EatMeUp'>
+            <span className='eatmeup'>EatMeUp</span>
+            <i className='fas fa-utensils fa-lg'></i>
+          </a>
+        </div>
       </div>
     </FooterBox>
   );
@@ -27,15 +49,46 @@ const Footer = () => {
 const FooterBox = styled.div`
   background: #eaeaea;
   width: 100%;
-  height: 10vh;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: ${theme.colors.black};
-  font-size: 16px;
+
+  font-size: 14px;
   font-weight: 300;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .company {
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+
+  .contact-infos {
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .contact {
+    margin-top: 5px;
+  }
+
+  .contact-info {
+    margin-left: 5px;
+  }
+
+  .copyright-box {
+    justify-content: center;
+    width: 100%;
+    height: 50px;
+    background-color: darkgrey;
+  }
+
   .copyright {
-    margin: 5vw;
+    font-weight: 500;
+    text-align: center;
+
     i {
       margin: 3px;
     }
@@ -44,18 +97,21 @@ const FooterBox = styled.div`
     }
   }
 
+  .right {
+    margin: 3vw;
+  }
+
   .names {
-    margin: 5vw;
+    margin: 3vw;
+    font-weight: 500;
     i {
       padding: 10px;
     }
-  }
 
-  a {
-    padding: 10px 10px;
-    cursor: pointer;
-    text-decoration: none;
-    :visited {
+    a {
+      padding: 10px 10px;
+      cursor: pointer;
+      text-decoration: none;
       color: ${theme.colors.black};
     }
   }

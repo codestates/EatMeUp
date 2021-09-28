@@ -79,6 +79,10 @@ const MyPage = () => {
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
+<<<<<<< HEAD
+  
+=======
+>>>>>>> f238a0de4eda42faf63cf11523da7860d0f6b3af
 `;
 
 const TitleBox = styled.div`

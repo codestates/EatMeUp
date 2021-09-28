@@ -1,38 +1,42 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import theme from '../../StyledComponent/theme'
-const CookInfo = () => {
+import theme from "../../StyledComponent/theme";
+
+const CookInfo = ({ cookingTime, setCookingTime, cookingLevel, setCookingLevel }) => {
+ 
+ 
+
+  console.log(cookingTime, cookingLevel);
   return (
     <>
-    {/* 요리레벨, 요리시간에 대한 정보 영역 */}
-    <CookInfomation>
-      
-      <div className='cookinfo'><i class="fas fa-clipboard-check"></i> 요리레벨</div>
-      <Selector>
-        <option>초보환영</option>
-        <option>보통</option>
-        <option>어려움</option>
-      </Selector>
-    
- 
-      <div className='cookinfo'><i class="far fa-clock"></i> 요리시간</div>
-      <Selector>
-        <option>10Min</option>
-        <option>20Min</option>
-        <option>30Min</option>
-        <option>40Min</option>
-        <option>50Min</option>
-        <option>60Min</option>
-        <option>60Min이상</option>
-      </Selector>
-   
-  </CookInfomation>
-      
-    </>
-  )
-}
+      {/* 요리레벨, 요리시간에 대한 정보 영역 */}
+      <CookInfomation>
+        <div className='cookinfo'>
+          <i class='fas fa-clipboard-check'></i> 요리레벨
+        </div>
+        <Selector onChange={(e) => setCookingLevel(e.currentTarget.value)} value={cookingLevel}>
+          <option>초보환영</option>
+          <option>보통</option>
+          <option>어려움</option>
+        </Selector>
 
+        <div className='cookinfo'>
+          <i class='far fa-clock'></i> 요리시간
+        </div>
+        <Selector onChange={(e) => setCookingTime(e.currentTarget.value)} value={cookingTime}>
+          <option>10Min</option>
+          <option>20Min</option>
+          <option>30Min</option>
+          <option>40Min</option>
+          <option>50Min</option>
+          <option>60Min</option>
+          <option>60Min이상</option>
+        </Selector>
+      </CookInfomation>
+    </>
+  );
+};
 
 const CookInfomation = styled.div`
   width: 90%;
@@ -57,4 +61,4 @@ const Selector = styled.select`
   outline: none;
   border: 2px solid ${theme.colors.lightgrey};
 `;
-export default CookInfo
+export default CookInfo;

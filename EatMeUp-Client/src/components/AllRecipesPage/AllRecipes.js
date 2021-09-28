@@ -1,169 +1,179 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import { useDispatch, useSelector } from 'react-redux'
-import { allRecipes } from '../../_actions/recipeActions';
 
-/* 컴포넌트 */
-import Header from "../Util/Header";
-import Card from "./sections/Card";
-import SwiperCompo from "./sections/SwiperCompo";
+/* 스타일 컴포넌트 */
 import Footer from "../Util/Footer";
+import Slider from "./Slider";
+import Card from './sections/Card'
 
 const AllRecipes = () => {
-  // Todo
-  // 더보기 버튼 만들기
-  // 재료 삭제 핸들러만들기
+  const { recipes } = useSelector((state) => state.allRecipes);
 
-  const dispatch = useDispatch();
-  const { loading, recipes } = useSelector(state => state.allRecipes)
-  
-  const slicedArr = recipes.slice(0, 8);
-  const loadMore = 4;
-  const [showRecipes, setShowRecipes] = useState(slicedArr);
-  
-  
-  useEffect(() => {
-
-    dispatch(allRecipes());
- 
-   
-  }, [dispatch])
-
-  const loadMoreHandler = () => {
-
-    const loadmore = recipes.slice(0, showRecipes.length+loadMore);
-    setShowRecipes(loadmore)
-
-  }
-
-  const deleteIngredientHandler = () => {};
-  console.log(showRecipes)
   return (
     <>
-      <Header id={0} />
-      <section>
-        {/* 페이지 제목 */}
-        <TitleBox>
-          <h1>
-            <i className='fas fa-utensils'></i> 오늘의 레시피
-          </h1>
-        </TitleBox>
+      <Container>
+        <Header>
+          {/* 왼쪽메뉴(로고, 모든레시피, 마이냉장고메뉴) */}
+          <div className='left-menu'>
+            <div className='logo'>
+              {/* <span>E</span>at<span>M</span>e<span>U</span>p */}
+              <img src='../food_img/EatMeUp.png' alt='logo' />
+            </div>
+            <div className='menuBtns'>
+              <Link to='/recipes'>
+                <div className='menu'>모든레시피</div>
+              </Link>
 
-        {/* 오늘의 레시피 */}
-        <SwiperCompo />
-
-        {/* 냉장고 재료기반 추천된 재료리스트 */}
-        <SearchBox>
-          <div className='title'>추천 레시피</div>
-
-          <div className='search_box'>
-            <Stack direction='row' spacing={1}>
-              <i className='fas fa-shopping-basket'></i>
-              <Chip label='감자' onDelete={() => deleteIngredientHandler()} />
-            </Stack>
+              <Link to='/fridge'>
+                <div className='menu'>마이냉장고</div>
+              </Link>
+            </div>
           </div>
-          <div className='searchBtn_box'>검색하기</div>
-        </SearchBox>
 
-        {/* 카드리스트 컨테이너 */}
-        <Container>
-          {showRecipes.map((recipe, idx) => {
-            return <Card recipe={recipe} key={idx} />;
+          {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
+          <div className='right-menu'>
+            <div className='menuBtns'>
+              <Link>
+                <div className='menu right'>LOGIN</div>
+              </Link>
+              <Link>
+                <div className='menu right'>SIGNUP</div>
+              </Link>
+            </div>
+          </div>
+        </Header>
+
+        <MainCard>
+          <Slider />
+          <ImgBox>
+            <img src='../food_img/Cooking-cuate.png' alt='cookingirl' />
+          </ImgBox>
+        </MainCard>
+
+        {/* 모든 레시피리스트 제목, 리스트 */}
+        <RecipeList>
+          {recipes.map((recipe, idx) => {
+            return (
+              <Card key={idx} recipe={recipe} />
+            );
           })}
-        </Container>
-        <LoadMoreBtn>
-          <div>
-          {recipes.length === showRecipes.length ? "" : (<button onClick={loadMoreHandler}>더보기</button>)}
-          </div>
-        </LoadMoreBtn>
-        
-      </section>
-      <Footer />
+        </RecipeList>
+        <Footer />
+      </Container>
     </>
   );
 };
 
-const TitleBox = styled.div`
-  width: 80%;
-  text-indent: 10px;
-  margin: 20px auto;
+/* 헤더와 메인카드 css 영역 */
+const Container = styled.div`
+  width: 100%;
+  height: 650px;
+  border-radius: 0px 0px 35px 35px;
+  background-color: #f4c050;
 `;
 
-const SearchBox = styled.div`
-  width: 80%;
+const Header = styled.div`
+  width: 100%;
+  height: 8vw;
   display: flex;
-  margin: 50px auto;
+  justify-content: space-between;
   align-items: center;
 
-  .title {
-    font-size: 23px;
-    font-weight: 500;
-    margin-left: 30px;
+  .logo {
+    width: 160px;
+    font-family: Fredoka One;
+    font-size: 35px;
+    text-indent: 30px;
   }
 
-  .search_box {
-    border: 1px solid #ced0ce;
-    width: 70%;
-    height: 43px;
-    border-radius: 30px 0px 0px 30px;
-    margin-left: 18px;
-    line-height: 40px;
-    align-items: center;
+  .logo > span {
+    color: white;
+  }
+
+  .logo > img {
+    width: 100%;
+  }
+
+  .left-menu {
     display: flex;
-
+    margin-left: 20px;
   }
 
-  .fa-shopping-basket {
-    margin-left: 15px;
-    font-size: 20px;
-    color: lightgrey;
-    margin: 6px 10px 0px 15px;
+  .menuBtns {
+    display: flex;
+    margin-left: 50px;
   }
 
-  .searchBtn_box {
-    border: 1px solid #ced0ce;
-   width: 150px;
-   height: 43px;
-   border-radius: 0px 30px 30px 0px;
-   font-weight: bold;
-   padding: 8px;
-   background: white;
-   text-align: center;
-   color: grey;
+  .menu {
+    font-weight: bold;
+    width: 100px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    font-size: 17px;
   }
 
-  .
+  a {
+    text-decoration: none;
+    color: #303030;
+  }
+
+  .right-menu {
+    margin-right: 5vw;
+  }
+
+  .right {
+    width: 100px;
+    height: 35px;
+    border-radius: 30px;
+    text-align: center;
+    line-height: 35px;
+  }
+
+  .right:hover {
+    background-color: #f5f3f0;
+    color: #f4c050;
+  }
 `;
-const Container = styled.div`
-  width: 85%;
-  column-width: 350px;
-  margin: 30px auto;
-  gap: 15px;
 
-  @media screen and (max-width: 1700px) {
-    width: 90%;
+/* today's pick 레시피카드와 요리하는 남자이미지 */
+const MainCard = styled.div`
+  width: 100%;
+  display: flex;
+  margin-top: 35px;
+  .swiper {
+    width: 1100px;
+    height: 500px;
+    transition: all 0.6s;
+    margin-left: 25px;
+    border-radius: 20px;
+  }
+`;
+
+const ImgBox = styled.div`
+  width: 40%;
+  height: 600px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+`;
+
+/* 레시피 카드들 css영역 */
+const RecipeList = styled.div`
+  width: 95%;
+  column-width: 280px;
+  gap: 15px;
+  margin: 0 auto;
+
+  @media screen and (max-width: 1500px) {
     column-width: 300px;
   }
 `;
 
-const LoadMoreBtn = styled.div`
-  width: 90%;
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
-  
-  button {
-    width: 150px;
-    height: 40px;
-    background-color: #ced0ce;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 15px;
-    cursor: pointer;
-  }
 
-`
 export default AllRecipes;

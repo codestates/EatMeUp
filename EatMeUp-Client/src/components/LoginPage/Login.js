@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -81,7 +81,7 @@ const Login = () => {
         <SocialButton>
           <div className='google'>
             <span>
-              <img className='google_logo' src='../food_img/google_logo.png' />
+              <img className='google_logo' src='../food_img/google_logo.png' alt='google' />
             </span>
             <span className='google_text'> Login with Google</span>
           </div>
