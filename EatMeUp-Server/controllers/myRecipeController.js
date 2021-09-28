@@ -1,10 +1,14 @@
 const { Recipe, User } = require("../models");
+const env = process.env.NODE_ENV || "development";
+const config = require(__dirname + "/../config/config.js")[env];
+const jwt = require("jsonwebtoken");
 
 const getRecipe = async (req, res) => {
-  const { id } = req.body;
+  const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
+
   try {
-    const recipeInfo = await User.findAll({
-      where: id,
+    const recipeInfo = await User.findOne({
+      where: user.id,
       include: Recipe,
     });
     if (!recipeInfo) {
@@ -66,16 +70,9 @@ const putRecipe = async (req, res) => {
 };
 
 const postRecipe = async (req, res) => {
-  const {
-    id,
-    title,
-    description,
-    cooking_time,
-    level,
-    main_image,
-    foods,
-    steps,
-  } = req.body;
+  const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  const { title, description, cooking_time, level, main_image, foods, steps } =
+    req.body;
   try {
     const recipeInfo = await Recipe.create({
       title,
@@ -85,7 +82,7 @@ const postRecipe = async (req, res) => {
       main_image,
       foods,
       steps,
-      post_user_id: id,
+      post_user_id: user.id,
     });
     if (!recipeInfo) {
       return res
