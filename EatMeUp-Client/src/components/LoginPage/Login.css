@@ -1,0 +1,212 @@
+> .modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+> .modal > .loginModal {
+  width: 480px;
+  height: 621px;
+  background-color: white;
+  position: relative;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+}
+
+> .modal > .loginModal > .close {
+  float: right;
+  font-size: 25px;
+}
+
+> .modal > .loginModal .modalContents {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  padding: 0 20px 32px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+> .modal > .loginModal .modalContents > .signinIcon {
+  width: 150px;
+  margin: 0 auto;
+}
+
+> .modal > .loginModal .modalContents > .loginId {
+  margin-top: 30px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+> .modal > .loginModal .modalContents input::-webkit-input-placeholder {
+  color: #999999;
+}
+
+> .modal > .loginModal .modalContents input:-ms-input-placeholder {
+  color: #999999;
+}
+
+> .modal > .loginModal .modalContents input::-ms-input-placeholder {
+  color: #999999;
+}
+
+> .modal > .loginModal .modalContents input::placeholder {
+  color: #999999;
+}
+
+> .modal > .loginModal .modalContents .loginPw {
+  margin-top: 15px;
+  border-radius: 2px;
+  width: 100%;
+  height: 40px;
+  border: 1px solid #e5e5e5;
+  padding: 9px 12px;
+  outline: none;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+> .modal > .loginModal .modalContents > .loginMid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+> .modal > .loginModal .modalContents > .loginMid .autoLogin {
+  font-size: 12px;
+  color: #8d8d8d;
+  line-height: 3;
+}
+
+> .modal > .loginModal .modalContents .loginBtn {
+  height: 40px;
+  font-size: 14px;
+  padding: 13px 30px;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  line-height: 1px;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  border-radius: 3px;
+  border-style: none;
+}
+
+> .modal > .loginModal .modalContents > .socialBox {
+  margin-bottom: 30px;
+}
+
+> .modal > .loginModal .modalContents > .socialBox .kakao {
+  background-color: #feec34;
+  border-color: #feec34;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+> .modal > .loginModal .modalContents > .socialBox .kakao > .kakaoLogo {
+  width: 24px;
+  height: 25px;
+}
+
+> .modal > .loginModal .modalContents > .socialBox .kakao .kakaoText {
+  width: 300px;
+  font-size: 15px;
+  text-align: center;
+  display: inline-block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+> .modal > .loginModal .modalContents > .socialBox > .facebook {
+  background-color: #21538a;
+  border-color: #21538a;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: #fff;
+  border-radius: 3px;
+}
+
+> .modal > .loginModal .modalContents > .socialBox > .facebook > .facebookText {
+  padding-top: 12px;
+  width: 310px;
+  color: #fff;
+  font-size: 15px;
+  text-align: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+> .modal > .loginModal .modalContents > .socialBox > .facebook > .facebookLogo {
+  padding-top: 7px;
+  width: 24px;
+  height: 25px;
+}
+
+> .modal > .loginModal .modalContents .loginEnd {
+  text-align: center;
+  font-size: 11px;
+}
+
+> .modal > .loginModal .modalContents .loginEnd > .loginLine {
+  color: #bcbcbc;
+  font-size: 11px;
+  margin-bottom: 35px;
+}
+
+> .modal > .loginModal .modalContents .loginEnd > .loginLine a {
+  color: black;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+> .modal > .loginModal .modalContents .loginEnd .noUser {
+  text-decoration: underline;
+}
+/*# sourceMappingURL=Login.css.map */

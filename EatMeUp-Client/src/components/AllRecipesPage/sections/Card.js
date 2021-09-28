@@ -1,138 +1,185 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-import theme from "../../StyledComponent/theme";
+const Card = ({ recipe }) => {
+  return (
+    <>
+      <RecipeCard>
+        <div className='imgbox'>
+          {/* 유저프로필 */}
+          <div className='imgbox-left'>
+            <div>
+              <img src='../food_img/people.jpeg' alt='people' />
+            </div>
+            <div>
+              <div>
+                <span>segyong</span>
+              </div>
+              <div className='update-time'>
+                <span>1hour ago</span>
+              </div>
+            </div>
+          </div>
 
-const RecipeCard = styled.figure`
- border: 1px solid #e6e8e6;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+          {/* 요리난이도 */}
+          <div className='imgbox-right'>
+            <span id='level'>난이도 : </span>
+            <div className='iconBox'>
+              <i className='bx bxs-star' id='icon'></i>
+            </div>
+            <div className='iconBox'>
+              <i className='bx bxs-star' id='icon'></i>
+            </div>
+            <div className='iconBox'>
+              <i className='bx bxs-star' id='icon'></i>
+            </div>
+          </div>
+        </div>
+
+        {/* 요리사진 */}
+        <div className='recipeImgbox'>
+          <img src={recipe.main_image} alt='recipeImg' />
+        </div>
+
+        {/* 요리시간, 요리제목 */}
+        <div className='cookingtitme'>
+          <i className='far fa-clock'></i> 요리시간 20MIN
+        </div>
+        <div className='title'>
+          <span>{recipe.title}</span>
+        </div>
+
+        {/* 음식 주재료 */}
+        <div className='materials'>
+          <span>#콩나물</span>
+          <span>#간장</span>
+          <span>#참기름</span>
+        </div>
+      </RecipeCard>
+    </>
+  );
+};
+
+const showBtn = keyframes`
+  from{
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+`;
+
+const RecipeCard = styled.div`
+  margin: 20px auto;
   background-color: #ffffff;
   display: inline-block;
-  width: 100%;
-  margin: 0;
-  margin-bottom: 30px;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding-bottom: 10px;
   position: relative;
   cursor: pointer;
 
-  img {
+  /* 레시피 카드 상단(유저프로필, 난이도) css영역*/
+  .imgbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding-top: 4px;
+  }
+
+  .imgbox-left > div > img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+  }
+
+  .imgbox-left {
+    display: flex;
+  }
+
+  .imgbox-left > div {
+    margin-left: 10px;
+    font-size: 12px;
+  }
+
+  .update-time {
+    font-size: 9px;
+    color: grey;
+  }
+
+  .imgbox-right {
+    display: flex;
+    margin-right: 10px;
+  }
+
+  #level {
+    font-size: 13px;
+    margin: 0px 5px 0px 0px;
+    color: grey;
+  }
+
+  .iconBox {
+    margin-left: 5px;
+  }
+
+  #icon {
+    color: #febd2f;
+    font-size: 20px;
+    text-indent: -8px;
+    margin: 0;
+  }
+
+  /* 레시피카드 이미지 css영역 */
+
+  .recipeImgbox > img {
     width: 95%;
-    height: 250px;
+    height: 200px;
     border-radius: 20px;
     object-fit: cover;
     margin: 10px 7px 0px 7px;
   }
 
-  .recipe-info_box {
-    display: flex;
-    font-size: 12px;
-    color: ${theme.colors.gray};
-    padding: 5px;
-    margin-left: 10px;
+  /* 레시피카드 정보(제목, 시간, 주재료) css영역 */
+  .title {
+    font-size: 17px;
+    text-indent: 13px;
   }
 
-  .fa-stopwatch {
-    color: gray;
-    font-size: 14px;
-  }
-
-  .title_box {
-    font-size: 18px;
+  .cookingtitme {
+    font-size: 10px;
     text-indent: 5px;
-    margin-left: 15px;
-    font-weight: 500;
+    color: grey;
   }
 
-  .recipe-ingre_box {
-    font-size: 14px;
-    display: flex;
-    margin: 10px 0px 15px 10px;
+  .materials {
+    font-size: 10px;
+    margin: 7px 0px 5px 10px;
   }
 
-  .ingre-label {
-    text-indent: 10px;
-    font-size: 13px;
-  }
-
-  .ingres {
-    font-size: 11px;
-    margin-left: 5px;
-  }
-
-  .ingres > span {
+  .materials > span {
     padding: 3px 8px;
-    background-color: ${theme.colors.lightgrey};
+    background-color: #eaeaea;
+    margin-right: 5px;
     border-radius: 30px;
-    margin-right:5px;ƒ
   }
 
-  .userprofile_box {
-    display: flex;
-    width: 95%;
-    align-items:center;
-   
-  }
+  /* 호버시 버튼 올라오기 */
 
-  #userimg {
-    width: 40px;
-    height: 40px;
-  }
-
-  .username {
-    font-size: 12px;
-  }
-
-  .cooking-level {
+  &:hover::after {
+    content: "View Recipe";
     position: absolute;
-    top: 270px;
-    left: 25px;
-    width: 80px;
+    top: 200px;
+    left: 140px;
+    width: 130px;
     height: 35px;
-    border-radius: 30px;
-    background-color: black;
+    background-color: #febd2f;
     color: white;
+    font-weight: 500;
     text-align: center;
-    line-height: 33px;
-    opacity: 0;
-    transition: all 0.3s;
+    line-height: 35px;
+    border-radius: 20px;
+    animation: ${showBtn} 0.5s;
   }
-  
-  &:hover .cooking-level{
-    opacity: 1;
-  }
-
 `;
-
-const Card = ({ recipe }) => {
-  return (
-    <RecipeCard>
-      <div className='userprofile_box'>
-        <div className='userimg_box'>
-          <img src='../food_img/people.jpeg' alt='userimg' id='userimg' />
-        </div>
-        <div className='username_box'>
-          <span className='username'>Segyondgdgg</span>
-        </div>
-      </div>
-      <img src={recipe.main_image} alt='recipe' className='recipe-img' />
-      <figcaption>
-        <div className='recipe-info_box'>
-          <div className='time'>
-            <i class='fas fa-stopwatch'></i> 요리시간 20min
-          </div>
-        </div>
-        <div className='title_box'>{recipe.title}</div>
-        <div className='recipe-ingre_box'>
-          <div className='ingres'>
-            <span>#돼지전지</span>
-            <span>#양파</span>
-            <span>#대파</span>
-          </div>
-        </div>
-      </figcaption>
-      <div className="cooking-level">EASY</div>
-    </RecipeCard>
-  );
-};
-
 export default Card;
