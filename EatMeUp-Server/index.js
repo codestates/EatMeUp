@@ -24,7 +24,7 @@ app.use(
 
 app.use("/user", userRouter);
 app.use("/myRecipe", myRecipeRouter);
-app.use("/food", foodRouter);
+// app.use("/food", foodRouter);
 app.use("/recipeAPI", apiRouter);
 app.use("/auth", authRouter);
 app.use("/image", imageRouter);
