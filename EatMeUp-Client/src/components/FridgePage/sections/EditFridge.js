@@ -8,20 +8,24 @@ import EditIngre from "./EditFood/EditIngre";
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";
 
-const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
+const EditFridge = ({ foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
+
+
   const [openEditWindow, setOpenEditWindow] = useState(false);
   const [clickedFood, setClickedFood] = useState("");
+  
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
   const dragNode = useRef();
   
-
+   //수정 모달창 띄우기 핸들러
   const openEditWindowHandler = (food) => {
   
     setClickedFood(food);
     setOpenEditWindow(true);
   };
 
+  // 냉장고 타입 핸들러
   const convertStr = (idx) => {
     if (idx === 0) {
       return "실온";
@@ -223,7 +227,7 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList }) => {
       })}
 
       {openEditWindow ? (
-        <EditIngre setOpenEditWindow={setOpenEditWindow} food={clickedFood} />
+        <EditIngre setOpenEditWindow={setOpenEditWindow} food={clickedFood} setShowEditBtn={setShowEditBtn} />
       ) : (
         ""
       )}

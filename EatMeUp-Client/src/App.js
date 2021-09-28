@@ -42,7 +42,7 @@ function App() {
         <Route path='/fridge' exact component={FridgePage} />
         <Route path='/user/myrecipe' exact component={MyRecipePage} />
         <Route path='/user/myrecipe/create' component={CreateRecipePage} />
-        <Route path='/user/myrecipe/edit' exact component={EditRecipePage} />
+        <Route path='/user/myrecipe/edit/:id' exact component={EditRecipePage} />
         <Route path='/user/likelist' exact component={MyLikelistPage} />
         <Route path='/user/myplanner' exact component={MealPlannerPage} />
         <Route path='/user/myplanner/create' exact component={PlanningPage} />

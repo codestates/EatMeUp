@@ -18,8 +18,8 @@ const AllRecipes = () => {
           {/* 왼쪽메뉴(로고, 모든레시피, 마이냉장고메뉴) */}
           <div className='left-menu'>
             <div className='logo'>
-              <span>E</span>at<span>M</span>e<span>U</span>p
-              {/* <img src='../food_img/EatMeUp3 2.png' alt='logo' /> */}
+              {/* <span>E</span>at<span>M</span>e<span>U</span>p */}
+              <img src='../food_img/EatMeUp.png' alt='logo' />
             </div>
             <div className='menuBtns'>
               <Link to='/recipes'>
@@ -76,13 +76,13 @@ const Container = styled.div`
 
 const Header = styled.div`
   width: 100%;
-  height: 130px;
+  height: 8vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   .logo {
-    width: 130px;
+    width: 160px;
     font-family: Fredoka One;
     font-size: 35px;
     text-indent: 30px;
@@ -92,14 +92,18 @@ const Header = styled.div`
     color: white;
   }
 
+  .logo > img {
+    width: 100%;
+  }
+
   .left-menu {
     display: flex;
-    margin-left: 3vw;
+    margin-left: 20px;
   }
 
   .menuBtns {
     display: flex;
-    margin-left: 60px;
+    margin-left: 50px;
   }
 
   .menu {

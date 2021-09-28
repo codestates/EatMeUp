@@ -22,7 +22,7 @@ const Card = ({ recipes }) => {
           {/* 삭제버튼과 수정버튼 영역 */}
           <div>
             <div className='recipe-dc-right_box'>
-              <Link to='/user/myrecipe/edit'>
+              <Link to={`/user/myrecipe/edit/${idx}`}>
                 <i class='far fa-edit'></i>
               </Link>
               <i class='far fa-trash-alt'></i>

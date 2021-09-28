@@ -15,14 +15,15 @@ const Header = ({ id }) => {
   const tabHandler = (idx) => {
     setCurrentIdx(idx);
   };
+  
   return (
     <EatMeUpHeader>
       <div className='left-menu'>
         <div className='logo'>
-          <img src='../food_img/EatMeUp.png' alt='logo' />
+          <Link to="/"><img src='../food_img/EatMeUp.png' alt='logo' /></Link>
         </div>
         <div className='menuBtns'>
-          <Link to='/recipes'>
+          <Link to='/recipes/result'>
             <div className='menu left'>모든레시피</div>
           </Link>
 
@@ -66,7 +67,7 @@ const EatMeUpHeader = styled.div`
     text-indent: 30px;
   }
 
-  .logo > img {
+  .logo > a > img {
     width: 100%;
   }
 

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Dropzone from "react-dropzone";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToFridge } from "../../../../_actions/fridgeActions";
+import axios from "axios";
 
 /* 스타일 컴포넌트 */
 import {
@@ -15,18 +16,72 @@ import { Button } from "../../../StyledComponent/buttons";
 
 const AddIngre = ({ setOpenAddWindow }) => {
   const dispatch = useDispatch();
-  const { foods } = useSelector((state) => state.allFoods);
+
   const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
   const [registerDate, setRegisterDate] = useState("");
-
+  const [image, setImage] = useState("");
   const closeHandler = () => {
     setOpenAddWindow(false);
   };
-  
+
   // 음식을 냉장고에 추가하는 핸들러
-  const submitHandler = (e) => {
+
+  // const dropHandler = async (files) => {
+
+  //   // const data = await axios.get("https://api.eatmeup.me/image/s3url", {
+  //   //   withCredentials: true,
+  //   // });
+
+  //   const file = files[0];
+
+  //   axios.get("https://api.eatmeup.me/image/s3url", {
+  //     withCredentials: true
+  //   }).then((response) => {
+  //     const signedUrl = response.data.s3url
+  //     console.log(signedUrl)
+  //     const options = {
+  //       headers: {
+  //         'Content-Type': file.type
+  //       }
+  //     }
+
+  //     return axios.put(signedUrl, file, options);
+  //   }).then((response) => {
+  //     console.log(response)
+  //   })
+  // };
+
+  const imgFileHandler = (e) => {
+    
+    setImage(e.target.files[0]);
+  };
+
+  const submitHandler = async (e) => {
     e.preventDefault();
+    
+    // 서버로부터 S3업로드 url 받아오기
+    try{
+      const data = await axios.get("https://api.eatmeup.me/image/s3url", {withCredentials: true})
+    console.log(data.data);
+
+    //url을 사용해서 S3 버킷에 업로드
+    //axios
+    const img = await fetch(data.data.s3url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      body: image,
+    }, {withCredentials: true});
+
+    console.log(img)
+    } catch(error) {
+      console.log(error)
+    }
+    
+
+   
 
     const food = {
       food_image: "food2.jpeg",
@@ -37,21 +92,10 @@ const AddIngre = ({ setOpenAddWindow }) => {
       update_at: "2021-01-02",
     };
 
-    const foodlist = foods.map((item, idx) => {
-      if(idx === 0) {
-        return {
-          type: idx,
-          items: [...item.items, food]
-        }
-      } else {
-        return item
-      }
-    })
-    dispatch(addToFridge(foodlist));
+    dispatch(addToFridge(food));
     setOpenAddWindow(false);
   };
 
-  const dropHandler = () => {};
 
   return (
     <>
@@ -61,9 +105,8 @@ const AddIngre = ({ setOpenAddWindow }) => {
             <i onClick={closeHandler} className='fas fa-times'></i>
           </div>
           <form onSubmit={submitHandler}>
-
             {/* 음식사진 업로드 */}
-            <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
+            {/* <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
               {({ getRootProps, getInputProps }) => (
                 <DropzoneArea {...getRootProps()}>
                   <input {...getInputProps()} />
@@ -73,7 +116,8 @@ const AddIngre = ({ setOpenAddWindow }) => {
                   </div>
                 </DropzoneArea>
               )}
-            </Dropzone>
+            </Dropzone> */}
+            <input type='file' onChange={imgFileHandler} accept='image/*' />
             <FoodInfoBox>
               {/* 음식이름입력창 */}
               <div className='foodname-box'>

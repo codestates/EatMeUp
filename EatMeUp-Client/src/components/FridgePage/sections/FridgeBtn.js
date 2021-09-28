@@ -13,7 +13,8 @@ const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
  
   const [openAddWindow, setOpenAddWindow] = useState(false);
 
-
+  
+  // 추가하기 모달창 핸들러
   const openAddWindowHandler = () => {
     setOpenAddWindow(true);
 

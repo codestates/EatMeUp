@@ -5,6 +5,7 @@ import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
 import { allFoods, saveFridgeInfo } from "../../_actions/fridgeActions";
+import { foodData } from '../dummydata'
 
 /* 컴포넌트 */
 import FridgeInner from "./sections/FridgeInner";
@@ -14,19 +15,22 @@ import Footer from "../Util/Footer";
 import EditFridge from "./sections/EditFridge";
 import Loader from "../Util/Loader";
 
+
 /* 냉장고 페이지 */
 const FridgeMain = () => {
 
   const dispatch = useDispatch();
   const { foods } = useSelector((state) => state.allFoods);
+  const food = useSelector((state) => state.food);
+  const savedfoods = useSelector((state) => state.savedfoods)
   const [foodList, setFoodList] = useState(foods);
 
   useEffect(() => {
     
     dispatch(allFoods());
-    
+    setFoodList(foods)
 
-  }, [dispatch]);
+  }, [dispatch, food, savedfoods]);
 
   // /* 유통기한이 임박한 냉장고 속 음식 보여주기 */
   // let redFoods = []
@@ -41,14 +45,21 @@ const FridgeMain = () => {
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
 
-  /* 수정하기 버튼, 수정한 음식리스트 저장 요청 핸들러 */
-  const showEditBtnHandler = () => {
-    setShowEditBtn(!showEditBtn);
 
+  /* 수정하기 버튼, 수정한 음식리스트 저장 요청 핸들러 */
+  const showEditBtnHandler = (e) => {
+
+    e.preventDefault();
+    setShowEditBtn(!showEditBtn);
+    setFoodList(foods)
     if (showEditBtn) {
+
       dispatch(saveFridgeInfo(foodList));
+
+      setFoodList(foods)
     }
   };
+ 
 
   /* 추가된 재료 삭제 핸들러 */
   const handleDelete = (idx) => {
@@ -59,6 +70,7 @@ const FridgeMain = () => {
     setCurrentIdx(idx);
   };
 
+
   return (
     <>
       <Header id={1} />
@@ -67,7 +79,7 @@ const FridgeMain = () => {
 
         <SearchBox>
           <FridgeTitle>
-            <i class='fas fa-seedling'></i>마이냉장고
+            마이냉장고
           </FridgeTitle>
 
           {/* 체크된 음식 담는 영역 */}
@@ -105,6 +117,7 @@ const FridgeMain = () => {
               foodList={foodList}
               setFoodList={setFoodList}
               showEditBtn={showEditBtn}
+              setShowEditBtn={setShowEditBtn}
             />
           ) : (
             <FridgeInner

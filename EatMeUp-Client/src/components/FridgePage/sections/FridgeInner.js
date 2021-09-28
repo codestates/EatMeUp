@@ -57,7 +57,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
   /* 신선버튼 핸들러 */
   const GreenFoodHandler = (idx) => {
     const freshFood = foods.map((food) => {
-      if (idx === food.type) {
+      if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
           if (item.life > 30) {
             return item;
@@ -74,14 +74,14 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
         };
       }
     });
-    console.log(freshFood);
+ 
     setFiltered(freshFood);
   };
 
   /* 보통버튼 핸들러 */
   const yellowFoodHandler = (idx) => {
     const yellowFood = foods.map((food) => {
-      if (idx === food.type) {
+      if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
           if (item.life < 30 && item.life > 7) {
             return item;
@@ -103,8 +103,9 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
   /* 위험버튼 핸들러 */
   const redFoodHandler = (idx) => {
+    console.log(typeof idx)
     const redFood = foods.map((food) => {
-      if (idx === food.type) {
+      if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
           if (item.life <= 7) {
             return item;

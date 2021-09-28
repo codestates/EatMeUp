@@ -1,14 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux'
+import { loginRequest } from '../../_actions/authActions'
+
+/*  */
 import styled from "styled-components";
-import "./Login.scss";
+// import "./Login.scss";
+
 
 const Login = ({ isModalOpen, closeModal }) => {
+
+
+  const dispatch = useDispatch();
+  const { isAuthenticated, error, loading } = useSelector(state => state.auth);
   const history = useHistory();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      history.push('/')
+    }
+
+    if(error) {
+      alert('cannot login')
+    }
+  }, [dispatch, isAuthenticated, error, history])
 
   const loginHandler = (e) => {
     e.preventDefault();
@@ -17,14 +35,12 @@ const Login = ({ isModalOpen, closeModal }) => {
       password: password,
     };
 
-    axios.post("https://api.eatmeup.me/auth/login", data).then((response)=> {
-      console.log(response.data)
-      if(response.data.success) {
-        history.push('/')
-      }
+    dispatch(loginRequest(data))
+
       
-    })
   };
+
+ 
   // const loginClickHandler = async () => {
   //   const { email, password } = await axios
   //     .post("https://eatmeup.me/login", {
