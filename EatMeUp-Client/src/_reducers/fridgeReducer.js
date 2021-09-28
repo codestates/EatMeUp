@@ -67,6 +67,7 @@ export const allFoodsReducer = (state = { foods: [] }, action) => {
       };
     case ALL_FOODS_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };

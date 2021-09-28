@@ -27,7 +27,7 @@ const Landing = () => {
       <Header />
         <button
         onClick={logoutHandler}
-        >{isAuthenticated ? "logout" : "login"}</button>
+        >logout</button>
       <Footer />
     </>
   );

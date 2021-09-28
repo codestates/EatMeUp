@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,17 +20,19 @@ import Loader from "../Util/Loader";
 const FridgeMain = () => {
 
   const dispatch = useDispatch();
-  const { foods } = useSelector((state) => state.allFoods);
+  const history = useHistory();
+  const { foods, error } = useSelector((state) => state.allFoods);
   const food = useSelector((state) => state.food);
   const savedfoods = useSelector((state) => state.savedfoods)
   const [foodList, setFoodList] = useState(foods);
 
   useEffect(() => {
-    
-    dispatch(allFoods());
-    setFoodList(foods)
 
-  }, [dispatch, food, savedfoods]);
+   
+    dispatch(allFoods());
+    
+
+  }, [dispatch, food, savedfoods, error]);
 
   // /* 유통기한이 임박한 냉장고 속 음식 보여주기 */
   // let redFoods = []
