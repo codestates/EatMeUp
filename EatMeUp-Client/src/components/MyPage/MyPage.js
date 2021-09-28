@@ -56,12 +56,15 @@ const MyPage = () => {
                   <Title>
                     <div className='recipe_title'>My Recipes</div>
                   </Title>
-                  {/* <MyCard recipes={myRecipes} /> */}
+                  <MyCard>ddd</MyCard>
+                  <MyCard>ddd</MyCard>
+                  <MyCard>ddd</MyCard>
                 </MyRecipeBox>
                 <LikedRecipeBox>
                   <Title>
                     <div className='recipe_title'>Liked Recipes</div>
                   </Title>
+                  <div></div>
                 </LikedRecipeBox>
               </RecipeContainer>
             </InfoConatainer>
@@ -100,7 +103,7 @@ const InfoConatainer = styled.div`
 const ProfileContainer = styled.div`
   width: 20%;
   background: #ffffff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
   height: 100%;
   font-size: 14px;
@@ -171,7 +174,7 @@ const MyRecipeBox = styled.div`
   height: 47%;
   margin: 0 0 3% 2%;
   background: #ffffff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 `;
 
@@ -180,7 +183,7 @@ const LikedRecipeBox = styled.div`
   height: 47%;
   margin: 3% 0 0 2%;
   background: #ffffff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, .2);
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
 `;
 
@@ -211,9 +214,11 @@ const EditButton = styled(LargeBtn)`
   }
 `;
 
-const MyCard = styled(Card)`
+const MyCard = styled.div`
   width: 30px;
   height: 50px;
+  display: flex;
+  flex-direction: row;
 `;
 
 export default MyPage;

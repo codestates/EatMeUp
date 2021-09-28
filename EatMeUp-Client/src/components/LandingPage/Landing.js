@@ -1,5 +1,5 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import axios from "axios";
 
 const Landing = () => {
@@ -21,6 +21,7 @@ const Landing = () => {
   return (
     <div>
       <button onClick={logoutHandler}>Logout</button>
+      <button><Link to="/login">Login</Link></button>
     </div>
   );
 };

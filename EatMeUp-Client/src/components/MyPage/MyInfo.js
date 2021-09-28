@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import Dropzone from "react-dropzone";
+// import Modal from "./Modal"
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -13,6 +14,15 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const MyInfo = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modal, setModal] = useState(false);
+
+  const openModal = () => {
+    setModal(true);
+  };
+  const closeModal = () => {
+    setModal(false);
+  };
   const dropHandler = () => {};
 
   return (
@@ -58,7 +68,15 @@ const MyInfo = () => {
             </div>
             <div className='btn_container'>
               <EditButton>수정 완료</EditButton>
-              <DeleteButton>계정 삭제</DeleteButton>
+              <DeleteButton
+                onClick={() => {
+                  setModal(true);
+                }}
+              >
+                계정 삭제
+              </DeleteButton>
+              {/* {!!modal ? <Modal /> : null} */}
+              {!!modal ? <Modal onClick={() => {setModal(false)}}>&times;</Modal> : null}
             </div>
           </MyInfoContainer>
         </Container>
@@ -177,7 +195,7 @@ const EditButton = styled(LargeBtn)`
   font-weight: 500;
   font-family: "Noto Sans KR";
   cursor: pointer;
-  `;
+`;
 const DeleteButton = styled(LargeBtn)`
   width: 180px;
   height: 50px;
@@ -190,5 +208,72 @@ const DeleteButton = styled(LargeBtn)`
   font-family: "Noto Sans KR";
   cursor: pointer;
 `;
+
+const Modal = ({onClose}) => {
+  const onMaskClick = (e) => {
+    if (e.target === e.currentTarget) {
+      onClose(e)
+    }
+  }
+
+  const close = (e) => {
+    if (onClose) {
+      onClose(e)
+    }
+  }
+  return (
+    <>
+      <ModalOverlay/>
+      <ModalWrapper tabIndex='-1'>
+        <ModalInner tabIndex='0' className='modal-inner'>
+          계정을 삭제하시면 되돌릴 수 없습니다 정말 삭제하시겠습니까?
+          <CloseButton>삭제</CloseButton>
+          <CloseButton onClose={(e) => close}>취소</CloseButton>
+        </ModalInner>
+      </ModalWrapper>
+    </>
+  );
+};
+
+const ModalWrapper = styled.div`
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  overflow: auto;
+  outline: 0;
+`;
+
+const ModalOverlay = styled.div`
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 999;
+`;
+
+const ModalInner = styled.div`
+  box-sizing: border-box;
+  position: relative;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  border-radius: 10px;
+  width: 360px;
+  max-width: 480px;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0 auto;
+  padding: 40px 20px;
+`;
+
+const CloseButton = styled.button`
+
+`
 
 export default MyInfo;
