@@ -9,15 +9,23 @@ const {
   addLikeRecipe,
   delLikeRecipe,
 } = require("../controllers/likeController");
+const { auth } = require("../utils/checkAuth");
 
 const userRouter = express.Router();
 
-userRouter.route("/info").get(getInfo).put(putInfo).delete(deleteInfo);
+userRouter
+  .route("/info")
+  .all(auth)
+  .get(getInfo)
+  .put(putInfo)
+  .delete(deleteInfo);
+
+userRouter.route("/likelist").all(auth).get(getLikeList);
 
 userRouter
-  .route("/likelist")
+  .route("/likelist/:id")
+  .all(auth)
   .post(addLikeRecipe)
-  .get(getLikeList)
   .delete(delLikeRecipe);
 
 module.exports = userRouter;

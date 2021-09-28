@@ -7,6 +7,7 @@ import Footer from "../Util/Footer";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
@@ -53,9 +54,7 @@ const MyRecipe = () => {
 const ListContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
-  @media screen and (max-width: 1500px){
-    width: 100%;
-  }
+  
 `;
 
 const TitleBox = styled.div`
@@ -86,7 +85,7 @@ const ListBox = styled.div`
   max-width: 1329px;
   margin: 0 auto;
   min-height: 720px;
-  column-width: 250px;
+  column-width: 300px;
   gap: 15px;
   padding: 10px;
 `;

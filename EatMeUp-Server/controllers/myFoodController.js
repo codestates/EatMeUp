@@ -1,7 +1,12 @@
 const { Food, User } = require("../models");
+const { toDB, toClient } = require("../utils/foodConverter");
 const env = process.env.NODE_ENV || "development";
 const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
+
+//디비에 추가 => 스키마 맞춰서 추가
+
+//응답 => 디비에서 꺼내서 맵핑해서 바꿔준다음에 보내주기
 
 const addFood = async (req, res) => {
   try {
@@ -17,10 +22,12 @@ const addFood = async (req, res) => {
     });
 
     res.status(201).json({
+      success: true,
       message: "post success",
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "post fail",
       error: error,
     });
@@ -36,12 +43,16 @@ const getFood = async (req, res) => {
       include: "Food",
     });
 
+    const frezFoods = toClient(userFood.Food);
+
     res.status(200).json({
+      success: true,
       message: "load success",
-      foods: userFood.Food,
+      foodData: frezFoods,
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "load fail",
       error: error,
     });
@@ -63,10 +74,12 @@ const modFood = async (req, res) => {
     await modFood.save();
 
     res.status(200).json({
+      success: true,
       message: "edit success",
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "edit fail",
       error: error,
     });
@@ -80,13 +93,47 @@ const delFood = async (req, res) => {
     await Food.destroy({ where: { id: delFoodId } });
 
     res.status(200).json({
+      success: true,
       message: "delete success",
     });
   } catch (error) {
     res.status(400).json({
+      success: false,
       message: "delete fail",
+      error: error,
     });
   }
 };
 
-module.exports = { addFood, getFood, modFood, delFood };
+const modType = async (req, res) => {
+  try {
+    const chgFoods = toDB(req.body);
+
+    const updataFood = async () => {
+      for (let [_, food] of chgFoods.entries()) {
+        const modFoodId = food.id;
+
+        const modFood = await Food.findOne({ where: { id: modFoodId } });
+
+        modFood.frez_type = food.frez_type;
+
+        await modFood.save();
+      }
+    };
+
+    updataFood();
+
+    res.status(200).json({
+      success: true,
+      message: "edit success",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "edit fail",
+      error: error,
+    });
+  }
+};
+
+module.exports = { addFood, getFood, modFood, delFood, modType };

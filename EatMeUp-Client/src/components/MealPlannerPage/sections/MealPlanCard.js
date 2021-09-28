@@ -9,14 +9,20 @@ const MealPlanCard = () => {
     <>
       {mealplan.map((plan, idx) => {
         return (
+
+          // 아침/점심/저녁 식단짜는 영역
           <PlanCard key={idx}>
             <span>{plan}</span>
+
+            {/* 식단을 직접입력하는 영역 */}
             <AddTodo>
               <div className='input'>
                 <input type='text' placeholder='식단을 추가해보세요.' />
               </div>
               <div className='addBtn'>추가</div>
             </AddTodo>
+
+            {/* 입력된 식단을 보여주는 영역 */}
             <Plans>
               <MealPlan>
                 <div className="planmeal-img">
