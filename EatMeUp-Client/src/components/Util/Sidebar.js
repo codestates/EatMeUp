@@ -6,11 +6,15 @@ import theme from "../StyledComponent/theme";
 
 const Sidebar = ({ id }) => {
   const menu = [
-    { menu: "My Page", link: "/user/mypage", icon: "fas fa-home"},
-    { menu: "My Recipes", link: "/user/myrecipe", icon: "fas fa-utensils"},
-    { menu: "Liked Recipes", link: "/user/likelist", icon: "fas fa-heart"},
-    { menu: "Meal Planner", link: "/user/myplanner", icon: "far fa-calendar-alt"},
-    { menu: "My Info", link: "/user/info", icon: "fas fa-user"},
+    { menu: "My Page", link: "/user/mypage", icon: "fas fa-home" },
+    { menu: "My Recipes", link: "/user/myrecipe", icon: "fas fa-utensils" },
+    { menu: "Liked Recipes", link: "/user/likelist", icon: "fas fa-heart" },
+    {
+      menu: "Meal Planner",
+      link: "/user/myplanner",
+      icon: "far fa-calendar-alt",
+    },
+    { menu: "My Info", link: "/user/info", icon: "fas fa-user" },
   ];
 
   const [currentId, setcurrentId] = useState(id);
@@ -30,7 +34,9 @@ const Sidebar = ({ id }) => {
                   menuHandler(idx);
                 }}
                 fillColor={
-                  currentId === idx ? theme.colors.yellow : theme.colors.background
+                  currentId === idx
+                    ? theme.colors.yellow
+                    : theme.colors.background
                 }
                 color={currentId === idx ? "white" : theme.colors.black}
               >
@@ -61,19 +67,13 @@ const SideMenu = styled.div`
   a {
     text-decoration: none;
   }
-  `;
+`
 
 const MenuBtn = styled(XSmallBtn)`
-  display: inline-block;
-  display: flex;
-  align-items: center;
   width: 170px;
-  height: 48px;
-  transition: 0.3s;
-  border-radius: 30px;
   border: solid 1px ${theme.colors.lightgrey};
   margin: 0 0 15px 15px;
-  font-family: Noto Sans KR;
+  font-family: "Noto Sans KR";
   font-size: 14px;
   font-weight: 500;
 

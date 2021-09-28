@@ -3,10 +3,10 @@ const colors = {
   yellow: "#FEBD2F",
   red: "#FF0000",
   gray: "#A9A7A3",
-  lightgrey: "#dddddd",
-  background: "#F5F3F0",
+  lightgrey: "#e5e5e5",
+  background: "#F8F8F8",
   black: "#303030",
-  darkgray: "#505050"
+  darkgrey: "#505050",
 };
 
 const deviceSizes = {
@@ -16,7 +16,6 @@ const deviceSizes = {
   tablet: "768px",
   tabletL: "1024px",
 };
-
 
 const device = {
   mobileS: `only screen and (max-width: ${deviceSizes.mobileS})`,

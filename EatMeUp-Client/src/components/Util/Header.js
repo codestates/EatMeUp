@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { XSmallBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
+
 const Header = ({ id }) => {
   const menu = [
     { menu: "모든레시피", link: "/recipes" },
@@ -11,6 +12,10 @@ const Header = ({ id }) => {
     { menu: "Logout", link: "/logout" },
   ];
   const [currentIdx, setCurrentIdx] = useState(id);
+
+  const logoutHandler = (e) => {
+    e.preventDefault();
+  };
 
   const tabHandler = (idx) => {
     setCurrentIdx(idx);
