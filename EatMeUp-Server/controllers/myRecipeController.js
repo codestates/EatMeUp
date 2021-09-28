@@ -4,11 +4,11 @@ const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
 
 const getRecipe = async (req, res) => {
-  const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
 
   try {
     const recipeInfo = await User.findOne({
-      where: user.id,
+      where: id,
       include: Recipe,
     });
     if (!recipeInfo) {
@@ -18,7 +18,7 @@ const getRecipe = async (req, res) => {
     }
     return res.status(200).json({ recipeInfo, success: true });
   } catch (e) {
-    console.log(e);
+    return res.status(400).json({ error: e, message: "failed to recipe info" });
   }
 };
 
@@ -65,7 +65,7 @@ const putRecipe = async (req, res) => {
     }
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
+    return res.status(400).json({ error, message: "failed to recipe edit" });
   }
 };
 
@@ -91,7 +91,7 @@ const postRecipe = async (req, res) => {
     }
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
+    return res.status(400).json({ error, message: "failed to recipe create" });
   }
 };
 
@@ -106,7 +106,7 @@ const deleteRecipe = async (req, res) => {
     }
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
+    return res.status(400).json({ error, message: "failed to recipe delete" });
   }
 };
 
