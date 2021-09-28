@@ -59,7 +59,7 @@ const Header = ({ id }) => {
 
 const EatMeUpHeader = styled.div`
   width: 100%;
-  height: 8vw;
+  height: 5vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +67,7 @@ const EatMeUpHeader = styled.div`
 
   .logo {
     width: 160px;
-    font-family: Fredoka One;
+    /* font-family: Fredoka One; */
     font-size: 35px;
     text-indent: 30px;
   }
@@ -78,12 +78,12 @@ const EatMeUpHeader = styled.div`
 
   .left-menu {
     display: flex;
-    margin-left: 20px;
+    margin-left: 3vw;
   }
 
   .menuBtns {
     display: flex;
-    margin-left: 50px;
+    margin: 8px 60px;
   }
 
   .menu {
@@ -112,7 +112,7 @@ const EatMeUpHeader = styled.div`
   }
 
   .right-menu {
-    margin-right: 5vw;
+    margin-right: 3vw;
   }
 
   .right {

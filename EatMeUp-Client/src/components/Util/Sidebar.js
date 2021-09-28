@@ -63,7 +63,6 @@ const SideMenu = styled.div`
   align-items: left;
   margin: 0 2vw 0 4vw;
   
-
   a {
     text-decoration: none;
   }
