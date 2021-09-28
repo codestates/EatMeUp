@@ -25,10 +25,10 @@ const setFood = async (req, res) => {
       if (recipeId !== RECIPE_ID) {
         total.push(data);
         data = [];
-        data.push({ IRDNT_NM: IRDNT_NM, IRDNT_CPCTY: IRDNT_CPCTY });
+        data.push({ name: IRDNT_NM, capacity: IRDNT_CPCTY });
         recipeId = RECIPE_ID;
       } else {
-        data.push({ IRDNT_NM: IRDNT_NM, IRDNT_CPCTY: IRDNT_CPCTY });
+        data.push({ name: IRDNT_NM, capacity: IRDNT_CPCTY });
       }
     } catch (error) {
       console.log(error);
@@ -43,7 +43,7 @@ const setFood = async (req, res) => {
         where: { id: index + 1 }, // 아이디값 수정필요 1,86,177
       });
       console.log(recipeInfo);
-      recipeInfo.foods = JSON.stringify(value);
+      recipeInfo.foods = value;
       await recipeInfo.save();
     }
   };
@@ -76,16 +76,16 @@ const setStep = async (req, res) => {
           total.push(data);
           data = [];
           data.push({
-            COOKING_NO: COOKING_NO,
-            COOKING_DC: COOKING_DC,
-            STRE_STEP_IMAGE_URL: STRE_STEP_IMAGE_URL,
+            cookingNum: COOKING_NO,
+            recipe: COOKING_DC,
+            image: STRE_STEP_IMAGE_URL,
           });
           recipeId = RECIPE_ID;
         } else {
           data.push({
-            COOKING_NO: COOKING_NO,
-            COOKING_DC: COOKING_DC,
-            STRE_STEP_IMAGE_URL: STRE_STEP_IMAGE_URL,
+            cookingNum: COOKING_NO,
+            recipe: COOKING_DC,
+            image: STRE_STEP_IMAGE_URL,
           });
         }
       } catch (error) {
@@ -102,7 +102,7 @@ const setStep = async (req, res) => {
         where: { id: index + 1 }, // 아이디값 수정필요 1,184 // todo
       });
       console.log(recipeInfo);
-      recipeInfo.steps = JSON.stringify(value);
+      recipeInfo.steps = value;
       await recipeInfo.save();
     }
   };

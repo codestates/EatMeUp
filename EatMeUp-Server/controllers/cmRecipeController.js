@@ -13,7 +13,7 @@ const getRecipe = async (req, res) => {
     const recipeInfo = await Recipe.findAll({
       where: {
         foods: {
-          [Op.contains]: [{ name: "감자" }],
+          [Op.contains]: food,
         },
       },
       // where: { foods: { IRDNT_NM: { [Op.in]: food } } },
