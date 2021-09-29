@@ -1,7 +1,7 @@
 const { Recipe, sequelize } = require("../models");
 // const { Op } = require("sequelize");
 
-const getRecipe = async (req, res) => {
+const postRecipe = async (req, res) => {
   try {
     console.log(req.body);
     let limit = 8;
@@ -24,7 +24,7 @@ const getRecipe = async (req, res) => {
   }
 };
 
-const getFoodRecipe = async (req, res) => {
+const postFoodRecipe = async (req, res) => {
   try {
     const { food } = req.body;
     let where = food
@@ -76,7 +76,7 @@ const getRecipeDetail = async (req, res) => {
 };
 
 module.exports = {
-  getRecipe,
-  getFoodRecipe,
+  postRecipe,
+  postFoodRecipe,
   getRecipeDetail,
 };
