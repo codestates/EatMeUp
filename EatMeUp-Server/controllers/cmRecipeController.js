@@ -27,7 +27,7 @@ const postFoodRecipe = async (req, res) => {
   try {
     const { food } = req.body;
     let where = food
-      .map((food) => `"Recipe"."foods" @> '[{"name" : "${food.IRDNT_NM}"}]'`)
+      .map((food) => `"Recipe"."foods" @> '[{"name" : "${food.name}"}]'`)
       .join(" OR ");
     let query = `SELECT "id", "title", "description", "cooking_time", "level", "main_image", "foods", "steps", "createdAt", "updatedAt", "post_user_id" FROM "Recipes" AS "Recipe" WHERE ${where}`;
     const recipeInfo = await sequelize.query(query);
