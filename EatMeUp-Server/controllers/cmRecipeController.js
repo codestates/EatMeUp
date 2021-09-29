@@ -31,6 +31,7 @@ const getFoodRecipe = async (req, res) => {
     const recipeInfo = await Recipe.findAll({
       where: {
         foods: {
+
           // [Op.or]: {
           //   [Op.contains]: food,
           // },

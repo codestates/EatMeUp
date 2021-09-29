@@ -4,8 +4,9 @@ import {
   ALL_RECIPES_FAIL,
 } from "../_types/recipeTypes";
 
+import { myRecipes } from '../components/dummydata';
 
-export const recipeReducer = (state = { recipes: [] }, action) => {
+export const recipeReducer = (state = { recipes: myRecipes }, action) => {
   switch (action.type) {
     case ALL_RECIPES_REQUEST:
       return {

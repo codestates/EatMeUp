@@ -1,27 +1,35 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
-import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux'
+import { logoutRequest } from '../../_actions/authActions'
+
+/* 스타일 컴포넌트 */
+import Footer from "../Util/Footer";
+import Header from "../Util/Header";
 
 const Landing = () => {
-  const history = useHistory();
+ 
+  const dispatch = useDispatch();
+  const { loading, error, isAuthenticated } = useSelector(state => state.auth)
+ 
 
-  const logoutHandler = (e) => {
-    e.preventDefault();
-    axios
-      .get("https://api.eatmeup.me/auth/logout", { withCredentials: true })
-      .then((response) => {
-        if (response.data.success) {
-          history.push("/login");
-        } else {
-          alert("로그아웃에 실패");
-        }
-      });
-  };
+  const logoutHandler = () => {
 
+    if(error) {
+
+      alert('cannot logout')
+    }
+
+    dispatch(logoutRequest())
+    
+  }
   return (
-    <div>
-      <button onClick={logoutHandler}>Logout</button>
-    </div>
+    <>
+      <Header />
+        <button
+        onClick={logoutHandler}
+        >logout</button>
+      <Footer />
+    </>
   );
 };
 

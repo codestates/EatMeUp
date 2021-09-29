@@ -1,31 +1,62 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Dropzone from "react-dropzone";
 
 import theme from "../../StyledComponent/theme";
 
-const Steps = () => {
+const Steps = ({ menuals, setMenuals }) => {
+  const inputEl = useRef(null);
   const [recipeBox, setRecipeBox] = useState(["recipe"]);
+  const [currentidx, setCurrentidx] = useState(0);
+  const [recipeDC, setRecipeDC] = useState("");
+  const [recipeImg, setRecipeImg] = useState(
+    "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
+  );
+
+  useEffect(() => {}, [recipeDC]);
+
+  // 요리법 step 영역 추가하는 핸들러, db에 저장할 recipe배열에 넣는 핸들러
   const addRecipeHandler = () => {
     const textarea = "add";
+    const menual = {
+      id: currentidx,
+      cookingNo: menuals.length + 1,
+      image: recipeImg,
+      recipe: recipeDC,
+    };
+
     setRecipeBox([...recipeBox, textarea]);
+    setMenuals([...menuals, menual]);
   };
 
+  //추가된 step영역 삭제하는 핸들러
   const deleteRecipeHandler = (idx) => {
-    console.log(idx);
     const deleteBox = recipeBox.filter((recipe, id) => {
       if (id !== idx) {
         return recipe;
       }
     });
 
+    const deleteMenual = menuals.filter((recipe, id) => {
+      if (id !== idx) {
+        return recipe;
+      }
+    });
+
     setRecipeBox(deleteBox);
+    setMenuals(deleteMenual);
   };
 
+  const getCurrentPosition = (idx) => {
+    console.log(idx, recipeDC);
+    setCurrentidx(idx);
+  };
+console.log(inputEl)
+  
   const dropHandler = () => {};
 
   return (
-    <AddRecipeArea>
+    <AddRecipeArea ref={inputEl}>
       {recipeBox.map((recipe, idx) => {
         return (
           <AddRecipeBox key={idx}>
@@ -50,7 +81,12 @@ const Steps = () => {
 
               {/* 단계별 요리법 설명 영역 */}
               <div className='recipe-dc_box'>
-                <textarea placeholder='요리 레시피를 입력해 주세요.'></textarea>
+                <textarea
+                  id='textarea'
+                  onClick={() => getCurrentPosition(idx)}
+                  onChange={(e) => setRecipeDC(e.currentTarget.value)}
+                  placeholder='요리 레시피를 입력해 주세요.'
+                ></textarea>
               </div>
 
               {/* 단계 삭제버튼 영역 */}
@@ -65,9 +101,13 @@ const Steps = () => {
         );
       })}
       <BtnArea>
-        <PlusBtn>
-          <i class='far fa-plus-square' onClick={addRecipeHandler}></i>
-        </PlusBtn>
+        {recipeBox.length === 20 ? (
+          ""
+        ) : (
+          <PlusBtn>
+            <i class='far fa-plus-square' onClick={addRecipeHandler}></i>
+          </PlusBtn>
+        )}
       </BtnArea>
     </AddRecipeArea>
   );
@@ -115,7 +155,6 @@ const AddRecipeBox = styled.div`
   .recipe-dc_box {
     width: 60%;
     height: 90%;
-
     margin: 10px;
     border-radius: 20px;
   }
@@ -132,6 +171,7 @@ const AddRecipeBox = styled.div`
     font-size: 30px;
     padding: 10px;
     color: ${theme.colors.gray};
+    cursor: pointer;
   }
 `;
 
