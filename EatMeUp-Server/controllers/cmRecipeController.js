@@ -17,7 +17,9 @@ const getRecipe = async (req, res) => {
     }
     return res.status(200).json({ recipeInfo, success: true });
   } catch (error) {
-    return res.status(400).json({ error: e, message: "failed to recipe info" });
+    return res
+      .status(400)
+      .json({ error: error, message: "failed to recipe info" });
   }
 };
 
@@ -47,8 +49,10 @@ const getFoodRecipe = async (req, res) => {
         .json({ success: false, message: "failed to recipe info" });
     }
     return res.status(200).json({ recipeInfo, success: true });
-  } catch (e) {
-    return res.status(400).json({ error: e, message: "failed to recipe info" });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: error, message: "failed to recipe info" });
   }
 };
 
@@ -66,7 +70,7 @@ const getRecipeDetail = async (req, res) => {
   } catch (error) {
     return res
       .status(400)
-      .json({ error: e, message: "failed to recipe detail" });
+      .json({ error: error, message: "failed to recipe detail" });
   }
 };
 
