@@ -21,7 +21,7 @@ const Footer = () => {
             <span className='contact-info'>서울특별시 강동구 성내2길 123</span>
           </div>
           <div className='company'>
-            (주) EatMeUp | 공동대표: 오동욱 강주오 오가영 이세경
+            (주) EatMeUp | 공동대표: 오동욱 강주오 이세경 오가영
           </div>
         </div>
 

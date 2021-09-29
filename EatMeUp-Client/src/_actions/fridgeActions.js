@@ -69,12 +69,11 @@ export const allFoods = () => async (dispatch) => {
 
     const { data } = await axios.get(`${process.env.REACT_APP_API}/food/info`, {withCredentials: true})
 
-    console.log(data)
-
     dispatch({
       type: ALL_FOODS_SUCCESS,
       payload: data.foodData
     })
+
   } catch(error) {
     dispatch({
       type: ALL_FOODS_FAIL,
@@ -93,7 +92,7 @@ export const saveFridgeInfo = (foodlist) => async (dispatch) => {
 
     const { data } = await axios.put(`${process.env.REACT_APP_API}/food/info`, foodlist, {withCredentials: true})
 
-    console.log(data)
+
 
     dispatch({
       type: SAVE_FOOD_SUCCESS,
@@ -119,7 +118,7 @@ export const addToFridge = (food) => async (dispatch) => {
     dispatch({ type: NEW_FOOD_REQUEST})
 
     const { data } = await axios.post(`${process.env.REACT_APP_API}/food/info`, food, {withCredentials: true})
-console.log(data)
+
     dispatch({
       type: NEW_FOOD_SUCCESS,
       payload: data

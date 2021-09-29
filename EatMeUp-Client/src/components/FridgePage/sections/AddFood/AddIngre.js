@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Dropzone from "react-dropzone";
-import { useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { addToFridge } from "../../../../_actions/fridgeActions";
-import axios from "axios";
+import { imageUpload } from "../../../../_actions/imageAction";
+import { foodLife } from "../utils/convertDate";
 
 /* 스타일 컴포넌트 */
 import {
@@ -14,88 +14,46 @@ import {
 } from "../styled/Style";
 import { Button } from "../../../StyledComponent/buttons";
 
+//Todo
+// 음식 추가시 에러시 메세지 띄우기!!
+
 const AddIngre = ({ setOpenAddWindow }) => {
+
   const dispatch = useDispatch();
+  const { imageUrl } = useSelector((state) => state.image);
 
   const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
   const [registerDate, setRegisterDate] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
+
   const closeHandler = () => {
     setOpenAddWindow(false);
   };
 
   // 음식을 냉장고에 추가하는 핸들러
-
-  // const dropHandler = async (files) => {
-
-  //   // const data = await axios.get("https://api.eatmeup.me/image/s3url", {
-  //   //   withCredentials: true,
-  //   // });
-
-  //   const file = files[0];
-
-  //   axios.get("https://api.eatmeup.me/image/s3url", {
-  //     withCredentials: true
-  //   }).then((response) => {
-  //     const signedUrl = response.data.s3url
-  //     console.log(signedUrl)
-  //     const options = {
-  //       headers: {
-  //         'Content-Type': file.type
-  //       }
-  //     }
-
-  //     return axios.put(signedUrl, file, options);
-  //   }).then((response) => {
-  //     console.log(response)
-  //   })
-  // };
-
   const imgFileHandler = (e) => {
-    
     setImage(e.target.files[0]);
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
-    // 서버로부터 S3업로드 url 받아오기
-    try{
-      const data = await axios.get("https://api.eatmeup.me/image/s3url", {withCredentials: true})
-    console.log(data.data);
 
-    //url을 사용해서 S3 버킷에 업로드
-    //axios
-    const img = await fetch(data.data.s3url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: image,
-    }, {withCredentials: true});
-
-    console.log(img)
-    } catch(error) {
-      console.log(error)
-    }
-    
-
-   
+    dispatch(imageUpload(image));
+    const food_life = foodLife(foodlife);
+    const buyingDate = foodLife(registerDate);
 
     const food = {
-      food_image: "food2.jpeg",
+      food_image: imageUrl,
       food_name: foodname,
-      life: 50,
+      life: food_life.elapsedDay ? food_life.elapsedDay : buyingDate.elapsedDay,
       frez_type: 0,
       created_at: registerDate,
-      update_at: "2021-01-02",
     };
 
     dispatch(addToFridge(food));
     setOpenAddWindow(false);
   };
-
 
   return (
     <>
@@ -106,18 +64,19 @@ const AddIngre = ({ setOpenAddWindow }) => {
           </div>
           <form onSubmit={submitHandler}>
             {/* 음식사진 업로드 */}
-            {/* <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
-              {({ getRootProps, getInputProps }) => (
-                <DropzoneArea {...getRootProps()}>
-                  <input {...getInputProps()} />
-
-                  <div>
-                    <i className='bx bxs-camera-plus'></i>
-                  </div>
-                </DropzoneArea>
+            <DropzoneArea>
+              {image ? (
+                <div>
+                  <img src={URL.createObjectURL(image)} alt='foodimg' />
+                </div>
+              ) : (
+                <div>
+                  <i className='bx bxs-camera-plus'></i>
+                </div>
               )}
-            </Dropzone> */}
+            </DropzoneArea>
             <input type='file' onChange={imgFileHandler} accept='image/*' />
+
             <FoodInfoBox>
               {/* 음식이름입력창 */}
               <div className='foodname-box'>

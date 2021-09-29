@@ -39,7 +39,13 @@ export const getMyrecipes = () => async (dispatch) => {
   try {
     dispatch({ type: GET_MYECIPES_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.get(`${process.env.REACT_APP_API}/myRecipe/info`, {withCredentials: true})
+
+    dispatch({
+      type: GET_MYECIPES_SUCCESS,
+      payload: data.recipeInfo
+    })
+
 
   } catch (error) {
 
@@ -54,12 +60,17 @@ export const getMyrecipes = () => async (dispatch) => {
 
 
 /* 새로운 레시피 저장하기 */
-export const createMyRecipe = () => async (dispatch) => {
+export const createMyRecipe = (newRecipe) => async (dispatch) => {
   try {
     dispatch({ type: NEW_MYRECIPE_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.post(`${process.env.REACT_APP_API}/myRecipe/info`, newRecipe, {withCredentials: true})
 
+    dispatch({
+      type: NEW_MYRECIPE_SUCCESS,
+      payload: data
+    })
+   
   } catch (error) {
     dispatch({
       type:  NEW_MYRECIPE_FAIL,
@@ -87,12 +98,16 @@ export const editMyrecipe = () => async (dispatch) => {
 
 
 /* 마이레시피 삭제하기 */
-export const deleteMyrecipe = () => async (dispatch) => {
+export const deleteMyrecipe = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_MYRECIPE_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.delete(`${process.env.REACT_APP_API}/myRecipe/info/${id}`, {withCredentials: true})
 
+    dispatch({
+      type: DELETE_MYRECIPE_SUCCESS,
+      payload: data
+    })
   } catch (error) {
     dispatch({
       type: DELETE_MYRECIPE_FAIL,

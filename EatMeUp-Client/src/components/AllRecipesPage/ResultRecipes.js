@@ -9,6 +9,7 @@ import { allRecipes } from "../../_actions/recipeActions";
 import Header from "../Util/Header";
 import Card from "./sections/Card";
 import Footer from "../Util/Footer";
+import Loader from "../Util/Loader";
 
 const ResultRecipes = () => {
   // Todo
@@ -18,12 +19,15 @@ const ResultRecipes = () => {
   const dispatch = useDispatch();
   const { loading, recipes } = useSelector((state) => state.allRecipes);
 
-  const slicedArr = recipes.slice(0, 12);
+  
   const loadMore = 4;
-  const [showRecipes, setShowRecipes] = useState(slicedArr);
+  const [showRecipes, setShowRecipes] = useState([]);
 
   useEffect(() => {
-    dispatch(allRecipes());
+    const getPage = {
+      page: 1
+    }
+    dispatch(allRecipes(getPage));
   }, [dispatch]);
 
   const loadMoreHandler = () => {
@@ -36,50 +40,54 @@ const ResultRecipes = () => {
   return (
     <>
       <Header id={0} />
-      <section>
-        {/* 페이지 제목 */}
-        <TitleBox>
-          <h1>
-            <i className='fas fa-utensils'></i> 추천 레시피
-          </h1>
-        </TitleBox>
+      {loading ? (
+        <Loader />
+      ) : (
+        <section>
+          {/* 페이지 제목 */}
+          <TitleBox>
+            <h1>
+              <i className='fas fa-utensils'></i> 추천 레시피
+            </h1>
+          </TitleBox>
 
-        {/* 냉장고 재료기반 추천된 재료리스트 */}
-        <SearchBox>
-          <div className='search_box'>
-            <Stack direction='row' spacing={1}>
-              <i className='fas fa-shopping-basket'></i>
-              <Chip label='감자' onDelete={() => deleteIngredientHandler()} />
-              <Chip label='우유' onDelete={() => deleteIngredientHandler()} />
-              <Chip label='김치' onDelete={() => deleteIngredientHandler()} />
-              <Chip
-                label='요구르트'
-                onDelete={() => deleteIngredientHandler()}
-              />
-              <Chip
-                label='닭가슴살'
-                onDelete={() => deleteIngredientHandler()}
-              />
-            </Stack>
-          </div>
-        </SearchBox>
+          {/* 냉장고 재료기반 추천된 재료리스트 */}
+          <SearchBox>
+            <div className='search_box'>
+              <Stack direction='row' spacing={1}>
+                <i className='fas fa-shopping-basket'></i>
+                <Chip label='감자' onDelete={() => deleteIngredientHandler()} />
+                <Chip label='우유' onDelete={() => deleteIngredientHandler()} />
+                <Chip label='김치' onDelete={() => deleteIngredientHandler()} />
+                <Chip
+                  label='요구르트'
+                  onDelete={() => deleteIngredientHandler()}
+                />
+                <Chip
+                  label='닭가슴살'
+                  onDelete={() => deleteIngredientHandler()}
+                />
+              </Stack>
+            </div>
+          </SearchBox>
 
-        {/* 카드리스트 컨테이너 */}
-        <Container>
-          {showRecipes.map((recipe, idx) => {
-            return <Card recipe={recipe} key={idx} />;
-          })}
-        </Container>
-        <LoadMoreBtn>
-          <div>
-            {recipes.length === showRecipes.length ? (
-              ""
-            ) : (
-              <button onClick={loadMoreHandler}>더보기</button>
-            )}
-          </div>
-        </LoadMoreBtn>
-      </section>
+          {/* 카드리스트 컨테이너 */}
+          <Container>
+            {recipes.map((recipe, idx) => {
+              return <Card recipe={recipe} key={idx} />;
+            })}
+          </Container>
+          <LoadMoreBtn>
+            {/* <div>
+              {recipes.length === showRecipes.length ? (
+                ""
+              ) : (
+                <button onClick={loadMoreHandler}>더보기</button>
+              )}
+            </div> */}
+          </LoadMoreBtn>
+        </section>
+      )}
       <Footer />
     </>
   );
