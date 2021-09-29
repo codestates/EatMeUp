@@ -1,8 +1,5 @@
-const { Recipe } = require("../models");
-const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.js")[env];
-const jwt = require("jsonwebtoken");
-const { Op } = require("sequelize");
+const { Recipe, sequelize } = require("../models");
+// const { Op } = require("sequelize");
 
 const getRecipe = async (req, res) => {
   try {
@@ -27,21 +24,22 @@ const getRecipe = async (req, res) => {
 const getFoodRecipe = async (req, res) => {
   try {
     const { food } = req.body;
-    console.log(food);
-    const recipeInfo = await Recipe.findAll({
-      where: {
-        foods: {
-
-          // [Op.or]: {
-          //   [Op.contains]: food,
-          // },
-          // [Op.contains]:  [Op.or]: food ,
-          // [Op.or]: food,
-          // [Op.ne]: null,
-          [Op.contains]: food,
-        },
-      },
-    });
+    let where = food
+      .map(
+        (food) => `"Recipe"."foods" @> '[{"IRDNT_NM" : "${food.IRDNT_NM}"}]'`,
+      )
+      .join(" OR ");
+    let query = `SELECT "id", "title", "description", "cooking_time", "level", "main_image", "foods", "steps", "createdAt", "updatedAt", "post_user_id" FROM "Recipes" AS "Recipe" WHERE ${where}`;
+    console.log(query);
+    const recipeInfo = await sequelize.query(query);
+    // console.log(food);
+    // const recipeInfo = await Recipe.findAll({
+    //   where: {
+    //     foods: {
+    //       [Op.contains]: food,
+    //     },
+    //   },
+    // });
     console.log(recipeInfo);
     if (!recipeInfo) {
       return res
