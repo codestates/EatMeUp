@@ -4,7 +4,7 @@ const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
 
 const getInfo = async (req, res) => {
-  const { id } = req.body;
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
   const findInfo = await User.findOne({ where: id });
   if (!findInfo) {
     return res
@@ -15,7 +15,8 @@ const getInfo = async (req, res) => {
 };
 
 const putInfo = async (req, res) => {
-  const { id, username, avatar } = req.body;
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  const { username, avatar } = req.body;
   const updateInfo = await User.update(
     {
       username,
@@ -32,7 +33,7 @@ const putInfo = async (req, res) => {
 };
 
 const deleteInfo = async (req, res) => {
-  const { id } = req.body;
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
   const destroyInfo = await User.destroy({ where: { id } });
   if (!destroyInfo) {
     return res
