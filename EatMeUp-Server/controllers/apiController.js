@@ -43,7 +43,7 @@ const setFood = async (req, res) => {
         where: { id: index + 1 }, // 아이디값 수정필요 1,86,177
       });
       console.log(recipeInfo);
-      recipeInfo.foods = JSON.stringify(value);
+      recipeInfo.foods = value;
       await recipeInfo.save();
     }
   };
@@ -102,7 +102,7 @@ const setStep = async (req, res) => {
         where: { id: index + 1 }, // 아이디값 수정필요 1,184 // todo
       });
       console.log(recipeInfo);
-      recipeInfo.steps = JSON.stringify(value);
+      recipeInfo.steps = value;
       await recipeInfo.save();
     }
   };
