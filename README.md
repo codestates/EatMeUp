@@ -37,7 +37,7 @@
 <img src="https://img.shields.io/badge/PostgreSQL-47A248?style=for-the-badge&logo=postgreSQL&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white"/></a>
 
-### DEPLOY
+<!-- ### DEPLOY -->
 
 
 ## FlowChart
@@ -47,7 +47,7 @@
 ![SERVER - FlowChart](https://user-images.githubusercontent.com/83802662/132614622-88385355-c21b-4f37-bdee-10e00e100891.jpg)
 
 ## API Document
-> [EatMeUp - API Document](https://eatmeup-api-document.gitbook.io/eatmeup/-Mj7S6ZKPtXJjuL7pLLK/)
+> [EatMeUp - API Document](https://juy5437.gitbook.io/eatmeup/)
 
 ## 팀원소개
 | 역할 |  이름  |   담당    | Github                                                                                                                                                                      |
