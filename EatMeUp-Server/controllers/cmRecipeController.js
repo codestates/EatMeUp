@@ -3,8 +3,9 @@ const { Recipe, sequelize } = require("../models");
 
 const getRecipe = async (req, res) => {
   try {
+    console.log(req.body);
     let limit = 8;
-    let offset = 0 + (req.body.page - 1) * limit;
+    let offset = 0 + (Number(req.body.page) - 1) * limit;
 
     const recipeInfo = await Recipe.findAndCountAll({
       offset,
