@@ -5,6 +5,9 @@ import { XSmallBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
 
 const Header = ({ id }) => {
+  const isAuth = localStorage.getItem("persist:root");
+  const { isAuthenticated } = JSON.parse(JSON.parse(isAuth).auth);
+
   const menu = [
     { menu: "모든레시피", link: "/recipes" },
     { menu: "마이냉장고", link: "/fridge" },
@@ -20,46 +23,61 @@ const Header = ({ id }) => {
   const tabHandler = (idx) => {
     setCurrentIdx(idx);
   };
-  
-  return (
+
+  return isAuthenticated ? (
     <EatMeUpHeader>
       <div className='left-menu'>
         <div className='logo'>
-          <Link to="/"><img src='../food_img/EatMeUp.png' alt='logo' /></Link>
+          <Link to='/'>
+            <img src='../food_img/EatMeUp.png' alt='logo' />
+          </Link>
         </div>
         <div className='menuBtns'>
           <Link to='/recipes'>
             <div className='menu left'>모든레시피</div>
           </Link>
-
           <Link to='/fridge'>
             <div className='menu left'>마이냉장고</div>
           </Link>
         </div>
       </div>
-
       {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
       <div className='right-menu'>
         <div className='menuBtns'>
-          {/* <Link>
+          <Link to='/user/mypage'>
+            <div className='menu right'>MYPAGE</div>
+          </Link>
+        </div>
+      </div>
+    </EatMeUpHeader>
+  ) : (
+    <EatMeUpHeader>
+      <div className='left-menu'>
+        <div className='logo'>
+          <Link to='/'>
+            <img src='../food_img/EatMeUp.png' alt='logo' />
+          </Link>
+        </div>
+        <div className='menuBtns'></div>
+      </div>
+      {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
+      <div className='right-menu'>
+        <div className='menuBtns'>
+          <Link to='/login'>
             <div className='menu right'>LOGIN</div>
           </Link>
-          <Link>
+          <Link to='/signup'>
             <div className='menu right'>SIGNUP</div>
-          </Link> */}
-           <Link to="/user/mypage">
-            <div className='menu right'>MYPAGE</div>
-          </Link> 
+          </Link>
         </div>
       </div>
     </EatMeUpHeader>
   );
 };
 
-
 const EatMeUpHeader = styled.div`
   width: 100%;
-  height: 8vw;
+  height: 5vw;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -67,7 +85,7 @@ const EatMeUpHeader = styled.div`
 
   .logo {
     width: 160px;
-    font-family: Fredoka One;
+    /* font-family: Fredoka One; */
     font-size: 35px;
     text-indent: 30px;
   }
@@ -78,16 +96,16 @@ const EatMeUpHeader = styled.div`
 
   .left-menu {
     display: flex;
-    margin-left: 20px;
+    margin-left: 3vw;
   }
 
   .menuBtns {
     display: flex;
-    margin-left: 50px;
+    margin: 8px 60px;
   }
 
   .menu {
-    font-weight: bold;
+    font-weight: 500;
     width: 100px;
     height: 35px;
     line-height: 35px;
@@ -112,7 +130,7 @@ const EatMeUpHeader = styled.div`
   }
 
   .right-menu {
-    margin-right: 5vw;
+    margin-right: 3vw;
   }
 
   .right {

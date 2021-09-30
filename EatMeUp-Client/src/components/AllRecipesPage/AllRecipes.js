@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { allRecipes } from "../../_actions/recipeActions";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -10,15 +9,30 @@ import Card from "./sections/Card";
 import Footer from "../Util/Footer";
 import Loader from "../Util/Loader";
 
-const ResultRecipes = () => {
+/* 스타일 컴포넌트 */
+import { SectionBox } from "../StyledComponent/containers";
+
+const AllRecipes = () => {
   // Todo
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const { loading, recipes, food } = useSelector((state) => state.allRecipes);
+  const dispatch = useDispatch();
+  const { loading, recipes } = useSelector((state) => state.allRecipes);
+  const [currentIdx, setCurrentIdx] = useState(0)
+  
+  useEffect(() => {
+    const getPage = {
+      page: 1,
+    };
+    dispatch(allRecipes(getPage));
+  }, [dispatch]);
 
-  
-  
+
+  const mainCardHandler = (e, idx) => {
+    setCurrentIdx(idx)
+  }
+
   return (
     <>
       <Header id={0} />
@@ -27,24 +41,25 @@ const ResultRecipes = () => {
       ) : (
         <section>
           {/* 페이지 제목 */}
-          <TitleBox>
-            <h1>
-              <i className='fas fa-utensils'></i> 추천 레시피
-            </h1>
-          </TitleBox>
 
+          <TitleContainer>
+            <TitleBox>
+              <h1>
+                <i className='fas fa-utensils'></i> 오늘의 레시피
+              </h1>
+              <div>
+                {[1, 2, 3].map((card, idx) => {
+                  return <MainRecipeCard key={idx} onClick={(e) => mainCardHandler(e, idx)}
+                  style={currentIdx === idx ? { width: "50%"} : {width: "23%"}}
+                  ></MainRecipeCard>
+                })}
+                
+              
+              </div>
+            </TitleBox>
+          </TitleContainer>
           {/* 냉장고 재료기반 추천된 재료리스트 */}
-          <SearchBox>
-            <div className='search_box'>
-
-              <Stack direction='row' spacing={1}>
-                <i className='fas fa-shopping-basket'></i>
-                {food.food ? food.food.map((item, idx) => {
-                  return <Chip label={item.name} key={idx} />
-                }) : ""}
-              </Stack>
-            </div>
-          </SearchBox>
+          <SearchBox></SearchBox>
 
           {/* 카드리스트 컨테이너 */}
           <Container>
@@ -52,7 +67,6 @@ const ResultRecipes = () => {
               return <Card recipe={recipe} key={idx} />;
             })}
           </Container>
-          
         </section>
       )}
       <Footer />
@@ -60,11 +74,29 @@ const ResultRecipes = () => {
   );
 };
 
-const TitleBox = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  margin-top: 10px;
+const TitleContainer = styled.div`
+  width: 100%;
+  margin-top: 60px;
 `;
+const TitleBox = styled.div`
+  width: 95%;
+  text-indent: 40px;
+  margin: 0 auto;
+
+  div {
+    display: flex;
+  }
+
+`;
+
+const MainRecipeCard = styled(SectionBox)`
+  width: 23%;
+  height: 350px;
+  transition: all 0.4s;
+  margin: 0px 7.5px;
+`;
+
+
 const SearchBox = styled.div`
   width: 90%;
   display: flex;
@@ -106,4 +138,4 @@ const Container = styled.div`
   }
 `;
 
-export default ResultRecipes;
+export default AllRecipes;

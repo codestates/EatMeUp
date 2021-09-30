@@ -8,7 +8,7 @@ import EditIngre from "./EditFood/EditIngre";
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";
 
-const EditFridge = ({ foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
+const EditFridge = ({ foods, foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
 
 
   const [openEditWindow, setOpenEditWindow] = useState(false);
@@ -17,7 +17,7 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
   const [dragging, setDragging] = useState(false);
   const dragItem = useRef();
   const dragNode = useRef();
-  
+ 
    //수정 모달창 띄우기 핸들러
   const openEditWindowHandler = (food) => {
   
@@ -34,6 +34,14 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
     } else {
       return "냉동";
     }
+  };
+
+  const sliceHandler = (date) => {
+    const createAt = date.slice(0, 10);
+    const Y = createAt.slice(0, 4)
+    const M = createAt.slice(5, 7)
+    const D = createAt.slice(8, 10)
+    return `${Y}.${M}.${D}`;
   };
 
   /* drag and drop 구현 코드*/
@@ -175,7 +183,7 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
                   <div className='food'>
                     {/* 음식사진 */}
                     <img
-                      src={`../food_img/${food.food_image}`}
+                      src={food.food_image ? food.food_image : 'https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg'}
                       alt='food'
                       draggable={false}
                       className='food_img'
@@ -202,7 +210,7 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
 
                       {/* 구매일자 */}
                       <div>
-                        <span className='date'>2021.09.20</span>
+                        <span className='date'>{sliceHandler(food.createdAt)}</span>
                       </div>
                     </div>
                   </div>
@@ -227,7 +235,7 @@ const EditFridge = ({ foodList, showEditBtn, setFoodList, setShowEditBtn }) => {
       })}
 
       {openEditWindow ? (
-        <EditIngre setOpenEditWindow={setOpenEditWindow} food={clickedFood} setShowEditBtn={setShowEditBtn} />
+        <EditIngre setOpenEditWindow={setOpenEditWindow} foods={foods} food={clickedFood} setShowEditBtn={setShowEditBtn} setFoodList={setFoodList} />
       ) : (
         ""
       )}

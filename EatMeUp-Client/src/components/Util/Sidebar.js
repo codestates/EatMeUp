@@ -28,7 +28,7 @@ const Sidebar = ({ id }) => {
       <SideMenu>
         {menu.map((item, idx) => {
           return (
-            <Link to={item.link}>
+            <Link to={item.link} key={idx}>
               <MenuBtn
                 onClick={() => {
                   menuHandler(idx);
@@ -63,7 +63,6 @@ const SideMenu = styled.div`
   align-items: left;
   margin: 0 2vw 0 4vw;
   
-
   a {
     text-decoration: none;
   }

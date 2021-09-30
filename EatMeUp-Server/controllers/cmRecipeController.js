@@ -1,14 +1,21 @@
-const { Recipe, sequelize } = require("../models");
+const { Recipe, User, sequelize } = require("../models");
 // const { Op } = require("sequelize");
 
 const postRecipe = async (req, res) => {
   try {
     let limit = 8;
-    let offset = 0 + (req.body.page - 1) * limit;
+    let offset = 0 + (Number(req.body.page) - 1) * limit;
+    // let count = `SELECT count(*) AS "count" FROM "Recipes" AS "Recipe"`;
+    // let query = `SELECT "Recipe"."id", "Recipe"."title", "Recipe"."description", "Recipe"."cooking_time", "Recipe"."level", "Recipe"."main_image", "Recipe"."foods", "Recipe"."steps", "Recipe"."createdAt", "Recipe"."updatedAt", "post_user_id", "User"."username", "User"."avatar" FROM "Recipes" AS "Recipe" JOIN "Users" AS "User" ON "User"."id" = "Recipe"."post_user_id" LIMIT ${limit} OFFSET ${offset};`;
+    // const countInfo = await sequelize.query(count);
+    // const recipeInfo = await sequelize.query(query);
 
     const recipeInfo = await Recipe.findAndCountAll({
       offset,
       limit,
+      include: [
+        { model: User, as: "user", attributes: ["username", "avatar"] },
+      ],
     });
     if (!recipeInfo) {
       return res
@@ -29,7 +36,8 @@ const postFoodRecipe = async (req, res) => {
     let where = food
       .map((food) => `"Recipe"."foods" @> '[{"name" : "${food.name}"}]'`)
       .join(" OR ");
-    let query = `SELECT "id", "title", "description", "cooking_time", "level", "main_image", "foods", "steps", "createdAt", "updatedAt", "post_user_id" FROM "Recipes" AS "Recipe" WHERE ${where}`;
+    let query = `SELECT "Recipe"."id", "Recipe"."title", "Recipe"."description", "Recipe"."cooking_time", "Recipe"."level", "Recipe"."main_image", "Recipe"."foods", "Recipe"."steps", "Recipe"."createdAt", "Recipe"."updatedAt", "post_user_id", "User"."username", "User"."avatar" FROM "Recipes" AS "Recipe" JOIN "Users" AS "User" ON "User"."id" = "Recipe"."post_user_id" WHERE ${where}`;
+    console.log(query);
     const recipeInfo = await sequelize.query(query);
 
     if (!recipeInfo) {
@@ -60,6 +68,26 @@ const getRecipeDetail = async (req, res) => {
     return res
       .status(400)
       .json({ error: error, message: "failed to recipe detail" });
+  }
+};
+
+const test = async (req, res) => {
+  console.log("hi");
+  const { id } = req.body;
+  try {
+    const recipeInfo = await User.findAll({
+      include: Recipe,
+      // include: [
+      //   {
+      //     model: User,
+      //     attributes: ["username", "avatar"],
+      //   },
+      // ],
+      where: { id },
+    });
+    console.log(recipeInfo);
+  } catch (error) {
+    console.log(error);
   }
 };
 
