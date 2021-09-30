@@ -62,7 +62,7 @@ const MyInfo = () => {
                 </div>
                 <div className='info3'>
                   email
-                  <input placeholder='kimcoding@eatmeup.me' />
+                  <input placeholder='kimcoding@eatmeup.me' disabled/>
                 </div>
               </div>
             </div>

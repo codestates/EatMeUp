@@ -47,7 +47,7 @@ const Header = ({ id }) => {
           <Link>
             <div className='menu right'>SIGNUP</div>
           </Link> */}
-           <Link to="/user/mypage">
+            <Link to="/user/mypage">
             <div className='menu right'>MYPAGE</div>
           </Link> 
         </div>
@@ -87,7 +87,7 @@ const EatMeUpHeader = styled.div`
   }
 
   .menu {
-    font-weight: bold;
+    font-weight: 500;
     width: 100px;
     height: 35px;
     line-height: 35px;

@@ -112,7 +112,7 @@ const LoginContainer = styled(SectionBox)`
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin: 200px auto;
+  margin: 10% auto;
   .logo_container {
     width: 100%;
     height: 70px;
