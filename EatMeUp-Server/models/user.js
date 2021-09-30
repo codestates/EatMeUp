@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(models.Food, {
         foreignKey: "own_user_id",
       });
+      models.User.hasMany(models.Mealplanner, {
+        foreignKey: "own_user_id",
+      });
       models.User.belongsToMany(models.Recipe, {
         through: "User_Like_Recipe",
         as: "likeRecipe",
