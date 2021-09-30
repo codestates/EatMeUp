@@ -9,15 +9,15 @@ const Footer = () => {
         <div className='right'>
           <div className='contact-infos'>TOUCH IN US</div>
           <div className='contact'>
-            <i class='fas fa-phone'></i>
+            <i className='fas fa-phone'></i>
             <span className='contact-info'>02) 1234.5678</span>
           </div>
           <div className='contact'>
-            <i class='fas fa-envelope'></i>
+            <i className='fas fa-envelope'></i>
             <span className='contact-info'>eatmeup@gmail.com</span>
           </div>
           <div className='contact'>
-            <i class='fas fa-map-marker-alt'></i>
+            <i className='fas fa-map-marker-alt'></i>
             <span className='contact-info'>서울특별시 강동구 성내2길 123</span>
           </div>
           <div className='company'>

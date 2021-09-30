@@ -7,7 +7,10 @@ import {
   LOGIN_FAIL ,
   LOGOUT_REQUEST,
   LOGOUT_SUCCESS ,
-  LOGOUT_FAIL } from '../_types/authTypes';
+  LOGOUT_FAIL,
+  CLEAR_ERRORS,
+
+} from '../_types/authTypes';
 
 
 
@@ -27,6 +30,7 @@ export const authReducer = (state = { user: {} }, action) => {
         ...state,
         loading: false,
         isAuthenticated: true,
+        success: action.payload.success
       }
     case LOGOUT_SUCCESS: 
       return {
@@ -45,6 +49,11 @@ export const authReducer = (state = { user: {} }, action) => {
       return {
         ...state,
         error: action.payload
+      }
+    case CLEAR_ERRORS:
+      return{
+        ...state,
+        error: null
       }
     default:
       return state;

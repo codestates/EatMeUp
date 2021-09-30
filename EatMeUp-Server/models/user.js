@@ -25,10 +25,12 @@ module.exports = (sequelize, DataTypes) => {
   User.init(
     {
       username: DataTypes.STRING,
-      email: DataTypes.STRING,
+      email: { type: DataTypes.STRING, unique: true },
       password: DataTypes.STRING,
       avatar: DataTypes.STRING,
       refresh_token: DataTypes.STRING,
+      guest: { type: DataTypes.BOOLEAN, defaultValue: false },
+      admin: { type: DataTypes.BOOLEAN, defaultValue: false },
     },
     {
       sequelize,

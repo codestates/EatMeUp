@@ -35,7 +35,7 @@ const ModalDialog = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
   width: 400px;
-  height: 400px;
+  height: 500px;
   border-radius: 20px;
   border: 2px solid gray;
   max-width: calc(100% - 0.01px) !important;
@@ -109,6 +109,7 @@ const AddToRefriBtn = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  
 `;
 
 export {

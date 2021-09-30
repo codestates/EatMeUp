@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import { useDispatch, useSelector } from 'react-redux';
 import styled from "styled-components";
+import { loginRequest, clearErrors } from '../../_actions/authActions'
 
 // 컴포넌트
 import AlertBox from "../SignupPage/AlertBox";
@@ -12,8 +13,13 @@ import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
+const { swal } = window;
+
 const Login = () => {
+
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { loading, isAuthenticated, error } = useSelector(state => state.auth)
 
   const {
     register,
@@ -21,14 +27,22 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+
+    if(isAuthenticated) {
+      history.push('/')
+    } 
+
+    if(error) {
+      swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
+      dispatch(clearErrors());
+      return;
+    }
+   
+  }, [isAuthenticated, error])
+
   const loginHandler = (data) => {
-    axios
-      .post("https://api.eatmeup.me/auth/login", data, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        res.data.success && history.push("/");
-      });
+    dispatch(loginRequest(data))
   };
 
   return (

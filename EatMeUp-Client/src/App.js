@@ -6,7 +6,11 @@ import SignupPage from "./components/SignupPage/Signup";
 import LandingPage from "./components/LandingPage/Landing";
 
 /* 모든 레시피 메인페이지 */
+import AllRecipesPage from "./components/AllRecipesPage/AllRecipes";
 import ResultRecipesPage from "./components/AllRecipesPage/ResultRecipes";
+
+/* 레시피 상세 페이지 */
+import DetailPage from "./components/DetailPage/DetailPage";
 
 /* 마이페이지 메인 페이지 */
 import MyPage from "./components/MyPage/MyPage";
@@ -29,31 +33,52 @@ import MyLikelistPage from "./components/MyLikelistPage/MyLikelist";
 /* 마이페이지 - 유저정보 페이지 */
 import MyInfo from "./components/MyPage/MyInfo";
 
-/* 레시피 상세 페이지 */
-import DetailPage from "./components/DetailPage/DetailPage";
+import PrivateRoute from "./components/PrivateRoute";
 
-function App() {
+function App(props) {
   return (
     <Router>
       <div className='App'>
         <Route path='/' exact component={LandingPage} />
-        <Route path='/login' exact component={LoginPage} />
-        <Route path='/signup' exact component={SignupPage} />
-        <Route path='/recipes' exact component={ResultRecipesPage} />
-        <Route path='/fridge' exact component={FridgePage} />
-        <Route path='/user/myrecipe' exact component={MyRecipePage} />
-        <Route path='/user/myrecipe/create' component={CreateRecipePage} />
+        <Route path='/login' option={false} component={LoginPage} exact />
         <Route
+          path='/signup'
+          component={SignupPage}
+          option={false}
+          exact
+        />
+        <PrivateRoute path='/recipes' exact component={AllRecipesPage} />
+        <PrivateRoute
+          path='/recipes/result'
+          exact
+          component={ResultRecipesPage}
+          option={true}
+        />
+        <Route path='/recipe/info/:id' component={DetailPage} />
+        <PrivateRoute path='/fridge' exact component={FridgePage} />
+        <PrivateRoute path='/user/myrecipe' exact component={MyRecipePage} />
+        <PrivateRoute
+          path='/user/myrecipe/create'
+          component={CreateRecipePage}
+        />
+        <PrivateRoute
           path='/user/myrecipe/edit/:id'
           exact
           component={EditRecipePage}
         />
-        <Route path='/user/likelist' exact component={MyLikelistPage} />
-        <Route path='/user/myplanner' exact component={MealPlannerPage} />
-        <Route path='/user/myplanner/create' exact component={PlanningPage} />
-        <Route path='/user/mypage' component={MyPage} />
-        <Route path='/user/info' component={MyInfo} />
-        <Route path='/recipe/info/:id' component={DetailPage} />
+        <PrivateRoute path='/user/likelist' exact component={MyLikelistPage} />
+        <PrivateRoute
+          path='/user/myplanner'
+          exact
+          component={MealPlannerPage}
+        />
+        <PrivateRoute
+          path='/user/myplanner/create'
+          component={PlanningPage}
+          exact
+        />
+        <PrivateRoute path='/user/mypage' component={MyPage} exact />
+        <PrivateRoute path='/user/info' component={MyInfo} exact />
       </div>
     </Router>
   );

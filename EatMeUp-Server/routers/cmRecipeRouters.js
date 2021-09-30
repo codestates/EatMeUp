@@ -1,13 +1,15 @@
 const express = require("express");
 const {
-  getRecipe,
-  getRecipeInfo,
+  postRecipe,
+  postFoodRecipe,
+  getRecipeDetail,
 } = require("../controllers/cmRecipeController");
 // const { auth } = require("../utils/checkAuth");
 
 const cmRecipeRouter = express.Router();
 
-cmRecipeRouter.route("/info").get(getRecipe);
-cmRecipeRouter.route("/info/:id").get(getRecipeInfo);
+cmRecipeRouter.route("/info").post(postRecipe);
+cmRecipeRouter.route("/food").post(postFoodRecipe);
+cmRecipeRouter.route("/info/:id").get(getRecipeDetail);
 
 module.exports = cmRecipeRouter;
