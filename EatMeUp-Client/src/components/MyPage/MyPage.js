@@ -17,6 +17,9 @@ import theme from "../StyledComponent/theme";
 import { myRecipes } from "../dummydata";
 
 const MyPage = () => {
+  const { title, main_image } = myRecipes[0];
+  console.log(main_image);
+
   return (
     <div>
       <Header id={2} />
@@ -56,15 +59,185 @@ const MyPage = () => {
                   <Title>
                     <div className='recipe_title'>My Recipes</div>
                   </Title>
-                  <MyCard>ddd</MyCard>
-                  <MyCard>ddd</MyCard>
-                  <MyCard>ddd</MyCard>
+                  <CardContainer>
+                    <ul>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i class='far fa-edit'></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                    </ul>
+                  </CardContainer>
                 </MyRecipeBox>
+
                 <LikedRecipeBox>
                   <Title>
                     <div className='recipe_title'>Liked Recipes</div>
                   </Title>
-                  <div></div>
+                  <CardContainer>
+                    <ul>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i
+                            class='fas fa-heart'
+                            style={{ color: theme.colors.red }}
+                          ></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i
+                            class='fas fa-heart'
+                            style={{ color: theme.colors.red }}
+                          ></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i
+                            class='fas fa-heart'
+                            style={{ color: theme.colors.red }}
+                          ></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i
+                            class='fas fa-heart'
+                            style={{ color: theme.colors.red }}
+                          ></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                      <MyCard>
+                        <div className='img_container'>
+                          <img src={main_image} />
+                        </div>
+                        <div className='recipe_title'>{title}</div>
+                        <div className='item_container'>
+                          <i
+                            class='fas fa-heart'
+                            style={{ color: theme.colors.red }}
+                          ></i>
+                          <i class='far fa-trash-alt'></i>
+                        </div>
+                      </MyCard>
+                    </ul>
+                  </CardContainer>
                 </LikedRecipeBox>
               </RecipeContainer>
             </InfoConatainer>
@@ -78,15 +251,12 @@ const MyPage = () => {
 
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
+  /* margin: 0 10%; */
   min-height: 720px;
-<<<<<<< HEAD
-  
-=======
->>>>>>> f238a0de4eda42faf63cf11523da7860d0f6b3af
 `;
 
 const TitleBox = styled.div`
-  width: 100%;
+  width: 90%;
   height: 90px;
   font-weight: bold;
   font-size: 30px;
@@ -96,6 +266,10 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
+  .title {
+    box-sizing: border-box;
+    
+  }
 `;
 
 const InfoConatainer = styled.div`
@@ -153,7 +327,6 @@ const ProfileContainer = styled.div`
     text-align: center;
     background-color: transparent;
     border: none;
-    /* border-bottom: 1px solid ${theme.colors.lightgrey}; */
     box-sizing: border-box;
     font-size: 18px;
     font-family: "Noto Sans KR";
@@ -169,7 +342,7 @@ const ProfileContainer = styled.div`
 `;
 
 const RecipeContainer = styled.div`
-  width: 65%;
+  width: 70%;
   margin: 0px 20px 0px 10px;
 `;
 
@@ -193,7 +366,7 @@ const LikedRecipeBox = styled.div`
 
 const Title = styled.div`
   width: 100%;
-  /* height: 90px; */
+  height: 25px;
   font-weight: 500;
   font-size: 24px;
   text-indent: 30px;
@@ -214,15 +387,56 @@ const EditButton = styled(LargeBtn)`
   cursor: pointer;
   &:active {
     background-color: ${theme.colors.gray};
-    /* color: white; */
   }
 `;
 
-const MyCard = styled.div`
-  width: 30px;
-  height: 50px;
-  display: flex;
-  flex-direction: row;
+const CardContainer = styled.div`
+  list-style: none;
+  width: 100%;
+  margin: 0 auto;
+  display: inline-block;
+  white-space: nowrap;
+  overflow-x: scroll ;
+  ::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: ${theme.colors.lightgrey};
+    border-radius: 30px;
+  }
+`;
+
+const MyCard = styled.li`
+  display: inline-block;
+  width: 160px;
+  height: 190px;
+  margin: 0 15px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  .img_container {
+    width: 65%;
+    margin: 15px auto 5px auto;
+    text-align: center;
+  }
+  img {
+    width: 100%;
+    border-radius: 100%;
+  }
+  .recipe_title {
+    text-align: center;
+    width: 100%;
+    font-size: 16px;
+    /* background-color: ${theme.colors.yellow} */
+  }
+  .item_container {
+    text-align: center;
+    margin: 5px;
+    i {
+      margin: 0 5px;
+      color: ${theme.colors.gray};
+    }
+  }
 `;
 
 export default MyPage;

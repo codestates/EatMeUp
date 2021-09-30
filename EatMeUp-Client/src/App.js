@@ -9,6 +9,9 @@ import LandingPage from "./components/LandingPage/Landing";
 import AllRecipesPage from "./components/AllRecipesPage/AllRecipes";
 import ResultRecipesPage from "./components/AllRecipesPage/ResultRecipes";
 
+/* 레시피 상세 페이지 */
+import DetailPage from "./components/DetailPage/DetailPage";
+
 /* 마이페이지 메인 페이지 */
 import MyPage from "./components/MyPage/MyPage";
 
@@ -51,6 +54,7 @@ function App(props) {
           component={ResultRecipesPage}
           option={true}
         />
+        <Route path='/recipe/info/:id' component={DetailPage} />
         <PrivateRoute path='/fridge' exact component={FridgePage} />
         <PrivateRoute path='/user/myrecipe' exact component={MyRecipePage} />
         <PrivateRoute

@@ -33,10 +33,6 @@ const Signup = () => {
 
   useEffect(() => {
     
-    if(success) {
-      history.push('/login')
-    }
-
     if(error) {
       swal("Please!", "입력한 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors())
@@ -71,6 +67,9 @@ const Signup = () => {
     };
 
     dispatch(signupRequest(signupData));
+
+    history.push('/login')
+
   };
 
   return (
