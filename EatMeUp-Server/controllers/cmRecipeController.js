@@ -5,20 +5,24 @@ const postRecipe = async (req, res) => {
   try {
     let limit = 8;
     let offset = 0 + (Number(req.body.page) - 1) * limit;
-    let count = `SELECT count(*) AS "count" FROM "Recipes" AS "Recipe"`;
-    let query = `SELECT "Recipe"."id", "Recipe"."title", "Recipe"."description", "Recipe"."cooking_time", "Recipe"."level", "Recipe"."main_image", "Recipe"."foods", "Recipe"."steps", "Recipe"."createdAt", "Recipe"."updatedAt", "post_user_id", "User"."username", "User"."avatar" FROM "Recipes" AS "Recipe" JOIN "Users" AS "User" ON "User"."id" = "Recipe"."post_user_id" LIMIT ${limit} OFFSET ${offset};`;
-    const countInfo = await sequelize.query(count);
-    const recipeInfo = await sequelize.query(query);
-    // const recipeInfo = await Recipe.findAndCountAll({
-    //   offset,
-    //   limit,
-    // });
+    // let count = `SELECT count(*) AS "count" FROM "Recipes" AS "Recipe"`;
+    // let query = `SELECT "Recipe"."id", "Recipe"."title", "Recipe"."description", "Recipe"."cooking_time", "Recipe"."level", "Recipe"."main_image", "Recipe"."foods", "Recipe"."steps", "Recipe"."createdAt", "Recipe"."updatedAt", "post_user_id", "User"."username", "User"."avatar" FROM "Recipes" AS "Recipe" JOIN "Users" AS "User" ON "User"."id" = "Recipe"."post_user_id" LIMIT ${limit} OFFSET ${offset};`;
+    // const countInfo = await sequelize.query(count);
+    // const recipeInfo = await sequelize.query(query);
+
+    const recipeInfo = await Recipe.findAndCountAll({
+      offset,
+      limit,
+      include: [
+        { model: User, as: "user", attributes: ["username", "avatar"] },
+      ],
+    });
     if (!recipeInfo) {
       return res
         .status(400)
         .json({ success: false, message: "failed to recipe info" });
     }
-    return res.status(200).json({ countInfo, recipeInfo, success: true });
+    return res.status(200).json({ recipeInfo, success: true });
   } catch (error) {
     return res.status(400).json({ error: e, message: "failed to recipe info" });
   }
