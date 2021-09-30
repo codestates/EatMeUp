@@ -1,9 +1,21 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch } from 'react-redux';
+import { deleteMyrecipe } from '../../../_actions/userActions';
+
+
 import { Recipe } from "../../StyledComponent/card";
 
 const Card = ({ recipes }) => {
+
+  const dispatch = useDispatch();
+  
+  const deleteHandler = (id) => {
+
+    dispatch(deleteMyrecipe(id))
+
+  }
   return recipes.map((recipe, idx) => {
     return (
       <Recipes width='90%' key={idx}>
@@ -12,7 +24,7 @@ const Card = ({ recipes }) => {
           {/* userprofile 영역 */}
           <div className='userprofile'>
             <div className='userimg_box'>
-              <img src='../food_img/people.jpeg' alt='userimg' id='userimg' />
+              <img src={recipe.main_image ? recipe.main_image :  '../../food_img/people.jpeg'} alt='userimg' id='userimg' />
             </div>
             <div className='username_box'>
               <span className='username'>Segyondgdgg</span>
@@ -25,7 +37,7 @@ const Card = ({ recipes }) => {
               <Link to={`/user/myrecipe/edit/${idx}`}>
                 <i class='far fa-edit'></i>
               </Link>
-              <i class='far fa-trash-alt'></i>
+              <i class='far fa-trash-alt' onClick={() => deleteHandler(recipe.id)}></i>
             </div>
           </div>
         </div>

@@ -8,7 +8,9 @@ import {
  LOGIN_FAIL ,
  LOGOUT_REQUEST,
  LOGOUT_SUCCESS ,
- LOGOUT_FAIL } from '../_types/authTypes';
+ LOGOUT_FAIL,
+ CLEAR_ERRORS
+} from '../_types/authTypes';
 
  import axios from 'axios'
 
@@ -41,14 +43,14 @@ export const loginRequest = (userInfo) => async(dispatch) => {
 
     const { data } = await axios.post(`${process.env.REACT_APP_API}/auth/login`, userInfo, {withCredentials: true})
 
-    console.log(data)
+  
 
     dispatch({
       type: LOGIN_SUCCESS,
       payload: data.success
     })
 
-    localStorage.setItem('isAuth', true)
+  
   } catch(error) {
     dispatch({
       type: LOGIN_FAIL,
@@ -67,14 +69,14 @@ export const logoutRequest = () => async (dispatch) => {
 
 
     const { data } = await axios.get(`${process.env.REACT_APP_API}/auth/logout`,  { withCredentials: true})
-    console.log(data)
+    
 
     dispatch({
       type: LOGOUT_SUCCESS,
       payload: data.success
     });
 
-    localStorage.removeItem('isAuth')
+   
 
 
   } catch(error) {
@@ -88,4 +90,8 @@ export const logoutRequest = () => async (dispatch) => {
 }
 
 
-
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+      type: CLEAR_ERRORS
+  })
+}

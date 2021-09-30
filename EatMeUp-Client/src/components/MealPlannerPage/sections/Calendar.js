@@ -16,6 +16,7 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
     setOpenDaily(true)
   }
   const today = getMoment;
+ 
   const firstWeek = today.clone().startOf("month").week();
   const lastWeek =
     today.clone().endOf("month").week() === 1
