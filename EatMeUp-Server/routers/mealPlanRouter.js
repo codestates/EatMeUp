@@ -4,6 +4,7 @@ const {
   addMealPlan,
   deleteMealPlan,
   modMealPlan,
+  getOneDayInfo,
 } = require("../controllers/mealPlanController");
 
 const { auth } = require("../utils/checkAuth");
@@ -17,5 +18,7 @@ mealPlanRouter
   .post(addMealPlan)
   .put(modMealPlan)
   .delete(deleteMealPlan);
+
+mealPlanRouter.route("/mealplan/:id").all(auth).get(getOneDayInfo);
 
 module.exports = mealPlanRouter;

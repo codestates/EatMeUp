@@ -29,6 +29,27 @@ const getMealInfo = async (req, res) => {
   }
 };
 
+const getOneDayInfo = async (req, res) => {
+  try {
+    const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
+    const mealPlanId = req.params.id;
+    const userMealplan = await Mealplanner.findOne({
+      where: { id: mealPlanId, own_user_id: user.id },
+      include: [
+        { model: Recipe, as: "mealplanBreakfast" },
+        { model: Recipe, as: "mealplanLunch" },
+        { model: Recipe, as: "mealplanDinner" },
+      ],
+    });
+
+    res.status(200).json({
+      success: true,
+      mealPlan: userMealplan,
+      message: "load success",
+    });
+  } catch (error) {}
+};
+
 const addMealPlan = async (req, res) => {
   try {
     const { date, breakfast, lunch, dinner } = req.body;
@@ -81,4 +102,10 @@ const deleteMealPlan = async (req, res) => {};
 
 const modMealPlan = async (req, res) => {};
 
-module.exports = { getMealInfo, addMealPlan, deleteMealPlan, modMealPlan };
+module.exports = {
+  getMealInfo,
+  addMealPlan,
+  deleteMealPlan,
+  modMealPlan,
+  getOneDayInfo,
+};

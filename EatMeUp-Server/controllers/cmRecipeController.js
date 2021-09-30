@@ -15,6 +15,7 @@ const postRecipe = async (req, res) => {
       limit,
       include: [
         { model: User, as: "user", attributes: ["username", "avatar"] },
+        { model: User, as: "likeUser", attributes: ["email"] },
       ],
     });
     if (!recipeInfo) {
