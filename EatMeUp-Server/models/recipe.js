@@ -18,6 +18,21 @@ module.exports = (sequelize, DataTypes) => {
         as: "likeUser",
         foreignKey: "recipe_id",
       });
+      models.Recipe.belongsToMany(models.Mealplanner, {
+        through: "Breakfast",
+        as: "breakfast",
+        foreignKey: "recipe_id",
+      });
+      models.Recipe.belongsToMany(models.Mealplanner, {
+        through: "Lunch",
+        as: "lunch",
+        foreignKey: "recipe_id",
+      });
+      models.Recipe.belongsToMany(models.Mealplanner, {
+        through: "Dinner",
+        as: "dinner",
+        foreignKey: "recipe_id",
+      });
     }
   }
   Recipe.init(

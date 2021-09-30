@@ -24,7 +24,9 @@ const postRecipe = async (req, res) => {
     }
     return res.status(200).json({ recipeInfo, success: true });
   } catch (error) {
-    return res.status(400).json({ error: e, message: "failed to recipe info" });
+    return res
+      .status(400)
+      .json({ error: error, message: "failed to recipe info" });
   }
 };
 
@@ -37,23 +39,17 @@ const postFoodRecipe = async (req, res) => {
     let query = `SELECT "Recipe"."id", "Recipe"."title", "Recipe"."description", "Recipe"."cooking_time", "Recipe"."level", "Recipe"."main_image", "Recipe"."foods", "Recipe"."steps", "Recipe"."createdAt", "Recipe"."updatedAt", "post_user_id", "User"."username", "User"."avatar" FROM "Recipes" AS "Recipe" JOIN "Users" AS "User" ON "User"."id" = "Recipe"."post_user_id" WHERE ${where}`;
     console.log(query);
     const recipeInfo = await sequelize.query(query);
-    // console.log(food);
-    // const recipeInfo = await Recipe.findAll({
-    //   where: {
-    //     foods: {
-    //       [Op.contains]: food,
-    //     },
-    //   },
-    // });
-    console.log(recipeInfo);
+
     if (!recipeInfo) {
       return res
         .status(400)
         .json({ success: false, message: "failed to recipe info" });
     }
     return res.status(200).json({ recipeInfo, success: true });
-  } catch (e) {
-    return res.status(400).json({ error: e, message: "failed to recipe info" });
+  } catch (error) {
+    return res
+      .status(400)
+      .json({ error: error, message: "failed to recipe info" });
   }
 };
 
@@ -71,7 +67,7 @@ const getRecipeDetail = async (req, res) => {
   } catch (error) {
     return res
       .status(400)
-      .json({ error: e, message: "failed to recipe detail" });
+      .json({ error: error, message: "failed to recipe detail" });
   }
 };
 
