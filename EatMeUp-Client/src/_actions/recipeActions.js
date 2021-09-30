@@ -17,7 +17,7 @@ export const allRecipes = (page) => async (dispatch) => {
 
 
   try {
-console.log(page)
+
     dispatch({type: ALL_RECIPES_REQUEST})
 
     const { data } = await axios.post(`${process.env.REACT_APP_API}/recipe/info`, page, {withCredentials: true})
@@ -40,15 +40,19 @@ console.log(page)
 export const getRecommandRecipe = (food) => async (dispatch) => {
 
   try {
-    console.log(food)
-
+  
     dispatch({ type: GET_RECOMMAND_REQUEST })
 
     const { data } = await axios.post(`${process.env.REACT_APP_API}/recipe/food`, food , {withCredentials: true})
 
+    const result = {
+      food: food,
+      data: data.recipeInfo[0]
+    }
     dispatch({
       type: GET_RECOMMAND_SUCCESS,
-      payload: data.recipeInfo[0]
+      food: food,
+      payload: result
     })
 
   } catch(error) {

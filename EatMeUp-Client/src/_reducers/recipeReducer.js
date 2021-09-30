@@ -28,7 +28,8 @@ export const recipeReducer = (state = { recipes: [] }, action) => {
       case GET_RECOMMAND_SUCCESS:
         return {
           loading:false,
-          recipes: action.payload
+          recipes: action.payload.data,
+          food: action.payload.food
         }
     case ALL_RECIPES_FAIL:
     case GET_RECOMMAND_FAIL:

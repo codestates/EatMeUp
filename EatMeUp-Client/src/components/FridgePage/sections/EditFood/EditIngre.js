@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { deleteFood, editFood } from "../../../../_actions/fridgeActions";
 import { foodLife } from '../utils/convertDate';
 import axios from 'axios';
-
+import styled from 'styled-components';
 /* 스타일 컴포넌트 */
 import {
   BackGroundModal,
@@ -107,6 +107,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                     width: "150px",
                     height: "150px",
                     borderRadius: "50%",
+                  
                   }}
                 />
               ) : (
@@ -115,7 +116,11 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                 </div>
               )}
             </DropzoneArea>
-            <input type='file' accept='image/*' onChange={fileHandler} />
+            <InputBox>
+            <label for='foodimg'><i className="fas fa-upload"></i> 이미지 업로드</label>
+            <input type='file' id='foodimg' accept='image/*' onChange={fileHandler} />
+            </InputBox>
+            
             <FoodInfoBox>
               {/* 음식이름 입력창 */}
               <div className='foodname-box'>
@@ -148,10 +153,10 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
               </div>
             </FoodInfoBox>
             <AddToRefriBtn>
-              <Button fillColor={theme.colors.yellow} onClick={deleteHandler}>
+              <Button  width="130px" height="35px" fillColor={theme.colors.yellow} color='white' onClick={deleteHandler}>
                 삭제하기
               </Button>
-              <Button fillColor='lightgrey' onClick={submitHandler}>
+              <Button  width="130px" height="35px" fillColor='lightgrey' onClick={submitHandler}>
                 수정하기
               </Button>
             </AddToRefriBtn>
@@ -161,5 +166,37 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
     </div>
   );
 };
+
+
+
+const InputBox = styled.div`
+  margin: 15px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  label {
+    padding: 0.3em 0.5em;
+    border-radius: 10px;
+    height: 27px;
+    border: 1px solid lightgrey;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    line-height: 27px;
+    color: grey;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`;
+
 
 export default EditIngre;

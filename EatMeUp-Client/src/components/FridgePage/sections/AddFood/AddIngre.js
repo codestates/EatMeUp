@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { addToFridge } from "../../../../_actions/fridgeActions";
 import { imageUpload } from "../../../../_actions/imageAction";
@@ -18,7 +19,6 @@ import { Button } from "../../../StyledComponent/buttons";
 // 음식 추가시 에러시 메세지 띄우기!!
 
 const AddIngre = ({ setOpenAddWindow }) => {
-
   const dispatch = useDispatch();
   const { imageUrl } = useSelector((state) => state.image);
 
@@ -67,7 +67,16 @@ const AddIngre = ({ setOpenAddWindow }) => {
             <DropzoneArea>
               {image ? (
                 <div>
-                  <img src={URL.createObjectURL(image)} alt='foodimg' />
+                  <img
+                    src={URL.createObjectURL(image)}
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      borderRadius: "50%",
+                      
+                    }}
+                    alt='foodimg'
+                  />
                 </div>
               ) : (
                 <div>
@@ -75,7 +84,15 @@ const AddIngre = ({ setOpenAddWindow }) => {
                 </div>
               )}
             </DropzoneArea>
-            <input type='file' onChange={imgFileHandler} accept='image/*' />
+            <InputBox>
+              <label for='foodimg'><i className="fas fa-upload"></i> 이미지 업로드</label>
+              <input
+                type='file'
+                id='foodimg'
+                onChange={imgFileHandler}
+                accept='image/*'
+              />
+            </InputBox>
 
             <FoodInfoBox>
               {/* 음식이름입력창 */}
@@ -111,8 +128,10 @@ const AddIngre = ({ setOpenAddWindow }) => {
             </FoodInfoBox>
             <AddToRefriBtn>
               <Button
-                fillColor='#EAEAEA'
-                heightSize='30px'
+                fillColor='#FEBD2F'
+                width="200px"
+                height="35px"
+                color='white'
                 onClick={submitHandler}
               >
                 추가하기
@@ -125,4 +144,32 @@ const AddIngre = ({ setOpenAddWindow }) => {
   );
 };
 
+const InputBox = styled.div`
+  margin: 15px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  label {
+    padding: 0.3em 0.5em;
+    border-radius: 10px;
+    height: 27px;
+    border: 1px solid lightgrey;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    line-height: 27px;
+    color: grey;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`;
 export default AddIngre;

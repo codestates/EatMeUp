@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -20,8 +20,6 @@ import Sidebar from "../Util/Sidebar";
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
-
-const { swal } = window;
 
 const CreateRecipe = () => {
   /* function */
@@ -71,6 +69,7 @@ const CreateRecipe = () => {
     name: `image-5`,
     defaultValue: null,
   });
+
   const recipeImg6 = useWatch({
     control,
     name: `image-6`,
@@ -146,9 +145,6 @@ const CreateRecipe = () => {
   const [menuals, setMenuals] = useState([]);
   const [recipeBox, setRecipeBox] = useState(["recipe-0"]);
   const [recipeDC, setRecipeDC] = useState("");
-  const [recipeImg, setRecipeImg] = useState(
-    "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
-  );
 
   const [ingredientTag, setIngredientTag] = useState([]); //재료태그
 
@@ -176,6 +172,7 @@ const CreateRecipe = () => {
       if (id !== idx) {
         return tag;
       }
+      return"";
     });
 
     setIngredientTag(deleteTag);
@@ -188,7 +185,7 @@ const CreateRecipe = () => {
     setRecipeDC("");
   };
 
-  console.log(recipeBox);
+ 
 
   //추가된 step영역 삭제하는 핸들러
   const deleteRecipeHandler = (idx) => {
@@ -196,18 +193,21 @@ const CreateRecipe = () => {
       if (id !== idx) {
         return recipe;
       }
+      return ""
     });
 
     const deleteMenual = menuals.filter((recipe, id) => {
       if (id !== idx) {
         return recipe;
       }
+      return ""
     });
 
     setRecipeBox(deleteBox);
     setMenuals(deleteMenual);
   };
 
+  // 이미지 업로드
   const uploadImage = async (files) => {
     const file = files[0];
 
@@ -215,8 +215,6 @@ const CreateRecipe = () => {
       withCredentials: true,
     });
 
-    //url을 사용해서 S3 버킷에 업로드
-    //axios
     const img = await fetch(
       data.data.s3url,
       {
@@ -272,7 +270,6 @@ const CreateRecipe = () => {
     };
 
     recipeImages();
-    console.log(recipeImage);
 
     newRecipe["title"] = data.title;
     newRecipe["description"] = data.description;
@@ -281,14 +278,11 @@ const CreateRecipe = () => {
     newRecipe["foods"] = materials;
     newRecipe["steps"] = recipeImage;
 
-    console.log(newRecipe);
-
-    // console.log(newRecipe);
+  
     setOpen(true)
     setTimeout(() => {
       console.log(newRecipe);
-      // // alert("레시피를 추가하겠습니까?")
-      // swal("Good job!", "You clicked the button!", "success");
+     
       setOpen(false)
       dispatch(createMyRecipe(newRecipe));
       history.push("/user/myrecipe");
@@ -357,12 +351,12 @@ const CreateRecipe = () => {
                         <img src={URL.createObjectURL(mainImage)} alt='main' />
                       ) : (
                         <div>
-                          <i class='far fa-image'></i>
+                          <i className='far fa-image'></i>
                         </div>
                       )}
                     </ImageBox>
                     <div className='input'>
-                      <label for='fileInput'>파일 업로드</label>
+                      <label htmlFor='fileInput'><i className="fas fa-upload"></i> 파일 업로드</label>
                       <input
                         id='fileInput'
                         type='file'
@@ -381,7 +375,7 @@ const CreateRecipe = () => {
                 </div>
                 <CookInfomation>
                   <div className='cookinfo'>
-                    <i class='fas fa-clipboard-check'></i> 요리레벨
+                    <i className='fas fa-clipboard-check'></i> 요리레벨
                   </div>
                   <Selector {...register("cooking_level")}>
                     <option>초보환영</option>
@@ -390,7 +384,7 @@ const CreateRecipe = () => {
                   </Selector>
 
                   <div className='cookinfo'>
-                    <i class='far fa-clock'></i> 요리시간
+                    <i className='far fa-clock'></i> 요리시간
                   </div>
                   <Selector {...register("cooking_time")}>
                     <option>10Min</option>
@@ -406,7 +400,7 @@ const CreateRecipe = () => {
                 <AddIngredientBox>
                   {/* 재료 추가 작성 영역 */}
                   <div className='cookinfo'>
-                    <i class='fas fa-carrot'></i> 요리재료
+                    <i className='fas fa-carrot'></i> 요리재료
                   </div>
                   <FlexContainer>
                     <input
@@ -461,7 +455,7 @@ const CreateRecipe = () => {
                           {/* 이미지 업로드 영역 */}
 
                           <div className='recipeImg_box'>
-                            <label for={idx}>
+                            <label htmlFor={idx}>
                               <i className='bx bx-image-add'></i>
                             </label>
                             <input
@@ -513,7 +507,7 @@ const CreateRecipe = () => {
                     ) : (
                       <PlusBtn>
                         <i
-                          class='far fa-plus-square'
+                          className='far fa-plus-square'
                           onClick={addRecipeHandler}
                         ></i>
                       </PlusBtn>
@@ -643,6 +637,7 @@ const ImageArea = styled.div`
     border: 2px solid lightgrey;
     cursor: pointer;
     background-color: #f8f8f8;
+    color: grey;
   }
 
   input[type="file"] {
@@ -795,13 +790,6 @@ const TagContainer = styled.div`
   height: 50px;
   border-radius: 10px;
   padding: 8px 4px;
-`;
-
-const AddIngreBtn = styled.button`
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 10px;
 `;
 
 /* add steps */

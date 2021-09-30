@@ -22,6 +22,7 @@ import Footer from "../Util/Footer";
 import EditFridge from "./sections/EditFridge";
 import Loader from "../Util/Loader";
 
+const { swal } = window;
 /* 냉장고 페이지 */
 const FridgeMain = () => {
   const dispatch = useDispatch();
@@ -95,7 +96,6 @@ const FridgeMain = () => {
   };
 
   const searchByFoodHandler = () => {
-
     const foodArr = checkedFoods.map((food) => {
       return {
         name: food,
@@ -106,8 +106,14 @@ const FridgeMain = () => {
       food: foodArr,
     };
 
-    console.log(foods, foodArr)
+    if (foodArr.length === 0) {
+      swal("Please!", "마이냉장고 속 음식을 선택해주세요.", "error");
+      return;
+    }
+
+    console.log(foods, foodArr);
     dispatch(getRecommandRecipe(data));
+    history.push("/recipes/result");
   };
 
   return (
@@ -145,9 +151,7 @@ const FridgeMain = () => {
             </CheckedFoodsBox>
 
             <GotoBtnBox onClick={searchByFoodHandler}>
-              <Link to='/recipes'>
-                레시피 보기 <i className='fas fa-play'></i>
-              </Link>
+              레시피 보기 <i className='fas fa-play'></i>
             </GotoBtnBox>
           </SearchBox>
 
@@ -237,11 +241,9 @@ const GotoBtnBox = styled.div`
   font-weight: bold;
   padding: 8px;
   text-align: center;
-
-  a {
-    text-decoration: none;
-    color: #303030;
-  }
+  text-decoration: none;
+  color: #303030;
+  cursor: pointer;
 `;
 
 //냉장고
