@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector } from 'react-redux'
-import axios from 'axios'
+import { useSelector, useDispatch } from "react-redux";
+import { getMyrecipes } from '../../_actions/userActions'
+import { DELETE_MYRECIPE_RESET } from '../../_types/userTypes';
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
-import EmptyState from './sections/EmptyState'
+import EmptyState from "./sections/EmptyState";
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
@@ -18,17 +19,20 @@ import theme from "../StyledComponent/theme";
 
 const MyRecipe = () => {
 
-  const { recipes } = useSelector(state => state.allRecipes)
+  const { myrecipe } = useSelector((state) => state.myrecipes);
+  const { isDeleted } = useSelector(state => state.myrecipe)
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    axios.get('https://api.eatmeup.me/myRecipe/info', {withCredentials: true}).then(response => {
-    if(response.data) {
-      console.log(response.data)
-    }
-  })
+    
+    dispatch(getMyrecipes())
 
-  }, [])
-  
+    if(isDeleted) {
+      dispatch({ type: DELETE_MYRECIPE_RESET })
+    }
+    
+  }, [dispatch, isDeleted])
 
   return (
     <>
@@ -36,7 +40,7 @@ const MyRecipe = () => {
       <section>
         <Container>
           {/* 사이드바 영역 */}
-          <Sidebar id={1}/>
+          <Sidebar id={1} />
 
           {/* 레시피 리스트 영역 */}
           <ListContainer>
@@ -46,7 +50,8 @@ const MyRecipe = () => {
               <div>
                 <Link to='/user/myrecipe/create'>
                   <Button fillColor={theme.colors.lightgrey}>
-                    <span>레시피 만들기</span> <i className="fas fa-chevron-right"></i>
+                    <span>레시피 만들기</span>{" "}
+                    <i className='fas fa-chevron-right'></i>
                   </Button>
                 </Link>
               </div>
@@ -54,7 +59,7 @@ const MyRecipe = () => {
 
             {/* 레시피 리스트 */}
             <ListBox>
-              <Card recipes={recipes} />
+              <Card recipes={myrecipe} />
               {/* <EmptyState /> */}
             </ListBox>
           </ListContainer>
@@ -68,7 +73,6 @@ const MyRecipe = () => {
 const ListContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
-  
 `;
 
 const TitleBox = styled.div`

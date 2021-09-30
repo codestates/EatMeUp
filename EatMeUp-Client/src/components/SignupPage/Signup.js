@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
+import { signupRequest, clearErrors } from "../../_actions/authActions";
+
 import axios from "axios";
 import styled from "styled-components";
 
@@ -16,16 +19,34 @@ import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
+const { swal } = window;
+
 const Signup = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { success, loading, error } = useSelector((state) => state.auth);
   const [alert, setAlert] = useState(false);
   const Timer = setTimeout(() => {
     setAlert(false);
   }, 2000);
 
-  useEffect(() => Timer, []);
+  useEffect(() => {
+    
+    if(success) {
+      history.push('/login')
+    }
 
-  const history = useHistory();
+    if(error) {
+      swal("Please!", "입력한 정보를 다시 확인해주세요.", "error");
+      dispatch(clearErrors())
+      return;
+    }
+   
 
+  }, [dispatch, error, success]);
+  
+  
   const validationSchema = yup.object().shape({
     name: yup.string().min(2).max(10).required(),
     email: yup.string().email().required(),
@@ -49,13 +70,7 @@ const Signup = () => {
       password: data.pwd,
     };
 
-    axios
-      .post("https://api.eatmeup.me/auth/signup", signupData, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        res.data.success && history.push("/login");
-      });
+    dispatch(signupRequest(signupData));
   };
 
   return (

@@ -28,7 +28,7 @@ const Sidebar = ({ id }) => {
       <SideMenu>
         {menu.map((item, idx) => {
           return (
-            <Link to={item.link}>
+            <Link to={item.link} key={idx}>
               <MenuBtn
                 onClick={() => {
                   menuHandler(idx);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Snackbar from "@mui/material/Snackbar";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
@@ -13,8 +13,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
-
-
   const [filtered, setFiltered] = useState(null);
   const [alreadyHas, setAlreadyHas] = useState(false);
   const [state, setState] = useState({
@@ -41,10 +39,6 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     }, 2000);
   };
 
-
-  /* <i class="fas fa-wind"></i> 실온
-<i class="fas fa-thermometer-half"></i> 냉장
-<i class="fas fa-snowflake"></i> 냉동 */
   const convertStr = (idx) => {
     if (idx === 0) {
       return "실온";
@@ -75,7 +69,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
         };
       }
     });
- 
+
     setFiltered(freshFood);
   };
 
@@ -104,7 +98,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
   /* 위험버튼 핸들러 */
   const redFoodHandler = (idx) => {
-    console.log(typeof idx)
+    console.log(typeof idx);
     const redFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
@@ -128,8 +122,16 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
   };
 
   const resetFilterHandler = () => {
-    setFiltered(null)
-  }
+    setFiltered(null);
+  };
+
+  const sliceHandler = (date) => {
+    const createAt = date.slice(0, 10);
+    const Y = createAt.slice(0, 4)
+    const M = createAt.slice(5, 7)
+    const D = createAt.slice(8, 10)
+    return `${Y}.${M}.${D}`;
+  };
 
   return (
     <div>
@@ -150,135 +152,162 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
       {/* 냉장고  */}
       <FridgeInnerBox>
-        {!filtered ? foods.map((type, typeIdx) => {
-          return (
-            <FoodContainer key={typeIdx}>
-              
-              {/* 냉장고 재료 핸들러 버튼영역 */}
-              <FridgeHeader>
-                <div className='type_box'>
-                  <span className='type'>{convertStr(typeIdx)}</span>
-                </div>
-                <div className='filterBtn_box'>
-                  <FridgeButton fillColor='white' onClick={() => GreenFoodHandler(typeIdx)}>
-                    <i className='far fa-grin-beam'></i> 신선
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => yellowFoodHandler(typeIdx)}>
-                    <i className='far fa-smile'></i> 보통
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => redFoodHandler(typeIdx)}>
-                    <i className='far fa-tired'></i> 위험
-                  </FridgeButton>
-                </div>
-              </FridgeHeader>
-
-              {type.items.map((food, foodIdx) => {
-                return (
-                  <FoodBox
-                    key={foodIdx}
-                    onClick={handleClick({
-                      vertical: "top",
-                      horizontal: "center",
-                      food: food,
-                    })}
-                  >
-                    <div className='food'>
-                      {/* 음식사진 */}
-                      <div>
-                        <img
-                          src={`../food_img/${food.food_image}`}
-                          alt='food'
-                          className='food_img'
-                          draggable={false}
-                        />
-                      </div>
-
-                      {/* 음식이름과 구매일자 */}
-                      <div className='name_box'>
-                        <div>
-                          <span className='name'>{food.food_name}</span>
-                        </div>
-                        <div>
-                          <span className='date'>2021.09.20</span>
-                        </div>
-                      </div>
+        {!filtered
+          ? foods.map((type, typeIdx) => {
+              return (
+                <FoodContainer key={typeIdx}>
+                  {/* 냉장고 재료 핸들러 버튼영역 */}
+                  <FridgeHeader>
+                    <div className='type_box'>
+                      <span className='type'>{convertStr(typeIdx)}</span>
                     </div>
-
-                    {/* 유통기한 디데이표시 */}
-                    <div className='foodlife_box'>
-                      <span className='foodlife'>D-{food.life}</span>
+                    <div className='filterBtn_box'>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => GreenFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-grin-beam'></i> 신선
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => yellowFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-smile'></i> 보통
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => redFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-tired'></i> 위험
+                      </FridgeButton>
                     </div>
-                  </FoodBox>
-                );
-              })}
-            </FoodContainer>
-          );
-        }) : filtered.map((type, typeIdx) => {
-          return (
+                  </FridgeHeader>
 
-          //  신선, 보통, 위험버튼눌렀을 때
-            <FoodContainer key={typeIdx}>
-              {/* 냉장고 재료 핸들러 버튼영역 */}
-              <FridgeHeader>
-                <div className='type_box'>
-                  <span className='type' onClick={resetFilterHandler}>{convertStr(typeIdx)}</span>
-                </div>
-                <div className='filterBtn_box' >
-                  <FridgeButton fillColor='white' onClick={() => GreenFoodHandler(typeIdx)}>
-                    <i className='far fa-grin-beam'></i> 신선
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => yellowFoodHandler(typeIdx)}>
-                    <i className='far fa-smile' ></i> 보통
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => redFoodHandler(typeIdx)}>
-                    <i className='far fa-tired'></i> 위험
-                  </FridgeButton>
-                </div>
-              </FridgeHeader>
+                  {type.items.map((food, foodIdx) => {
+                    return (
+                      <FoodBox
+                        key={foodIdx}
+                        onClick={handleClick({
+                          vertical: "top",
+                          horizontal: "center",
+                          food: food,
+                        })}
+                      >
+                        <div className='food'>
+                          {/* 음식사진 */}
+                          <div>
+                            <img
+                              src={
+                                food.food_image
+                                  ? food.food_image
+                                  : "https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg"
+                              }
+                              alt='food'
+                              className='food_img'
+                              draggable={false}
+                            />
+                          </div>
 
-              {type.items.map((food, foodIdx) => {
-                return (
-                  <FoodBox
-                    key={foodIdx}
-                    onClick={handleClick({
-                      vertical: "top",
-                      horizontal: "center",
-                      food: food,
-                    })}
-                  >
-                    <div className='food'>
-
-                      {/* 음식사진 */}
-                      <div>
-                        <img
-                          src={`../food_img/${food.food_image}`}
-                          alt='food'
-                          className='food_img'
-                          draggable={false}
-                        />
-                      </div>
-
-                      {/* 음식이름과 구매일자 */}
-                      <div className='name_box'>
-                        <div>
-                          <span className='name'>{food.food_name}</span>
+                          {/* 음식이름과 구매일자 */}
+                          <div className='name_box'>
+                            <div>
+                              <span className='name'>{food.food_name}</span>
+                            </div>
+                            <div>
+                              <span className='date'>{sliceHandler(food.createdAt)}</span>
+                            </div>
+                          </div>
                         </div>
-                        <div>
-                          <span className='date'>2021.09.20</span>
-                        </div>
-                      </div>
-                    </div>
 
-                    {/* 유통기한 디데이표시 */}
-                    <div className='foodlife_box'>
-                      <span className='foodlife'>D-{food.life}</span>
+                        {/* 유통기한 디데이표시 */}
+                        <div className='foodlife_box'>
+                          <span className='foodlife'>D-{food.life}</span>
+                        </div>
+                      </FoodBox>
+                    );
+                  })}
+                </FoodContainer>
+              );
+            })
+          : filtered.map((type, typeIdx) => {
+              return (
+                //  신선, 보통, 위험버튼눌렀을 때
+                <FoodContainer key={typeIdx}>
+                  {/* 냉장고 재료 핸들러 버튼영역 */}
+                  <FridgeHeader>
+                    <div className='type_box'>
+                      <span className='type' onClick={resetFilterHandler}>
+                        {convertStr(typeIdx)}
+                      </span>
                     </div>
-                  </FoodBox>
-                );
-              })}
-            </FoodContainer>
-          );
-        })}
+                    <div className='filterBtn_box'>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => GreenFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-grin-beam'></i> 신선
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => yellowFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-smile'></i> 보통
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => redFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-tired'></i> 위험
+                      </FridgeButton>
+                    </div>
+                  </FridgeHeader>
+
+                  {type.items.map((food, foodIdx) => {
+                    return (
+                      <FoodBox
+                        key={foodIdx}
+                        onClick={handleClick({
+                          vertical: "top",
+                          horizontal: "center",
+                          food: food,
+                        })}
+                      >
+                        <div className='food'>
+                          {/* 음식사진 */}
+                          <div>
+                            <img
+                              src={
+                                food.food_image
+                                  ? food.food_image
+                                  : "https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg"
+                              }
+                              alt='food'
+                              className='food_img'
+                              draggable={false}
+                            />
+                          </div>
+
+                          {/* 음식이름과 구매일자 */}
+                          <div className='name_box'>
+                            <div>
+                              <span className='name'>{food.food_name}</span>
+                            </div>
+                            <div>
+                              <span className='date'>{sliceHandler(food.createdAt)}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* 유통기한 디데이표시 */}
+                        <div className='foodlife_box'>
+                          <span className='foodlife'>D-{food.life}</span>
+                        </div>
+                      </FoodBox>
+                    );
+                  })}
+                </FoodContainer>
+              );
+            })}
       </FridgeInnerBox>
     </div>
   );
@@ -375,6 +404,7 @@ const FoodBox = styled.div`
     object-fit: contain;
     border-radius: 50%;
     margin-left: 12px;
+    border: 1px solid ${theme.colors.lightgrey};
   }
 
   .name_box {
