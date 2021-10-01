@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { getMyLikelist  } from '../../_actions/userActions';
+import {
+  REMOVE_FROM_LIKELIST_RESET,
+} from "../../_types/userTypes";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -12,10 +17,22 @@ import Sidebar from "../Util/Sidebar";
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
-/* 데이터 */
-import { myRecipes } from "../dummydata";
-
 const MyLikelist = () => {
+
+  const dispatch = useDispatch();
+  const { mylikelist } = useSelector(state => state.mylikelist)
+  const { isDeleted } = useSelector(state => state.likelist)
+
+  useEffect(() => {
+
+    dispatch(getMyLikelist())
+
+    if(isDeleted) {
+      dispatch({ type: REMOVE_FROM_LIKELIST_RESET})
+    }
+    
+  }, [dispatch, isDeleted])
+
   return (
     <>
       <Header id={2} />
@@ -33,7 +50,7 @@ const MyLikelist = () => {
 
             {/* 좋아요한 레시피들 */}
             <ListBox>
-              <Card recipes={myRecipes} />
+              <Card recipes={mylikelist} />
             </ListBox>
           </ListContainer>
         </Container>

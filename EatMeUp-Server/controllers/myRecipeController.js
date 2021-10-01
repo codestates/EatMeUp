@@ -7,10 +7,23 @@ const getRecipe = async (req, res) => {
   const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
 
   try {
-    const recipeInfo = await User.findOne({
-      where: id,
-      include: Recipe,
+    const recipeInfo = await Recipe.findAll({
+      include: [
+        { model: User, as: "user", attributes: ["username", "avatar"] },
+        {
+          model: User,
+          as: "likeUser",
+          attributes: ["id", "email"],
+        },
+        // { all: true },
+      ],
+      where: { post_user_id: id },
     });
+    // const recipeInfo = await User.findOne({
+    //   where: id,
+    //   attributes: ["username", "avatar"],
+    //   include: Recipe,
+    // });
     if (!recipeInfo) {
       return res
         .status(400)
@@ -70,7 +83,7 @@ const putRecipe = async (req, res) => {
 };
 
 const postRecipe = async (req, res) => {
-  const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
   const { title, description, cooking_time, level, main_image, foods, steps } =
     req.body;
   try {
@@ -82,7 +95,7 @@ const postRecipe = async (req, res) => {
       main_image,
       foods,
       steps,
-      post_user_id: user.id,
+      post_user_id: id,
     });
     if (!recipeInfo) {
       return res

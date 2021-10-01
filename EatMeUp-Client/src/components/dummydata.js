@@ -921,3 +921,298 @@ export const myPlanner = [
 // 선택도 가능하게 만들기
 
 //식단짜기 => 필터를 해놓은 모든레시피 기반으로 레시피 추천하기
+
+export const mealPlan = [
+  {
+    id: 1,
+    date: "2021-10-06",
+    own_user_id: 1,
+    createdAt: "2021-09-30T09:06:13.341Z",
+    updatedAt: "2021-09-30T09:06:13.341Z",
+    mealplanBreakfast: [
+      {
+        id: 15,
+        title: "해물국수",
+        description: "해물로 시원한 국물에 국수를 말아 드셔보세요~",
+        cooking_time: "40분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/003000.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Breakfast: {
+          createdAt: "2021-09-30T09:06:13.370Z",
+          updatedAt: "2021-09-30T09:06:13.370Z",
+          mealplanner_id: 1,
+          recipe_id: 15,
+        },
+      },
+      {
+        id: 14,
+        title: "채소국수",
+        description:
+          "갖가지 야채를 듬뿍 넣어서 만든 요리로 출출할 때 간식거리로 아주 좋답니다.",
+        cooking_time: "30분",
+        level: "초보환영",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/002900.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Breakfast: {
+          createdAt: "2021-09-30T09:06:13.366Z",
+          updatedAt: "2021-09-30T09:06:13.366Z",
+          mealplanner_id: 1,
+          recipe_id: 14,
+        },
+      },
+      {
+        id: 13,
+        title: "열무김치냉면",
+        description:
+          "맛있게 담근 열무김치에 냉면을 말아 먹어 보세요~ 새콤달콤 끝내줍니다!",
+        cooking_time: "25분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/002800.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Breakfast: {
+          createdAt: "2021-09-30T09:06:13.360Z",
+          updatedAt: "2021-09-30T09:06:13.360Z",
+          mealplanner_id: 1,
+          recipe_id: 13,
+        },
+      },
+    ],
+    mealplanLunch: [
+      {
+        id: 13,
+        title: "열무김치냉면",
+        description:
+          "맛있게 담근 열무김치에 냉면을 말아 먹어 보세요~ 새콤달콤 끝내줍니다!",
+        cooking_time: "25분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/002800.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Lunch: {
+          createdAt: "2021-09-30T09:06:13.375Z",
+          updatedAt: "2021-09-30T09:06:13.375Z",
+          mealplanner_id: 1,
+          recipe_id: 13,
+        },
+      },
+      {
+        id: 2,
+        title: "오곡밥",
+        description: "정월대보름에 먹던 오곡밥! 영양을 한그릇에 담았습니다.",
+        cooking_time: "60분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/000300.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Lunch: {
+          createdAt: "2021-09-30T09:06:13.381Z",
+          updatedAt: "2021-09-30T09:06:13.381Z",
+          mealplanner_id: 1,
+          recipe_id: 2,
+        },
+      },
+      {
+        id: 5,
+        title: "약식",
+        description:
+          "집에서도 쉽게 만들어 맛있게 먹을 수 있답니다. 어려워 마시고 만들어 보세요~!",
+        cooking_time: "60분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/000800.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Lunch: {
+          createdAt: "2021-09-30T09:06:13.384Z",
+          updatedAt: "2021-09-30T09:06:13.384Z",
+          mealplanner_id: 1,
+          recipe_id: 5,
+        },
+      },
+    ],
+    mealplanDinner: [
+      {
+        id: 2,
+        title: "오곡밥",
+        description: "정월대보름에 먹던 오곡밥! 영양을 한그릇에 담았습니다.",
+        cooking_time: "60분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/000300.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Dinner: {
+          createdAt: "2021-09-30T09:06:13.393Z",
+          updatedAt: "2021-09-30T09:06:13.393Z",
+          mealplanner_id: 1,
+          recipe_id: 2,
+        },
+      },
+      {
+        id: 1,
+        title: "나물비빔밥",
+        description: "육수로 지은 밥에 야채를 듬뿍 넣은 영양만점 나물비빔밥!",
+        cooking_time: "60분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/000200.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Dinner: {
+          createdAt: "2021-09-30T09:06:13.387Z",
+          updatedAt: "2021-09-30T09:06:13.387Z",
+          mealplanner_id: 1,
+          recipe_id: 1,
+        },
+      },
+    ],
+  },
+  {
+    id: 2,
+    date: "2021-10-09",
+    own_user_: 1,
+    created: "2021-09-30T09:06:27.624Z",
+    updated: "2021-09-30T09:06:27.624Z",
+    mealplanBreakfast: [
+      {
+        id: 15,
+        title: "해물국수",
+        description: "해물로 시원한 국물에 국수를 말아 드셔보세요~",
+        cooking_time: "40분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/003000.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Breakfast: {
+          createdAt: "2021-09-30T09:06:27.636Z",
+          updatedAt: "2021-09-30T09:06:27.636Z",
+          mealplanner_id: 2,
+          recipe_id: 15,
+        },
+      },
+      {
+        id: 13,
+        title: "열무김치냉면",
+        description:
+          "맛있게 담근 열무김치에 냉면을 말아 먹어 보세요~ 새콤달콤 끝내줍니다!",
+        cooking_time: "25분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/002800.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Breakfast: {
+          createdAt: "2021-09-30T09:06:27.632Z",
+          updatedAt: "2021-09-30T09:06:27.632Z",
+          mealplanner_id: 2,
+          recipe_id: 13,
+        },
+      },
+    ],
+    mealplanLunch: [
+      {
+        id: 5,
+        title: "약식",
+        description:
+          "집에서도 쉽게 만들어 맛있게 먹을 수 있답니다. 어려워 마시고 만들어 보세요~!",
+        cooking_time: "60분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/000800.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Lunch: {
+          createdAt: "2021-09-30T09:06:27.641Z",
+          updatedAt: "2021-09-30T09:06:27.641Z",
+          mealplanner_id: 2,
+          recipe_id: 5,
+        },
+      },
+    ],
+    mealplanDinner: [
+      {
+        id: 2,
+        title: "오곡밥",
+        description: "정월대보름에 먹던 오곡밥! 영양을 한그릇에 담았습니다.",
+        cooking_time: "60분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/000300.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Dinner: {
+          createdAt: "2021-09-30T09:06:27.647Z",
+          updatedAt: "2021-09-30T09:06:27.647Z",
+          mealplanner_id: 2,
+          recipe_id: 2,
+        },
+      },
+      {
+        id: 1,
+        title: "나물비빔밥",
+        description: "육수로 지은 밥에 야채를 듬뿍 넣은 영양만점 나물비빔밥!",
+        cooking_time: "60분",
+        level: "보통",
+        main_image:
+          "http://file.okdab.com/UserFiles/searching/recipe/000200.jpg",
+        foods: null,
+        steps: null,
+        createdAt: "2021-09-30T05:45:22.112Z",
+        updatedAt: "2021-09-30T05:45:22.112Z",
+        post_user_id: 1,
+        Dinner: {
+          createdAt: "2021-09-30T09:06:27.645Z",
+          updatedAt: "2021-09-30T09:06:27.645Z",
+          mealplanner_id: 2,
+          recipe_id: 1,
+        },
+      },
+    ],
+  },
+];

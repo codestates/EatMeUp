@@ -17,21 +17,25 @@ module.exports = (sequelize, DataTypes) => {
         through: "User_Like_Recipe",
         as: "likeUser",
         foreignKey: "recipe_id",
+        onDelete: "CASCADE",
       });
       models.Recipe.belongsToMany(models.Mealplanner, {
         through: "Breakfast",
         as: "breakfast",
         foreignKey: "recipe_id",
+        onDelete: "CASCADE",
       });
       models.Recipe.belongsToMany(models.Mealplanner, {
         through: "Lunch",
         as: "lunch",
         foreignKey: "recipe_id",
+        onDelete: "CASCADE",
       });
       models.Recipe.belongsToMany(models.Mealplanner, {
         through: "Dinner",
         as: "dinner",
         foreignKey: "recipe_id",
+        onDelete: "CASCADE",
       });
     }
   }

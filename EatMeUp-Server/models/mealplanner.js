@@ -11,21 +11,25 @@ module.exports = (sequelize, DataTypes) => {
       models.Mealplanner.belongsTo(models.User, {
         foreignKey: "own_user_id",
         as: "user",
+        onDelete: "CASCADE",
       });
       models.Mealplanner.belongsToMany(models.Recipe, {
         through: "Breakfast",
         as: "mealplanBreakfast",
         foreignKey: "mealplanner_id",
+        onDelete: "CASCADE",
       });
       models.Mealplanner.belongsToMany(models.Recipe, {
         through: "Lunch",
         as: "mealplanLunch",
         foreignKey: "mealplanner_id",
+        onDelete: "CASCADE",
       });
       models.Mealplanner.belongsToMany(models.Recipe, {
         through: "Dinner",
         as: "mealplanDinner",
         foreignKey: "mealplanner_id",
+        onDelete: "CASCADE",
       });
     }
   }
