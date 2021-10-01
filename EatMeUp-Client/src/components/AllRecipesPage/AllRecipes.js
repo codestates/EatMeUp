@@ -25,7 +25,7 @@ const AllRecipes = () => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [page, setPage] = useState(1);
 
-  const count = Math.ceil(recipeCount/8)
+  const count = Math.ceil(recipeCount/12)
 
   useEffect(() => {
     const getPage = {

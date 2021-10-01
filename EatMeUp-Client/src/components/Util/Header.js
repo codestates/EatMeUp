@@ -29,7 +29,7 @@ const Header = ({ id }) => {
       <div className='left-menu'>
         <div className='logo'>
           <Link to='/'>
-            <img src='../food_img/EatMeUp.png' alt='logo' />
+            <img src='https://eatmeup-image.s3.ap-northeast-2.amazonaws.com/9a0a59bd263f1840cabda2278d11570b' alt='logo' />
           </Link>
         </div>
         <div className='menuBtns'>
@@ -55,7 +55,7 @@ const Header = ({ id }) => {
       <div className='left-menu'>
         <div className='logo'>
           <Link to='/'>
-            <img src='../food_img/EatMeUp.png' alt='logo' />
+            <img src='https://eatmeup-image.s3.ap-northeast-2.amazonaws.com/9a0a59bd263f1840cabda2278d11570b' alt='logo' />
           </Link>
         </div>
         <div className='menuBtns'></div>

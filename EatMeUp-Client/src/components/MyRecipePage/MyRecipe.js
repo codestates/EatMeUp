@@ -19,7 +19,7 @@ import theme from "../StyledComponent/theme";
 
 const MyRecipe = () => {
 
-  const { myrecipe } = useSelector((state) => state.myrecipes);
+  const { myrecipe } = useSelector(state => state.myrecipes);
   const { isDeleted } = useSelector(state => state.myrecipe)
 
   const dispatch = useDispatch();
