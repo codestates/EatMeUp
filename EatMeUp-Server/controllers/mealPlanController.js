@@ -29,6 +29,27 @@ const getMealInfo = async (req, res) => {
   }
 };
 
+const getOneDayInfo = async (req, res) => {
+  try {
+    const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
+    const mealPlanId = req.params.id;
+    const userMealplan = await Mealplanner.findOne({
+      where: { id: mealPlanId, own_user_id: user.id },
+      include: [
+        { model: Recipe, as: "mealplanBreakfast" },
+        { model: Recipe, as: "mealplanLunch" },
+        { model: Recipe, as: "mealplanDinner" },
+      ],
+    });
+
+    res.status(200).json({
+      success: true,
+      mealPlan: userMealplan,
+      message: "load success",
+    });
+  } catch (error) {}
+};
+
 const addMealPlan = async (req, res) => {
   try {
     const { date, breakfast, lunch, dinner } = req.body;
@@ -64,7 +85,7 @@ const addMealPlan = async (req, res) => {
 
     addMeal();
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "add success",
     });
@@ -77,8 +98,31 @@ const addMealPlan = async (req, res) => {
   }
 };
 
-const deleteMealPlan = async (req, res) => {};
+const deleteMealPlan = async (req, res) => {
+  try {
+    const mealPlanId = req.params.id;
+
+    await Mealplanner.destroy({ where: { id: mealPlanId } });
+
+    res.status(201).json({
+      success: true,
+      message: "delete success",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "delete fail",
+      error: error,
+    });
+  }
+};
 
 const modMealPlan = async (req, res) => {};
 
-module.exports = { getMealInfo, addMealPlan, deleteMealPlan, modMealPlan };
+module.exports = {
+  getMealInfo,
+  addMealPlan,
+  deleteMealPlan,
+  modMealPlan,
+  getOneDayInfo,
+};
