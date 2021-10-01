@@ -1,9 +1,23 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from 'react-redux';
+import { removeFromLikelist } from '../../../_actions/userActions'
+
 import { Recipe } from "../../StyledComponent/card";
 import theme from "../../StyledComponent/theme";
 
 const Card = ({ recipes }) => {
+
+
+  const dispatch = useDispatch();
+
+  const deleteHandler = (id) => {
+
+    dispatch(removeFromLikelist(id))
+
+  }
+ 
+
   return recipes.map((recipe, idx) => {
     return (
       <Recipes width='90%' key={idx}>
@@ -23,7 +37,7 @@ const Card = ({ recipes }) => {
           <div>
             <div className='recipe-dc-right_box'>
               <i class='fas fa-heart'></i>
-              <i class='far fa-trash-alt'></i>
+              <i class='far fa-trash-alt' onClick={() => deleteHandler(recipe.id)}></i>
             </div>
           </div>
         </div>
@@ -78,6 +92,7 @@ const Recipes = styled(Recipe)`
     margin-top: 3px;
     font-size: 20px;
     margin-right: 10px;
+    cursor: pointer;
   }
   .fa-clock {
     font-size: 12px;
