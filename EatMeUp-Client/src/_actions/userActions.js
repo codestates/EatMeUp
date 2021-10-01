@@ -157,7 +157,7 @@ export const getUserinfo = () => async (dispatch) => {
     dispatch({ type: GET_USERINFO_REQUEST })
 
     const { data } = await axios.get(`${process.env.REACT_APP_API}/user/info`, {withCredentials: true})
-console.log(data)
+
     dispatch({
       type: GET_USERINFO_SUCCESS,
       payload: data.findInfo

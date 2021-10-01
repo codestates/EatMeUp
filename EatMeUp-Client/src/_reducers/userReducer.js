@@ -28,6 +28,7 @@ import {
   GET_USERINFO_FAIL,
   EDIT_USERINFO_REQUEST,
   EDIT_USERINFO_SUCCESS,
+  EDIT_USERINFO_RESET,
   EDIT_USERINFO_FAIL,
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
@@ -182,3 +183,33 @@ export const getUserInfoReducer = (state = { user : {}}, action) => {
       return state;
   }
 }
+
+export const userInfoReducer = (state = { }, action) => {
+  switch(action.type) {
+    case EDIT_USERINFO_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case EDIT_USERINFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isEdited: true
+      }
+    case EDIT_USERINFO_RESET:
+      return {
+        ...state,
+        loading: false,
+        isEdited: false
+      }
+    case EDIT_USERINFO_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      }
+    default:
+      return state;
+  }
+}
+

@@ -1,29 +1,71 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import Dropzone from "react-dropzone";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  editUserinfo,
+  deleteMyaccount,
+  getUserinfo,
+} from "../../_actions/userActions";
+import { imageUpload } from "../../_actions/imageAction";
+import { EDIT_USERINFO_RESET } from "../../_types/userTypes";
 // import Modal from "./Modal"
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
-const MyInfo = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modal, setModal] = useState(false);
+const { Swal } = window;
 
-  const openModal = () => {
-    setModal(true);
+const MyInfo = () => {
+  const dispatch = useDispatch();
+  const { user, loading } = useSelector((state) => state.user);
+  const { image } = useSelector((state) => state.image);
+  const { isEdited } = useSelector((state) => state.useraction);
+  const [name, setName] = useState("");
+  const [file, setFile] = useState("");
+
+  useEffect(() => {
+    dispatch(getUserinfo());
+
+    if (isEdited) {
+      dispatch({ type: EDIT_USERINFO_RESET });
+    }
+  }, [dispatch, isEdited]);
+
+  const userEditHandler = () => {
+    dispatch(imageUpload(file));
+
+    const data = {
+      avatar: image ? image : user.avatar,
+      username: name ? name : user.username,
+      email: user.email,
+    };
+
+    dispatch(editUserinfo(data));
   };
-  const closeModal = () => {
-    setModal(false);
+
+  const deleteHandler = () => {
+    Swal.fire({
+      title: "내 정보 수정",
+      text: "정보를 수정 하시겠습니까?",
+      icon: "success",
+      showCancleButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "수정하기",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(editUserinfo());
+      }
+    });
   };
-  const dropHandler = () => {};
 
   return (
     <div>
@@ -37,24 +79,51 @@ const MyInfo = () => {
             </TitleBox>
             <div className='info_container'>
               <div className='profile_container'>
-                <i class='far fa-user-circle fa-10x' id='userimg'></i>
-                <Dropzone
-                  onDrop={dropHandler}
-                  multiple={false}
-                  maxSize={800000000}
-                >
-                  {({ getRootProps, getInputProps }) => (
-                    <div className='profileImg_box' {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <i class='fas fa-camera'></i>
-                    </div>
-                  )}
-                </Dropzone>
+                {file ? (
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt='avatar'
+                    style={{
+                      width: "190px",
+                      height: "190px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : user.avatar ? (
+                  <img
+                    src={user.avatar}
+                    alt='avatar'
+                    style={{
+                      width: "190px",
+                      height: "190px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : (
+                  <i class='far fa-user-circle fa-10x' id='userimg'></i>
+                )}
+
+                <div className='profileImg_box'>
+                  <label for='userimg'>
+                    <i class='fas fa-camera'></i>
+                  </label>
+                  <input
+                    type='file'
+                    id='userimg'
+                    accept='image/*'
+                    onChange={(e) => setFile(e.target.files[0])}
+                  />
+                </div>
               </div>
               <div className='info_box'>
                 <div className='info1'>
                   username
-                  <input placeholder='김코딩' />
+                  <input
+                    type='text'
+                    onChange={(e) => setName(e.target.value)}
+                    value={name}
+                    placeholder={user.username}
+                  />
                 </div>
                 <div className='info2'>
                   avatar
@@ -62,21 +131,13 @@ const MyInfo = () => {
                 </div>
                 <div className='info3'>
                   email
-                  <input placeholder='kimcoding@eatmeup.me' disabled/>
+                  <input placeholder={user.email} disabled />
                 </div>
               </div>
             </div>
             <div className='btn_container'>
-              <EditButton>수정 완료</EditButton>
-              <DeleteButton
-                onClick={() => {
-                  setModal(true);
-                }}
-              >
-                계정 삭제
-              </DeleteButton>
-              {/* {!!modal ? <Modal /> : null} */}
-              {!!modal ? <Modal onClick={() => {setModal(false)}}>&times;</Modal> : null}
+              <EditButton onClick={userEditHandler}>수정 완료</EditButton>
+              <DeleteButton>계정 삭제</DeleteButton>
             </div>
           </MyInfoContainer>
         </Container>
@@ -179,6 +240,17 @@ const MyInfoContainer = styled(SectionBox)`
       transition: all 0.2s ease-in-out;
     }
   }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
   .btn_container {
     width: 400px;
     margin: 0 auto;
@@ -209,21 +281,21 @@ const DeleteButton = styled(LargeBtn)`
   cursor: pointer;
 `;
 
-const Modal = ({onClose}) => {
+const Modal = ({ onClose }) => {
   const onMaskClick = (e) => {
     if (e.target === e.currentTarget) {
-      onClose(e)
+      onClose(e);
     }
-  }
+  };
 
   const close = (e) => {
     if (onClose) {
-      onClose(e)
+      onClose(e);
     }
-  }
+  };
   return (
     <>
-      <ModalOverlay/>
+      <ModalOverlay />
       <ModalWrapper tabIndex='-1'>
         <ModalInner tabIndex='0' className='modal-inner'>
           계정을 삭제하시면 되돌릴 수 없습니다 정말 삭제하시겠습니까?
@@ -272,8 +344,6 @@ const ModalInner = styled.div`
   padding: 40px 20px;
 `;
 
-const CloseButton = styled.button`
-
-`
+const CloseButton = styled.button``;
 
 export default MyInfo;

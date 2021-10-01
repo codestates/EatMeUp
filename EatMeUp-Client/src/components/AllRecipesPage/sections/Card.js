@@ -6,16 +6,14 @@ const Card = ({ recipe }) => {
   const recipeLevel = (level) => {
     if (level === "초보환영") {
       return <i className='bx bxs-star' id='icon'></i>;
-    }
-    else if (level === "보통") {
+    } else if (level === "보통") {
       return (
         <>
           <i className='bx bxs-star' id='icon'></i>
           <i className='bx bxs-star' id='icon'></i>
         </>
       );
-    }
-    else if (level === "어려움") {
+    } else if (level === "어려움") {
       return (
         <>
           <i className='bx bxs-star' id='icon'></i>
@@ -23,12 +21,9 @@ const Card = ({ recipe }) => {
           <i className='bx bxs-star' id='icon'></i>
         </>
       );
-    } 
-    else {
+    } else {
       return <i className='bx bxs-star' id='icon'></i>;
     }
-
-    
   };
 
   return (
@@ -39,15 +34,24 @@ const Card = ({ recipe }) => {
             {/* 유저프로필 */}
             <div className='imgbox-left'>
               <div>
-                <img src={recipe.user.avatar ? recipe.user.avatar : "../food_img/favicon.png"} alt='people' />
+                <img
+                  src={
+                    recipe.user.avatar
+                      ? recipe.user.avatar
+                      : "../food_img/favicon.png"
+                  }
+                  alt='people'
+                />
               </div>
               <div>
                 <div>
-                  <span>{recipe.user.username === "test1" ? "eatmeup" : recipe.user.username}</span>
+                  <span>
+                    {recipe.user.username === "test1"
+                      ? "eatmeup"
+                      : recipe.user.username}
+                  </span>
                 </div>
-                <div className='update-time'>
-                    hello world!
-                </div>
+                <div className='update-time'>hello world!</div>
               </div>
             </div>
 
@@ -75,9 +79,8 @@ const Card = ({ recipe }) => {
           {/* 음식 주재료 */}
           <div className='materials'>
             {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span>#{food.name}</span>
+              return <span>#{food.name}</span>;
             })}
-            
           </div>
         </RecipeCard>
       </Link>
@@ -95,6 +98,7 @@ const showBtn = keyframes`
 `;
 
 const RecipeCard = styled.div`
+  width: 100%;
   margin: 20px auto;
   background-color: #ffffff;
   display: inline-block;
@@ -110,28 +114,24 @@ const RecipeCard = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding-top:6px;
+    padding-top: 6px;
   }
 
   .imgbox-left > div > img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     margin: 5px;
-    object-fit: contain;
+    object-fit: cover;
   }
 
   .imgbox-left {
     display: flex;
-
   }
 
   .imgbox-left > div {
     margin-left: 5px;
     font-size: 14px;
-    object-fit: contain;
-  
-    align-items: center;
-  
+    object-fit: cover;
   }
 
   .update-time {
