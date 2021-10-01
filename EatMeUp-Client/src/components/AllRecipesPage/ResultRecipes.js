@@ -15,7 +15,7 @@ const ResultRecipes = () => {
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const { loading, recommandRecipes, food } = useSelector((state) => state.allRecipes);
+  const { loading, recommandRecipes, food } = useSelector((state) => state.recommandrecipes);
 
   return (
     <>
@@ -36,11 +36,11 @@ const ResultRecipes = () => {
             <div className='search_box'>
               <Stack direction='row' spacing={1}>
                 <i className='fas fa-shopping-basket'></i>
-                {food.food
+                {/* {food.food
                   ? food.food.map((item, idx) => {
                       return <Chip label={item.name} key={idx} />;
                     })
-                  : ""}
+                  : ""} */}
               </Stack>
             </div>
           </SearchBox>

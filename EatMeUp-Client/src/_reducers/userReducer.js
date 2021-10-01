@@ -44,11 +44,10 @@ export const getMyrecipesReducer = (state = { myrecipe: [] }, action) => {
     case GET_MYECIPES_SUCCESS:
       return {
         loading: false,
-        myrecipe: action.payload.Recipes,
+        myrecipe: action.payload.recipeInfo,
       };
     case GET_MYECIPES_FAIL:
       return {
-        ...state,
         loading: false,
         error: action.payload,
       };
@@ -160,3 +159,26 @@ export const mylikelistReducer = (state = {}, action) => {
       return state;
   }
 };
+
+export const getUserInfoReducer = (state = { user : {}}, action) => {
+  switch(action.type) {
+    case GET_USERINFO_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case GET_USERINFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload
+      }
+    case GET_USERINFO_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      }
+    default:
+      return state;
+  }
+}

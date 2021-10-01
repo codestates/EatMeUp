@@ -47,38 +47,38 @@ function App(props) {
           option={false}
           exact
         />
-        <PrivateRoute path='/recipes' exact component={AllRecipesPage} />
-        <PrivateRoute
+        <Route path='/recipes' exact component={AllRecipesPage} />
+        <Route
           path='/recipes/result'
           exact
           component={ResultRecipesPage}
           option={true}
         />
         <Route path='/recipe/info/:id' component={DetailPage} />
-        <PrivateRoute path='/fridge' exact component={FridgePage} />
-        <PrivateRoute path='/user/myrecipe' exact component={MyRecipePage} />
-        <PrivateRoute
+        <Route path='/fridge' exact component={FridgePage} />
+        <Route path='/user/myrecipe' exact component={MyRecipePage} />
+        <Route
           path='/user/myrecipe/create'
           component={CreateRecipePage}
         />
-        <PrivateRoute
+        <Route
           path='/user/myrecipe/edit/:id'
           exact
           component={EditRecipePage}
         />
-        <PrivateRoute path='/user/likelist' exact component={MyLikelistPage} />
-        <PrivateRoute
+        <Route path='/user/likelist' exact component={MyLikelistPage} />
+        <Route
           path='/user/myplanner'
           exact
           component={MealPlannerPage}
         />
-        <PrivateRoute
+        <Route
           path='/user/myplanner/create'
           component={PlanningPage}
           exact
         />
-        <PrivateRoute path='/user/mypage' component={MyPage} exact />
-        <PrivateRoute path='/user/info' component={MyInfo} exact />
+        <Route path='/user/mypage' component={MyPage} exact />
+        <Route path='/user/info' component={MyInfo} exact />
       </div>
     </Router>
   );

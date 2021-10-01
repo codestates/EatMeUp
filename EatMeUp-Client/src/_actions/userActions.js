@@ -53,7 +53,7 @@ export const getMyrecipes = () => async (dispatch) => {
 
     dispatch({
       type: GET_MYECIPES_SUCCESS,
-      payload: data.recipeInfo
+      payload: data
     })
 
 
@@ -156,7 +156,12 @@ export const getUserinfo = () => async (dispatch) => {
   try {
     dispatch({ type: GET_USERINFO_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.get(`${process.env.REACT_APP_API}/user/info`, {withCredentials: true})
+console.log(data)
+    dispatch({
+      type: GET_USERINFO_SUCCESS,
+      payload: data.findInfo
+    })
 
   } catch (error) {
     dispatch({
@@ -168,12 +173,16 @@ export const getUserinfo = () => async (dispatch) => {
 
 
 /* 유저 정보 수정하기 */
-export const editUserinfo = () => async (dispatch) => {
+export const editUserinfo = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_USERINFO_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.put(`${process.env.REACT_APP_API}/user/info`, userInfo, {withCredentials: true} )
 
+    dispatch({
+       type: EDIT_USERINFO_SUCCESS,
+       payload: data
+    })
   } catch (error) {
     dispatch({
       type:  EDIT_USERINFO_FAIL,
@@ -188,7 +197,12 @@ export const deleteMyaccount = () => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.delete(`${process.env.REACT_APP_API}/user/info`, {withCredentials: true})
+
+    dispatch({
+      type: DELETE_USER_SUCCESS,
+      payload: data
+    })
 
   } catch (error) {
     dispatch({
