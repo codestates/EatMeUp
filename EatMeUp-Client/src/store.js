@@ -7,7 +7,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import { recipeReducer, getRecipeReducer } from './_reducers/recipeReducer'
 import { allFoodsReducer, newFoodReducer, saveFoodReducer } from './_reducers/fridgeReducer'
 import { authReducer } from './_reducers/authReducer';
-import { getMyrecipesReducer, myrecipeReducer } from './_reducers/userReducer';
+import { getMyrecipesReducer, myrecipeReducer, mylikelistReducer, getMylikelistReducer  } from './_reducers/userReducer';
 import { imageReducer } from './_reducers/imageReducer';
 
 const persistConfig = {
@@ -25,6 +25,8 @@ const reducer = combineReducers({
  auth: authReducer,
  myrecipes: getMyrecipesReducer,
  myrecipe: myrecipeReducer,
+ mylikelist : getMylikelistReducer,
+ likelist: mylikelistReducer,
  image: imageReducer
 });
 

@@ -10,7 +10,6 @@ import {
   GET_RECIPE_FAIL,
 } from "../_types/recipeTypes";
 
-
 export const recipeReducer = (state = { recipes: [] }, action) => {
   switch (action.type) {
     case ALL_RECIPES_REQUEST:
@@ -23,19 +22,19 @@ export const recipeReducer = (state = { recipes: [] }, action) => {
       return {
         loading: false,
         recipes: action.payload.rows,
-        recipeCount: action.payload.count
+        recipeCount: action.payload.count,
       };
-      case GET_RECOMMAND_SUCCESS:
-        return {
-          loading:false,
-          recipes: action.payload.data,
-          food: action.payload.food
-        }
+    case GET_RECOMMAND_SUCCESS:
+      return {
+        loading: false,
+        recommandRecipes: action.payload.data,
+        food: action.payload.food
+      };
     case ALL_RECIPES_FAIL:
     case GET_RECOMMAND_FAIL:
       return {
         loading: false,
-        error: action.payload,
+        error: action.payload
       };
     default:
       return state;
@@ -47,20 +46,19 @@ export const getRecipeReducer = (state = {}, action) => {
     case GET_RECIPE_REQUEST:
       return {
         ...state,
-        loading: true,
+        loading: true
       };
     case GET_RECIPE_SUCCESS:
       return {
         loading: false,
-        recipe: action.payload,
+        recipe: action.payload
       };
     case GET_RECIPE_FAIL:
       return {
-        loading: false,
-        error: action.payload,
+        ...state,
+        error: action.payload
       };
     default:
       return state;
   }
-  
 };
