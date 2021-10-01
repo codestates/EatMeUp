@@ -65,6 +65,7 @@ const getRecipeDetail = async (req, res) => {
     const { id } = req.params;
 
     const recipeInfo = await Recipe.findOne(
+      { where: { id } },
       {
         include: [
           { model: User, as: "user", attributes: ["username", "avatar"] },
@@ -76,8 +77,8 @@ const getRecipeDetail = async (req, res) => {
           // { all: true },
         ],
       },
-      { where: { id } },
     );
+
     if (!recipeInfo) {
       return res
         .status(400)
