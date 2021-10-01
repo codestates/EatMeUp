@@ -16,9 +16,12 @@ mealPlanRouter
   .all(auth)
   .get(getMealInfo)
   .post(addMealPlan)
-  .put(modMealPlan)
-  .delete(deleteMealPlan);
+  .put(modMealPlan);
 
-mealPlanRouter.route("/mealplan/:id").all(auth).get(getOneDayInfo);
+mealPlanRouter
+  .route("/mealplan/:id")
+  .all(auth)
+  .get(getOneDayInfo)
+  .delete(deleteMealPlan);
 
 module.exports = mealPlanRouter;

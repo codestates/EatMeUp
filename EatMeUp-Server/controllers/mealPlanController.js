@@ -85,7 +85,7 @@ const addMealPlan = async (req, res) => {
 
     addMeal();
 
-    res.status(200).json({
+    res.status(201).json({
       success: true,
       message: "add success",
     });
@@ -98,7 +98,24 @@ const addMealPlan = async (req, res) => {
   }
 };
 
-const deleteMealPlan = async (req, res) => {};
+const deleteMealPlan = async (req, res) => {
+  try {
+    const mealPlanId = req.params.id;
+
+    await Mealplanner.destroy({ where: { id: mealPlanId } });
+
+    res.status(201).json({
+      success: true,
+      message: "delete success",
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "delete fail",
+      error: error,
+    });
+  }
+};
 
 const modMealPlan = async (req, res) => {};
 
