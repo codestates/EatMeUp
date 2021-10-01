@@ -36,31 +36,31 @@ const DetailePage = ({ match }) => {
   const [getRecipe, setGetRecipe] = useState("");
   const [clicked, setClicked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-
-  mylikelist.forEach((recipe) => {
-    if (recipe.id === match.params.id) {
-      setIsLiked(true);
-    }
-  });
-
-  const { id } = useParams();
-
-  console.log(recipe);
-
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((response) => {
-  //       if (response.data.success) {
-  //         setGetRecipe(response.data.recipeInfo);
-  //       }
-  //     });
-  // }, []);
+const [steps, setSteps] = useState([])
+  // mylikelist.forEach((recipe) => {
+  //   if (recipe.id === Number(match.params.id)) {
+  //     setIsLiked(true);
+  //     console.log('jello')
+  //   }
+  // });
 
   useEffect(() => {
-    dispatch(getRecipeDetail(id));
+
+    
+    axios.get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {withCredentials: true}).then(response => {
+      console.log(response.data)
+      if(response.data) {
+        setGetRecipe(response.data.recipeInfo)
+        setSteps(response.data.recipeInfo.steps)
+      }
+    })
+
+  }, []);
+
+
+
+  useEffect(() => {
+  
     dispatch(getMyLikelist());
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
@@ -69,9 +69,9 @@ const DetailePage = ({ match }) => {
     if (isDeleted) {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
-  }, [dispatch, isAdded, isDeleted, id]);
+  }, [dispatch, isAdded, isDeleted]);
 
-  console.log(mylikelist);
+  
   const likeBtnHandler = (id) => {
     setClicked(!clicked);
 
@@ -87,62 +87,63 @@ const DetailePage = ({ match }) => {
 
   return (
     <div>
-     <Header />
+      <Header />
 
       {/* {loading ? (
         <Loader />
       ) : ( */}
         <RecipeContainer>
           <RecipeBox>
-            {/* <ImgBox>
-              <img src={recipe.main_image} alt='recipe_img' />
-            </ImgBox> */}
-            {/* <TitleBox>
-              {recipe.title}
-              {isLiked ? (
+            <ImgBox>
+              <img src={getRecipe.main_image} alt='recipe_img' />
+            </ImgBox>
+            <TitleBox>
+              {getRecipe.title}
+              {/* {isLiked ? (
                 <i
-                  class={clicked ? "far fa-heart" : "fas fa-heart"}
+                  className={clicked ? "far fa-heart" : "fas fa-heart"}
                   style={clicked ? { color: "black" } : { color: "red" }}
                   onClick={() => likeBtnHandler(recipe.id)}
                 ></i>
               ) : (
                 <i
-                  class={clicked ? "fas fa-heart" : "far fa-heart"}
+                  className={clicked ? "fas fa-heart" : "far fa-heart"}
                   style={clicked ? { color: "red" } : { color: "black" }}
                   onClick={() => likeBtnHandler(recipe.id)}
                 ></i>
-              )}
-            </TitleBox> */}
+              )} */}
+              {/* {isLiked ? (<i className="far fa-heart"></i>) : (<i className="fas fa-heart"></i>)} */}
+            </TitleBox>
             {/* <Level>
             <i class='fas fa-star'></i>
             <i class='fas fa-star'></i>
             <i class='fas fa-star'></i>
             {myRecipes[0].level}
           </Level> */}
-           {/* <DescriptionBox> */}
-              {/* <DescriptionImg>
-                <i class='fas fa-quote-left'></i> 
+            <DescriptionBox>
+              <DescriptionImg>
+                <i class='fas fa-quote-left'></i>
               </DescriptionImg>
-              {/* <div className='description'>{recipe.description}</div>
-            </DescriptionBox>  */}
-            {/* // <FoodsBox>
-            //   <div className='foods_title'>재료</div>
-            //   <div className='foods'>
-            //     {recipe.foods.map((food, idx) => {
-            //       let name = food.name;
-            //       let capacity = food.capacity;
-            //       return (
-            //         <span className='foodtag'>{name.concat(capacity)}</span>
-            //       );
-            //     })}
-            //   </div>
-            // </FoodsBox> */}
-            {/* <StepContainer>
+              <div className='description'>{getRecipe.description}</div>
+            </DescriptionBox>
+            {/* <FoodsBox>
+              <div className='foods_title'>재료</div>
+              <div className='foods'>
+                {getRecipe.foods.map((food, idx) => {
+                  let name = food.name;
+                  let capacity = food.capacity;
+                  return (
+                    <span className='foodtag'>{name.concat(capacity)}</span>
+                  );
+                })}
+              </div>
+            </FoodsBox> */}
+            <StepContainer>
               <div className='step_title'>조리과정</div>
 
-              {recipe.steps.map((step, idx) => {
+              {steps.map((step, idx) => {
                 return (
-                  <StepBox>
+                  <StepBox key={idx}>
                     <div className='step_image'>
                       <img
                         src={
@@ -167,12 +168,11 @@ const DetailePage = ({ match }) => {
                     </div>
                   </StepBox>
                 );
-              })} 
-            </StepContainer> */}
+              })}
+            </StepContainer>
           </RecipeBox>
         </RecipeContainer>
-      {/* )}  */}
-      <Footer /> 
+      <Footer />
     </div>
   );
 };
@@ -264,6 +264,7 @@ const FoodsBox = styled.div`
     width: 100%;
     margin: 20px 0;
     font-size: 14px;
+    padding: 5px;
   }
 
   .foodtag {

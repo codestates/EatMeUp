@@ -103,7 +103,8 @@ const ListBox = styled.div`
   max-width: 1329px;
   margin: 0 auto;
   min-height: 720px;
-  column-width: 300px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
   padding: 10px;
 `;

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { yellow } from '@mui/material/colors';
+import { yellow } from "@mui/material/colors";
 import { useDispatch, useSelector } from "react-redux";
 import { allRecipes } from "../../_actions/recipeActions";
 
@@ -21,11 +21,13 @@ const AllRecipes = () => {
   // Todo
 
   const dispatch = useDispatch();
-  const { loading, recipes, recipeCount } = useSelector((state) => state.allRecipes);
+  const { loading, recipes, recipeCount } = useSelector(
+    (state) => state.allRecipes,
+  );
   const [currentIdx, setCurrentIdx] = useState(0);
   const [page, setPage] = useState(1);
 
-  const count = Math.ceil(recipeCount/12)
+  const count = Math.ceil(recipeCount / 12);
 
   useEffect(() => {
     const getPage = {
@@ -57,15 +59,32 @@ const AllRecipes = () => {
                 <i className='fas fa-utensils'></i> 오늘의 레시피
               </h1>
               <div>
-                {[1, 2, 3].map((card, idx) => {
+                {[
+                  "https://cdn.pixabay.com/photo/2020/02/28/12/43/bibimbap-4887417_960_720.jpg",
+                  "https://t1.daumcdn.net/cfile/blog/26373634588318E103",
+                  "https://cdn.mkhealth.co.kr/news/photo/201908/img_MKH190814002_0.jpg",
+                ].map((card, idx) => {
                   return (
-                    <MainRecipeCard
+                    <div
                       key={idx}
                       onClick={(e) => mainCardHandler(e, idx)}
+                      className={currentIdx === idx ? "max_box" : "min_box"}
                       style={
                         currentIdx === idx ? { width: "50%" } : { width: "23%" }
                       }
-                    ></MainRecipeCard>
+                    >
+
+
+                      <img src={card} alt='foodimg' />
+                      <div>
+                        <div>title</div>
+                        <div>
+                          <span>돼지고기</span>
+                          <span>돼지고기</span>
+                          <span>돼지고기</span>
+                        </div>
+                      </div>
+                    </div>
                   );
                 })}
               </div>
@@ -82,12 +101,18 @@ const AllRecipes = () => {
           </Container>
           <PaginationBox>
             <div>
-            <Stack spacing={3}>
-            <Pagination count={count} size="large" shape="rounded" variant="outlined"  page={page} onChange={handleChange} />
-          </Stack>
-          </div>
+              <Stack spacing={3}>
+                <Pagination
+                  count={count}
+                  size='large'
+                  shape='rounded'
+                  variant='outlined'
+                  page={page}
+                  onChange={handleChange}
+                />
+              </Stack>
+            </div>
           </PaginationBox>
-          
         </section>
       )}
       <Footer />
@@ -101,11 +126,63 @@ const TitleContainer = styled.div`
 `;
 const TitleBox = styled.div`
   width: 95%;
-  text-indent: 40px;
   margin: 0 auto;
 
   div {
     display: flex;
+  }
+
+  .max_box {
+    font-size: 40px;
+    height: 350px;
+    transition: all 0.4s;
+    margin: 0px 7.5px;
+    background: #ffffff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    display: flex;
+    font-size: 15px;
+
+    div {
+      display: block;
+      width: 40%;
+    }
+
+    img {
+      width: 50%;
+      transition: all 0.4s;
+      height: 95%;
+      border-radius: 25px;
+      margin: 7px;
+    }
+  }
+
+  .min_box {
+    font-size: 14px;
+    width: 23%;
+    height: 350px;
+    transition: all 0.4s;
+    margin: 0px 7.5px;
+    background: #ffffff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    cursor: pointer;
+    display: block;
+
+    div {
+      display: block;
+    width: 100%;
+    }
+
+
+
+    img {
+      width: 100%;
+      height: 250px;
+      transition: all 0.4s;
+      border-radius: 25px;
+    
+    }
   }
 `;
 
@@ -114,6 +191,22 @@ const MainRecipeCard = styled(SectionBox)`
   height: 350px;
   transition: all 0.4s;
   margin: 0px 7.5px;
+
+  .max_box {
+    font-size: 40px;
+  }
+
+  .min_box {
+    font-size: 14px;
+  }
+  &:active :focus {
+    max-width: 50%;
+    background-color: black;
+
+    div > img {
+      width: 100px;
+    }
+  }
 `;
 
 const SearchBox = styled.div`
@@ -156,7 +249,6 @@ const Container = styled.div`
   a {
     color: #404040;
   }
- 
 `;
 
 const PaginationBox = styled.div`
@@ -166,5 +258,5 @@ const PaginationBox = styled.div`
   div {
     font-size: 17px;
   }
-`
+`;
 export default AllRecipes;
