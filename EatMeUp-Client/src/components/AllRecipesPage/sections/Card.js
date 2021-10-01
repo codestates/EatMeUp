@@ -165,7 +165,7 @@ const RecipeCard = styled.div`
 
   .recipeImgbox > img {
     width: 95%;
-    height: 200px;
+    height: 230px;
     border-radius: 20px;
     object-fit: cover;
     margin: 10px 7px 0px 7px;
@@ -200,8 +200,8 @@ const RecipeCard = styled.div`
   &:hover::after {
     content: "View Recipe";
     position: absolute;
-    top: 200px;
-    left: 140px;
+    top: 240px;
+    left: 160px;
     width: 130px;
     height: 35px;
     background-color: #febd2f;

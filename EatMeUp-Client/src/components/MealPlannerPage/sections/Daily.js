@@ -1,20 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { BackGroundModal, ModalDialog } from "../styled/Style";
 import { SectionBox } from "../../StyledComponent/containers";
 
 const Daily = ({ setOpenDaily, getDate, plan }) => {
   /* function area */
-console.log(plan)
+
   const getPlan = [
-    { id: "아침", 
-    icon: "fa-cloud-sun", 
-    meal: plan ? plan.mealplanBreakfast : [] },
-    { id: "점심", icon: "fa-sun", meal: plan ? plan.mealplanLunch : []},
-    { id: "저녁", icon: "fa-moon", meal: plan ? plan.mealplanDinner : []},
+    {
+      id: "아침",
+      icon: "fa-cloud-sun",
+      meal: plan ? plan.mealplanBreakfast : [],
+    },
+    { id: "점심", icon: "fa-sun", meal: plan ? plan.mealplanLunch : [] },
+    { id: "저녁", icon: "fa-moon", meal: plan ? plan.mealplanDinner : [] },
   ];
 
-  
   const closeModalHandler = () => {
     setOpenDaily(false);
   };
@@ -24,19 +25,13 @@ console.log(plan)
     8,
   )}`;
 
-  console.log(getPlan);
-  // <i class="fas fa-sun"></i>AM <br/>
-
-  //     <i class="fas fa-sun"></i>PM <br/>
-
-  //     <i class="fas fa-moon"></i>
   return (
     <>
       <BackGroundModal>
         <ModalDialog onClick={closeModalHandler}>
           <Date>
             {date}
-            <i className='far fa-edit'></i>
+            <i class='far fa-trash-alt'></i>
           </Date>
           {/* flex box */}
           <MealPlanBox>
@@ -45,7 +40,8 @@ console.log(plan)
                 <MealPlanCard key={idx}>
                   <TitleBox>
                     <Title>
-                      <i className={`fas ${data.icon}`}></i>{data.id}
+                      <i className={`fas ${data.icon}`}></i>
+                      {data.id}
                     </Title>
                   </TitleBox>
                   <PlansBox>
@@ -82,7 +78,7 @@ const Date = styled.div`
 
   i {
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
   }
 `;
@@ -143,7 +139,7 @@ const PlanCard = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid lightgrey;
+  border: 1px solid #e5e5e5;
 
   &:hover .fa-sign-out-alt {
     opacity: 1;
