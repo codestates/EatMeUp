@@ -1,16 +1,16 @@
 import { IMAGEUPLOAD_SUCCESS, IMAGEUPLOAD_FAIL, IMAGE_RESET} from "../_types/imageTypes";
 
-export const imageReducer = (state = { }, action) => {
+export const imageReducer = (state = { image: {} }, action) => {
   switch (action.type) {
     case IMAGEUPLOAD_SUCCESS:
       return {
         success: true,
-        imageUrl: action.payload
+        image: action.payload
       };
     case IMAGE_RESET:
       return {
         success: false,
-        imageUrl: null
+        image: null
       }
     case IMAGEUPLOAD_FAIL:
       return {

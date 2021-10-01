@@ -21,6 +21,7 @@ import {
   mylikelistReducer,
   getMylikelistReducer,
   getUserInfoReducer,
+  userInfoReducer,
 } from "./_reducers/userReducer";
 import { imageReducer } from "./_reducers/imageReducer";
 
@@ -43,6 +44,7 @@ const reducer = combineReducers({
   mylikelist: getMylikelistReducer,
   likelist: mylikelistReducer,
   user: getUserInfoReducer,
+  useraction: userInfoReducer,
   image: imageReducer,
 });
 

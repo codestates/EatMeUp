@@ -26,9 +26,9 @@ import { myRecipes } from "../dummydata";
 const MyPage = () => {
   const dispatch = useDispatch();
 
-  const { user, loading } = useSelector(state => state.user);
-  const { mylikelist } = useSelector(state => state.mylikelist);
-  const { myrecipe } = useSelector(state => state.myrecipes);
+  const { user, loading } = useSelector((state) => state.user);
+  const { mylikelist } = useSelector((state) => state.mylikelist);
+  const { myrecipe } = useSelector((state) => state.myrecipes);
 
   useEffect(() => {
     dispatch(getMyLikelist());
@@ -55,7 +55,11 @@ const MyPage = () => {
               <InfoConatainer>
                 <ProfileContainer>
                   <div className='img_box'>
-                    <i class='far fa-user-circle' id='userimg'></i>
+                    {user.avatar ? (
+                      <img src={user.avatar} alt='userimg' style={{width: "190px", height: "190px", borderRadius: "50%"}} />
+                    ) : (
+                      <i class='far fa-user-circle' id='userimg'></i>
+                    )}
                   </div>
                   <div className='info1'>
                     name
@@ -87,9 +91,9 @@ const MyPage = () => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
-                                <img src={main_image} alt='main' />
+                                <img src={recipe.main_image} alt='main' />
                               </div>
-                              <div className='recipe_title'>{title}</div>
+                              <div className='recipe_title'>{recipe.title}</div>
                               <div className='item_container'>
                                 <i class='far fa-edit'></i>
                                 <i class='far fa-trash-alt'></i>
@@ -107,13 +111,13 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                       {mylikelist.map((recipe, idx) => {
+                        {mylikelist.map((recipe, idx) => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
-                                <img src={main_image} alt='recipe' />
+                                <img src={recipe.main_image} alt='recipe' />
                               </div>
-                              <div className='recipe_title'>{title}</div>
+                              <div className='recipe_title'>{recipe.title}</div>
                               <div className='item_container'>
                                 <i
                                   class='fas fa-heart'

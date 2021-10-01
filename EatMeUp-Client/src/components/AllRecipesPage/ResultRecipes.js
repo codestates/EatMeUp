@@ -95,17 +95,16 @@ const SearchBox = styled.div`
 
 const Container = styled.div`
   width: 95%;
-  column-width: 280px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
   margin: 0 auto;
 
   a {
     color: #404040;
   }
-
-  @media screen and (max-width: 1500px) {
-    column-width: 300px;
-  }
+ 
 `;
+
 
 export default ResultRecipes;

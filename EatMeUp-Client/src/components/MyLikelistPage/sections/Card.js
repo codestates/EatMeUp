@@ -5,6 +5,7 @@ import { removeFromLikelist } from '../../../_actions/userActions'
 
 import { Recipe } from "../../StyledComponent/card";
 import theme from "../../StyledComponent/theme";
+const { Swal } = window;
 
 const Card = ({ recipes }) => {
 
@@ -12,8 +13,20 @@ const Card = ({ recipes }) => {
   const dispatch = useDispatch();
 
   const deleteHandler = (id) => {
-
-    dispatch(removeFromLikelist(id))
+    Swal.fire({
+      title: "Delete",
+      text: "레시피를 삭제 하시겠습니까?",
+      icon: "warning",
+      showCancleButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제하기",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(removeFromLikelist(id))
+      }
+    });
+    
 
   }
  
