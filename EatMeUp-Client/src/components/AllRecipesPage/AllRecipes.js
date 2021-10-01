@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { yellow } from '@mui/material/colors';
 import { useDispatch, useSelector } from "react-redux";
 import { allRecipes } from "../../_actions/recipeActions";
 
@@ -12,26 +15,32 @@ import Loader from "../Util/Loader";
 /* 스타일 컴포넌트 */
 import { SectionBox } from "../StyledComponent/containers";
 
+const color = yellow[500];
+
 const AllRecipes = () => {
   // Todo
-  // 더보기 버튼 만들기
-  // 재료 삭제 핸들러만들기
 
   const dispatch = useDispatch();
-  const { loading, recipes } = useSelector((state) => state.allRecipes);
-  const [currentIdx, setCurrentIdx] = useState(0)
-  
+  const { loading, recipes, recipeCount } = useSelector((state) => state.allRecipes);
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const [page, setPage] = useState(1);
+
+  const count = Math.ceil(recipeCount/8)
+
   useEffect(() => {
     const getPage = {
-      page: 1,
+      page: page,
     };
     dispatch(allRecipes(getPage));
-  }, [dispatch]);
-
+  }, [dispatch, page]);
 
   const mainCardHandler = (e, idx) => {
-    setCurrentIdx(idx)
-  }
+    setCurrentIdx(idx);
+  };
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   return (
     <>
@@ -49,12 +58,16 @@ const AllRecipes = () => {
               </h1>
               <div>
                 {[1, 2, 3].map((card, idx) => {
-                  return <MainRecipeCard key={idx} onClick={(e) => mainCardHandler(e, idx)}
-                  style={currentIdx === idx ? { width: "50%"} : {width: "23%"}}
-                  ></MainRecipeCard>
+                  return (
+                    <MainRecipeCard
+                      key={idx}
+                      onClick={(e) => mainCardHandler(e, idx)}
+                      style={
+                        currentIdx === idx ? { width: "50%" } : { width: "23%" }
+                      }
+                    ></MainRecipeCard>
+                  );
                 })}
-                
-              
               </div>
             </TitleBox>
           </TitleContainer>
@@ -67,6 +80,14 @@ const AllRecipes = () => {
               return <Card recipe={recipe} key={idx} />;
             })}
           </Container>
+          <PaginationBox>
+            <div>
+            <Stack spacing={3}>
+            <Pagination count={count} size="large" shape="rounded" variant="outlined"  page={page} onChange={handleChange} />
+          </Stack>
+          </div>
+          </PaginationBox>
+          
         </section>
       )}
       <Footer />
@@ -86,7 +107,6 @@ const TitleBox = styled.div`
   div {
     display: flex;
   }
-
 `;
 
 const MainRecipeCard = styled(SectionBox)`
@@ -95,7 +115,6 @@ const MainRecipeCard = styled(SectionBox)`
   transition: all 0.4s;
   margin: 0px 7.5px;
 `;
-
 
 const SearchBox = styled.div`
   width: 90%;
@@ -133,9 +152,20 @@ const Container = styled.div`
   gap: 15px;
   margin: 0 auto;
 
+  a {
+    color: #404040;
+  }
   @media screen and (max-width: 1500px) {
     column-width: 300px;
   }
 `;
 
+const PaginationBox = styled.div`
+  margin: 15px 30px;
+  display: flex;
+  justify-content: flex-end;
+  div {
+    font-size: 17px;
+  }
+`
 export default AllRecipes;

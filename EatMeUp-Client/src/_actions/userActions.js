@@ -19,6 +19,16 @@ import {
   GET_LIKELIST_SUCCESS,
   GET_LIKELIST_FAIL,
 
+  ADD_TO_LIKELIST_REQUEST,
+  ADD_TO_LIKELIST_SUCCESS,
+  ADD_TO_LIKELIST_RESET,
+  ADD_TO_LIKELIST_FAIL,
+
+  REMOVE_FROM_LIKELIST_REQUEST,
+  REMOVE_FROM_LIKELIST_SUCCESS,
+  REMOVE_FROM_LIKELIST_RESET,
+  REMOVE_FROM_LIKELIST_FAIL,
+
   GET_USERINFO_REQUEST,
   GET_USERINFO_SUCCESS,
   GET_USERINFO_FAIL,
@@ -81,12 +91,16 @@ export const createMyRecipe = (newRecipe) => async (dispatch) => {
 
 
 /* 마이레시피 수정하기 */
-export const editMyrecipe = () => async (dispatch) => {
+export const editMyrecipe = (id, recipe) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_MYRECIPE_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.put(`${process.env.REACT_APP_API}/myRecipe/info/${id}`, recipe, {withCredentials: true} )
 
+    dispatch({
+      type: EDIT_MYRECIPE_SUCCESS,
+      payload: data
+    })
     
   } catch (error) {
     dispatch({
@@ -122,8 +136,12 @@ export const getMyLikelist = () => async (dispatch) => {
   try {
     dispatch({ type: GET_LIKELIST_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.get(`${process.env.REACT_APP_API}/user/likelist`, {withCredentials: true})
 
+    dispatch({
+      type: GET_LIKELIST_SUCCESS,
+      payload: data.recipes
+    })
   } catch (error) {
     dispatch({
       type: GET_LIKELIST_FAIL,
@@ -179,3 +197,46 @@ export const deleteMyaccount = () => async (dispatch) => {
     })
   }
 };
+
+
+export const addToLikelist = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: ADD_TO_LIKELIST_REQUEST})
+
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/user/likelist`, id,
+      { withCredentials: true },
+    );
+    console.log(data);
+    dispatch({
+      type: ADD_TO_LIKELIST_SUCCESS,
+      payload: data
+    });
+  } catch (error) {
+    dispatch({
+      type: ADD_TO_LIKELIST_FAIL,
+      payload: error,
+    });
+  }
+}
+
+export const removeFromLikelist = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: REMOVE_FROM_LIKELIST_REQUEST})
+
+    const { data } = await axios.delete(
+      `${process.env.REACT_APP_API}/user/likelist/${id}`,
+      { withCredentials: true },
+    );
+    console.log(data);
+    dispatch({
+      type: REMOVE_FROM_LIKELIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: REMOVE_FROM_LIKELIST_FAIL,
+      payload: error,
+    });
+  }
+}

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
-const Card = ({ recipe }) => {
+const ResultCard = ({ recipe }) => {
   const recipeLevel = (level) => {
     if (level === "초보환영") {
       return <i className='bx bxs-star' id='icon'></i>;
@@ -39,11 +39,11 @@ const Card = ({ recipe }) => {
             {/* 유저프로필 */}
             <div className='imgbox-left'>
               <div>
-                <img src={recipe.user.avatar ? recipe.user.avatar : "../food_img/favicon.png"} alt='people' />
+                <img src={recipe.avatar ? recipe.avatar : "../food_img/favicon.png"} alt='people' />
               </div>
               <div>
                 <div>
-                  <span>{recipe.user.username === "test1" ? "eatmeup" : recipe.user.username}</span>
+                  <span>{recipe.username === "test1" ? "eatmeup" : recipe.username}</span>
                 </div>
                 <div className='update-time'>
                     hello world!
@@ -213,4 +213,4 @@ const RecipeCard = styled.div`
     animation: ${showBtn} 0.5s;
   }
 `;
-export default Card;
+export default ResultCard;

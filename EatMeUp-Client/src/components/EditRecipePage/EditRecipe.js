@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -9,25 +9,44 @@ import Stack from "@mui/material/Stack";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useForm, useWatch } from "react-hook-form";
-import { createMyRecipe } from "../../_actions/userActions";
+import { editMyrecipe } from "../../_actions/userActions";
+import { getRecipeDetail } from "../../_actions/recipeActions";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 import Sidebar from "../Util/Sidebar";
+import Loader from "../Util/Loader";
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
-const { swal } = window;
-
-const EditRecipePage = () => {
+const EditRecipePage = ({ match }) => {
   /* function */
-
+  const { id } = useParams();
   const dispatch = useDispatch();
   const history = useHistory();
+
+  const { recipe, loading } = useSelector((state) => state.recipe);
+
+  const [myrecipe, setMyrecipe] = useState("")
+  const [recipeBox, setRecipeBox] = useState([]);
+  useEffect(() => {
+
+    
+    axios.get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {withCredentials: true}).then(response => {
+      console.log(response)
+      if(response.data.success) {
+        setMyrecipe(response.data.recipeInfo)
+        
+      }
+    })
+
+  }, []);
+
+  console.log(myrecipe)
 
   const {
     register,
@@ -138,6 +157,9 @@ const EditRecipePage = () => {
     recipeImg10,
   ]);
 
+ 
+
+
   //add materials
   const [foodname, setFoodname] = useState("");
   const [foodQuantity, setFoodQuantity] = useState("");
@@ -145,11 +167,10 @@ const EditRecipePage = () => {
 
   //steps
   const [menuals, setMenuals] = useState([]);
-  const [recipeBox, setRecipeBox] = useState(["recipe-0"]);
   const [recipeDC, setRecipeDC] = useState("");
-  const [recipeImg, setRecipeImg] = useState(
-    "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
-  );
+  // const [recipeImg, setRecipeImg] = useState(
+  //   "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
+  // );
 
   const [ingredientTag, setIngredientTag] = useState([]); //재료태그
 
@@ -188,8 +209,6 @@ const EditRecipePage = () => {
     setRecipeBox([...recipeBox, textarea]);
     setRecipeDC("");
   };
-
-  console.log(recipeBox);
 
   //추가된 step영역 삭제하는 핸들러
   const deleteRecipeHandler = (idx) => {
@@ -280,15 +299,14 @@ const EditRecipePage = () => {
     newRecipe["level"] = data.cooking_level;
     newRecipe["foods"] = materials;
     newRecipe["steps"] = recipeImage;
-
-  
-    setOpen(true)
+    console.log(newRecipe)
+    setOpen(true);
     setTimeout(() => {
       console.log(newRecipe);
-     
-      setOpen(false)
-      // dispatch(createMyRecipe(newRecipe));
-      // history.push("/user/myrecipe");
+
+      setOpen(false);
+      dispatch(editMyrecipe(match.params.id, newRecipe));
+      history.push("/user/myrecipe");
     }, 1000);
   };
 
@@ -309,223 +327,243 @@ const EditRecipePage = () => {
             <CircularProgress color='inherit' />
           </Backdrop>
 
-          <BoxContainer>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              {/* 제목, 요리설명, 메인이미지 컴포넌트 */}
-              <MainDCBox>
-                <TitleBox>
-                  <div className='title'>New Recipe</div>
-                </TitleBox>
+          {loading ? (
+            <Loader />
+          ) : (
+            <BoxContainer>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                {/* 제목, 요리설명, 메인이미지 컴포넌트 */}
+                <MainDCBox>
+                  <TitleBox>
+                    <div className='title'>New Recipe</div>
+                  </TitleBox>
 
-                <DescriptionBox>
-                  <DCBox>
-                    {/* 레시피 제목 입력창 */}
-                    <div>
-                      <input
-                        {...register("title", {
-                          required: "레시피 제목을 입력해 주세요.",
-                        })}
-                        type='text'
-                        placeholder='레시피 제목을 입력해 주세요.'
-                      />
-                      {errors.title ? <p> {errors.title.message}</p> : ""}
-                    </div>
+                  <DescriptionBox>
+                    <DCBox>
+                      {/* 레시피 제목 입력창 */}
+                      <div>
+                        <input
+                          {...register("title", {
+                            required: "레시피 제목을 입력해 주세요.",
+                          })}
+                          defaultValue={myrecipe.title}
+                          type='text'
+                          placeholder='레시피 제목을 입력해 주세요.'
+                        />
+                        {errors.title ? <p> {errors.title.message}</p> : ""}
+                      </div>
 
-                    {/* 레시피 설명 입력창 */}
-                    <div>
-                      <textarea
-                        {...register("description", {
-                          required: "레시피에 대한 설명을 입력해 주세요",
-                        })}
-                        placeholder='음식에 대한 설명을 입력해 주세요.'
-                      ></textarea>
-                      {errors.description ? (
-                        <p> {errors.description.message}</p>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                  </DCBox>
+                      {/* 레시피 설명 입력창 */}
+                      <div>
+                        <textarea
+                          {...register("description", {
+                            required: "레시피에 대한 설명을 입력해 주세요",
+                          })}
+                          defaultValue={myrecipe.description}
+                          placeholder='음식에 대한 설명을 입력해 주세요.'
+                        ></textarea>
+                        {errors.description ? (
+                          <p> {errors.description.message}</p>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </DCBox>
 
-                  {/* 이미지 업로드 */}
-                  <ImageArea>
-                    <ImageBox>
-                      {mainImage ? (
-                        <img src={URL.createObjectURL(mainImage)} alt='main' />
-                      ) : (
-                        <div>
-                          <i class='far fa-image'></i>
-                        </div>
-                      )}
-                    </ImageBox>
-                    <div className='input'>
-                      <label for='fileInput'><i className="fas fa-upload"></i> 파일 업로드</label>
-                      <input
-                        id='fileInput'
-                        type='file'
-                        {...register("main_image")}
-                        onChange={fileHandler}
-                      />
-                    </div>
-                  </ImageArea>
-                </DescriptionBox>
-              </MainDCBox>
-
-              {/* 요리 정보 추가 컴포넌트 */}
-              <MainDCBox>
-                <div>
-                  <div className='subtitle'>• 요리 정보</div>
-                </div>
-                <CookInfomation>
-                  <div className='cookinfo'>
-                    <i class='fas fa-clipboard-check'></i> 요리레벨
-                  </div>
-                  <Selector {...register("cooking_level")}>
-                    <option>초보환영</option>
-                    <option>보통</option>
-                    <option>어려움</option>
-                  </Selector>
-
-                  <div className='cookinfo'>
-                    <i class='far fa-clock'></i> 요리시간
-                  </div>
-                  <Selector {...register("cooking_time")}>
-                    <option>10Min</option>
-                    <option>20Min</option>
-                    <option>30Min</option>
-                    <option>40Min</option>
-                    <option>50Min</option>
-                    <option>60Min</option>
-                    <option>60Min이상</option>
-                  </Selector>
-                </CookInfomation>
-
-                <AddIngredientBox>
-                  {/* 재료 추가 작성 영역 */}
-                  <div className='cookinfo'>
-                    <i class='fas fa-carrot'></i> 요리재료
-                  </div>
-                  <FlexContainer>
-                    <input
-                      value={foodname}
-                      onChange={(e) => setFoodname(e.currentTarget.value)}
-                      placeholder='재료 이름을 적어주세요'
-                      type='text'
-                    />
-
-                    <input
-                      value={foodQuantity}
-                      onChange={(e) => setFoodQuantity(e.currentTarget.value)}
-                      placeholder='재료의 양을 적어주세요'
-                      type='text'
-                    />
-
-                    <div>
-                      <AddBtn onClick={AddIngredientHandler}>재료 추가</AddBtn>
-                    </div>
-                  </FlexContainer>
-
-                  {/* 재료추가 영역 */}
-                  <TagContainer>
-                    <Stack direction='row' spacing={1}>
-                      {ingredientTag.map((food, idx) => {
-                        return (
-                          <Chip
-                            label={food}
-                            onDelete={() => deleteIngredientHandler(idx)}
-                            key={idx}
+                    {/* 이미지 업로드 */}
+                    <ImageArea>
+                      <ImageBox>
+                        {mainImage ? (
+                          <img
+                            src={URL.createObjectURL(mainImage)}
+                            alt='main'
                           />
-                        );
-                      })}
-                    </Stack>
-                  </TagContainer>
-                </AddIngredientBox>
-              </MainDCBox>
+                        ) : (
+                          <img src={myrecipe.main_image} alt='main' />
+                        )}
+                      </ImageBox>
+                      <div className='input'>
+                        <label for='fileInput'>
+                          <i className='fas fa-upload'></i> 파일 업로드
+                        </label>
+                        <input
+                          id='fileInput'
+                          type='file'
+                          {...register("main_image")}
+                          onChange={fileHandler}
+                        />
+                      </div>
+                    </ImageArea>
+                  </DescriptionBox>
+                </MainDCBox>
 
-              {/* 레시피 메뉴얼 작성 컴포넌트 */}
-              <StepsBox>
-                <div>
-                  <div className='subtitle'>• 요리 레시피</div>
-                </div>
-                <AddRecipeArea>
-                  {recipeBox.map((recipe, idx) => {
-                    return (
-                      <AddRecipeBox key={idx}>
-                        <div className='steps'>Step {idx + 1}</div>
+                {/* 요리 정보 추가 컴포넌트 */}
+                <MainDCBox>
+                  <div>
+                    <div className='subtitle'>• 요리 정보</div>
+                  </div>
+                  <CookInfomation>
+                    <div className='cookinfo'>
+                      <i class='fas fa-clipboard-check'></i> 요리레벨
+                    </div>
+                    <Selector
+                      {...register("cooking_level")}
+                      defaultValue={myrecipe.level}
+                    >
+                      <option>초보환영</option>
+                      <option>보통</option>
+                      <option>어려움</option>
+                    </Selector>
 
-                        {/* 단계별 레시피 쓰는 영역 */}
-                        <div className='cook-recipe_box'>
-                          {/* 이미지 업로드 영역 */}
+                    <div className='cookinfo'>
+                      <i class='far fa-clock'></i> 요리시간
+                    </div>
+                    <Selector
+                      {...register("cooking_time")}
+                      // defaultValue={recipe.cooking_time}
+                    >
+                      <option>10Min</option>
+                      <option>20Min</option>
+                      <option>30Min</option>
+                      <option>40Min</option>
+                      <option>50Min</option>
+                      <option>60Min</option>
+                      <option>60Min이상</option>
+                    </Selector>
+                  </CookInfomation>
 
-                          <div className='recipeImg_box'>
-                            <label for={idx}>
-                              <i className='bx bx-image-add'></i>
-                            </label>
-                            <input
-                              type='file'
-                              id={idx}
-                              {...register(`image-${idx}`)}
+                  <AddIngredientBox>
+                    {/* 재료 추가 작성 영역 */}
+                    <div className='cookinfo'>
+                      <i class='fas fa-carrot'></i> 요리재료
+                    </div>
+                    <FlexContainer>
+                      <input
+                        value={foodname}
+                        onChange={(e) => setFoodname(e.currentTarget.value)}
+                        placeholder='재료 이름을 적어주세요'
+                        type='text'
+                      />
+
+                      <input
+                        value={foodQuantity}
+                        onChange={(e) => setFoodQuantity(e.currentTarget.value)}
+                        placeholder='재료의 양을 적어주세요'
+                        type='text'
+                      />
+
+                      <div>
+                        <AddBtn onClick={AddIngredientHandler}>
+                          재료 추가
+                        </AddBtn>
+                      </div>
+                    </FlexContainer>
+
+                    {/* 재료추가 영역 */}
+                    <TagContainer>
+                      <Stack direction='row' spacing={1}>
+                        {ingredientTag.map((food, idx) => {
+                          return (
+                            <Chip
+                              label={food}
+                              onDelete={() => deleteIngredientHandler(idx)}
+                              key={idx}
                             />
-                            {recipeWatch[idx] ? (
-                              <img
-                                src={URL.createObjectURL(recipeWatch[idx][0])}
-                                alt='img'
+                          );
+                        })}
+                      </Stack>
+                    </TagContainer>
+                  </AddIngredientBox>
+                </MainDCBox>
+
+                {/* 레시피 메뉴얼 작성 컴포넌트 */}
+                <StepsBox>
+                  <div>
+                    <div className='subtitle'>• 요리 레시피</div>
+                  </div>
+                  <AddRecipeArea>
+                    {recipeBox.map((item, idx) => {
+                      return (
+                        <AddRecipeBox key={idx}>
+                          <div className='steps'>Step {idx + 1}</div>
+
+                          {/* 단계별 레시피 쓰는 영역 */}
+                          <div className='cook-recipe_box'>
+                            {/* 이미지 업로드 영역 */}
+
+                            <div className='recipeImg_box'>
+                              <label for={idx}>
+                                <i className='bx bx-image-add'></i>
+                              </label>
+                              <input
+                                type='file'
+                                id={idx}
+                                {...register(`image-${idx}`)}
                               />
-                            ) : (
-                              "요리 단계별 이미지를 업로드 해보세요."
-                            )}
-                            {""}
-                          </div>
+                              {recipeWatch[idx] ? (
+                                <img
+                                  src={URL.createObjectURL(recipeWatch[idx][0])}
+                                  alt='img'
+                                />
+                              ) : item.image ? (
+                                <img src={item.image} alt='recipe' />
+                              ) : (
+                                "요리 단계별 이미지를 업로드 해보세요."
+                              )}
+                              {""}
+                            </div>
 
-                          {/* 단계별 요리법 설명 영역 */}
-                          <div className='recipe-dc_box'>
-                            <textarea
-                              {...register(`${idx}-recipe`, {
-                                required: "레시피를 입력해 주세요",
-                              })}
-                              id='textarea'
-                              placeholder='요리 레시피를 입력해 주세요.'
-                            ></textarea>
-                            {errors[`${idx}-recipe`] ? (
-                              <p>{errors[`${idx}-recipe`].message}</p>
-                            ) : (
-                              ""
-                            )}
-                          </div>
+                            {/* 단계별 요리법 설명 영역 */}
+                            <div className='recipe-dc_box'>
+                              <textarea
+                                {...register(`${idx}-recipe`, {
+                                  required: "레시피를 입력해 주세요",
+                                })}
+                                defaultValue={item.recipe ? item.recipe : ""}
+                                id='textarea'
+                                placeholder='요리 레시피를 입력해 주세요.'
+                              ></textarea>
+                              {errors[`${idx}-recipe`] ? (
+                                <p>{errors[`${idx}-recipe`].message}</p>
+                              ) : (
+                                ""
+                              )}
+                            </div>
 
-                          {/* 단계 삭제버튼 영역 */}
-                          <div>
-                            <i
-                              className='fas fa-times'
-                              onClick={() => deleteRecipeHandler(idx)}
-                            ></i>
+                            {/* 단계 삭제버튼 영역 */}
+                            <div>
+                              <i
+                                className='fas fa-times'
+                                onClick={() => deleteRecipeHandler(idx)}
+                              ></i>
+                            </div>
                           </div>
-                        </div>
-                      </AddRecipeBox>
-                    );
-                  })}
-                  <BtnArea>
-                    {recipeBox.length === 10 ? (
-                      ""
-                    ) : (
-                      <PlusBtn>
-                        <i
-                          class='far fa-plus-square'
-                          onClick={addRecipeHandler}
-                        ></i>
-                      </PlusBtn>
-                    )}
-                  </BtnArea>
-                </AddRecipeArea>
-              </StepsBox>
+                        </AddRecipeBox>
+                      );
+                    })}
+                    <BtnArea>
+                      {recipeBox.length === 10 ? (
+                        ""
+                      ) : (
+                        <PlusBtn>
+                          <i
+                            class='far fa-plus-square'
+                            onClick={addRecipeHandler}
+                          ></i>
+                        </PlusBtn>
+                      )}
+                    </BtnArea>
+                  </AddRecipeArea>
+                </StepsBox>
 
-              {/* 레시피 추가버튼 영역 */}
-              <BtnContainer>
-                <input type='submit' placeholder='레시피 추가' />
-              </BtnContainer>
-            </form>
-            {/* */}
-          </BoxContainer>
+                {/* 레시피 추가버튼 영역 */}
+                <BtnContainer>
+                  <input type='submit' placeholder='레시피 추가' />
+                </BtnContainer>
+              </form>
+              {/* */}
+            </BoxContainer>
+          )}
         </Container>
       </section>
       <Footer />

@@ -57,7 +57,7 @@ const MyRecipe = () => {
               </div>
             </TitleBox>
 
-        
+            {/* 레시피 리스트 */}
             <ListBox>
               <Card recipes={myrecipe} />
               {/* <EmptyState /> */}

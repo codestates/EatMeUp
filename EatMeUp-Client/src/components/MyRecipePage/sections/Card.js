@@ -1,21 +1,31 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
-import { deleteMyrecipe } from '../../../_actions/userActions';
-
+import { useDispatch } from "react-redux";
+import { deleteMyrecipe } from "../../../_actions/userActions";
 
 import { Recipe } from "../../StyledComponent/card";
 
+const { Swal } = window;
+
 const Card = ({ recipes }) => {
-
   const dispatch = useDispatch();
-  
+
   const deleteHandler = (id) => {
-
-    dispatch(deleteMyrecipe(id))
-
-  }
+    Swal.fire({
+      title: "Delete",
+      text: "레시피를 삭제하시겠습니까?",
+      icon: "warning",
+      showCancleButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제하기",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteMyrecipe(id));
+      }
+    });
+  };
   return recipes.map((recipe, idx) => {
     return (
       <Recipes width='90%' key={idx}>
@@ -24,7 +34,15 @@ const Card = ({ recipes }) => {
           {/* userprofile 영역 */}
           <div className='userprofile'>
             <div className='userimg_box'>
-              <img src={recipe.main_image ? recipe.main_image :  '../../food_img/people.jpeg'} alt='userimg' id='userimg' />
+              <img
+                src={
+                  recipe.main_image
+                    ? recipe.main_image
+                    : "../../food_img/people.jpeg"
+                }
+                alt='userimg'
+                id='userimg'
+              />
             </div>
             <div className='username_box'>
               <span className='username'>Segyondgdgg</span>
@@ -34,10 +52,13 @@ const Card = ({ recipes }) => {
           {/* 삭제버튼과 수정버튼 영역 */}
           <div>
             <div className='recipe-dc-right_box'>
-              <Link to={`/user/myrecipe/edit/${idx}`}>
+              <Link to={`/user/myrecipe/edit/${recipe.id}`}>
                 <i class='far fa-edit'></i>
               </Link>
-              <i class='far fa-trash-alt' onClick={() => deleteHandler(recipe.id)}></i>
+              <i
+                class='far fa-trash-alt'
+                onClick={() => deleteHandler(recipe.id)}
+              ></i>
             </div>
           </div>
         </div>
@@ -89,6 +110,7 @@ const Recipes = styled(Recipe)`
 
   .fa-trash-alt {
     margin-top: 3px;
+    cursor: pointer;
   }
 
   .fa-clock {
