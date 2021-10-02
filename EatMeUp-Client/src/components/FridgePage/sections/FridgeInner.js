@@ -132,6 +132,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     return `${Y}.${M}.${D}`;
   };
 
+
   return (
     <div>
       {/* 재료추가시 보여주는 메세지 */}

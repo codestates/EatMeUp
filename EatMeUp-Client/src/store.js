@@ -23,6 +23,13 @@ import {
   getUserInfoReducer,
   userInfoReducer,
 } from "./_reducers/userReducer";
+import {
+  getMealPlansReducer,
+  getRecommandReducer,
+  newMealPlanReducer,
+  deleteMealPlanReducer,
+} from "./_reducers/calendarReducers";
+
 import { imageReducer } from "./_reducers/imageReducer";
 
 const persistConfig = {
@@ -46,6 +53,10 @@ const reducer = combineReducers({
   user: getUserInfoReducer,
   useraction: userInfoReducer,
   image: imageReducer,
+  getmealplan: getMealPlansReducer,
+  getRecommand: getRecommandReducer,
+  mealplan: newMealPlanReducer,
+  deleteplan: deleteMealPlanReducer
 });
 
 const middlware = [thunk];

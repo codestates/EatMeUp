@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteFood, editFood } from "../../../../_actions/fridgeActions";
-import { foodLife } from '../utils/convertDate';
-import axios from 'axios';
-import styled from 'styled-components';
+import { foodLife } from "../utils/convertDate";
+import axios from "axios";
+import styled from "styled-components";
 /* 스타일 컴포넌트 */
 import {
   BackGroundModal,
@@ -16,9 +16,8 @@ import { Button } from "../../../StyledComponent/buttons";
 import theme from "../../../StyledComponent/theme";
 
 const EditIngre = ({ setOpenEditWindow, food }) => {
-
   const dispatch = useDispatch();
-  
+
   const { id, food_name, food_image, food_life, createdAt, frez_type } = food;
   const creatAt = createdAt.slice(0, 10);
 
@@ -33,34 +32,41 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
   };
 
   const fileHandler = (e) => {
-    setImage(e.target.files[0])
-  }
+    setImage(e.target.files[0]);
+  };
 
   // 음식을 냉장고에 수정하는 핸들러
   const submitHandler = async (e) => {
     e.preventDefault();
-    const data = await axios.get(`${process.env.REACT_APP_API}/image/s3url`, {
-      withCredentials: true,
-    });
+    let foodImage = null;
 
-    //url을 사용해서 S3 버킷에 업로드
-    //axios
-    const img = await fetch(
-      data.data.s3url,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "image/jpeg",
-        },
-        body: image,
-      },
-      {
+    if (!image) {
+      foodImage = null;
+    } else {
+      const data = await axios.get(`${process.env.REACT_APP_API}/image/s3url`, {
         withCredentials: true,
-      },
-    );
+      });
 
-    const foodlife = foodLife(life)
-    const foodImage = img.url.split("?")[0]
+      //url을 사용해서 S3 버킷에 업로드
+      //axios
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: image,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      foodImage = img.url.split("?")[0];
+    }
+
+    const foodlife = foodLife(life);
 
     const food = {
       food_name: foodname ? foodname : food_name,
@@ -90,7 +96,8 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
           <form onSubmit={submitHandler}>
             {/* 이미지 업로드 */}
             <DropzoneArea>
-              {image ? (<img
+              {image ? (
+                <img
                   src={URL.createObjectURL(image)}
                   alt='foodImg'
                   style={{
@@ -98,8 +105,8 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                     height: "150px",
                     borderRadius: "50%",
                   }}
-                />) : 
-              food_image ? (
+                />
+              ) : food_image ? (
                 <img
                   src={food_image}
                   alt='foodImg'
@@ -107,7 +114,6 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                     width: "150px",
                     height: "150px",
                     borderRadius: "50%",
-                  
                   }}
                 />
               ) : (
@@ -117,10 +123,17 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
               )}
             </DropzoneArea>
             <InputBox>
-            <label for='foodimg'><i className="fas fa-upload"></i> 이미지 업로드</label>
-            <input type='file' id='foodimg' accept='image/*' onChange={fileHandler} />
+              <label htmlFor='foodimg'>
+                <i className='fas fa-upload'></i> 이미지 업로드
+              </label>
+              <input
+                type='file'
+                id='foodimg'
+                accept='image/*'
+                onChange={fileHandler}
+              />
             </InputBox>
-            
+
             <FoodInfoBox>
               {/* 음식이름 입력창 */}
               <div className='foodname-box'>
@@ -153,10 +166,21 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
               </div>
             </FoodInfoBox>
             <AddToRefriBtn>
-              <Button  width="130px" height="35px" fillColor={theme.colors.yellow} color='white' onClick={deleteHandler}>
+              <Button
+                width='130px'
+                height='35px'
+                fillColor={theme.colors.yellow}
+                color='white'
+                onClick={deleteHandler}
+              >
                 삭제하기
               </Button>
-              <Button  width="130px" height="35px" fillColor='lightgrey' onClick={submitHandler}>
+              <Button
+                width='130px'
+                height='35px'
+                fillColor='lightgrey'
+                onClick={submitHandler}
+              >
                 수정하기
               </Button>
             </AddToRefriBtn>
@@ -166,8 +190,6 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
     </div>
   );
 };
-
-
 
 const InputBox = styled.div`
   margin: 15px 0px;
@@ -197,6 +219,5 @@ const InputBox = styled.div`
     border: 0;
   }
 `;
-
 
 export default EditIngre;
