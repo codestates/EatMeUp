@@ -108,12 +108,14 @@ const FooterBox = styled.div`
 
   .names {
     margin: 3vw;
-    font-weight: 500;
+    font-weight: 400;
+    color: ${theme.colors.darkgrey};
     i {
       padding: 10px;
+      vertical-align: middle;
     }
-
     a {
+      color: ${theme.colors.darkgrey};
       padding: 10px 10px;
       cursor: pointer;
       text-decoration: none;

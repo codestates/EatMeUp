@@ -15,6 +15,7 @@ import theme from "../StyledComponent/theme";
 import { myRecipes } from "../dummydata";
 
 const DetailePage = () => {
+  // 조리시간 , 난이도, 유저이미지 및 아이디,
   return (
     <div>
       <Header />
@@ -27,12 +28,37 @@ const DetailePage = () => {
             {myRecipes[0].title}
             <i class='far fa-heart'></i>
           </TitleBox>
-          {/* <Level>
-            <i class='fas fa-star'></i>
-            <i class='fas fa-star'></i>
-            <i class='fas fa-star'></i>
-            {myRecipes[0].level}
-          </Level> */}
+          {/* {myRecipes[0].level === "쉬움" && (
+            <Level>
+              {" "}
+              <i class='fas fa-star'></i>
+            </Level>
+          )}
+          {myRecipes[0].level === "보통" && (
+            <Level>
+              {" "}
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+            </Level>
+          )}
+          {myRecipes[0].level === "어려움" && (
+            <Level>
+              {" "}
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+            </Level>
+          )} */}
+          <Level>
+            {" "}
+            <span className='level'>
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+            </span>
+            <span className='time'><i class="far fa-clock"></i>60min</span>
+          </Level>
+          {/* <Time><i class="fas fa-stopwatch"></i>{}</Time> */}
           <DescriptionBox>
             <DescriptionImg>
               {/* <i class='fas fa-quote-left'></i> */}
@@ -98,7 +124,7 @@ const DetailePage = () => {
                 {myRecipes[0].steps[2].image === null ? (
                   <img src={myRecipes[0].steps[2].image} alt='step_image' />
                 ) : (
-                  <img src='../../food_img/favicon.png' />
+                  <img src='../../food_img/cooking.png' />
                 )}
               </div>
               <div className='steps'>
@@ -148,6 +174,7 @@ const ImgBox = styled.div`
   /* background-color: ${theme.colors.lightgrey}; */
   img {
     border-radius: 30px;
+    /* width: 40%; */
     /* position: absolute;
     width: 100%;
     top: -9999px;
@@ -172,16 +199,37 @@ const TitleBox = styled.div`
 `;
 
 const Level = styled.div`
-  color: ${theme.colors.yellow};
-  background-color: ${theme.colors.lightgrey};
+  /* background-color: ${theme.colors.lightgrey}; */
   width: 100%;
   margin: 0 auto;
   text-align: center;
+  .level {
+    border-right: 1px solid ${theme.colors.lightgrey};
+    padding: 0 5px;
+  }
+  i {
+    color: ${theme.colors.yellow};
+    font-size: 20px;
+    margin: 0 5px;
+  }
+  .time {
+    color: ${theme.colors.gray};
+    font-size: 20px;
+    i {
+      margin: 0 5px;
+      padding: 0 5px;
+      color: ${theme.colors.gray};
+    }
+  }
 `;
+
+const Time = styled.span`
+  display: inline-block;
+`
 
 const DescriptionBox = styled.div`
   color: #6f6f6f;
-  margin: 10px auto;
+  margin: 5px auto;
   .description {
     border-bottom: 2px solid ${theme.colors.lightgrey};
     padding: 10px 5px;
@@ -193,7 +241,7 @@ const DescriptionImg = styled.div`
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  color: rgba(254, 189, 47, .2);
+  color: rgba(254, 189, 47, 0.2);
 `;
 
 const FoodsBox = styled.div`
@@ -249,7 +297,7 @@ const StepBox = styled.div`
   }
   .step {
     /* display: inline-block; */
-    margin: 0 10px;
+    /* margin: 0 10px; */
   }
 `;
 

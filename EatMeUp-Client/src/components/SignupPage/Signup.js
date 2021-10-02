@@ -32,17 +32,13 @@ const Signup = () => {
   }, 2000);
 
   useEffect(() => {
-    
-    if(error) {
+    if (error) {
       swal("Please!", "입력한 정보를 다시 확인해주세요.", "error");
-      dispatch(clearErrors())
+      dispatch(clearErrors());
       return;
     }
-   
-
   }, [dispatch, error, success]);
-  
-  
+
   const validationSchema = yup.object().shape({
     name: yup.string().min(2).max(10).required(),
     email: yup.string().email().required(),
@@ -68,8 +64,7 @@ const Signup = () => {
 
     dispatch(signupRequest(signupData));
 
-    history.push('/login')
-
+    history.push("/login");
   };
 
   return (

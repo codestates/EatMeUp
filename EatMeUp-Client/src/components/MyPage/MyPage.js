@@ -66,100 +66,30 @@ const MyPage = () => {
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i class='far fa-edit'></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                     </ul>
                   </CardContainer>
@@ -176,65 +106,30 @@ const MyPage = () => {
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i
-                            class='fas fa-heart'
-                            style={{ color: theme.colors.red }}
-                          ></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i
-                            class='fas fa-heart'
-                            style={{ color: theme.colors.red }}
-                          ></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i
-                            class='fas fa-heart'
-                            style={{ color: theme.colors.red }}
-                          ></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i
-                            class='fas fa-heart'
-                            style={{ color: theme.colors.red }}
-                          ></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                       <MyCard>
                         <div className='img_container'>
                           <img src={main_image} />
                         </div>
                         <div className='recipe_title'>{title}</div>
-                        <div className='item_container'>
-                          <i
-                            class='fas fa-heart'
-                            style={{ color: theme.colors.red }}
-                          ></i>
-                          <i class='far fa-trash-alt'></i>
-                        </div>
                       </MyCard>
                     </ul>
                   </CardContainer>
@@ -268,7 +163,6 @@ const TitleBox = styled.div`
   padding: 10px;
   .title {
     box-sizing: border-box;
-    
   }
 `;
 
@@ -396,7 +290,7 @@ const CardContainer = styled.div`
   margin: 0 auto;
   display: inline-block;
   white-space: nowrap;
-  overflow-x: scroll ;
+  overflow-x: scroll;
   ::-webkit-scrollbar {
     height: 5px;
     width: 5px;
@@ -416,7 +310,7 @@ const MyCard = styled.li`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   .img_container {
     width: 65%;
-    margin: 15px auto 5px auto;
+    margin: 25px auto 10px auto;
     text-align: center;
   }
   img {
