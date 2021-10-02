@@ -77,7 +77,7 @@ const AllRecipes = () => {
                         <div className='recipe-info_box'>
                           {/* 요리시간 */}
                           <div className='time'>
-                            <i className='far fa-clock'></i> 요리시간 20min 
+                            <i className='far fa-clock'></i> 요리시간 20min
                           </div>
                           <div className='level'>
                             <spna>/ 난이도 : </spna>
@@ -99,7 +99,6 @@ const AllRecipes = () => {
                         {/* 레시피 주재료들 */}
                         <div className='main-ingre'>주재료</div>
                         <div className='recipe-ingre_box'>
-                          
                           <div className='ingres'>
                             <span>#돼지전지</span>
                             <span>#양파</span>
@@ -115,7 +114,21 @@ const AllRecipes = () => {
             </TitleBox>
           </TitleContainer>
           {/* 냉장고 재료기반 추천된 재료리스트 */}
-          <SearchBox></SearchBox>
+          <SearchBox>
+            <div>
+              <i className='fas fa-concierge-bell'></i>
+              <span className='level'>난이도 :</span>
+              <span>초보환영 </span>
+              <i className='bx bxs-star' id='icon'></i>
+              <span>보통 </span>
+              <i className='bx bxs-star' id='icon'></i>
+              <i className='bx bxs-star' id='icon'></i>
+              <span>어려움</span>
+              <i className='bx bxs-star' id='icon'></i>
+              <i className='bx bxs-star' id='icon'></i>
+              <i className='bx bxs-star' id='icon'></i>
+            </div>
+          </SearchBox>
 
           {/* 카드리스트 컨테이너 */}
           <Container>
@@ -156,18 +169,16 @@ const TitleContainer = styled.div`
   }
 `;
 
-
 const showDialog = keyframes`
    from {
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(50px);
    }
    to{
     opacity: 1;
     transform: translateY(0px);
    }
 `;
-
 
 const TitleBox = styled.div`
   width: 100%;
@@ -359,6 +370,7 @@ const TitleBox = styled.div`
       }
 
       .main-ingre {
+        text-indent: 4px;
         font-size: 14px;
         color: grey;
         margin-top: 10px;
@@ -408,31 +420,24 @@ const TitleBox = styled.div`
 
 const SearchBox = styled.div`
   width: 90%;
-  display: flex;
-  margin: 30px auto;
+  margin: 10px auto;
   align-items: center;
 
-  .title {
-    font-size: 23px;
-    font-weight: 500;
-    margin-left: 30px;
+  .bxs-star {
+    color: #febd2f;
+    font-size: 17px;
   }
 
-  .search_box {
-    border: 2px solid #ebe9e5;
-    width: 100%;
-    height: 50px;
-    border-radius: 20px;
-    line-height: 40px;
-    align-items: center;
-    display: flex;
+  .level {
+    margin-left: 1px;
   }
 
-  .fa-shopping-basket {
-    margin-left: 15px;
-    font-size: 20px;
-    color: lightgrey;
-    margin: 6px 10px 0px 15px;
+  div > span {
+    margin-left: 10px;
+    color: #a9a7a3;
+  }
+  .fa-concierge-bell {
+    color: #a9a7a3;
   }
 `;
 
