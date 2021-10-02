@@ -20,10 +20,8 @@ import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
-/* 데이터 */
-import { myRecipes } from "../dummydata";
-
 const MyPage = () => {
+
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.user);
@@ -36,9 +34,7 @@ const MyPage = () => {
     dispatch(getUserinfo());
   }, [dispatch]);
 
-  const { title, main_image } = myRecipes[0];
-  console.log(main_image);
-
+ 
   return (
     <div>
       <Header id={2} />
@@ -314,6 +310,7 @@ const MyCard = styled.li`
   img {
     width: 100%;
     border-radius: 100%;
+    
   }
   .recipe_title {
     text-align: center;

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BackGroundModal, ModalDialog } from "../styled/Style";
 import { SectionBox } from "../../StyledComponent/containers";
+const { Swal } = window;
 
 const Daily = ({ setOpenDaily, getDate, plan }) => {
   /* function area */
@@ -15,6 +16,25 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
     { id: "점심", icon: "fa-sun", meal: plan ? plan.mealplanLunch : [] },
     { id: "저녁", icon: "fa-moon", meal: plan ? plan.mealplanDinner : [] },
   ];
+
+  const deletetHandler = () => {
+    setOpenDaily(true)
+    Swal.fire({
+          title: "Delete",
+          text: "레시피를 삭제 하시겠습니까?",
+          icon: "warning",
+          showCancleButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "삭제하기",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            console.log("deleded")
+            setOpenDaily(false)
+          }
+        });
+
+  }
 
   const closeModalHandler = () => {
     setOpenDaily(false);
@@ -31,7 +51,7 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
         <ModalDialog onClick={closeModalHandler}>
           <Date>
             {date}
-            <i class='far fa-trash-alt'></i>
+            <i class='far fa-trash-alt' onClick={deletetHandler}></i>
           </Date>
           {/* flex box */}
           <MealPlanBox>
@@ -113,7 +133,7 @@ const Img = styled.div`
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 

@@ -8,6 +8,7 @@ import {
   GET_RECIPE_REQUEST,
   GET_RECIPE_SUCCESS,
   GET_RECIPE_FAIL,
+  CLEAR_ERRORS
 } from "../_types/recipeTypes";
 import axios from "axios";
 
@@ -84,3 +85,11 @@ export const getRecipeDetail = (id) => async (dispatch) => {
     });
   }
 };
+
+
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+      type: CLEAR_ERRORS
+  })
+}

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Snackbar from "@mui/material/Snackbar";
-import { useSelector } from "react-redux";
 
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
@@ -132,6 +131,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     const D = createAt.slice(8, 10)
     return `${Y}.${M}.${D}`;
   };
+
 
   return (
     <div>
