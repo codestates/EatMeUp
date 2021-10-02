@@ -21,12 +21,10 @@ import {
 
   ADD_TO_LIKELIST_REQUEST,
   ADD_TO_LIKELIST_SUCCESS,
-  ADD_TO_LIKELIST_RESET,
   ADD_TO_LIKELIST_FAIL,
 
   REMOVE_FROM_LIKELIST_REQUEST,
   REMOVE_FROM_LIKELIST_SUCCESS,
-  REMOVE_FROM_LIKELIST_RESET,
   REMOVE_FROM_LIKELIST_FAIL,
 
   GET_USERINFO_REQUEST,
@@ -40,6 +38,7 @@ import {
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
+  CLEAR_ERRORS
 } from "../_types/userTypes";
 import axios from 'axios'
 
@@ -253,4 +252,12 @@ export const removeFromLikelist = (id) => async (dispatch) => {
       payload: error,
     });
   }
+}
+
+
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+      type: CLEAR_ERRORS
+  })
 }

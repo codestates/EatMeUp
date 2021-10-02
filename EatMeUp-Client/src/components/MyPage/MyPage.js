@@ -20,9 +20,6 @@ import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
-/* 데이터 */
-import { myRecipes } from "../dummydata";
-
 const MyPage = () => {
   const dispatch = useDispatch();
 
@@ -35,9 +32,6 @@ const MyPage = () => {
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
   }, [dispatch]);
-
-  const { title, main_image } = myRecipes[0];
-  console.log(main_image);
 
   return (
     <div>
@@ -56,7 +50,15 @@ const MyPage = () => {
                 <ProfileContainer>
                   <div className='img_box'>
                     {user.avatar ? (
-                      <img src={user.avatar} alt='userimg' style={{width: "190px", height: "190px", borderRadius: "50%"}} />
+                      <img
+                        src={user.avatar}
+                        alt='userimg'
+                        style={{
+                          width: "190px",
+                          height: "190px",
+                          borderRadius: "50%",
+                        }}
+                      />
                     ) : (
                       <i class='far fa-user-circle' id='userimg'></i>
                     )}
@@ -66,13 +68,10 @@ const MyPage = () => {
                     <input placeholder={user.username} disabled />
                   </div>
                   <div className='info2'>
-                    avatar
-                    <input placeholder='kimcoding' disabled />
-                  </div>
-                  <div className='info3'>
                     email
                     <input placeholder={user.email} disabled />
                   </div>
+                  <div className='info3'></div>
                   <div className='btn_container'>
                     <Link to='/user/info'>
                       <EditButton>내 정보 수정</EditButton>
@@ -94,10 +93,6 @@ const MyPage = () => {
                                 <img src={recipe.main_image} alt='main' />
                               </div>
                               <div className='recipe_title'>{recipe.title}</div>
-                              <div className='item_container'>
-                                <i class='far fa-edit'></i>
-                                <i class='far fa-trash-alt'></i>
-                              </div>
                             </MyCard>
                           );
                         })}
@@ -118,13 +113,6 @@ const MyPage = () => {
                                 <img src={recipe.main_image} alt='recipe' />
                               </div>
                               <div className='recipe_title'>{recipe.title}</div>
-                              <div className='item_container'>
-                                <i
-                                  class='fas fa-heart'
-                                  style={{ color: theme.colors.red }}
-                                ></i>
-                                <i class='far fa-trash-alt'></i>
-                              </div>
                             </MyCard>
                           );
                         })}
@@ -313,7 +301,8 @@ const MyCard = styled.li`
   }
   img {
     width: 100%;
-    border-radius: 100%;
+    /* height: 300px; */
+    /* border-radius: 100%; */
   }
   .recipe_title {
     text-align: center;

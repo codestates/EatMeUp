@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getRecipeDetail } from "../../_actions/recipeActions";
 import {
   getMyLikelist,
   addToLikelist,
@@ -17,10 +15,8 @@ import axios from "axios";
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
-import Loader from "../Util/Loader";
 
 /* 스타일 컴포넌트 */
-import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
@@ -30,34 +26,28 @@ import { myRecipes } from "../dummydata";
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
   const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
-  const { mylikelist } = useSelector((state) => state.mylikelist);
-  const { recipe, loading } = useSelector(state => state.recipe);
 
   const [getRecipe, setGetRecipe] = useState("");
   const [clicked, setClicked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-const [steps, setSteps] = useState([])
-  // mylikelist.forEach((recipe) => {
-  //   if (recipe.id === Number(match.params.id)) {
-  //     setIsLiked(true);
-  //     console.log('jello')
-  //   }
-  // });
+  const [steps, setSteps] = useState([]);
+  const [foods, setFoods] = useState([]);
 
   useEffect(() => {
-    
-    axios.get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {withCredentials: true}).then(response => {
-      console.log(response.data)
-      if(response.data) {
-        setGetRecipe(response.data.recipeInfo)
-        setSteps(response.data.recipeInfo.steps)
-      }
-    })
-
+    axios
+      .get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data) {
+          setGetRecipe(response.data.recipeInfo);
+          setSteps(response.data.recipeInfo.steps);
+          setFoods(response.data.recipeInfo.foods);
+        }
+      });
   }, []);
 
   useEffect(() => {
-  
     dispatch(getMyLikelist());
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
@@ -68,7 +58,6 @@ const [steps, setSteps] = useState([])
     }
   }, [dispatch, isAdded, isDeleted]);
 
-  
   const likeBtnHandler = (id) => {
     setClicked(!clicked);
 
@@ -85,90 +74,102 @@ const [steps, setSteps] = useState([])
   return (
     <div>
       <Header />
-
-      {/* {loading ? (
-        <Loader />
-      ) : ( */}
-        <RecipeContainer>
-          <RecipeBox>
-            <ImgBox>
-              <img src={getRecipe.main_image} alt='recipe_img' />
-            </ImgBox>
-            <TitleBox>
-              {getRecipe.title}
-              {/* {isLiked ? (
-                <i
-                  className={clicked ? "far fa-heart" : "fas fa-heart"}
-                  style={clicked ? { color: "black" } : { color: "red" }}
-                  onClick={() => likeBtnHandler(recipe.id)}
-                ></i>
-              ) : (
-                <i
-                  className={clicked ? "fas fa-heart" : "far fa-heart"}
-                  style={clicked ? { color: "red" } : { color: "black" }}
-                  onClick={() => likeBtnHandler(recipe.id)}
-                ></i>
-              )} */}
-              {/* {isLiked ? (<i className="far fa-heart"></i>) : (<i className="fas fa-heart"></i>)} */}
-            </TitleBox>
-            {/* <Level>
-            <i class='fas fa-star'></i>
-            <i class='fas fa-star'></i>
-            <i class='fas fa-star'></i>
-            {myRecipes[0].level}
-          </Level> */}
-            <DescriptionBox>
-              <DescriptionImg>
-                <i class='fas fa-quote-left'></i>
-              </DescriptionImg>
-              <div className='description'>{getRecipe.description}</div>
-            </DescriptionBox>
-            {/* <FoodsBox>
-              <div className='foods_title'>재료</div>
-              <div className='foods'>
-                {getRecipe.foods.map((food, idx) => {
-                  let name = food.name;
-                  let capacity = food.capacity;
-                  return (
-                    <span className='foodtag'>{name.concat(capacity)}</span>
-                  );
-                })}
-              </div>
-            </FoodsBox> */}
-            <StepContainer>
-              <div className='step_title'>조리과정</div>
-
-              {steps.map((step, idx) => {
+      <RecipeContainer>
+        <RecipeBox>
+          <ImgBox>
+            <img src={getRecipe.main_image} alt='recipe_img' />
+          </ImgBox>
+          <TitleBox>
+            {getRecipe.title}
+            <i
+              className={clicked ? "fas fa-heart" : "far fa-heart"}
+              style={
+                clicked
+                  ? { color: theme.colors.red }
+                  : { color: theme.colors.black }
+              }
+              onClick={() => likeBtnHandler(getRecipe.id)}
+            ></i>
+          </TitleBox>
+          {getRecipe.level === "초보환영" && (
+            <Level>
+              <i class='fas fa-star'></i>
+              <span className='time'>
+                <i class='far fa-clock'></i>
+                {getRecipe.cooking_time}
+              </span>
+            </Level>
+          )}
+          {getRecipe.level === "보통" && (
+            <Level>
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+              <span className='time'>
+                <i class='far fa-clock'></i>
+                {getRecipe.cooking_time}
+              </span>
+            </Level>
+          )}
+          {getRecipe.level === "어려움" && (
+            <Level>
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+              <i class='fas fa-star'></i>
+              <span className='time'>
+                <i class='far fa-clock'></i>
+                {getRecipe.cooking_time}
+              </span>
+            </Level>
+          )}
+          <DescriptionBox>
+            <div className='description'>{getRecipe.description}</div>
+          </DescriptionBox>
+          <FoodsBox>
+            <div className='foods_title'>재료</div>
+            <div className='foods'>
+              {foods.map((food, idx) => {
+                let name = food.name;
+                let capacity = food.capacity;
                 return (
-                  <StepBox key={idx}>
-                    <div className='step_image'>
-                      <img
-                        src={
-                          step.image === ""
-                            ? "../../food_img/favicon.png"
-                            : step.image
-                        }
-                        alt='step_image'
-                      />
-                    </div>
-                    <div className='steps'>
-                      <div className='stepNo'>
-                        <span class='fa-stack'>
-                          <i
-                            class='fas fa-circle fa-stack-2x'
-                            style={{ color: theme.colors.lightgrey }}
-                          />
-                          <strong class='fa-stack-1x'>{step.cookingNum}</strong>
-                        </span>
-                      </div>
-                      <span className='step'>{step.recipe}</span>
-                    </div>
-                  </StepBox>
+                  <button className='foodtag'>{name.concat(capacity)}</button>
                 );
               })}
-            </StepContainer>
-          </RecipeBox>
-        </RecipeContainer>
+            </div>
+          </FoodsBox>
+          <StepContainer>
+            <div className='step_title'>조리과정</div>
+            {steps.map((step, idx) => {
+              return (
+                <StepBox key={idx}>
+                  <div className='step_image'>
+                    <img
+                      src={
+                        step.image === ""
+                          ? "https://ifh.cc/g/dHepyz.png"
+                          : step.image
+                      }
+                      alt='step_image'
+                      height={step.image === "" && "130"}
+                    />
+                  </div>
+                  <div className='steps'>
+                    <div className='stepNo'>
+                      <span class='fa-stack'>
+                        <i
+                          class='fas fa-circle fa-stack-2x'
+                          style={{ color: theme.colors.lightgrey }}
+                        />
+                        <strong class='fa-stack-1x'>{step.cookingNum}</strong>
+                      </span>
+                    </div>
+                    <span className='step'>{step.recipe}</span>
+                  </div>
+                </StepBox>
+              );
+            })}
+          </StepContainer>
+        </RecipeBox>
+      </RecipeContainer>
       <Footer />
     </div>
   );
@@ -188,25 +189,14 @@ const RecipeBox = styled(SectionBox)`
 `;
 
 const ImgBox = styled.div`
-  /* position: relative; */
-  width: 100%;
+  width: 500px;
   display: content;
-  /* height: 500px; */
   margin: 70px auto 20px auto;
-  text-align: center;
   overflow: hidden;
-  /* background-color: ${theme.colors.lightgrey}; */
   img {
     border-radius: 30px;
-    width: 40%;
-    object-fit: cover;
-    /* position: absolute;
     width: 100%;
-    top: -9999px;
-    left: -9999px;
-    right: -9999px;
-    bottom: -9999px;
-    margin: auto; */
+    object-fit: cover;
   }
 `;
 
@@ -225,7 +215,6 @@ const TitleBox = styled.div`
 `;
 
 const Level = styled.div`
-  /* background-color: ${theme.colors.lightgrey}; */
   width: 100%;
   margin: 0 auto;
   text-align: center;
@@ -242,16 +231,11 @@ const Level = styled.div`
     color: ${theme.colors.gray};
     font-size: 20px;
     i {
-      margin: 0 5px;
-      padding: 0 5px;
+      margin: 0 5px 0 15px;
       color: ${theme.colors.gray};
     }
   }
 `;
-
-const Time = styled.span`
-  display: inline-block;
-`
 
 const DescriptionBox = styled.div`
   color: #6f6f6f;
@@ -262,14 +246,6 @@ const DescriptionBox = styled.div`
   }
 `;
 
-const DescriptionImg = styled.div`
-  font-size: 50px;
-  width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  color: rgba(254, 189, 47, 0.2);
-`;
-
 const FoodsBox = styled.div`
   margin: 0 10%;
   .foods_title {
@@ -278,18 +254,15 @@ const FoodsBox = styled.div`
     color: ${theme.colors.gray};
     margin: 20px 0;
   }
-  .foods {
-    width: 100%;
-    margin: 20px 0;
-    font-size: 14px;
-    padding: 5px;
-  }
-
   .foodtag {
-    padding: 5px 7px;
+    font-size: 14px;
+    height: 32px;
+    border: none;
     background-color: ${theme.colors.lightgrey};
     border-radius: 30px;
-    margin-right: 7px;
+    margin: 0px 5px 5px 0px;
+    padding: 5px 10px;
+    font-family: "Noto Sans KR";
   }
 `;
 
@@ -311,11 +284,11 @@ const StepBox = styled.div`
   .step_image {
     display: flex;
     width: 170px;
-    height: 130px;
+    /* height: 130px; */
     img {
       border-radius: 20px;
       width: 170px;
-      height: 130px;
+      /* height: 130px; */
       object-fit: contain;
     }
   }
@@ -326,12 +299,9 @@ const StepBox = styled.div`
     display: flex;
     flex-direction: row;
     margin: 0 10px;
-    /* text-align: center; */
-    /* background-color: ${theme.colors.yellow}; */
   }
   .step {
-    /* display: inline-block; */
-    /* margin: 0 10px; */
+    margin: 4px 0;
   }
 `;
 

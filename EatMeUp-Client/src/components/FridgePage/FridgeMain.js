@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
-import { allFoods, saveFridgeInfo } from "../../_actions/fridgeActions";
+import { allFoods, saveFridgeInfo, clearErrors } from "../../_actions/fridgeActions";
 import { getRecommandRecipe } from "../../_actions/recipeActions";
 import {
   NEW_FOOD_RESET,
@@ -12,7 +12,6 @@ import {
   DELETE_FOOD_RESET,
   SAVE_FOOD_RESET,
 } from "../../_types/fridgeTypes";
-import { IMAGE_RESET } from "../../_types/imageTypes";
 
 /* 컴포넌트 */
 import FridgeInner from "./sections/FridgeInner";
@@ -28,7 +27,7 @@ const FridgeMain = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { foods, error, loading } = useSelector((state) => state.allFoods);
-  const { isEdited, success, isCreated, isDeleted } = useSelector(
+  const { isEdited, isCreated, isDeleted } = useSelector(
     (state) => state.food,
   );
   const { isArranged } = useSelector((state) => state.savedfoods);
@@ -52,20 +51,17 @@ const FridgeMain = () => {
       dispatch({ type: SAVE_FOOD_RESET });
     }
 
-  }, [dispatch, isEdited, isCreated, isArranged, isDeleted]);
+    if(error) {
+      swal("Please!", "정보를 불러오지 못했습니다, 다시 확인해주세요.", "error");
+      dispatch(clearErrors());
+      return;
+    }
+
+  }, [dispatch, isEdited, isCreated, isArranged, isDeleted, error]);
 
   useEffect(() => {
     setFoodList(foods);
   }, [foods]);
-
-  // /* 유통기한이 임박한 냉장고 속 음식 보여주기 */
-  // let redFoods = []
-  // FOODS.forEach((food) => {
-
-  //   if (food.life <= 30) {
-  //     redFoods.push(food.food_name)
-  //   }
-  // });
 
   const [checkedFoods, setCheckedFoods] = useState([]);
   const [showEditBtn, setShowEditBtn] = useState(false);
@@ -106,8 +102,6 @@ const FridgeMain = () => {
       swal("Please!", "마이냉장고 속 음식을 선택해주세요.", "error");
       return;
     }
-
-    console.log(foods, foodArr);
     dispatch(getRecommandRecipe(data));
     history.push("/recipes/result");
   };
