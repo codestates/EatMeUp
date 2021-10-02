@@ -17,47 +17,48 @@ import {
 
   DELETE_FOOD_REQUEST,
   DELETE_FOOD_SUCCESS,
-  DELETE_FOOD_FAIL
+  DELETE_FOOD_FAIL,
+  CLEAR_ERRORS
 } from '../_types/fridgeTypes'
 import axios from 'axios'
 
 import { foodData } from '../components/dummydata';
 
-// 등록된 유통기한을 디데이로 변환하는 함수
-const FOODS = foodData.map((type, typeIdx) => {
-  const itemarray = type.items.map((food) => {
-     const splited = food.life.split("-");
-     const getDate = new Date();
-     const today = new Date(
-       getDate.getFullYear(),
-       getDate.getMonth(),
-       getDate.getDay(),
-     );
-     const foodLife = new Date(
-       Number(splited[0]),
-       Number(splited[1]),
-       Number(splited[2]),
-     );
+// // 등록된 유통기한을 디데이로 변환하는 함수
+// const FOODS = foodData.map((type, typeIdx) => {
+//   const itemarray = type.items.map((food) => {
+//      const splited = food.life.split("-");
+//      const getDate = new Date();
+//      const today = new Date(
+//        getDate.getFullYear(),
+//        getDate.getMonth(),
+//        getDate.getDay(),
+//      );
+//      const foodLife = new Date(
+//        Number(splited[0]),
+//        Number(splited[1]),
+//        Number(splited[2]),
+//      );
 
-     const elapsedMSec = foodLife.getTime() - today.getTime(); // 172800000
-     const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24; // 2
+//      const elapsedMSec = foodLife.getTime() - today.getTime(); // 172800000
+//      const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24; // 2
 
-     return {
-       id: food.id,
-       food_name: food.food_name,
-       food_image: food.food_image,
-       frez_type: food.frez_type,
-       life: elapsedDay,
-       created_at: food.created_at,
-       update_at: food.update_at,
-     };
-   });
+//      return {
+//        id: food.id,
+//        food_name: food.food_name,
+//        food_image: food.food_image,
+//        frez_type: food.frez_type,
+//        life: elapsedDay,
+//        created_at: food.created_at,
+//        update_at: food.update_at,
+//      };
+//    });
 
-   return {
-     type: typeIdx,
-     items: itemarray,
-   };
- });
+//    return {
+//      type: typeIdx,
+//      items: itemarray,
+//    };
+//  });
 
 
 
@@ -185,4 +186,12 @@ export const deleteFood = (foodId) => async (dispatch) => {
     })
   }
   
+}
+
+
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+      type: CLEAR_ERRORS
+  })
 }

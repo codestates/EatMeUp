@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToFridge } from "../../../../_actions/fridgeActions";
-import { imageUpload } from "../../../../_actions/imageAction";
 import { foodLife } from "../utils/convertDate";
-
+import axios from 'axios'
 /* 스타일 컴포넌트 */
 import {
   BackGroundModal,
@@ -20,8 +19,6 @@ import { Button } from "../../../StyledComponent/buttons";
 
 const AddIngre = ({ setOpenAddWindow }) => {
   const dispatch = useDispatch();
-  const { imageUrl } = useSelector((state) => state.image);
-
   const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
   const [registerDate, setRegisterDate] = useState("");
@@ -39,12 +36,33 @@ const AddIngre = ({ setOpenAddWindow }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    dispatch(imageUpload(image));
+    const data = await axios.get(`${process.env.REACT_APP_API}/image/s3url`, {
+      withCredentials: true,
+    });
+
+    //url을 사용해서 S3 버킷에 업로드
+    //axios
+    const img = await fetch(
+      data.data.s3url,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "image/jpeg",
+        },
+        body: image,
+      },
+      {
+        withCredentials: true,
+      },
+    );
+
+
     const food_life = foodLife(foodlife);
     const buyingDate = foodLife(registerDate);
+    const foodImage = img.url.split("?")[0]
 
     const food = {
-      food_image: imageUrl,
+      food_image: foodImage,
       food_name: foodname,
       life: food_life.elapsedDay ? food_life.elapsedDay : buyingDate.elapsedDay,
       frez_type: 0,

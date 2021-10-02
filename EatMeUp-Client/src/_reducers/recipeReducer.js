@@ -8,6 +8,7 @@ import {
   GET_RECIPE_REQUEST,
   GET_RECIPE_SUCCESS,
   GET_RECIPE_FAIL,
+  CLEAR_ERRORS,
 } from "../_types/recipeTypes";
 
 export const recipeReducer = (state = { recipes: [] }, action) => {
@@ -28,6 +29,11 @@ export const recipeReducer = (state = { recipes: [] }, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
@@ -52,12 +58,17 @@ export const recommandRecipeReducer = (state = { recipes: [] }, action) => {
         loading: false,
         error: action.payload,
       };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }
 };
 
-export const getRecipeReducer = (state = { recipe : {}}, action) => {
+export const getRecipeReducer = (state = { recipe: {} }, action) => {
   switch (action.type) {
     case GET_RECIPE_REQUEST:
       return {
@@ -74,6 +85,11 @@ export const getRecipeReducer = (state = { recipe : {}}, action) => {
       return {
         loading: false,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
