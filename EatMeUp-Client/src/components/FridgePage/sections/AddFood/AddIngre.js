@@ -197,4 +197,6 @@ const InputBox = styled.div`
     border: 0;
   }
 `;
+
+
 export default AddIngre;
