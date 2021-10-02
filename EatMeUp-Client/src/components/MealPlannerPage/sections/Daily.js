@@ -10,31 +10,30 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
   const getPlan = [
     {
       id: "아침",
-      icon: "fa-cloud-sun",
+      icon: "breakfast.png",
       meal: plan ? plan.mealplanBreakfast : [],
     },
-    { id: "점심", icon: "fa-sun", meal: plan ? plan.mealplanLunch : [] },
-    { id: "저녁", icon: "fa-moon", meal: plan ? plan.mealplanDinner : [] },
+    { id: "점심", icon: "lunch.png", meal: plan ? plan.mealplanLunch : [] },
+    { id: "저녁", icon: "dinner.png", meal: plan ? plan.mealplanDinner : [] },
   ];
 
   const deletetHandler = () => {
-    setOpenDaily(true)
+    setOpenDaily(true);
     Swal.fire({
-          title: "Delete",
-          text: "레시피를 삭제 하시겠습니까?",
-          icon: "warning",
-          showCancleButton: true,
-          confirmButtonColor: "#3085d6",
-          cancelButtonColor: "#d33",
-          confirmButtonText: "삭제하기",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            console.log("deleded")
-            setOpenDaily(false)
-          }
-        });
-
-  }
+      title: "Delete",
+      text: "레시피를 삭제 하시겠습니까?",
+      icon: "warning",
+      showCancleButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제하기",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("deleded");
+        setOpenDaily(false);
+      }
+    });
+  };
 
   const closeModalHandler = () => {
     setOpenDaily(false);
@@ -60,8 +59,18 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
                 <MealPlanCard key={idx}>
                   <TitleBox>
                     <Title>
-                      <i className={`fas ${data.icon}`}></i>
-                      {data.id}
+                      <div>
+                        <img
+                          src={`../food_img/${data.icon}`}
+                          alt='icon'
+                          style={{
+                            width: "35px",
+                            height: "35px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      </div>
+                      <div>{data.id}</div>
                     </Title>
                   </TitleBox>
                   <PlansBox>
@@ -125,8 +134,8 @@ const TitleBox = styled.div`
 `;
 
 const Img = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height:45px;
   margin-left: 5px;
 
   img {
@@ -140,8 +149,11 @@ const Img = styled.div`
 const Title = styled.div`
   margin-left: 10px;
   font-weight: 500;
-  i {
-    margin-right: 2px;
+  display: flex;
+  align-items: center;
+  
+  div > img {
+    margin-right: 5px;
   }
 `;
 const PlansBox = styled.div`
@@ -155,7 +167,7 @@ const PlanCard = styled.div`
   margin: 5px auto;
   border: 1px solid grey;
   border-radius: 20px;
-  height: 50px;
+  height: 54px;
   display: flex;
   align-items: center;
   justify-content: space-between;

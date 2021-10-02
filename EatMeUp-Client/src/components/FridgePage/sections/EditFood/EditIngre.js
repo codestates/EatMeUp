@@ -71,7 +71,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
     const food = {
       food_name: foodname ? foodname : food_name,
       frez_type: frez_type,
-      food_life: foodlife.elapsedDay ? foodlife.elapsedDay : food_life,
+      life: foodlife ? foodlife : life,
       food_image: foodImage ? foodImage : food_image,
       created_at: boughtDate,
       update_at: "2021-01-02",
