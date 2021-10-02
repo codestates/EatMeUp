@@ -99,14 +99,33 @@ const Button = styled(LargeBtn)`
 `;
 
 const ListBox = styled.div`
-  width: 95%;
+
+   width: 95%;
   max-width: 1329px;
   margin: 0 auto;
   min-height: 720px;
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+  padding: 10px;
+
+@media screen and (max-width: 1500px) {
   grid-template-columns: 1fr 1fr 1fr;
   gap: 15px;
   padding: 10px;
+}
+
+@media screen and (max-width: 1200px) {
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  padding: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  grid-template-columns: 1fr;
+  gap: 15px;
+  padding: 10px;
+}
 `;
 
 export default MyRecipe;

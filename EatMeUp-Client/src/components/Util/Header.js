@@ -144,6 +144,8 @@ const EatMeUpHeader = styled.div`
   .right:hover {
     background-color: #f5f3f0;
   }
+
+ 
 `;
 
 export default Header;

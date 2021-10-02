@@ -4,7 +4,11 @@ import { useHistory } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
-import { allFoods, saveFridgeInfo, clearErrors } from "../../_actions/fridgeActions";
+import {
+  allFoods,
+  saveFridgeInfo,
+  clearErrors,
+} from "../../_actions/fridgeActions";
 import { getRecommandRecipe } from "../../_actions/recipeActions";
 import {
   NEW_FOOD_RESET,
@@ -27,9 +31,7 @@ const FridgeMain = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { foods, error, loading } = useSelector((state) => state.allFoods);
-  const { isEdited, isCreated, isDeleted } = useSelector(
-    (state) => state.food,
-  );
+  const { isEdited, isCreated, isDeleted } = useSelector((state) => state.food);
   const { isArranged } = useSelector((state) => state.savedfoods);
   const [foodList, setFoodList] = useState(foods);
 
@@ -51,12 +53,15 @@ const FridgeMain = () => {
       dispatch({ type: SAVE_FOOD_RESET });
     }
 
-    if(error) {
-      swal("Please!", "정보를 불러오지 못했습니다, 다시 확인해주세요.", "error");
+    if (error) {
+      swal(
+        "Please!",
+        "정보를 불러오지 못했습니다, 다시 확인해주세요.",
+        "error",
+      );
       dispatch(clearErrors());
       return;
     }
-
   }, [dispatch, isEdited, isCreated, isArranged, isDeleted, error]);
 
   useEffect(() => {
@@ -137,6 +142,9 @@ const FridgeMain = () => {
                     );
                   })
                 )}
+                <div className='search'>
+                  <i class='fas fa-search'></i>
+                </div>
               </Stack>
             </CheckedFoodsBox>
 
@@ -178,16 +186,45 @@ const FridgeMain = () => {
 
 // 음식담는 영역 css
 const SearchBox = styled.div`
-  width: 80%;
+  width: 75%;
   margin: 0px auto;
   display: flex;
   position: relative;
   margin-top: 50px;
+
+  @media screen and (max-width: 1500px) {
+    width: 80%;
+    font-size: 17px;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 80%;
+    font-size: 17px;
+  }
+
+  @media screen and (max-width: 975px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
 `;
 
 const FridgeTitle = styled.div`
   font-size: 30px;
   font-weight: bold;
+
+  @media screen and (max-width: 975px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
 `;
 
 // 클릭한 음식담는 영역
@@ -218,6 +255,44 @@ const CheckedFoodsBox = styled.div`
     line-height: 30px;
     color: #a8a7a3;
   }
+
+  .fa-search {
+    display: none;
+  }
+
+  @media screen and (max-width: 975px) {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 10px;
+    display: flex;
+
+    .search {
+      margin-left: 40px;
+      color: #a8a7a3;
+      line-height: 30px;
+      justify-content: flex-end;
+    }
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 100%;
+    border-radius: 20px;
+    margin: 10px auto;
+
+    .fa-search {
+      margin-left: 40px;
+      color: #a8a7a3;
+      line-height: 30px;
+    }
+  }
 `;
 
 // 재료기반 레시피 찾기버튼
@@ -234,12 +309,29 @@ const GotoBtnBox = styled.div`
   text-decoration: none;
   color: #303030;
   cursor: pointer;
+
+  @media screen and (max-width: 975px) {
+    display: none;
+    
+  }
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
 `;
 
 //냉장고
 const ContentBox = styled.div`
-  width: 85%;
+  width: 70%;
   margin: 2rem auto;
+
+  @media screen and (max-width: 1500px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 375px) {
+    margin: 5px auto;
+    width: 95%;
+  }
 `;
 
 export default FridgeMain;
