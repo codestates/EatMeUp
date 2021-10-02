@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getUserinfo,
+  getMyLikelist,
+  getMyrecipes,
+} from "../../_actions/userActions";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+import Loader from "../Util/Loader";
 import Card from "../MyRecipePage/sections/Card";
 
 /* 스타일 컴포넌트 */
@@ -17,6 +24,18 @@ import theme from "../StyledComponent/theme";
 import { myRecipes } from "../dummydata";
 
 const MyPage = () => {
+  const dispatch = useDispatch();
+
+  const { user, loading } = useSelector((state) => state.user);
+  const { mylikelist } = useSelector((state) => state.mylikelist);
+  const { myrecipe } = useSelector((state) => state.myrecipes);
+
+  useEffect(() => {
+    dispatch(getMyLikelist());
+    dispatch(getMyrecipes());
+    dispatch(getUserinfo());
+  }, [dispatch]);
+
   const { title, main_image } = myRecipes[0];
   console.log(main_image);
 
@@ -24,120 +43,99 @@ const MyPage = () => {
     <div>
       <Header id={2} />
       <section>
-        <Container>
-          <Sidebar id={0} />
-          <MyInfoContainer>
-            <TitleBox>
-              <div className='title'>My Page</div>
-            </TitleBox>
-            <InfoConatainer>
-              <ProfileContainer>
-                <div className='img_box'>
-                  <i class='far fa-user-circle' id='userimg'></i>
-                </div>
-                <div className='info1'>
-                  username
-                  <input placeholder='김코딩' disabled />
-                </div>
-                <div className='info2'>
-                  avatar
-                  <input placeholder='kimcoding' disabled />
-                </div>
-                <div className='info3'>
-                  email
-                  <input placeholder='kimcoding@eatmeup.me' disabled />
-                </div>
-                <div className='btn_container'>
-                  <Link to='/user/info'>
-                    <EditButton>내 정보 수정</EditButton>
-                  </Link>
-                </div>
-              </ProfileContainer>
+        {loading ? (
+          <Loader />
+        ) : (
+          <Container>
+            <Sidebar id={0} />
+            <MyInfoContainer>
+              <TitleBox>
+                <div className='title'>My Page</div>
+              </TitleBox>
+              <InfoConatainer>
+                <ProfileContainer>
+                  <div className='img_box'>
+                    {user.avatar ? (
+                      <img src={user.avatar} alt='userimg' style={{width: "190px", height: "190px", borderRadius: "50%"}} />
+                    ) : (
+                      <i class='far fa-user-circle' id='userimg'></i>
+                    )}
+                  </div>
+                  <div className='info1'>
+                    name
+                    <input placeholder={user.username} disabled />
+                  </div>
+                  <div className='info2'>
+                    avatar
+                    <input placeholder='kimcoding' disabled />
+                  </div>
+                  <div className='info3'>
+                    email
+                    <input placeholder={user.email} disabled />
+                  </div>
+                  <div className='btn_container'>
+                    <Link to='/user/info'>
+                      <EditButton>내 정보 수정</EditButton>
+                    </Link>
+                  </div>
+                </ProfileContainer>
 
-              <RecipeContainer>
-                <MyRecipeBox>
-                  <Title>
-                    <div className='recipe_title'>My Recipes</div>
-                  </Title>
-                  <CardContainer>
-                    <ul>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                    </ul>
-                  </CardContainer>
-                </MyRecipeBox>
+                <RecipeContainer>
+                  <MyRecipeBox>
+                    <Title>
+                      <div className='recipe_title'>My Recipes</div>
+                    </Title>
+                    <CardContainer>
+                      <ul>
+                        {myrecipe.map((recipe, idx) => {
+                          return (
+                            <MyCard key={idx}>
+                              <div className='img_container'>
+                                <img src={recipe.main_image} alt='main' />
+                              </div>
+                              <div className='recipe_title'>{recipe.title}</div>
+                              <div className='item_container'>
+                                <i class='far fa-edit'></i>
+                                <i class='far fa-trash-alt'></i>
+                              </div>
+                            </MyCard>
+                          );
+                        })}
+                      </ul>
+                    </CardContainer>
+                  </MyRecipeBox>
 
-                <LikedRecipeBox>
-                  <Title>
-                    <div className='recipe_title'>Liked Recipes</div>
-                  </Title>
-                  <CardContainer>
-                    <ul>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                      <MyCard>
-                        <div className='img_container'>
-                          <img src={main_image} />
-                        </div>
-                        <div className='recipe_title'>{title}</div>
-                      </MyCard>
-                    </ul>
-                  </CardContainer>
-                </LikedRecipeBox>
-              </RecipeContainer>
-            </InfoConatainer>
-          </MyInfoContainer>
-        </Container>
+                  <LikedRecipeBox>
+                    <Title>
+                      <div className='recipe_title'>Liked Recipes</div>
+                    </Title>
+                    <CardContainer>
+                      <ul>
+                        {mylikelist.map((recipe, idx) => {
+                          return (
+                            <MyCard key={idx}>
+                              <div className='img_container'>
+                                <img src={recipe.main_image} alt='recipe' />
+                              </div>
+                              <div className='recipe_title'>{recipe.title}</div>
+                              <div className='item_container'>
+                                <i
+                                  class='fas fa-heart'
+                                  style={{ color: theme.colors.red }}
+                                ></i>
+                                <i class='far fa-trash-alt'></i>
+                              </div>
+                            </MyCard>
+                          );
+                        })}
+                      </ul>
+                    </CardContainer>
+                  </LikedRecipeBox>
+                </RecipeContainer>
+              </InfoConatainer>
+            </MyInfoContainer>
+          </Container>
+        )}
       </section>
       <Footer />
     </div>

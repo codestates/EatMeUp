@@ -2,18 +2,20 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
-const Card = ({ recipe }) => {
+const ResultCard = ({ recipe }) => {
   const recipeLevel = (level) => {
     if (level === "초보환영") {
       return <i className='bx bxs-star' id='icon'></i>;
-    } else if (level === "보통") {
+    }
+    else if (level === "보통") {
       return (
         <>
           <i className='bx bxs-star' id='icon'></i>
           <i className='bx bxs-star' id='icon'></i>
         </>
       );
-    } else if (level === "어려움") {
+    }
+    else if (level === "어려움") {
       return (
         <>
           <i className='bx bxs-star' id='icon'></i>
@@ -21,9 +23,12 @@ const Card = ({ recipe }) => {
           <i className='bx bxs-star' id='icon'></i>
         </>
       );
-    } else {
+    } 
+    else {
       return <i className='bx bxs-star' id='icon'></i>;
     }
+
+    
   };
 
   return (
@@ -34,24 +39,15 @@ const Card = ({ recipe }) => {
             {/* 유저프로필 */}
             <div className='imgbox-left'>
               <div>
-                <img
-                  src={
-                    recipe.user.avatar
-                      ? recipe.user.avatar
-                      : "../food_img/favicon.png"
-                  }
-                  alt='people'
-                />
+                <img src={recipe.avatar ? recipe.avatar : "../food_img/favicon.png"} alt='people' />
               </div>
               <div>
                 <div>
-                  <span>
-                    {recipe.user.username === "test1"
-                      ? "eatmeup"
-                      : recipe.user.username}
-                  </span>
+                  <span>{recipe.username === "test1" ? "eatmeup" : recipe.username}</span>
                 </div>
-                <div className='update-time'>hello world!</div>
+                <div className='update-time'>
+                    hello world!
+                </div>
               </div>
             </div>
 
@@ -79,8 +75,9 @@ const Card = ({ recipe }) => {
           {/* 음식 주재료 */}
           <div className='materials'>
             {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span>#{food.name}</span>;
+              return <span>#{food.name}</span>
             })}
+            
           </div>
         </RecipeCard>
       </Link>
@@ -97,7 +94,7 @@ const showBtn = keyframes`
   }
 `;
 
-const RecipeCard = styled.div`
+const RecipeCard = styled.div`    
   width: 100%;
   margin: 20px auto;
   background-color: #ffffff;
@@ -114,24 +111,28 @@ const RecipeCard = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding-top: 6px;
+    padding-top:6px;
   }
 
   .imgbox-left > div > img {
-    width: 35px;
-    height: 35px;
+    width: 30px;
+    height: 30px;
     margin: 5px;
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .imgbox-left {
     display: flex;
+
   }
 
   .imgbox-left > div {
     margin-left: 5px;
     font-size: 14px;
-    object-fit: cover;
+    object-fit: contain;
+  
+    align-items: center;
+  
   }
 
   .update-time {
@@ -165,7 +166,7 @@ const RecipeCard = styled.div`
 
   .recipeImgbox > img {
     width: 95%;
-    height: 230px;
+    height: 200px;
     border-radius: 20px;
     object-fit: cover;
     margin: 10px 7px 0px 7px;
@@ -200,8 +201,8 @@ const RecipeCard = styled.div`
   &:hover::after {
     content: "View Recipe";
     position: absolute;
-    top: 240px;
-    left: 160px;
+    top: 200px;
+    left: 140px;
     width: 130px;
     height: 35px;
     background-color: #febd2f;
@@ -213,4 +214,4 @@ const RecipeCard = styled.div`
     animation: ${showBtn} 0.5s;
   }
 `;
-export default Card;
+export default ResultCard;

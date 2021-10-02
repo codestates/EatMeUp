@@ -1,22 +1,161 @@
 import React from "react";
-import { BackGroundModal, ModalDialog } from "../../FridgePage/sections/styled/Style";
+import styled from "styled-components";
+import { BackGroundModal, ModalDialog } from "../styled/Style";
+import { SectionBox } from "../../StyledComponent/containers";
 
-
-const Daily = ({ setOpenDaily }) => {
+const Daily = ({ setOpenDaily, getDate, plan }) => {
   /* function area */
+
+  const getPlan = [
+    {
+      id: "아침",
+      icon: "fa-cloud-sun",
+      meal: plan ? plan.mealplanBreakfast : [],
+    },
+    { id: "점심", icon: "fa-sun", meal: plan ? plan.mealplanLunch : [] },
+    { id: "저녁", icon: "fa-moon", meal: plan ? plan.mealplanDinner : [] },
+  ];
+
   const closeModalHandler = () => {
-    setOpenDaily(false)
-  }
+    setOpenDaily(false);
+  };
+
+  const date = `${getDate.slice(0, 4)}.${getDate.slice(4, 6)}.${getDate.slice(
+    6,
+    8,
+  )}`;
 
   return (
     <>
       <BackGroundModal>
         <ModalDialog onClick={closeModalHandler}>
-         
+          <Date>
+            {date}
+            <i class='far fa-trash-alt'></i>
+          </Date>
+          {/* flex box */}
+          <MealPlanBox>
+            {getPlan.map((data, idx) => {
+              return (
+                <MealPlanCard key={idx}>
+                  <TitleBox>
+                    <Title>
+                      <i className={`fas ${data.icon}`}></i>
+                      {data.id}
+                    </Title>
+                  </TitleBox>
+                  <PlansBox>
+                    {data.meal.map((card, idx) => {
+                      return (
+                        <PlanCard key={idx}>
+                          <Img>
+                            <img src={card.main_image} alt='lunch' />
+                          </Img>
+                          <SubTitle>{card.title}</SubTitle>
+                          <ShowRecipe>
+                            <i className='fas fa-sign-out-alt'></i>
+                          </ShowRecipe>
+                        </PlanCard>
+                      );
+                    })}
+                  </PlansBox>
+                </MealPlanCard>
+              );
+            })}
+          </MealPlanBox>
         </ModalDialog>
       </BackGroundModal>
-    </> 
+    </>
   );
 };
 
+const Date = styled.div`
+  width: 100%;
+  text-align: center;
+  font-size: 30px;
+  margin-top: 40px;
+  font-weight: bold;
+
+  i {
+    margin-left: 10px;
+    font-size: 22px;
+    cursor: pointer;
+  }
+`;
+
+const MealPlanBox = styled.div`
+  width: 90%;
+  margin: 10px auto;
+  display: flex;
+`;
+
+const MealPlanCard = styled(SectionBox)`
+  width: 30%;
+  height: 380px;
+  margin: 10px auto;
+  text-align: center;
+  line-height: 10px;
+`;
+
+const TitleBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0px;
+`;
+
+const Img = styled.div`
+  width: 40px;
+  height: 40px;
+  margin-left: 5px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+`;
+
+const Title = styled.div`
+  margin-left: 10px;
+  font-weight: 500;
+  i {
+    margin-right: 2px;
+  }
+`;
+const PlansBox = styled.div`
+  width: 100%;
+  height: 300px;
+  overflow-y: auto;
+`;
+
+const PlanCard = styled.div`
+  width: 90%;
+  margin: 5px auto;
+  border: 1px solid grey;
+  border-radius: 20px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e5e5e5;
+
+  &:hover .fa-sign-out-alt {
+    opacity: 1;
+  }
+`;
+const SubTitle = styled.div`
+  font-size: 13px;
+`;
+const ShowRecipe = styled.div`
+  margin-right: 10px;
+  font-size: 20px;
+  color: grey;
+
+  i {
+    cursor: pointer;
+    opacity: 0;
+  }
+`;
 export default Daily;

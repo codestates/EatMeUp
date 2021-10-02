@@ -32,7 +32,6 @@ const FridgeMain = () => {
     (state) => state.food,
   );
   const { isArranged } = useSelector((state) => state.savedfoods);
-  const { imageUrl } = useSelector((state) => state.image);
   const [foodList, setFoodList] = useState(foods);
 
   useEffect(() => {
@@ -53,10 +52,7 @@ const FridgeMain = () => {
       dispatch({ type: SAVE_FOOD_RESET });
     }
 
-    if (imageUrl) {
-      dispatch({ type: IMAGE_RESET });
-    }
-  }, [dispatch, isEdited, isCreated, isArranged, isDeleted, imageUrl]);
+  }, [dispatch, isEdited, isCreated, isArranged, isDeleted]);
 
   useEffect(() => {
     setFoodList(foods);

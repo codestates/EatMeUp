@@ -2,23 +2,21 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
-import Card from "./sections/Card";
 import Footer from "../Util/Footer";
 import Loader from "../Util/Loader";
+import ResultCard from './sections/ResultCard'
 
 const ResultRecipes = () => {
   // Todo
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const { loading, recipes, food } = useSelector((state) => state.allRecipes);
+  const { loading, recommandRecipes, food } = useSelector((state) => state.recommandrecipes);
 
-  
-  
   return (
     <>
       <Header id={0} />
@@ -36,23 +34,23 @@ const ResultRecipes = () => {
           {/* 냉장고 재료기반 추천된 재료리스트 */}
           <SearchBox>
             <div className='search_box'>
-
               <Stack direction='row' spacing={1}>
                 <i className='fas fa-shopping-basket'></i>
-                {food.food ? food.food.map((item, idx) => {
-                  return <Chip label={item.name} key={idx} />
-                }) : ""}
+                {/* {food.food
+                  ? food.food.map((item, idx) => {
+                      return <Chip label={item.name} key={idx} />;
+                    })
+                  : ""} */}
               </Stack>
             </div>
           </SearchBox>
 
           {/* 카드리스트 컨테이너 */}
           <Container>
-            {recipes.map((recipe, idx) => {
-              return <Card recipe={recipe} key={idx} />;
+            {recommandRecipes.map((recipe, idx) => {
+              return <ResultCard recipe={recipe} key={idx} />;
             })}
           </Container>
-          
         </section>
       )}
       <Footer />
@@ -97,13 +95,16 @@ const SearchBox = styled.div`
 
 const Container = styled.div`
   width: 95%;
-  column-width: 280px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
   margin: 0 auto;
 
-  @media screen and (max-width: 1500px) {
-    column-width: 300px;
+  a {
+    color: #404040;
   }
+ 
 `;
+
 
 export default ResultRecipes;

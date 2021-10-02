@@ -14,11 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       });
       models.User.hasMany(models.Food, {
         foreignKey: "own_user_id",
+        onDelete: "CASCADE",
+      });
+      models.User.hasMany(models.Mealplanner, {
+        foreignKey: "own_user_id",
+        onDelete: "CASCADE",
       });
       models.User.belongsToMany(models.Recipe, {
         through: "User_Like_Recipe",
         as: "likeRecipe",
         foreignKey: "user_id",
+        onDelete: "CASCADE",
       });
     }
   }
