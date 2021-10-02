@@ -40,9 +40,13 @@ const DetailePage = ({ match }) => {
       })
       .then((response) => {
         if (response.data) {
+          console.log(response.data)
           setGetRecipe(response.data.recipeInfo);
           setSteps(response.data.recipeInfo.steps);
           setFoods(response.data.recipeInfo.foods);
+          if(response.data.recipeInfo.likeUser.length > 0) {
+            setIsLiked(true)
+          }
         }
       });
   }, []);
@@ -84,8 +88,8 @@ const DetailePage = ({ match }) => {
             {getRecipe.title}
 
             <i
-              className={clicked ? "fas fa-heart" : "far fa-heart"}
-              style={clicked ? { color: "red" } : { color: "black" }}
+              className={isLiked ? "fas fa-heart" : "far fa-heart"}
+              style={isLiked ? { color: "red" } : { color: "black" }}
               onClick={() => likeBtnHandler(getRecipe.id)}
             ></i>
           </TitleBox>
