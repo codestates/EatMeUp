@@ -64,20 +64,23 @@ const getRecipeDetail = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const recipeInfo = await Recipe.findOne(
-      { where: { id } },
-      {
-        include: [
-          { model: User, as: "user", attributes: ["username", "avatar"] },
-          {
-            model: User,
-            as: "likeUser",
-            attributes: ["id", "email"],
-          },
-          // { all: true },
-        ],
-      },
-    );
+    const recipeInfo = await Recipe.findOne({
+      where: { id },
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ["username", "avatar"],
+        },
+        {
+          model: User,
+          as: "likeUser",
+          attributes: ["id", "email"],
+        },
+      ],
+    });
+
+    console.log(recipeInfo);
 
     if (!recipeInfo) {
       return res
