@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getUserinfo,
   getMyLikelist,
   getMyrecipes,
+  clearErrors,
 } from "../../_actions/userActions";
 
 /* 컴포넌트 */
@@ -20,19 +21,43 @@ import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
+const { swal } = window;
 const MyPage = () => {
 
   const dispatch = useDispatch();
-
-  const { user, loading } = useSelector((state) => state.user);
+  const history = useHistory();
+  const { user, loading, error } = useSelector((state) => state.user);
   const { mylikelist } = useSelector((state) => state.mylikelist);
   const { myrecipe } = useSelector((state) => state.myrecipes);
 
+  const [getUser, setGetUser] = useState({
+    title:""
+  })
   useEffect(() => {
+    
     dispatch(getMyLikelist());
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
-  }, [dispatch]);
+
+    if(user) {
+      setGetUser(user)
+    }
+
+  
+
+    if(error) {
+      swal(
+        "Please!",
+        "로그인이 필요합니다.",
+        "warning",
+      );
+      dispatch(clearErrors());
+      history.push('/');
+      return;
+    }
+
+
+  }, [dispatch, history, error, user]);
 
  
   return (
@@ -50,25 +75,25 @@ const MyPage = () => {
               </TitleBox>
               <InfoConatainer>
                 <ProfileContainer>
-                  <div className='img_box'>
+                  {/* <div className='img_box'>
                     {user.avatar ? (
                       <img src={user.avatar} alt='userimg' style={{width: "190px", height: "190px", borderRadius: "50%"}} />
                     ) : (
                       <i class='far fa-user-circle' id='userimg'></i>
                     )}
-                  </div>
+                  </div> */}
                   <div className='info1'>
                     name
-                    <input placeholder={user.username} disabled />
+                    <input placeholder={getUser.username} disabled />
                   </div>
-                  <div className='info2'>
+                  {/* <div className='info2'>
                     avatar
                     <input placeholder='kimcoding' disabled />
                   </div>
                   <div className='info3'>
                     email
                     <input placeholder={user.email} disabled />
-                  </div>
+                  </div> */}
                   <div className='btn_container'>
                     <Link to='/user/info'>
                       <EditButton>내 정보 수정</EditButton>
@@ -83,7 +108,7 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {myrecipe.map((recipe, idx) => {
+                        {/* {myrecipe.map((recipe, idx) => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
@@ -96,7 +121,7 @@ const MyPage = () => {
                               </div>
                             </MyCard>
                           );
-                        })}
+                        })} */}
                       </ul>
                     </CardContainer>
                   </MyRecipeBox>
@@ -107,7 +132,7 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {mylikelist.map((recipe, idx) => {
+                        {/* {mylikelist.map((recipe, idx) => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
@@ -123,7 +148,7 @@ const MyPage = () => {
                               </div>
                             </MyCard>
                           );
-                        })}
+                        })} */}
                       </ul>
                     </CardContainer>
                   </LikedRecipeBox>

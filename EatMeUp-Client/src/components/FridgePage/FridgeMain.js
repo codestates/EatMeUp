@@ -56,13 +56,14 @@ const FridgeMain = () => {
     if (error) {
       swal(
         "Please!",
-        "정보를 불러오지 못했습니다, 다시 확인해주세요.",
-        "error",
+        "로그인이 필요합니다.",
+        "warning",
       );
       dispatch(clearErrors());
+      history.push('/');
       return;
     }
-  }, [dispatch, isEdited, isCreated, isArranged, isDeleted, error]);
+  }, [dispatch, isEdited, isCreated, isArranged, isDeleted, error, history]);
 
   useEffect(() => {
     setFoodList(foods);
