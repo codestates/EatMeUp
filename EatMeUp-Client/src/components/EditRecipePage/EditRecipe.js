@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
@@ -10,7 +10,6 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useForm, useWatch } from "react-hook-form";
 import { editMyrecipe } from "../../_actions/userActions";
-import { getRecipeDetail } from "../../_actions/recipeActions";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -25,28 +24,48 @@ import theme from "../StyledComponent/theme";
 
 const EditRecipePage = ({ match }) => {
   /* function */
-  const { id } = useParams();
+
   const dispatch = useDispatch();
   const history = useHistory();
 
   const { recipe, loading } = useSelector((state) => state.recipe);
 
-  const [myrecipe, setMyrecipe] = useState("")
-  const [recipeBox, setRecipeBox] = useState([]);
+  const [myrecipe, setMyrecipe] = useState("");
+  const [steps, setSteps] = useState([{
+    cookingNum: 0,
+    image: null,
+    recipe: ""
+  }]);
+  const [foods, setFoods] = useState([{
+    name: "",
+    capacity: "",
+  }]);
+
   useEffect(() => {
-
-    
-    axios.get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {withCredentials: true}).then(response => {
-      console.log(response)
-      if(response.data.success) {
-        setMyrecipe(response.data.recipeInfo)
-        
-      }
-    })
-
+    axios
+      .get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        console.log(response.data);
+        if (response.data) {
+          setMyrecipe(response.data.recipeInfo);
+          setSteps(response.data.recipeInfo.steps);
+          setFoods(response.data.recipeInfo.foods);
+        }
+      });
   }, []);
 
-  console.log(myrecipe)
+  console.log(steps)
+  // const [recipeBox, setRecipeBox] = useState(steps);
+  // const [ingredientTag, setIngredientTag] = useState(foods);
+
+  // useEffect(() => {
+  //   setRecipeBox(steps);
+  //   setIngredientTag(foods);
+  // }, [steps, foods]);
+
+  // console.log(foods, steps);
 
   const {
     register,
@@ -157,76 +176,71 @@ const EditRecipePage = ({ match }) => {
     recipeImg10,
   ]);
 
- 
-
-
   //add materials
   const [foodname, setFoodname] = useState("");
   const [foodQuantity, setFoodQuantity] = useState("");
   const [materials, setMaterials] = useState([]);
+  // const [recipeBox, setRecipeBox] = useState(steps);
 
   //steps
   const [menuals, setMenuals] = useState([]);
   const [recipeDC, setRecipeDC] = useState("");
-  // const [recipeImg, setRecipeImg] = useState(
-  //   "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
-  // );
 
-  const [ingredientTag, setIngredientTag] = useState([]); //재료태그
+  // const [ingredientTag, setIngredientTag] = useState(foods); //재료태그
 
   //재료 추가하는 핸들러
-  const AddIngredientHandler = (e) => {
-    e.preventDefault();
+  // const AddIngredientHandler = (e) => {
+  //   e.preventDefault();
 
-    const tag = foodname + foodQuantity;
-    const material = {
-      name: foodname,
-      capacity: foodQuantity,
-    };
-    if (tag === "") {
-      return;
-    }
-    setIngredientTag([...ingredientTag, tag]);
-    setFoodname("");
-    setFoodQuantity("");
-    setMaterials([...materials, material]);
-  };
+  //   const tag = foodname + foodQuantity;
+  //   const material = {
+  //     name: foodname,
+  //     capacity: foodQuantity,
+  //   };
+  //   if (tag === "") {
+  //     return;
+  //   }
+  //   setIngredientTag([...ingredientTag, tag]);
+  //   setFoodname("");
+  //   setFoodQuantity("");
+  //   setMaterials([...materials, material]);
+  // };
 
-  //추가된 재료 삭제하는 핸들러
-  const deleteIngredientHandler = (idx) => {
-    const deleteTag = ingredientTag.filter((tag, id) => {
-      if (id !== idx) {
-        return tag;
-      }
-    });
+  // //추가된 재료 삭제하는 핸들러
+  // const deleteIngredientHandler = (idx) => {
+  //   const deleteTag = ingredientTag.filter((tag, id) => {
+  //     if (id !== idx) {
+  //       return tag;
+  //     }
+  //   });
 
-    setIngredientTag(deleteTag);
-  };
+  //   setIngredientTag(deleteTag);
+  // };
 
-  const addRecipeHandler = () => {
-    const textarea = `recipe-${recipeBox.length - 1}`;
+  // const addRecipeHandler = () => {
+  //   const textarea = `recipe-${recipeBox.length - 1}`;
 
-    setRecipeBox([...recipeBox, textarea]);
-    setRecipeDC("");
-  };
+  //   setRecipeBox([...recipeBox, textarea]);
+  //   setRecipeDC("");
+  // };
 
   //추가된 step영역 삭제하는 핸들러
-  const deleteRecipeHandler = (idx) => {
-    const deleteBox = recipeBox.filter((recipe, id) => {
-      if (id !== idx) {
-        return recipe;
-      }
-    });
+  // const deleteRecipeHandler = (idx) => {
+  //   const deleteBox = recipeBox.filter((recipe, id) => {
+  //     if (id !== idx) {
+  //       return recipe;
+  //     }
+  //   });
 
-    const deleteMenual = menuals.filter((recipe, id) => {
-      if (id !== idx) {
-        return recipe;
-      }
-    });
+  //   const deleteMenual = menuals.filter((recipe, id) => {
+  //     if (id !== idx) {
+  //       return recipe;
+  //     }
+  //   });
 
-    setRecipeBox(deleteBox);
-    setMenuals(deleteMenual);
-  };
+  //   setRecipeBox(deleteBox);
+  //   setMenuals(deleteMenual);
+  // };
 
   const uploadImage = async (files) => {
     const file = files[0];
@@ -299,7 +313,7 @@ const EditRecipePage = ({ match }) => {
     newRecipe["level"] = data.cooking_level;
     newRecipe["foods"] = materials;
     newRecipe["steps"] = recipeImage;
-    console.log(newRecipe)
+    console.log(newRecipe);
     setOpen(true);
     setTimeout(() => {
       console.log(newRecipe);
@@ -389,9 +403,16 @@ const EditRecipePage = ({ match }) => {
                         <input
                           id='fileInput'
                           type='file'
-                          {...register("main_image")}
+                          {...register("main_image", {
+                            required: "레시피 사진을 추가해 주세요",
+                          })}
                           onChange={fileHandler}
                         />
+                         {errors.main_image ? (
+                          <p> {errors.main_image.message}</p>
+                        ) : (
+                          ""
+                        )}
                       </div>
                     </ImageArea>
                   </DescriptionBox>
@@ -420,7 +441,7 @@ const EditRecipePage = ({ match }) => {
                     </div>
                     <Selector
                       {...register("cooking_time")}
-                      // defaultValue={recipe.cooking_time}
+                      defaultValue={recipe.cooking_time}
                     >
                       <option>10Min</option>
                       <option>20Min</option>
@@ -453,20 +474,20 @@ const EditRecipePage = ({ match }) => {
                       />
 
                       <div>
-                        <AddBtn onClick={AddIngredientHandler}>
+                        {/* <AddBtn onClick={AddIngredientHandler}>
                           재료 추가
-                        </AddBtn>
+                        </AddBtn> */}
                       </div>
                     </FlexContainer>
 
                     {/* 재료추가 영역 */}
                     <TagContainer>
                       <Stack direction='row' spacing={1}>
-                        {ingredientTag.map((food, idx) => {
+                        {foods.map((food, idx) => {
                           return (
                             <Chip
-                              label={food}
-                              onDelete={() => deleteIngredientHandler(idx)}
+                              label={food.name}
+                              // onDelete={() => deleteIngredientHandler(idx)}
                               key={idx}
                             />
                           );
@@ -482,7 +503,7 @@ const EditRecipePage = ({ match }) => {
                     <div className='subtitle'>• 요리 레시피</div>
                   </div>
                   <AddRecipeArea>
-                    {recipeBox.map((item, idx) => {
+                    {steps.map((item, idx) => {
                       return (
                         <AddRecipeBox key={idx}>
                           <div className='steps'>Step {idx + 1}</div>
@@ -500,7 +521,7 @@ const EditRecipePage = ({ match }) => {
                                 id={idx}
                                 {...register(`image-${idx}`)}
                               />
-                              {recipeWatch[idx] ? (
+                              {/* {recipeWatch[idx] ? (
                                 <img
                                   src={URL.createObjectURL(recipeWatch[idx][0])}
                                   alt='img'
@@ -509,7 +530,7 @@ const EditRecipePage = ({ match }) => {
                                 <img src={item.image} alt='recipe' />
                               ) : (
                                 "요리 단계별 이미지를 업로드 해보세요."
-                              )}
+                              )} */}
                               {""}
                             </div>
 
@@ -534,7 +555,7 @@ const EditRecipePage = ({ match }) => {
                             <div>
                               <i
                                 className='fas fa-times'
-                                onClick={() => deleteRecipeHandler(idx)}
+                                // onClick={() => deleteRecipeHandler(idx)}
                               ></i>
                             </div>
                           </div>
@@ -542,7 +563,7 @@ const EditRecipePage = ({ match }) => {
                       );
                     })}
                     <BtnArea>
-                      {recipeBox.length === 10 ? (
+                      {/* {recipeBox.length === 10 ? (
                         ""
                       ) : (
                         <PlusBtn>
@@ -551,7 +572,7 @@ const EditRecipePage = ({ match }) => {
                             onClick={addRecipeHandler}
                           ></i>
                         </PlusBtn>
-                      )}
+                      )} */}
                     </BtnArea>
                   </AddRecipeArea>
                 </StepsBox>
