@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getUserinfo,
   getMyLikelist,
   getMyrecipes,
+  clearErrors,
 } from "../../_actions/userActions";
 
 /* 컴포넌트 */
@@ -20,19 +21,38 @@ import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
+const { swal } = window;
 const MyPage = () => {
-
   const dispatch = useDispatch();
-
-  const { user, loading } = useSelector((state) => state.user);
+  const history = useHistory();
+  const { user, loading, error } = useSelector((state) => state.user);
   const { mylikelist } = useSelector((state) => state.mylikelist);
   const { myrecipe } = useSelector((state) => state.myrecipes);
+
+  const [getUser, setGetUser] = useState({
+    username: "",
+    email: "",
+    avatar: null,
+  })
 
   useEffect(() => {
     dispatch(getMyLikelist());
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
-  }, [dispatch]);
+
+    setGetUser(user)
+  
+    if(error) {
+      swal(
+        "Please!",
+        "로그인이 필요합니다.",
+        "warning",
+      );
+      dispatch(clearErrors());
+      history.push('/');
+      return;
+    }
+  }, [dispatch, history, error]);
 
   return (
     <div>
@@ -66,7 +86,7 @@ const MyPage = () => {
                   </div>
                   <div className='info1'>
                     name
-                    <input placeholder={user.username} disabled />
+                    <input placeholder={getUser.username} disabled />
                   </div>
                   <div className='info2'>
                     email

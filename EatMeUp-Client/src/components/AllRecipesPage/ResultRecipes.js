@@ -2,20 +2,23 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 import Loader from "../Util/Loader";
-import ResultCard from './sections/ResultCard'
+import ResultCard from "./sections/ResultCard";
 
 const ResultRecipes = () => {
   // Todo
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const { loading, recommandRecipes, food } = useSelector((state) => state.recommandrecipes);
+  const { loading, recommandRecipes, food } = useSelector(
+    (state) => state.recommandrecipes,
+  );
+
 
   return (
     <>
@@ -32,25 +35,35 @@ const ResultRecipes = () => {
           </TitleBox>
 
           {/* 냉장고 재료기반 추천된 재료리스트 */}
-          <SearchBox>
+          {/* <SearchBox>
             <div className='search_box'>
               <Stack direction='row' spacing={1}>
                 <i className='fas fa-shopping-basket'></i>
-                {/* {food.food
-                  ? food.food.map((item, idx) => {
-                      return <Chip label={item.name} key={idx} />;
-                    })
-                  : ""} */}
+                {foods.map((item, idx) => {
+                  return <Chip label={item.name} key={idx} />;
+                })}
               </Stack>
             </div>
-          </SearchBox>
+          </SearchBox> */}
 
           {/* 카드리스트 컨테이너 */}
-          <Container>
-            {recommandRecipes.map((recipe, idx) => {
-              return <ResultCard recipe={recipe} key={idx} />;
-            })}
-          </Container>
+
+          {recommandRecipes.length === 0 ? (
+            <NoResultBox>
+              <div className='box'>
+                <div className='icon'>
+                  <i className='bx bx-search-alt'></i>
+                </div>
+                <div className='text'>검색 결과가 없습니다.</div>
+              </div>
+            </NoResultBox>
+          ) : (
+            <Container>
+              {recommandRecipes.map((recipe, idx) => {
+                return <ResultCard recipe={recipe} key={idx} />;
+              })}
+            </Container>
+          )}
         </section>
       )}
       <Footer />
@@ -58,10 +71,36 @@ const ResultRecipes = () => {
   );
 };
 
+const NoResultBox = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .box {
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 45px;
+  }
+
+  .bx-search-alt {
+    font-size: 150px;
+    color: #a9a7a3;
+  }
+
+  .text {
+    font-size: 20px;
+    color: #a9a7a3;
+  }
+`;
 const TitleBox = styled.div`
   width: 90%;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 60px;
 `;
 const SearchBox = styled.div`
   width: 90%;
@@ -103,8 +142,6 @@ const Container = styled.div`
   a {
     color: #404040;
   }
- 
 `;
-
 
 export default ResultRecipes;

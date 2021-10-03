@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { loginRequest, clearErrors } from "../../_actions/authActions";
 
 // 컴포넌트
@@ -15,10 +15,9 @@ import theme from "../StyledComponent/theme";
 
 const { swal } = window;
 
-const Login = () => {
+const Login = ({ setShowLogin }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
   const { loading, isAuthenticated, error } = useSelector(
     (state) => state.auth,
   );
@@ -162,6 +161,7 @@ const LoginContainer = styled(SectionBox)`
   justify-content: center;
   text-align: center;
   margin: 10% auto;
+
   .logo_container {
     width: 100%;
     height: 70px;

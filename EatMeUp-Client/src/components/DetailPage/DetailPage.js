@@ -20,9 +20,6 @@ import Footer from "../Util/Footer";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
-/* 데이터 */
-import { myRecipes } from "../dummydata";
-
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
   const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
@@ -32,6 +29,7 @@ const DetailePage = ({ match }) => {
   const [isLiked, setIsLiked] = useState(false);
   const [steps, setSteps] = useState([]);
   const [foods, setFoods] = useState([]);
+  const [user, setUser] = useState([]);
 
   useEffect(() => {
     axios
@@ -40,9 +38,14 @@ const DetailePage = ({ match }) => {
       })
       .then((response) => {
         if (response.data) {
+          console.log(response.data);
           setGetRecipe(response.data.recipeInfo);
           setSteps(response.data.recipeInfo.steps);
           setFoods(response.data.recipeInfo.foods);
+          setUser(response.data.recipeInfo.user);
+          if (response.data.recipeInfo.likeUser.length > 0) {
+            setIsLiked(true);
+          }
         }
       });
   }, []);
@@ -78,14 +81,24 @@ const DetailePage = ({ match }) => {
         <RecipeBox>
           <ImgBox>
             <img src={getRecipe.main_image} alt='recipe_img' />
+            <ProfileContainer>
+              <div className='profile_img'>
+                {user.avatar === null ? (
+                  <i class='far fa-user-circle'></i>
+                ) : (
+                  <div>user.avatar</div>
+                )}
+              </div>
+              <span className='username'>{user.username}</span>
+            </ProfileContainer>
           </ImgBox>
 
           <TitleBox>
             {getRecipe.title}
             <i
-              className={clicked ? "fas fa-heart" : "far fa-heart"}
+              className={isLiked ? "fas fa-heart" : "far fa-heart"}
               style={
-                clicked
+                isLiked
                   ? { color: theme.colors.red }
                   : { color: theme.colors.black }
               }
@@ -123,17 +136,10 @@ const DetailePage = ({ match }) => {
               </span>
             </Level>
           )}
-          <ProfileContainer>
-            <div className='profile_img'>
-              <i class='far fa-user-circle'></i>
-            </div>
-            <span className='username'>username</span>
-          </ProfileContainer>
 
           <DescriptionBox>
             <div className='description'>{getRecipe.description}</div>
           </DescriptionBox>
-
 
           <FoodsBox>
             <div className='foods_title'>재료</div>
@@ -201,14 +207,41 @@ const RecipeBox = styled(SectionBox)`
 `;
 
 const ImgBox = styled.div`
+  position: relative;
   width: 500px;
+  /* height: 500px; */
   display: content;
   margin: 70px auto 20px auto;
   overflow: hidden;
   img {
     border-radius: 30px;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
+  }
+`;
+
+const ProfileContainer = styled.div`
+  top: 0px;
+  width: 100%;
+  height: 60px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  .profile_img {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 15px 0 0 20px;
+    i {
+      font-size: 35px;
+      color: ${theme.colors.darkgrey};
+      vertical-align: middle;
+    }
+  }
+  .username {
+    color: ${theme.colors.black};
+    margin: 17px;
+    font-weight: 400;
+    /* font-size: 17px; */
   }
 `;
 
@@ -258,27 +291,6 @@ const DescriptionBox = styled.div`
   }
 `;
 
-const ProfileContainer = styled.div`
-  margin: 0% auto;
-  width: 100%;
-  /* border-bottom: 1px solid ${theme.colors.lightgrey}; */
-  .profile_img {
-    width: 50px;
-    height: 50px;
-    display: inline-block;
-    margin: 15px 0;
-    i {
-      font-size: 50px;
-      color: ${theme.colors.lightgrey};
-      vertical-align: middle;
-    }
-  }
-  .username {
-    color: ${theme.colors.black};
-    margin: 15px;
-  }
-`;
-
 const FoodsBox = styled.div`
   margin: 0 10%;
   .foods_title {
@@ -296,6 +308,7 @@ const FoodsBox = styled.div`
     margin: 0px 5px 5px 0px;
     padding: 5px 10px;
     font-family: "Noto Sans KR";
+    font-weight: 300;
   }
 `;
 
