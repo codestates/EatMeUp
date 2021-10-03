@@ -94,7 +94,8 @@ const showBtn = keyframes`
   }
 `;
 
-const RecipeCard = styled.div`
+const RecipeCard = styled.div`    
+  width: 100%;
   margin: 20px auto;
   background-color: #ffffff;
   display: inline-block;

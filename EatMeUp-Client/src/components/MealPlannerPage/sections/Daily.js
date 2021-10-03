@@ -1,20 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { BackGroundModal, ModalDialog } from "../styled/Style";
 import { SectionBox } from "../../StyledComponent/containers";
+const { Swal } = window;
 
 const Daily = ({ setOpenDaily, getDate, plan }) => {
   /* function area */
-console.log(plan)
+
   const getPlan = [
-    { id: "아침", 
-    icon: "fa-cloud-sun", 
-    meal: plan ? plan.mealplanBreakfast : [] },
-    { id: "점심", icon: "fa-sun", meal: plan ? plan.mealplanLunch : []},
-    { id: "저녁", icon: "fa-moon", meal: plan ? plan.mealplanDinner : []},
+    {
+      id: "아침",
+      icon: "breakfast.png",
+      meal: plan ? plan.mealplanBreakfast : [],
+    },
+    { id: "점심", icon: "lunch.png", meal: plan ? plan.mealplanLunch : [] },
+    { id: "저녁", icon: "dinner.png", meal: plan ? plan.mealplanDinner : [] },
   ];
 
-  
+  const deletetHandler = () => {
+    setOpenDaily(true);
+    Swal.fire({
+      title: "Delete",
+      text: "레시피를 삭제 하시겠습니까?",
+      icon: "warning",
+      showCancleButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "삭제하기",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        console.log("deleded");
+        setOpenDaily(false);
+      }
+    });
+  };
+
   const closeModalHandler = () => {
     setOpenDaily(false);
   };
@@ -24,19 +44,13 @@ console.log(plan)
     8,
   )}`;
 
-  console.log(getPlan);
-  // <i class="fas fa-sun"></i>AM <br/>
-
-  //     <i class="fas fa-sun"></i>PM <br/>
-
-  //     <i class="fas fa-moon"></i>
   return (
     <>
       <BackGroundModal>
         <ModalDialog onClick={closeModalHandler}>
           <Date>
             {date}
-            <i className='far fa-edit'></i>
+            <i class='far fa-trash-alt' onClick={deletetHandler}></i>
           </Date>
           {/* flex box */}
           <MealPlanBox>
@@ -45,7 +59,18 @@ console.log(plan)
                 <MealPlanCard key={idx}>
                   <TitleBox>
                     <Title>
-                      <i className={`fas ${data.icon}`}></i>{data.id}
+                      <div>
+                        <img
+                          src={`../food_img/${data.icon}`}
+                          alt='icon'
+                          style={{
+                            width: "35px",
+                            height: "35px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      </div>
+                      <div>{data.id}</div>
                     </Title>
                   </TitleBox>
                   <PlansBox>
@@ -82,7 +107,7 @@ const Date = styled.div`
 
   i {
     margin-left: 10px;
-    font-size: 20px;
+    font-size: 22px;
     cursor: pointer;
   }
 `;
@@ -109,23 +134,26 @@ const TitleBox = styled.div`
 `;
 
 const Img = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height:45px;
   margin-left: 5px;
 
   img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    object-fit: cover;
+    object-fit: contain;
   }
 `;
 
 const Title = styled.div`
   margin-left: 10px;
   font-weight: 500;
-  i {
-    margin-right: 2px;
+  display: flex;
+  align-items: center;
+  
+  div > img {
+    margin-right: 5px;
   }
 `;
 const PlansBox = styled.div`
@@ -139,11 +167,11 @@ const PlanCard = styled.div`
   margin: 5px auto;
   border: 1px solid grey;
   border-radius: 20px;
-  height: 50px;
+  height: 54px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid lightgrey;
+  border: 1px solid #e5e5e5;
 
   &:hover .fa-sign-out-alt {
     opacity: 1;

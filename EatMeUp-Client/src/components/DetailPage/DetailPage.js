@@ -1,31 +1,97 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getMyLikelist,
+  addToLikelist,
+  removeFromLikelist,
+} from "../../_actions/userActions";
+import {
+  ADD_TO_LIKELIST_RESET,
+  REMOVE_FROM_LIKELIST_RESET,
+} from "../../_types/userTypes";
+import axios from "axios";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 
 /* 스타일 컴포넌트 */
-import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 /* 데이터 */
 import { myRecipes } from "../dummydata";
 
-const DetailePage = () => {
+const DetailePage = ({ match }) => {
+  const dispatch = useDispatch();
+  const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
+
+  const [getRecipe, setGetRecipe] = useState("");
+  const [clicked, setClicked] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [steps, setSteps] = useState([]);
+  const [foods, setFoods] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data) {
+          console.log(response.data)
+          setGetRecipe(response.data.recipeInfo);
+          setSteps(response.data.recipeInfo.steps);
+          setFoods(response.data.recipeInfo.foods);
+          if(response.data.recipeInfo.likeUser.length > 0) {
+            setIsLiked(true)
+          }
+        }
+      });
+  }, []);
+
+  useEffect(() => {
+    dispatch(getMyLikelist());
+    if (isAdded) {
+      dispatch({ type: ADD_TO_LIKELIST_RESET });
+    }
+
+    if (isDeleted) {
+      dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
+    }
+  }, [dispatch, isAdded, isDeleted]);
+
+  const likeBtnHandler = (id) => {
+    setClicked(!clicked);
+
+    if (!clicked) {
+      const recipeId = {
+        id: match.params.id,
+      };
+      dispatch(addToLikelist(recipeId));
+    } else {
+      dispatch(removeFromLikelist(id));
+    }
+  };
+
   return (
     <div>
       <Header />
+
       <RecipeContainer>
         <RecipeBox>
           <ImgBox>
-            <img src={myRecipes[0].main_image} alt='recipe_img' />
+            <img src={getRecipe.main_image} alt='recipe_img' />
           </ImgBox>
           <TitleBox>
-            {myRecipes[0].title}
-            <i class='far fa-heart'></i>
+            {getRecipe.title}
+
+            <i
+              className={isLiked ? "fas fa-heart" : "far fa-heart"}
+              style={isLiked ? { color: "red" } : { color: "black" }}
+              onClick={() => likeBtnHandler(getRecipe.id)}
+            ></i>
           </TitleBox>
           {/* <Level>
             <i class='fas fa-star'></i>
@@ -35,87 +101,51 @@ const DetailePage = () => {
           </Level> */}
           <DescriptionBox>
             <DescriptionImg>
-              {/* <i class='fas fa-quote-left'></i> */}
+              <i class='fas fa-quote-left'></i>
             </DescriptionImg>
-            <div className='description'>{myRecipes[0].description}</div>
+            <div className='description'>{getRecipe.description}</div>
           </DescriptionBox>
           <FoodsBox>
             <div className='foods_title'>재료</div>
             <div className='foods'>
-              {/* {myRecipes.map((recipe, idx) => {
-                let name = recipe.foods[0].name;
-                let capacity = recipe.foods[0].capacity;
-                return name.concat(capacity);
-              })} */}
-              {myRecipes[0].foods[0].name}
-              {myRecipes[0].foods[0].capacity}
+              {foods.map((food, idx) => {
+                let name = food.name;
+                let capacity = food.capacity;
+                return <span className='foodtag'>{name.concat(capacity)}</span>;
+              })}
             </div>
           </FoodsBox>
           <StepContainer>
             <div className='step_title'>조리과정</div>
-            <StepBox>
-              <div className='step_image'>
-                <img src={myRecipes[0].steps[0].image} alt='step_image' />
-              </div>
-              <div className='steps'>
-                <div className='stepNo'>
-                  <span class='fa-stack'>
-                    <i
-                      class='fas fa-circle fa-stack-2x'
-                      style={{ color: theme.colors.lightgrey }}
-                    />
-                    <strong class='fa-stack-1x'>
-                      {myRecipes[0].steps[0].cookingNo}
-                    </strong>
-                  </span>
-                </div>
-                <span className='step'>{myRecipes[0].steps[0].recipe}</span>
-              </div>
-            </StepBox>
 
-            <StepBox>
-              <div className='step_image'>
-                <img src={myRecipes[0].steps[1].image} alt='step_image' />
-              </div>
-              <div className='steps'>
-                <div className='stepNo'>
-                  <span class='fa-stack'>
-                    <i
-                      class='fas fa-circle fa-stack-2x'
-                      style={{ color: theme.colors.lightgrey }}
+            {steps.map((step, idx) => {
+              return (
+                <StepBox key={idx}>
+                  <div className='step_image'>
+                    <img
+                      src={
+                        step.image === ""
+                          ? "https://gongu.copyright.or.kr/gongu/wrt/cmmn/wrtFileImageView.do?wrtSn=13073440&thumbAt=Y&thumbSe=t_thumb&wrtTy=10004&filePath=L2Rpc2sxL25ld2RhdGEvMjAxOC85OC9DTFMyLzEzMDczNDQwX0NOVFJfV1JUMjAxODA0MjZfMjY3"
+                          : step.image
+                      }
+                      alt='step_image'
                     />
-                    <strong class='fa-stack-1x'>
-                      {myRecipes[0].steps[1].cookingNo}
-                    </strong>
-                  </span>
-                </div>
-                <span className='step'>{myRecipes[0].steps[1].recipe}</span>
-              </div>
-            </StepBox>
-
-            <StepBox>
-              <div className='step_image'>
-                {myRecipes[0].steps[2].image === null ? (
-                  <img src={myRecipes[0].steps[2].image} alt='step_image' />
-                ) : (
-                  <img src='../../food_img/favicon.png' />
-                )}
-              </div>
-              <div className='steps'>
-                <div className='stepNo'>
-                  <span class='fa-stack'>
-                    <i
-                      class='fas fa-circle fa-stack-2x'
-                      style={{ color: theme.colors.lightgrey }}
-                    />
-                    <strong class='fa-stack-1x'>
-                      {myRecipes[0].steps[2].cookingNo}
-                    </strong>
-                  </span>
-                </div>
-                <span className='step'>{myRecipes[0].steps[2].recipe}</span>
-              </div>
-            </StepBox>
+                  </div>
+                  <div className='steps'>
+                    <div className='stepNo'>
+                      <span class='fa-stack'>
+                        <i
+                          class='fas fa-circle fa-stack-2x'
+                          style={{ color: theme.colors.lightgrey }}
+                        />
+                        <strong class='fa-stack-1x'>{step.cookingNum}</strong>
+                      </span>
+                    </div>
+                    <span className='step'>{step.recipe}</span>
+                  </div>
+                </StepBox>
+              );
+            })}
           </StepContainer>
         </RecipeBox>
       </RecipeContainer>
@@ -148,6 +178,8 @@ const ImgBox = styled.div`
   /* background-color: ${theme.colors.lightgrey}; */
   img {
     border-radius: 30px;
+    width: 40%;
+    object-fit: cover;
     /* position: absolute;
     width: 100%;
     top: -9999px;
@@ -168,6 +200,7 @@ const TitleBox = styled.div`
     font-size: 28px;
     vertical-align: top;
     margin: 12px 0 0 10px;
+    cursor: pointer;
   }
 `;
 
@@ -193,11 +226,13 @@ const DescriptionImg = styled.div`
   width: 100%;
   margin: 0 auto;
   text-align: center;
-  color: rgba(254, 189, 47, .2);
+  color: rgba(254, 189, 47, 0.2);
 `;
 
 const FoodsBox = styled.div`
   margin: 0 10%;
+
+ 
   .foods_title {
     font-size: 24px;
     font-weight: 400;
@@ -208,6 +243,15 @@ const FoodsBox = styled.div`
     width: 100%;
     margin: 20px 0;
     font-size: 14px;
+    padding: 5px;
+ 
+  }
+
+  .foodtag {
+    padding: 5px 8px;
+    background-color: ${theme.colors.lightgrey};
+    border-radius: 30px;
+    margin: 7px 4px;
   }
 `;
 
@@ -234,7 +278,8 @@ const StepBox = styled.div`
       border-radius: 20px;
       width: 170px;
       height: 130px;
-      object-fit: contain;
+      object-fit: cover;
+      border: 1px solid lightgrey;
     }
   }
   .steps {

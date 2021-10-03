@@ -24,12 +24,12 @@ const Header = ({ id }) => {
     setCurrentIdx(idx);
   };
 
-  return isAuthenticated ? (
+  return (
     <EatMeUpHeader>
       <div className='left-menu'>
         <div className='logo'>
           <Link to='/'>
-            <img src='../food_img/EatMeUp.png' alt='logo' />
+            <img src='https://eatmeup-image.s3.ap-northeast-2.amazonaws.com/9a0a59bd263f1840cabda2278d11570b' alt='logo' />
           </Link>
         </div>
         <div className='menuBtns'>
@@ -50,29 +50,29 @@ const Header = ({ id }) => {
         </div>
       </div>
     </EatMeUpHeader>
-  ) : (
-    <EatMeUpHeader>
-      <div className='left-menu'>
-        <div className='logo'>
-          <Link to='/'>
-            <img src='../food_img/EatMeUp.png' alt='logo' />
-          </Link>
-        </div>
-        <div className='menuBtns'></div>
-      </div>
-      {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
-      <div className='right-menu'>
-        <div className='menuBtns'>
-          <Link to='/login'>
-            <div className='menu right'>LOGIN</div>
-          </Link>
-          <Link to='/signup'>
-            <div className='menu right'>SIGNUP</div>
-          </Link>
-        </div>
-      </div>
-    </EatMeUpHeader>
-  );
+
+    // <EatMeUpHeader>
+    //   <div className='left-menu'>
+    //     <div className='logo'>
+    //       <Link to='/'>
+    //         <img src='https://eatmeup-image.s3.ap-northeast-2.amazonaws.com/9a0a59bd263f1840cabda2278d11570b' alt='logo' />
+    //       </Link>
+    //     </div>
+    //     <div className='menuBtns'></div>
+    //   </div>
+    //   {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
+    //   <div className='right-menu'>
+    //     <div className='menuBtns'>
+    //       <Link to='/login'>
+    //         <div className='menu right'>LOGIN</div>
+    //       </Link>
+    //       <Link to='/signup'>
+    //         <div className='menu right'>SIGNUP</div>
+    //       </Link>
+    //     </div>
+    //   </div>
+    // </EatMeUpHeader>
+  )
 };
 
 const EatMeUpHeader = styled.div`
@@ -144,6 +144,8 @@ const EatMeUpHeader = styled.div`
   .right:hover {
     background-color: #f5f3f0;
   }
+
+ 
 `;
 
 export default Header;

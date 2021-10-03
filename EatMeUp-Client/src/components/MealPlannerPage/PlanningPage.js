@@ -19,7 +19,7 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 
 const PlanningPage = () => {
   const dispatch = useDispatch();
-  const { recipes } = useSelector((state) => state.allRecipes);
+  const { recipes } = useSelector((state) => state.recommandrecipes);
   const { mylikelist } = useSelector((state) => state.mylikelist);
   const [addToPlan, setAddToPlan] = useState({
     image: null,

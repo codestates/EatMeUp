@@ -28,10 +28,12 @@ import {
   GET_USERINFO_FAIL,
   EDIT_USERINFO_REQUEST,
   EDIT_USERINFO_SUCCESS,
+  EDIT_USERINFO_RESET,
   EDIT_USERINFO_FAIL,
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
+  CLEAR_ERRORS,
 } from "../_types/userTypes";
 
 export const getMyrecipesReducer = (state = { myrecipe: [] }, action) => {
@@ -44,13 +46,17 @@ export const getMyrecipesReducer = (state = { myrecipe: [] }, action) => {
     case GET_MYECIPES_SUCCESS:
       return {
         loading: false,
-        myrecipe: action.payload.Recipes,
+        myrecipe: action.payload.recipeInfo,
       };
     case GET_MYECIPES_FAIL:
       return {
-        ...state,
         loading: false,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
@@ -94,32 +100,42 @@ export const myrecipeReducer = (state = {}, action) => {
         loading: false,
         error: action.payload,
       };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }
 };
 
-export const getMylikelistReducer = (state = { mylikelist: []}, action) => {
-  switch(action.type) {
+export const getMylikelistReducer = (state = { mylikelist: [] }, action) => {
+  switch (action.type) {
     case GET_LIKELIST_REQUEST:
       return {
         ...state,
-        loading: true
-      }
+        loading: true,
+      };
     case GET_LIKELIST_SUCCESS:
       return {
         loading: false,
-        mylikelist: action.payload
-      }
+        mylikelist: action.payload,
+      };
     case GET_LIKELIST_FAIL:
       return {
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
-      return state
+      return state;
   }
-}
+};
 export const mylikelistReducer = (state = {}, action) => {
   switch (action.type) {
     case ADD_TO_LIKELIST_REQUEST:
@@ -154,8 +170,83 @@ export const mylikelistReducer = (state = {}, action) => {
     case REMOVE_FROM_LIKELIST_FAIL:
       return {
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getUserInfoReducer = (state = { user: {} }, action) => {
+  switch (action.type) {
+    case GET_USERINFO_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case GET_USERINFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        user: action.payload,
+      };
+    case GET_USERINFO_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const userInfoReducer = (state = {}, action) => {
+  switch (action.type) {
+    case EDIT_USERINFO_REQUEST:
+    case DELETE_USER_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case EDIT_USERINFO_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isEdited: true,
+      };
+    case DELETE_USER_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: true,
+      };
+    case EDIT_USERINFO_RESET:
+      return {
+        ...state,
+        loading: false,
+        isEdited: false,
+      };
+    case EDIT_USERINFO_FAIL:
+    case DELETE_USER_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }
