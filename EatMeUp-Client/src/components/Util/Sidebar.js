@@ -62,7 +62,6 @@ const SideMenu = styled.div`
   border-radius: 30px;
   align-items: left;
   margin: 0 2vw 0 4vw;
-  
   a {
     text-decoration: none;
   }
@@ -70,13 +69,12 @@ const SideMenu = styled.div`
 
 const MenuBtn = styled(XSmallBtn)`
   width: 170px;
-  height: 48px;
+  height: 50px;
   display: flex;
   align-items: center;
   border: solid 1px ${theme.colors.lightgrey};
   margin: 0 0 15px 15px;
   font-family: "Noto Sans KR";
-  font-size: 14px;
   font-weight: 500;
 
   &:hover {
@@ -86,28 +84,25 @@ const MenuBtn = styled(XSmallBtn)`
   }
 
   .point {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
     background-color: white;
     text-align: center;
     margin-left: 5px;
+    i {
+      margin: 8px;
+      color: black;
+      font-size: 14px;
+    }
   }
 
   .menu {
     margin-left: 10px;
     font-size: 14px;
-    text-decoration: none;
-  }
- 
-
-  #icon {
-    margin: 8px 8px 10px 8px;
-    color: black;
-    font-size: 16px;
+    line-height: 8px;
   }
 
-  
 `;
 
 export default Sidebar;

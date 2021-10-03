@@ -23,7 +23,6 @@ import theme from "../StyledComponent/theme";
 
 const { swal } = window;
 const MyPage = () => {
-
   const dispatch = useDispatch();
   const history = useHistory();
   const { user, loading, error } = useSelector((state) => state.user);
@@ -31,20 +30,18 @@ const MyPage = () => {
   const { myrecipe } = useSelector((state) => state.myrecipes);
 
   const [getUser, setGetUser] = useState({
-
     username: "",
     email: "",
     avatar: null,
   })
+
   useEffect(() => {
-    
     dispatch(getMyLikelist());
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
 
     setGetUser(user)
   
-
     if(error) {
       swal(
         "Please!",
@@ -55,11 +52,8 @@ const MyPage = () => {
       history.push('/');
       return;
     }
-
-
   }, [dispatch, history, error]);
 
- 
   return (
     <div>
       <Header id={2} />
@@ -77,7 +71,15 @@ const MyPage = () => {
                 <ProfileContainer>
                   <div className='img_box'>
                     {user.avatar ? (
-                      <img src={user.avatar} alt='userimg' style={{width: "190px", height: "190px", borderRadius: "50%"}} />
+                      <img
+                        src={user.avatar}
+                        alt='userimg'
+                        style={{
+                          width: "190px",
+                          height: "190px",
+                          borderRadius: "50%",
+                        }}
+                      />
                     ) : (
                       <i class='far fa-user-circle' id='userimg'></i>
                     )}
@@ -87,13 +89,10 @@ const MyPage = () => {
                     <input placeholder={getUser.username} disabled />
                   </div>
                   <div className='info2'>
-                    avatar
-                    <input placeholder='kimcoding' disabled />
-                  </div>
-                  <div className='info3'>
                     email
                     <input placeholder={user.email} disabled />
                   </div>
+                  <div className='info3'></div>
                   <div className='btn_container'>
                     <Link to='/user/info'>
                       <EditButton>내 정보 수정</EditButton>
@@ -115,10 +114,6 @@ const MyPage = () => {
                                 <img src={recipe.main_image} alt='main' />
                               </div>
                               <div className='recipe_title'>{recipe.title}</div>
-                              <div className='item_container'>
-                                <i class='far fa-edit'></i>
-                                <i class='far fa-trash-alt'></i>
-                              </div>
                             </MyCard>
                           );
                         })}
@@ -139,13 +134,6 @@ const MyPage = () => {
                                 <img src={recipe.main_image} alt='recipe' />
                               </div>
                               <div className='recipe_title'>{recipe.title}</div>
-                              <div className='item_container'>
-                                <i
-                                  class='fas fa-heart'
-                                  style={{ color: theme.colors.red }}
-                                ></i>
-                                <i class='far fa-trash-alt'></i>
-                              </div>
                             </MyCard>
                           );
                         })}
@@ -165,7 +153,6 @@ const MyPage = () => {
 
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
-  /* margin: 0 10%; */
   min-height: 720px;
 `;
 
@@ -329,13 +316,13 @@ const MyCard = styled.li`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   .img_container {
     width: 65%;
-    margin: 15px auto 5px auto;
+    margin: 25px auto 10px auto;
     text-align: center;
   }
   img {
     width: 100%;
-    border-radius: 100%;
-    
+    /* height: 300px; */
+    /* border-radius: 100%; */
   }
   .recipe_title {
     text-align: center;

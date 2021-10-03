@@ -32,7 +32,6 @@ const Login = ({ setShowLogin }) => {
     if (isAuthenticated) {
       history.push("/");
     }
-
     if (error) {
       swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors());
@@ -42,6 +41,20 @@ const Login = ({ setShowLogin }) => {
 
   const loginHandler = (data) => {
     dispatch(loginRequest(data));
+    // console.log(data);
+  };
+  // console.log(date);
+  const submitGuest = () => {
+    const date = new Date().toLocaleString();
+    const GuestData = {
+      username: date,
+      email: `test${date}@eatmeup.me`,
+      password: `123456`,
+    };
+
+    console.log(date);
+    dispatch(loginRequest(GuestData));
+    history.push("/");
   };
 
   return (
@@ -103,13 +116,31 @@ const Login = ({ setShowLogin }) => {
             <span className='google_text'> Login with Google</span>
           </div>
         </SocialButton>
+        <SocialButton>
+          <div className='google'>
+            <span>
+              <img
+                className='google_logo'
+                src='../food_img/google_logo.png'
+                alt='google'
+              />
+            </span>
+            <span className='google_text'> Login with Kakao</span>
+          </div>
+        </SocialButton>
         <LoginEnd>
           <div className='loginLine'>
             <StyledLink to='/signup'>
               <SignUpButton>SignUp</SignUpButton>
             </StyledLink>
           </div>
-          <div className='noUser'>Guest Login</div>
+          <form onSubmit={handleSubmit(submitGuest)}>
+            {/* <input type='text' />
+            <input type='email'/>
+            <input type='password'/> */}
+            <form Control type/>
+            <button type='submit' className='noUser'>Guest Login</button>
+          </form>
         </LoginEnd>
       </LoginContainer>
     </StyledContainer>
@@ -221,6 +252,8 @@ const LoginEnd = styled.div`
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+    background-color: white;
+    border: none;
   }
 `;
 
