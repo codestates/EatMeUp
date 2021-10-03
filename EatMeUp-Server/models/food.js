@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       models.Food.belongsTo(models.User, {
         foreignKey: "own_user_id",
         as: "user",
+        onDelete: "CASCADE",
       });
     }
   }

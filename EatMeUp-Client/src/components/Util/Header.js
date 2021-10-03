@@ -4,10 +4,11 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutRequest, clearErrors } from "../../_actions/authActions";
 
+import theme from "../StyledComponent/theme";
 
 const { swal } = window;
 const Header = () => {
- 
+
   const history = useHistory();
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.auth);
@@ -25,8 +26,6 @@ const Header = () => {
     dispatch(logoutRequest())
     history.push('/')
   };
-
-  
 
   return localStorage.auth ? (
     <EatMeUpHeader>
@@ -82,7 +81,7 @@ const Header = () => {
           </Link>
         </div>
       </div>
-   
+  
     </EatMeUpHeader>
   );
 };
@@ -169,7 +168,8 @@ const EatMeUpHeader = styled.div`
   }
 
   .right:hover {
-    background-color: #f5f3f0;
+    background-color: ${theme.colors.yellow};
+    color: white;
   }
 `;
 
