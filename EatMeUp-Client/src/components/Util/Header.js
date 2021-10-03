@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutRequest, clearErrors } from "../../_actions/authActions";
 
 import theme from "../StyledComponent/theme";
+import Login from '../LoginPage/Login'
+import Signup from '../SignupPage/Signup'
 
 const { swal } = window;
 const Header = () => {
@@ -12,6 +14,9 @@ const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { error } = useSelector((state) => state.auth);
+
+  const [showLogin, setShowLogin] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
 
   useEffect(() => {
     if (error) {
@@ -26,6 +31,15 @@ const Header = () => {
     dispatch(logoutRequest())
     history.push('/')
   };
+
+  const showLoginHandler = () => {
+    setShowLogin(true)
+  }
+
+  const showSignupHandler = () => {
+    setShowLogin(false)
+    setShowSignup(true)
+  }
 
   return localStorage.auth ? (
     <EatMeUpHeader>
@@ -73,15 +87,16 @@ const Header = () => {
       {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
       <div className='right-menu'>
         <div className='menuBtns'>
-          <Link to='/login'>
-            <div className='menu right'>LOGIN</div>
-          </Link>
-          <Link to='/signup'>
-            <div className='menu right'>SIGNUP</div>
-          </Link>
+          {/* <Link to='/login'> */}
+            <div className='menu right' onClick={showLoginHandler}>LOGIN</div>
+          {/* </Link> */}
+          {/* <Link to='/signup'> */}
+            <div className='menu right' onClick={showSignupHandler}>SIGNUP</div>
+          {/* </Link> */}
         </div>
       </div>
-  
+      {showLogin ? <Login setShowLogin={setShowLogin} setShowSignup={setShowSignup} /> : ""}
+      {showSignup? <Signup setShowSignup={setShowSignup} setShowLogin={setShowLogin} /> : ""}
     </EatMeUpHeader>
   );
 };

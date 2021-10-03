@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
 
 import theme from "../../StyledComponent/theme";
 
