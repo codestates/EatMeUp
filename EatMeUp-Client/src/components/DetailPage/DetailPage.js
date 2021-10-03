@@ -79,6 +79,7 @@ const DetailePage = ({ match }) => {
           <ImgBox>
             <img src={getRecipe.main_image} alt='recipe_img' />
           </ImgBox>
+
           <TitleBox>
             {getRecipe.title}
             <i
@@ -91,6 +92,7 @@ const DetailePage = ({ match }) => {
               onClick={() => likeBtnHandler(getRecipe.id)}
             ></i>
           </TitleBox>
+
           {getRecipe.level === "초보환영" && (
             <Level>
               <i class='fas fa-star'></i>
@@ -121,9 +123,18 @@ const DetailePage = ({ match }) => {
               </span>
             </Level>
           )}
+          <ProfileContainer>
+            <div className='profile_img'>
+              <i class='far fa-user-circle'></i>
+            </div>
+            <span className='username'>username</span>
+          </ProfileContainer>
+
           <DescriptionBox>
             <div className='description'>{getRecipe.description}</div>
           </DescriptionBox>
+
+
           <FoodsBox>
             <div className='foods_title'>재료</div>
             <div className='foods'>
@@ -136,6 +147,7 @@ const DetailePage = ({ match }) => {
               })}
             </div>
           </FoodsBox>
+
           <StepContainer>
             <div className='step_title'>조리과정</div>
             {steps.map((step, idx) => {
@@ -243,6 +255,27 @@ const DescriptionBox = styled.div`
   .description {
     border-bottom: 2px solid ${theme.colors.lightgrey};
     padding: 10px 5px;
+  }
+`;
+
+const ProfileContainer = styled.div`
+  margin: 0% auto;
+  width: 100%;
+  /* border-bottom: 1px solid ${theme.colors.lightgrey}; */
+  .profile_img {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    margin: 15px 0;
+    i {
+      font-size: 50px;
+      color: ${theme.colors.lightgrey};
+      vertical-align: middle;
+    }
+  }
+  .username {
+    color: ${theme.colors.black};
+    margin: 15px;
   }
 `;
 

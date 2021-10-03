@@ -21,6 +21,7 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const MyPage = () => {
+
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.user);
@@ -132,7 +133,6 @@ const MyPage = () => {
 
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
-  /* margin: 0 10%; */
   min-height: 720px;
 `;
 

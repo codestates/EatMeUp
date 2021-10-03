@@ -96,7 +96,7 @@ const EatMeUpHeader = styled.div`
 
   .left-menu {
     display: flex;
-    margin-left: 3vw;
+    margin-left: 5vw;
   }
 
   .menuBtns {
@@ -130,7 +130,7 @@ const EatMeUpHeader = styled.div`
   }
 
   .right-menu {
-    margin-right: 3vw;
+    margin-right: 5vw;
   }
 
   .right {
