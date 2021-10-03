@@ -81,13 +81,27 @@ const DropzoneArea = styled.div`
 const FoodInfoBox = styled.div`
   width: 70%;
   padding: 8px;
-  margin: 0.5rem auto;
+  margin: 0.3rem auto;
   font-size: 13px;
 
   .foodname-box {
     margin-bottom: 8px;
-    font-size: 13px
+    font-size: 13px 
+
   }
+
+  input {
+      border: none;
+      border-bottom: 1px solid lightgrey;
+      margin: 5px 3px;
+      font-size: 14px;
+      width: 70%;
+      &:focus {
+        outline: none;
+        border-bottom: 1px solid black;
+        transition: all 0.2s ease-in-out;
+      }
+    }
 
   .foodname-box > input {
     height: 30px;
@@ -96,7 +110,7 @@ const FoodInfoBox = styled.div`
 
   .buydate-box {
     margin-bottom: 8px;
-    font-size: 13px
+    font-size: 13px;
   }
 
   .buydate-box > input {
@@ -109,7 +123,6 @@ const AddToRefriBtn = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
-  
 `;
 
 export {

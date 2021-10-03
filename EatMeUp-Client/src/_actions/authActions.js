@@ -42,7 +42,10 @@ import {
      dispatch({ type: LOGIN_REQUEST})
  
      const { data } = await axios.post(`${process.env.REACT_APP_API}/auth/login`, userInfo, {withCredentials: true})
- 
+
+    if(data.success) {
+      localStorage.setItem("auth", true)
+    }
    
  
      dispatch({
@@ -70,6 +73,10 @@ import {
  
      const { data } = await axios.get(`${process.env.REACT_APP_API}/auth/logout`,  { withCredentials: true})
      
+
+    if(data.success) {
+      localStorage.removeItem("auth")
+    }
  
      dispatch({
        type: LOGOUT_SUCCESS,
