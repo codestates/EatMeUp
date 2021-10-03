@@ -9,15 +9,18 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
   const meal = ["아침추가", "점심추가", "저녁추가"];
 
   const [addToMealPlan, setAddToMealPlan] = useState({
+    recipeId: 0,
     image: null,
     title: "",
   });
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const handleClick = (event, image, title) => {
+
+  const handleClick = (event, recipeId, image, title) => {
     setAnchorEl(event.currentTarget);
-    console.log(image, title);
+    
     setAddToMealPlan({
+      recipeId: recipeId,
       image: image,
       title: title,
     });
@@ -41,9 +44,10 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
 
   const getCurrentIdx = (idx) => {
     setAddToPlan({
+      recipeId: addToMealPlan.recipeId,
       image: addToMealPlan.image,
       title: addToMealPlan.title,
-      id: idx,
+      mealId: idx,
     });
   };
 
@@ -188,7 +192,7 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
                         <i
                           className='bx bx-plus-circle'
                           onClick={(e) =>
-                            handleClick(e, recipe.main_image, recipe.title)
+                            handleClick(e, recipe.id, recipe.main_image, recipe.title)
                           }
                         ></i>
                       </div>
