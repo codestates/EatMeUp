@@ -18,16 +18,20 @@ import axios from "axios";
 
 export const getMealPlans = () => async (dispatch) => {
   try {
+
     dispatch({
       type: GET_MEALPLANS_REQUEST,
     });
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}/calendar/mealplan`, {withCredentials: true});
-    console.log(data)
+    const { data } = await axios.get(`${process.env.REACT_APP_API}/calendar/mealplan`,
+      { withCredentials: true },
+    );
+    console.log(data.mealPlan);
     dispatch({
       type: GET_MEALPLANS_SUCCESS,
       payload: data.mealPlan
     });
+
   } catch (error) {
     dispatch({
       type: GET_MEALPLANS_FAIL,
@@ -62,7 +66,6 @@ export const createMealPlan = (plan) => async (dispatch) => {
       plan,
       { withCredentials: true },
     );
-    console.log(data);
 
     dispatch({
       type: GET_MEALPLANS_SUCCESS,

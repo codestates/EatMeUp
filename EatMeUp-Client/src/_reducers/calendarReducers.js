@@ -19,6 +19,26 @@ import {
 
 export const getMealPlansReducer = (state = { plans: [] }, action) => {
   switch (action.type) {
+    case GET_MEALPLANS_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case GET_MEALPLANS_SUCCESS:
+      return {
+        loading: false,
+        plans: action.payload
+      }
+    case GET_MEALPLANS_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      }
+    case CLEAR_ERRORS:
+      return {
+        loading: false,
+        error: null
+      }
     default:
       return state;
   }
@@ -33,6 +53,26 @@ export const getRecommandReducer = (state = { recommandedRecipe: [] }, action) =
 
 export const newMealPlanReducer = (state = {}, action) => {
   switch (action.type) {
+    case NEW_MEALPLAN_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case NEW_MEALPLAN_SUCCESS:
+      return {
+        loading: false,
+        isAdded: action.payload
+      }
+    case NEW_MEALPLAN_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      }
+    case CLEAR_ERRORS:
+      return {
+        loading: false,
+        error: null
+      }
     default:
       return state;
   }

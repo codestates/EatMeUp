@@ -33,9 +33,9 @@ const PlanningPage = () => {
   });
 
   const [mealPlan, setMealPlan] = useState([
-    { id: 0, meal: "아침", plan: [] },
-    { id: 1, meal: "점심", plan: [] },
-    { id: 2, meal: "저녁", plan: [] },
+    { id: 0, meal: "아침", plan: [], recipeId: [] },
+    { id: 1, meal: "점심", plan: [], recipeId: [] },
+    { id: 2, meal: "저녁", plan: [], recipeId: [] },
   ]);
 
   useEffect(() => {
@@ -46,15 +46,15 @@ const PlanningPage = () => {
 
   const addMealplanHandler = () => {
 
-    
+
 
     const plan = {
       date: date,
-      breakfast: mealPlan[0].plan,
-      lunch: mealPlan[1].plan,
-      dinner: mealPlan[2].plan,
+      breakfast: mealPlan[0].recipeId,
+      lunch: mealPlan[1].recipeId,
+      dinner: mealPlan[2].recipeId,
     }
-
+    console.log(plan)
     dispatch(createMealPlan(plan))
 
   }

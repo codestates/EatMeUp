@@ -12,11 +12,12 @@ const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
 
   useEffect(() => {
     const arr = mealPlan.map((plan, idx) => {
-      if (addToPlan.id === plan.id) {
+      if (addToPlan.mealId === plan.id) {
         return {
           id: plan.id,
           meal: plan.meal,
           plan: [...plan.plan, addToPlan],
+          recipeId: [...plan.recipeId, addToPlan.recipeId]
         };
       }
 
