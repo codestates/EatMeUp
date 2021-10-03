@@ -86,7 +86,7 @@ const DetailePage = ({ match }) => {
                 {user.avatar === null ? (
                   <i class='far fa-user-circle'></i>
                 ) : (
-                  <div>user.avatar</div>
+                  <img src={user.avatar} />
                 )}
               </div>
               <span className='username'>{user.username}</span>
@@ -162,9 +162,7 @@ const DetailePage = ({ match }) => {
                   <div className='step_image'>
                     <img
                       src={
-                        step.image === ""
-                          ? "https://ifh.cc/g/dHepyz.png"
-                          : step.image
+                        step.image ? step.image : "https://ifh.cc/g/dHepyz.png"
                       }
                       alt='step_image'
                       height={step.image === "" && "130"}
@@ -216,7 +214,7 @@ const ImgBox = styled.div`
   img {
     border-radius: 30px;
     width: 100%;
-    object-fit: contain;
+    object-fit: cover;
   }
 `;
 
@@ -236,12 +234,16 @@ const ProfileContainer = styled.div`
       color: ${theme.colors.darkgrey};
       vertical-align: middle;
     }
+    img {
+      width: 35px;
+      color: ${theme.colors.darkgrey};
+      vertical-align: middle;
+    }
   }
   .username {
     color: ${theme.colors.black};
     margin: 17px;
     font-weight: 400;
-    /* font-size: 17px; */
   }
 `;
 
@@ -330,11 +332,9 @@ const StepBox = styled.div`
   .step_image {
     display: flex;
     width: 170px;
-    /* height: 130px; */
     img {
       border-radius: 20px;
       width: 170px;
-      /* height: 130px; */
       object-fit: contain;
     }
   }

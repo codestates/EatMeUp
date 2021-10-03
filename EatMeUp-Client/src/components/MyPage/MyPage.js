@@ -104,6 +104,9 @@ const MyPage = () => {
                   <MyRecipeBox>
                     <Title>
                       <div className='recipe_title'>My Recipes</div>
+                      <Link to='/user/myrecipe'>
+                        <AddBtn>더 보기  <i class="fas fa-chevron-right"></i></AddBtn>
+                      </Link>
                     </Title>
                     <CardContainer>
                       <ul>
@@ -124,6 +127,9 @@ const MyPage = () => {
                   <LikedRecipeBox>
                     <Title>
                       <div className='recipe_title'>Liked Recipes</div>
+                      <Link to='/user/myrecipe'>
+                        <AddBtn>더 보기  <i class="fas fa-chevron-right"></i></AddBtn>
+                      </Link>
                     </Title>
                     <CardContainer>
                       <ul>
@@ -262,6 +268,7 @@ const LikedRecipeBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
+  /* background-color: #f90d; */
 `;
 
 const Title = styled.div`
@@ -290,6 +297,16 @@ const EditButton = styled(LargeBtn)`
   }
 `;
 
+const AddBtn = styled(LargeBtn)`
+  width: 100px;
+  background-color: white;
+  border: 1px solid ${theme.colors.lightgrey};
+  margin: 0 30px;
+  &:active {
+    background-color: ${theme.colors.lightgrey};
+  }
+`
+
 const CardContainer = styled.div`
   list-style: none;
   width: 100%;
@@ -315,28 +332,21 @@ const MyCard = styled.li`
   border-radius: 30px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   .img_container {
-    width: 65%;
-    margin: 25px auto 10px auto;
+    width: 110px;
+    height: 110px;
+    margin: 25px auto 13px auto;
     text-align: center;
   }
   img {
     width: 100%;
-    /* height: 300px; */
-    /* border-radius: 100%; */
+    height: 100%;
+    object-fit: cover;
+    border-radius: 110px;
   }
   .recipe_title {
     text-align: center;
     width: 100%;
     font-size: 16px;
-    /* background-color: ${theme.colors.yellow} */
-  }
-  .item_container {
-    text-align: center;
-    margin: 5px;
-    i {
-      margin: 0 5px;
-      color: ${theme.colors.gray};
-    }
   }
 `;
 
