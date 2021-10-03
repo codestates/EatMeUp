@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import theme from "../../StyledComponent/theme";
 import styled from "styled-components";
 
-const MealPlanCard = ({ addToPlan }) => {
-  const mealplan = ["아침", "점심", "저녁"];
-
-  const [mealPlan, setMealPlan] = useState([
-    { id: 0, meal: "아침", plan: [] },
-    { id: 1, meal: "점심", plan: [] },
-    { id: 2, meal: "저녁", plan: [] },
-  ]);
+const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
+  
+  // const [mealPlan, setMealPlan] = useState([
+  //   { id: 0, meal: "아침", plan: [] },
+  //   { id: 1, meal: "점심", plan: [] },
+  //   { id: 2, meal: "저녁", plan: [] },
+  // ]);
 
   useEffect(() => {
     const arr = mealPlan.map((plan, idx) => {
