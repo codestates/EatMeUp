@@ -31,7 +31,10 @@ const MyPage = () => {
   const { myrecipe } = useSelector((state) => state.myrecipes);
 
   const [getUser, setGetUser] = useState({
-    title:""
+
+    username: "",
+    email: "",
+    avatar: null,
   })
   useEffect(() => {
     
@@ -39,10 +42,7 @@ const MyPage = () => {
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
 
-    if(user) {
-      setGetUser(user)
-    }
-
+    setGetUser(user)
   
 
     if(error) {
@@ -57,7 +57,7 @@ const MyPage = () => {
     }
 
 
-  }, [dispatch, history, error, user]);
+  }, [dispatch, history, error]);
 
  
   return (
@@ -75,25 +75,25 @@ const MyPage = () => {
               </TitleBox>
               <InfoConatainer>
                 <ProfileContainer>
-                  {/* <div className='img_box'>
+                  <div className='img_box'>
                     {user.avatar ? (
                       <img src={user.avatar} alt='userimg' style={{width: "190px", height: "190px", borderRadius: "50%"}} />
                     ) : (
                       <i class='far fa-user-circle' id='userimg'></i>
                     )}
-                  </div> */}
+                  </div>
                   <div className='info1'>
                     name
                     <input placeholder={getUser.username} disabled />
                   </div>
-                  {/* <div className='info2'>
+                  <div className='info2'>
                     avatar
                     <input placeholder='kimcoding' disabled />
                   </div>
                   <div className='info3'>
                     email
                     <input placeholder={user.email} disabled />
-                  </div> */}
+                  </div>
                   <div className='btn_container'>
                     <Link to='/user/info'>
                       <EditButton>내 정보 수정</EditButton>
@@ -108,7 +108,7 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {/* {myrecipe.map((recipe, idx) => {
+                        {myrecipe.map((recipe, idx) => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
@@ -121,7 +121,7 @@ const MyPage = () => {
                               </div>
                             </MyCard>
                           );
-                        })} */}
+                        })}
                       </ul>
                     </CardContainer>
                   </MyRecipeBox>
@@ -132,7 +132,7 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {/* {mylikelist.map((recipe, idx) => {
+                        {mylikelist.map((recipe, idx) => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
@@ -148,7 +148,7 @@ const MyPage = () => {
                               </div>
                             </MyCard>
                           );
-                        })} */}
+                        })}
                       </ul>
                     </CardContainer>
                   </LikedRecipeBox>

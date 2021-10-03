@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from 'react-redux';
-import styled from "styled-components";
-import { loginRequest, clearErrors } from '../../_actions/authActions'
+import { useDispatch, useSelector } from "react-redux";
+import styled, { keyframes } from "styled-components";
+import { loginRequest, clearErrors } from "../../_actions/authActions";
 
 // 컴포넌트
 import AlertBox from "../SignupPage/AlertBox";
@@ -15,11 +15,12 @@ import theme from "../StyledComponent/theme";
 
 const { swal } = window;
 
-const Login = () => {
-
+const Login = ({ setShowLogin }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, error } = useSelector(state => state.auth)
+  const { loading, isAuthenticated, error } = useSelector(
+    (state) => state.auth,
+  );
 
   const {
     register,
@@ -28,21 +29,19 @@ const Login = () => {
   } = useForm();
 
   useEffect(() => {
+    if (isAuthenticated) {
+      history.push("/");
+    }
 
-    if(isAuthenticated) {
-      history.push('/')
-    } 
-
-    if(error) {
+    if (error) {
       swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors());
       return;
     }
-   
-  }, [isAuthenticated, error])
+  }, [isAuthenticated, error]);
 
   const loginHandler = (data) => {
-    dispatch(loginRequest(data))
+    dispatch(loginRequest(data));
   };
 
   return (
@@ -95,7 +94,11 @@ const Login = () => {
         <SocialButton>
           <div className='google'>
             <span>
-              <img className='google_logo' src='../food_img/google_logo.png' alt='google' />
+              <img
+                className='google_logo'
+                src='../food_img/google_logo.png'
+                alt='google'
+              />
             </span>
             <span className='google_text'> Login with Google</span>
           </div>
@@ -127,6 +130,7 @@ const LoginContainer = styled(SectionBox)`
   justify-content: center;
   text-align: center;
   margin: 10% auto;
+
   .logo_container {
     width: 100%;
     height: 70px;
