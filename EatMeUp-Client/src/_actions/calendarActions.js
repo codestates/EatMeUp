@@ -15,86 +15,84 @@ import {
 } from "../_types/calendarTypes";
 
 import axios from "axios";
-import { DELETE_MYRECIPE_FAIL, DELETE_MYRECIPE_REQUEST } from "../_types/userTypes";
 
 export const getMealPlans = () => async (dispatch) => {
   try {
+
     dispatch({
-      type: GET_MEALPLANS_REQUEST
-    })
+      type: GET_MEALPLANS_REQUEST,
+    });
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`);
-
+    const { data } = await axios.get(`${process.env.REACT_APP_API}/calendar/mealplan`,
+      { withCredentials: true },
+    );
+    console.log(data.mealPlan);
+    dispatch({
+      type: GET_MEALPLANS_SUCCESS,
+      payload: data.mealPlan
+    });
 
   } catch (error) {
     dispatch({
       type: GET_MEALPLANS_FAIL,
-      payload: error
-    })
-
+      payload: error,
+    });
   }
 };
-
 
 export const getRecommandRecipes = () => async (dispatch) => {
   try {
     dispatch({
-      type: GET_RECOMMAND_REQUEST
-    })
+      type: GET_RECOMMAND_REQUEST,
+    });
 
     const { data } = await axios.get(`${process.env.REACT_APP_API}`);
-
-
   } catch (error) {
     dispatch({
       type: GET_RECOMMAND_FAIL,
-      payload: error
-    })
-
+      payload: error,
+    });
   }
 };
 
-
-
-export const createMealPlan = () => async (dispatch) => {
+export const createMealPlan = (plan) => async (dispatch) => {
   try {
     dispatch({
-      type: NEW_MEALPLAN_REQUEST
-    })
+      type: NEW_MEALPLAN_REQUEST,
+    });
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`);
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/calendar/mealplan`,
+      plan,
+      { withCredentials: true },
+    );
 
-
+    dispatch({
+      type: GET_MEALPLANS_SUCCESS,
+      payload: data.success,
+    });
   } catch (error) {
     dispatch({
       type: NEW_MEALPLAN_FAIL,
-      payload: error
-    })
-
+      payload: error,
+    });
   }
 };
-
-
-
 
 export const deleteMealPlan = () => async (dispatch) => {
   try {
     dispatch({
-      type: DELETE_MEALPLAN_REQUEST
-    })
+      type: DELETE_MEALPLAN_REQUEST,
+    });
 
     const { data } = await axios.get(`${process.env.REACT_APP_API}`);
-
-
   } catch (error) {
     dispatch({
       type: DELETE_MEALPLAN_FAIL,
-      payload: error
-    })
-
+      payload: error,
+    });
   }
 };
-
 
 export const clearErrors = () => async (dispatch) => {
   dispatch({

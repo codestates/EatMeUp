@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyLikelist } from "../../_actions/userActions";
 import { allRecipes } from "../../_actions/recipeActions";
-
+import { createMealPlan } from '../../_actions/calendarActions'
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import MealPlanCard from "./sections/MealPlanCard";
@@ -18,20 +18,46 @@ import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
 const PlanningPage = () => {
+
+
   const dispatch = useDispatch();
+  const history = useHistory();
   const { recipes } = useSelector((state) => state.recommandrecipes);
   const { mylikelist } = useSelector((state) => state.mylikelist);
+
+  const [date, setDate] = useState("")
   const [addToPlan, setAddToPlan] = useState({
     image: null,
     title: "",
     id: null,
   });
 
+  const [mealPlan, setMealPlan] = useState([
+    { id: 0, meal: "아침", plan: [], recipeId: [] },
+    { id: 1, meal: "점심", plan: [], recipeId: [] },
+    { id: 2, meal: "저녁", plan: [], recipeId: [] },
+  ]);
+
   useEffect(() => {
     dispatch(getMyLikelist());
     dispatch(allRecipes({ page: 1 }));
   }, [dispatch]);
-  console.log(addToPlan);
+  console.log(mealPlan);
+
+  const addMealplanHandler = () => {
+
+
+
+    const plan = {
+      date: date,
+      breakfast: mealPlan[0].recipeId,
+      lunch: mealPlan[1].recipeId,
+      dinner: mealPlan[2].recipeId,
+    }
+    console.log(plan)
+    dispatch(createMealPlan(plan))
+
+  }
 
   return (
     <>
@@ -50,11 +76,11 @@ const PlanningPage = () => {
               </div>
               <div>
                 <ThisMonth>
-                  <input type='date' />
+                  <input type='date' value={date} onChange={(e) => setDate(e.target.value) } />
                 </ThisMonth>
               </div>
               <div>
-                <CalendarBtn fillColor={theme.colors.yellow} style={{ color: "white"}}>
+                <CalendarBtn onClick={addMealplanHandler} fillColor={theme.colors.yellow} style={{ color: "white"}}>
                   식단 추가하기
                 </CalendarBtn>
                 <Link to='/user/myplanner'>
@@ -88,7 +114,7 @@ const PlanningPage = () => {
 
                 {/* 아침/점심/저녁 적는 식단 */}
                 <MealPlanCardBox>
-                  <MealPlanCard addToPlan={addToPlan} />
+                  <MealPlanCard addToPlan={addToPlan} mealPlan={mealPlan} setMealPlan={setMealPlan} />
                 </MealPlanCardBox>
               </PlannerBox>
             </MealPlaner>

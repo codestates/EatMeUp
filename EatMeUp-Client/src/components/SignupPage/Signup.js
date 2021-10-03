@@ -3,9 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { signupRequest, clearErrors } from "../../_actions/authActions";
-
-import axios from "axios";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 // 유효성검사 라이브러리
 import * as yup from "yup";
@@ -21,7 +19,7 @@ import theme from "../StyledComponent/theme";
 
 const { swal } = window;
 
-const Signup = () => {
+const Signup = ({ setShowSignup, setShowLogin }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -67,9 +65,20 @@ const Signup = () => {
     history.push("/login");
   };
 
+  const closeLoginModal = () => {
+    setShowSignup(false)
+  }
+  const showLoginHandler = () => {
+    setShowSignup(false)
+    setShowLogin(true)
+  }
+
   return (
     <StyledContainer>
       <LoginContainer>
+        <div className='closeBtn'>
+          <i onClick={closeLoginModal} className='fas fa-times'></i>
+        </div>
         <div className='logo_container'>
           <img
             className='loginLogo'
@@ -139,9 +148,9 @@ const Signup = () => {
               <SignUpButton type='submit' value='Sign up'>
                 SignUp
               </SignUpButton>
-              <StyledLink to='/login'>
-                <BackButton>Go to Login</BackButton>
-              </StyledLink>
+              {/* <StyledLink to='/login'> */}
+                <BackButton onClick={showLoginHandler}>Go to Login</BackButton>
+              {/* </StyledLink> */}
             </BtnContainer>
           </form>
         </InputContainer>
@@ -150,10 +159,33 @@ const Signup = () => {
   );
 };
 
-const StyledContainer = styled(Container)`
-  margin: 0 auto;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+const StyledContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 15px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transition: opacity 0.15s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const showDialog = keyframes`
+   from {
+    opacity: 0;
+    transform: translateY(-100px);
+   }
+   to{
+    opacity: 1;
+    transform: translateY(0px);
+   }
 `;
 
 const LoginContainer = styled(SectionBox)`
@@ -164,6 +196,18 @@ const LoginContainer = styled(SectionBox)`
   justify-content: center;
   text-align: center;
   margin: 200px auto;
+  animation: ${showDialog} 0.5s forwards;
+  position: relative;
+
+  .closeBtn {
+    position: absolute;
+    top: 13px;
+    left: 450px;
+    font-size: 24px;
+    color: grey;
+    cursor: pointer;
+  }
+
   .logo_container {
     width: 100%;
     height: 70px;
