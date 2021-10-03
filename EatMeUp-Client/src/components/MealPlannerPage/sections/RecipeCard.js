@@ -1,27 +1,26 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
 
 import theme from "../../StyledComponent/theme";
 
 const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
-  
-  const meal = ["아침추가", "점심추가", "저녁추가"]
+  const meal = ["아침추가", "점심추가", "저녁추가"];
 
   const [addToMealPlan, setAddToMealPlan] = useState({
     image: null,
-    title: ""
-  })
+    title: "",
+  });
+
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event, image, title) => {
     setAnchorEl(event.currentTarget);
-    console.log(image, title)
+    console.log(image, title);
     setAddToMealPlan({
       image: image,
-      title: title
-    })
-    
+      title: title,
+    });
   };
 
   const handleClose = () => {
@@ -29,7 +28,7 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
 
   const [currentId, setCurrentId] = useState(1);
   const recommandHandler = (id) => {
@@ -41,14 +40,36 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
   };
 
   const getCurrentIdx = (idx) => {
-   
     setAddToPlan({
-      image : addToMealPlan.image,
+      image: addToMealPlan.image,
       title: addToMealPlan.title,
-      id: idx
-    })
-  }
- 
+      id: idx,
+    });
+  };
+
+  const recipeLevel = (level) => {
+    if (level === "초보환영") {
+      return <i className='bx bxs-star' id='icon'></i>;
+    } else if (level === "보통") {
+      return (
+        <>
+          <i className='bx bxs-star' id='icon'></i>
+          <i className='bx bxs-star' id='icon'></i>
+        </>
+      );
+    } else if (level === "어려움") {
+      return (
+        <>
+          <i className='bx bxs-star' id='icon'></i>
+          <i className='bx bxs-star' id='icon'></i>
+          <i className='bx bxs-star' id='icon'></i>
+        </>
+      );
+    } else {
+      return <i className='bx bxs-star' id='icon'></i>;
+    }
+  };
+
   return (
     <>
       {/* 추천레시피, 좋아요리스트 버튼 영역 */}
@@ -62,9 +83,15 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
           horizontal: "left",
         }}
       >
-
         {meal.map((item, idx) => {
-          return (<><AddBtn key={idx} onClick={() => getCurrentIdx(idx)}>{item}</AddBtn><br /></>)
+          return (
+            <>
+              <AddBtn key={idx} onClick={() => getCurrentIdx(idx)}>
+                {item}
+              </AddBtn>
+              <br />
+            </>
+          );
         })}
       </Popover>
       <ButtonArea>
@@ -94,6 +121,7 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
       <RecipesArea>
         {currentId === 1
           ? recipes.map((recipe, idx) => {
+              
               return (
                 <RecipeCard key={idx}>
                   {/* 요리사진 */}
@@ -109,7 +137,7 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
                       <div className='recipe-title_box'>
                         <span>{recipe.title}</span>
                         <span className='level'>
-                          <i className='bx bxs-star' id='icon'></i>
+                          {recipeLevel(recipe.level)}
                         </span>
                       </div>
 
@@ -117,16 +145,18 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
                       <div className='recipe-addBtn_box'>
                         <i
                           className='bx bx-plus-circle'
-                          onClick={(e) => handleClick(e, recipe.main_image, recipe.title)}
+                          onClick={(e) =>
+                            handleClick(e, recipe.main_image, recipe.title)
+                          }
                         ></i>
                       </div>
                     </div>
                     <div className='DCbox-lower'>
                       <div>주재료</div>
                       <div className='tags'>
-                        <span>돼지전지</span>
-                        <span>양파</span>
-                        <span>대파</span>
+                        {/* {foods.map((food, idx) => {
+                          return <span key={idx}>{food}</span>;
+                        })} */}
                       </div>
                     </div>
                   </DCbox>
@@ -149,22 +179,26 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
                       <div className='recipe-title_box'>
                         <span>{recipe.title}</span>
                         <span className='level'>
-                          <i className='bx bxs-star' id='icon'></i>
+                          {recipeLevel(recipe.level)}
                         </span>
                       </div>
 
                       {/* 식단에 추가버튼 */}
                       <div className='recipe-addBtn_box'>
-                        <i className='bx bx-plus-circle'
-                        onClick={(e) => handleClick(e, recipe.main_image, recipe.title)}></i>
+                        <i
+                          className='bx bx-plus-circle'
+                          onClick={(e) =>
+                            handleClick(e, recipe.main_image, recipe.title)
+                          }
+                        ></i>
                       </div>
                     </div>
                     <div className='DCbox-lower'>
                       <div>주재료</div>
                       <div className='tags'>
-                        <span>돼지전지</span>
-                        <span>양파</span>
-                        <span>대파</span>
+                        {recipe.foods.slice(0, 3).map((food, idx) => {
+                          return <span key={idx}>{food.name}</span>;
+                        })}
                       </div>
                     </div>
                   </DCbox>
@@ -281,5 +315,5 @@ const AddBtn = styled.button`
   border-radius: 10px;
   margin: 4px 8px;
   cursor: pointer;
-`
+`;
 export default RecipeCards;

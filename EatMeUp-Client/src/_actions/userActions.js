@@ -21,12 +21,10 @@ import {
 
   ADD_TO_LIKELIST_REQUEST,
   ADD_TO_LIKELIST_SUCCESS,
-  ADD_TO_LIKELIST_RESET,
   ADD_TO_LIKELIST_FAIL,
 
   REMOVE_FROM_LIKELIST_REQUEST,
   REMOVE_FROM_LIKELIST_SUCCESS,
-  REMOVE_FROM_LIKELIST_RESET,
   REMOVE_FROM_LIKELIST_FAIL,
 
   GET_USERINFO_REQUEST,
@@ -40,6 +38,7 @@ import {
   DELETE_USER_REQUEST,
   DELETE_USER_SUCCESS,
   DELETE_USER_FAIL,
+  CLEAR_ERRORS
 } from "../_types/userTypes";
 import axios from 'axios'
 
@@ -53,7 +52,7 @@ export const getMyrecipes = () => async (dispatch) => {
 
     dispatch({
       type: GET_MYECIPES_SUCCESS,
-      payload: data.recipeInfo
+      payload: data
     })
 
 
@@ -156,7 +155,12 @@ export const getUserinfo = () => async (dispatch) => {
   try {
     dispatch({ type: GET_USERINFO_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.get(`${process.env.REACT_APP_API}/user/info`, {withCredentials: true})
+
+    dispatch({
+      type: GET_USERINFO_SUCCESS,
+      payload: data.findInfo
+    })
 
   } catch (error) {
     dispatch({
@@ -168,12 +172,16 @@ export const getUserinfo = () => async (dispatch) => {
 
 
 /* 유저 정보 수정하기 */
-export const editUserinfo = () => async (dispatch) => {
+export const editUserinfo = (userInfo) => async (dispatch) => {
   try {
     dispatch({ type: EDIT_USERINFO_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.put(`${process.env.REACT_APP_API}/user/info`, userInfo, {withCredentials: true} )
 
+    dispatch({
+       type: EDIT_USERINFO_SUCCESS,
+       payload: data
+    })
   } catch (error) {
     dispatch({
       type:  EDIT_USERINFO_FAIL,
@@ -188,7 +196,12 @@ export const deleteMyaccount = () => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST })
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`)
+    const { data } = await axios.delete(`${process.env.REACT_APP_API}/user/info`, {withCredentials: true})
+
+    dispatch({
+      type: DELETE_USER_SUCCESS,
+      payload: data
+    })
 
   } catch (error) {
     dispatch({
@@ -239,4 +252,12 @@ export const removeFromLikelist = (id) => async (dispatch) => {
       payload: error,
     });
   }
+}
+
+
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+      type: CLEAR_ERRORS
+  })
 }

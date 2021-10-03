@@ -60,7 +60,7 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
                       key={index}
                       onClick={() =>
                         openModalHandler(
-                          moment().format("YYYYMMDD"),
+                          days.format("YYYYMMDD"),
                           mealPlan[i],
                         )
                       }

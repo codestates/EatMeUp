@@ -18,8 +18,8 @@ import {
   DELETE_FOOD_SUCCESS,
   DELETE_FOOD_RESET,
   DELETE_FOOD_FAIL,
+  CLEAR_ERRORS,
 } from "../_types/fridgeTypes";
-
 
 export const allFoodsReducer = (state = { foods: [] }, action) => {
   switch (action.type) {
@@ -38,6 +38,11 @@ export const allFoodsReducer = (state = { foods: [] }, action) => {
         ...state,
         loading: false,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;
@@ -92,6 +97,11 @@ export const newFoodReducer = (state = {}, action) => {
         ...state,
         error: action.payload,
       };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }
@@ -112,13 +122,18 @@ export const saveFoodReducer = (state = {}, action) => {
       };
     case SAVE_FOOD_RESET:
       return {
-        loading:false,
+        loading: false,
         isArranged: false,
-      }
+      };
     case SAVE_FOOD_FAIL:
       return {
         ...state,
         error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
     default:
       return state;

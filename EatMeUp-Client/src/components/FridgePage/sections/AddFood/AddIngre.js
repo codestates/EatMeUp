@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToFridge } from "../../../../_actions/fridgeActions";
-import { imageUpload } from "../../../../_actions/imageAction";
 import { foodLife } from "../utils/convertDate";
-
+import axios from "axios";
 /* 스타일 컴포넌트 */
 import {
   BackGroundModal,
@@ -20,8 +19,6 @@ import { Button } from "../../../StyledComponent/buttons";
 
 const AddIngre = ({ setOpenAddWindow }) => {
   const dispatch = useDispatch();
-  const { imageUrl } = useSelector((state) => state.image);
-
   const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
   const [registerDate, setRegisterDate] = useState("");
@@ -39,14 +36,41 @@ const AddIngre = ({ setOpenAddWindow }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    dispatch(imageUpload(image));
+    let foodImage = null;
+
+    if (!image) {
+      foodImage = null;
+    } else {
+      const data = await axios.get(`${process.env.REACT_APP_API}/image/s3url`, {
+        withCredentials: true,
+      });
+
+      //url을 사용해서 S3 버킷에 업로드
+      //axios
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: image,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      foodImage = img.url.split("?")[0];
+    }
+
     const food_life = foodLife(foodlife);
     const buyingDate = foodLife(registerDate);
 
     const food = {
-      food_image: imageUrl,
+      food_image: foodImage ? foodImage : null,
       food_name: foodname,
-      life: food_life.elapsedDay ? food_life.elapsedDay : buyingDate.elapsedDay,
+      life: food_life ? food_life : buyingDate,
       frez_type: 0,
       created_at: registerDate,
     };
@@ -73,7 +97,6 @@ const AddIngre = ({ setOpenAddWindow }) => {
                       width: "150px",
                       height: "150px",
                       borderRadius: "50%",
-                      
                     }}
                     alt='foodimg'
                   />
@@ -85,7 +108,9 @@ const AddIngre = ({ setOpenAddWindow }) => {
               )}
             </DropzoneArea>
             <InputBox>
-              <label for='foodimg'><i className="fas fa-upload"></i> 이미지 업로드</label>
+              <label htmlFor='foodimg'>
+                <i className='fas fa-upload'></i> 이미지 업로드
+              </label>
               <input
                 type='file'
                 id='foodimg'
@@ -129,8 +154,8 @@ const AddIngre = ({ setOpenAddWindow }) => {
             <AddToRefriBtn>
               <Button
                 fillColor='#FEBD2F'
-                width="200px"
-                height="35px"
+                width='200px'
+                height='35px'
                 color='white'
                 onClick={submitHandler}
               >

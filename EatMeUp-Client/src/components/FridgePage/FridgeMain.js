@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
-import { allFoods, saveFridgeInfo } from "../../_actions/fridgeActions";
+import {
+  allFoods,
+  saveFridgeInfo,
+  clearErrors,
+} from "../../_actions/fridgeActions";
 import { getRecommandRecipe } from "../../_actions/recipeActions";
 import {
   NEW_FOOD_RESET,
@@ -12,7 +16,6 @@ import {
   DELETE_FOOD_RESET,
   SAVE_FOOD_RESET,
 } from "../../_types/fridgeTypes";
-import { IMAGE_RESET } from "../../_types/imageTypes";
 
 /* 컴포넌트 */
 import FridgeInner from "./sections/FridgeInner";
@@ -28,11 +31,8 @@ const FridgeMain = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { foods, error, loading } = useSelector((state) => state.allFoods);
-  const { isEdited, success, isCreated, isDeleted } = useSelector(
-    (state) => state.food,
-  );
+  const { isEdited, isCreated, isDeleted } = useSelector((state) => state.food);
   const { isArranged } = useSelector((state) => state.savedfoods);
-  const { imageUrl } = useSelector((state) => state.image);
   const [foodList, setFoodList] = useState(foods);
 
   useEffect(() => {
@@ -53,23 +53,21 @@ const FridgeMain = () => {
       dispatch({ type: SAVE_FOOD_RESET });
     }
 
-    if (imageUrl) {
-      dispatch({ type: IMAGE_RESET });
+    if (error) {
+      swal(
+        "Please!",
+        "로그인이 필요합니다.",
+        "warning",
+      );
+      dispatch(clearErrors());
+      history.push('/');
+      return;
     }
-  }, [dispatch, isEdited, isCreated, isArranged, isDeleted, imageUrl]);
+  }, [dispatch, isEdited, isCreated, isArranged, isDeleted, error, history]);
 
   useEffect(() => {
     setFoodList(foods);
   }, [foods]);
-
-  // /* 유통기한이 임박한 냉장고 속 음식 보여주기 */
-  // let redFoods = []
-  // FOODS.forEach((food) => {
-
-  //   if (food.life <= 30) {
-  //     redFoods.push(food.food_name)
-  //   }
-  // });
 
   const [checkedFoods, setCheckedFoods] = useState([]);
   const [showEditBtn, setShowEditBtn] = useState(false);
@@ -110,8 +108,6 @@ const FridgeMain = () => {
       swal("Please!", "마이냉장고 속 음식을 선택해주세요.", "error");
       return;
     }
-
-    console.log(foods, foodArr);
     dispatch(getRecommandRecipe(data));
     history.push("/recipes/result");
   };
@@ -147,6 +143,9 @@ const FridgeMain = () => {
                     );
                   })
                 )}
+                <div className='search'>
+                  <i class='fas fa-search'></i>
+                </div>
               </Stack>
             </CheckedFoodsBox>
 
@@ -188,16 +187,45 @@ const FridgeMain = () => {
 
 // 음식담는 영역 css
 const SearchBox = styled.div`
-  width: 80%;
+  width: 75%;
   margin: 0px auto;
   display: flex;
   position: relative;
   margin-top: 50px;
+
+  @media screen and (max-width: 1500px) {
+    width: 80%;
+    font-size: 17px;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 80%;
+    font-size: 17px;
+  }
+
+  @media screen and (max-width: 975px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
 `;
 
 const FridgeTitle = styled.div`
   font-size: 30px;
   font-weight: bold;
+
+  @media screen and (max-width: 975px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
 `;
 
 // 클릭한 음식담는 영역
@@ -228,6 +256,44 @@ const CheckedFoodsBox = styled.div`
     line-height: 30px;
     color: #a8a7a3;
   }
+
+  .fa-search {
+    display: none;
+  }
+
+  @media screen and (max-width: 975px) {
+    width: 100%;
+    border-radius: 20px;
+    margin-top: 10px;
+    display: flex;
+
+    .search {
+      margin-left: 40px;
+      color: #a8a7a3;
+      line-height: 30px;
+      justify-content: flex-end;
+    }
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 100%;
+    border-radius: 20px;
+    margin: 10px auto;
+
+    .fa-search {
+      margin-left: 40px;
+      color: #a8a7a3;
+      line-height: 30px;
+    }
+  }
 `;
 
 // 재료기반 레시피 찾기버튼
@@ -244,12 +310,29 @@ const GotoBtnBox = styled.div`
   text-decoration: none;
   color: #303030;
   cursor: pointer;
+
+  @media screen and (max-width: 975px) {
+    display: none;
+    
+  }
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
 `;
 
 //냉장고
 const ContentBox = styled.div`
-  width: 85%;
+  width: 70%;
   margin: 2rem auto;
+
+  @media screen and (max-width: 1500px) {
+    width: 90%;
+  }
+
+  @media screen and (max-width: 375px) {
+    margin: 5px auto;
+    width: 95%;
+  }
 `;
 
 export default FridgeMain;
