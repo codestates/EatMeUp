@@ -2,9 +2,8 @@ import React from "react";
 import GoogleLogin from "react-google-login";
 
 const LoginGoogle = () => {
-  const clientId =
-    "130406253664-nmoc4ibk1emsv3q5ocbldg1rm9ut8k7f.apps.googleusercontent.com";
-  const onSocial = () => {}
+  const clientId = process.env.REACT_APP_GOOGLE_API_KEY;
+  const onSocial = () => {};
 
   const onSuccess = async (res) => {
     console.log(res);
