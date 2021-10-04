@@ -53,9 +53,9 @@ const EditRecipePage = ({ match }) => {
       .then((response) => {
         console.log(response.data);
         if (response.data) {
-          setMyrecipe(response.data.recipeInfo);
-          setSteps(response.data.recipeInfo.steps);
-          setFoods(response.data.recipeInfo.foods);
+          setMyrecipe(response.data.recipeInfo[0]);
+          setSteps(response.data.recipeInfo[0].steps);
+          setFoods(response.data.recipeInfo[0].foods);
         }
       });
   }, []);
