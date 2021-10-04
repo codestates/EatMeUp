@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { getMealPlans } from "../../_actions/calendarActions";
 
 /* 컴포넌트 */
 import Calendar from "./sections/Calendar";
@@ -12,9 +14,15 @@ import Sidebar from "../Util/Sidebar";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
 const MealPlanner = () => {
+
+  const dispatch = useDispatch();
   /* 월별/주별 핸들러 */
   const [showMonth, setShowMonth] = useState(true);
 
+  useEffect(() => {
+    
+    dispatch(getMealPlans())
+  }, [dispatch])
   const showWeekHandler = () => {
     setShowMonth(false);
   };
@@ -33,7 +41,6 @@ const MealPlanner = () => {
 
           {/* 콘텐츠영역 */}
           <CalendarContainer>
-            
             {/* 월별/주별 핸들러 */}
             {showMonth ? (
               <Calendar
