@@ -4,6 +4,7 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useDispatch, useSelector } from "react-redux";
 import { allRecipes } from "../../_actions/recipeActions";
+import { getUserinfo } from '../../_actions/userActions'
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -11,19 +12,15 @@ import Card from "./sections/Card";
 import Footer from "../Util/Footer";
 import Loader from "../Util/Loader";
 
-/* 스타일 컴포넌트 */
-import { SectionBox } from "../StyledComponent/containers";
-
 const AllRecipes = () => {
   // Todo
 
   const dispatch = useDispatch();
-  const { loading, recipes, recipeCount } = useSelector(
-    (state) => state.allRecipes,
-  );
+  const { loading, recipes, recipeCount } = useSelector((state) => state.allRecipes);
+  const { isAuthenticated } = useSelector(state => state.auth)
   const [currentIdx, setCurrentIdx] = useState(0);
   const [page, setPage] = useState(1);
-
+  const [getRecipes, setGetRecipes] = useState([]);
   const count = Math.ceil(recipeCount / 12);
 
   useEffect(() => {
@@ -31,6 +28,12 @@ const AllRecipes = () => {
       page: page,
     };
     dispatch(allRecipes(getPage));
+    setGetRecipes(recipes)
+
+    if(isAuthenticated) {
+      dispatch(getUserinfo())
+    }
+   
   }, [dispatch, page]);
 
   const mainCardHandler = (e, idx) => {
@@ -132,7 +135,7 @@ const AllRecipes = () => {
 
           {/* 카드리스트 컨테이너 */}
           <Container>
-            {recipes.map((recipe, idx) => {
+            {getRecipes.map((recipe, idx) => {
               return <Card recipe={recipe} key={idx} />;
             })}
           </Container>

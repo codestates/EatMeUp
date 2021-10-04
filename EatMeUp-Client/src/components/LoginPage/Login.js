@@ -10,12 +10,12 @@ import AlertBox from "../SignupPage/AlertBox";
 
 // 스타일 컴포넌트
 import { LargeBtn } from "../StyledComponent/buttons";
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const { swal } = window;
 
-const Login = ({ setShowLogin }) => {
+const Login = ({ setShowLogin, setShowSignup }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { loading, isAuthenticated, error } = useSelector(
@@ -32,94 +32,164 @@ const Login = ({ setShowLogin }) => {
     if (isAuthenticated) {
       history.push("/");
     }
-
     if (error) {
       swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors());
       return;
     }
-  }, [isAuthenticated, error]);
+  }, [dispatch, isAuthenticated, error, history]);
 
   const loginHandler = (data) => {
     dispatch(loginRequest(data));
+    setShowLogin(false);
+  };
+
+  const submitGuest = () => {
+    const date = new Date().toLocaleString();
+    const GuestData = {
+      username: date,
+      email: `test${date}@eatmeup.me`,
+      password: `123456`,
+    };
+
+    dispatch(loginRequest(GuestData));
+    history.push("/");
+    setShowLogin(false);
+  };
+
+  const closeLoginModal = () => {
+    setShowLogin(false);
+  };
+
+  const signupHandler = () => {
+    setShowLogin(false);
+    setShowSignup(true);
   };
 
   return (
-    <StyledContainer>
-      <LoginContainer>
-        <div className='logo_container'>
-          <img
-            className='loginLogo'
-            src='../food_img/EatMeUp.png'
-            alt='loginLogo'
-          />
-        </div>
-        <InputContainer>
-          <form onSubmit={handleSubmit(loginHandler)}>
-            <div>
-              <input
-                {...register("email", {
-                  required: "email error",
-                })}
-                name='email'
-                className='loginEmail'
-                type='email'
-                placeholder='email'
-              />
-              <div className='errMsg_container'>
-                <div className='errMsg'>
-                  {errors.email && "이메일을 입력해주세요"}
+    <>
+      <StyledContainer>
+        <LoginContainer>
+          <div className='closeBtn'>
+            <i onClick={closeLoginModal} className='fas fa-times'></i>
+          </div>
+          <div className='logo_container'>
+            <img
+              className='loginLogo'
+              src='../food_img/EatMeUp.png'
+              alt='loginLogo'
+            />
+          </div>
+          <InputContainer>
+            <form onSubmit={handleSubmit(loginHandler)}>
+              <div>
+                <input
+                  {...register("email", {
+                    required: "email error",
+                  })}
+                  name='email'
+                  className='loginEmail'
+                  type='email'
+                  placeholder='email'
+                />
+                <div className='errMsg_container'>
+                  <div className='errMsg'>
+                    {errors.email && "이메일을 입력해주세요"}
+                  </div>
                 </div>
               </div>
-            </div>
-            <div>
-              <input
-                {...register("password", { required: "password error" })}
-                name='password'
-                className='loginPw'
-                type='password'
-                placeholder='password'
-              />
-              <div className='errMsg_container'>
-                <div className='errMsg'>
-                  {errors.password && "비밀번호를 입력해주세요"}
+              <div>
+                <input
+                  {...register("password", { required: "password error" })}
+                  name='password'
+                  className='loginPw'
+                  type='password'
+                  placeholder='password'
+                />
+                <div className='errMsg_container'>
+                  <div className='errMsg'>
+                    {errors.password && "비밀번호를 입력해주세요"}
+                  </div>
                 </div>
               </div>
+              <LoginButton className='loginBtn' type='submit' value='Login'>
+                Login
+              </LoginButton>
+            </form>
+          </InputContainer>
+          <SocialButton>
+            <div className='google'>
+              <span>
+                <img
+                  className='google_logo'
+                  src='../food_img/google_logo.png'
+                  alt='google'
+                />
+              </span>
+              <span className='google_text'> Login with Google</span>
             </div>
-            <LoginButton className='loginBtn' type='submit' value='Login'>
-              Login
-            </LoginButton>
-          </form>
-        </InputContainer>
-        <SocialButton>
-          <div className='google'>
-            <span>
-              <img
-                className='google_logo'
-                src='../food_img/google_logo.png'
-                alt='google'
-              />
-            </span>
-            <span className='google_text'> Login with Google</span>
-          </div>
-        </SocialButton>
-        <LoginEnd>
-          <div className='loginLine'>
-            <StyledLink to='/signup'>
-              <SignUpButton>SignUp</SignUpButton>
-            </StyledLink>
-          </div>
-          <div className='noUser'>Guest Login</div>
-        </LoginEnd>
-      </LoginContainer>
-    </StyledContainer>
+          </SocialButton>
+          <SocialButton>
+            <div className='google'>
+              <span>
+                <img
+                  className='google_logo'
+                  src='../food_img/google_logo.png'
+                  alt='google'
+                />
+              </span>
+              <span className='google_text'> Login with Kakao</span>
+            </div>
+          </SocialButton>
+          <LoginEnd>
+            <div className='loginLine'>
+              {/* <StyledLink to='/signup'> */}
+              <SignUpButton onClick={signupHandler}>SignUp</SignUpButton>
+              {/* </StyledLink> */}
+            </div>
+            <form onSubmit={handleSubmit(submitGuest)}>
+              {/* <input type='text' />
+            <input type='email'/>
+            <input type='password'/> */}
+              <form Control type />
+              <button type='submit' className='noUser'>
+                Guest Login
+              </button>
+            </form>
+          </LoginEnd>
+        </LoginContainer>
+      </StyledContainer>
+    </>
   );
 };
 
-const StyledContainer = styled(Container)`
-  margin: 0 auto;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+const StyledContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 15px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transition: opacity 0.15s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const showDialog = keyframes`
+   from {
+    opacity: 0;
+    transform: translateY(-100px);
+   }
+   to{
+    opacity: 1;
+    transform: translateY(0px);
+   }
 `;
 
 const LoginContainer = styled(SectionBox)`
@@ -130,7 +200,17 @@ const LoginContainer = styled(SectionBox)`
   justify-content: center;
   text-align: center;
   margin: 10% auto;
+  animation: ${showDialog} 0.5s forwards;
+  position: relative;
 
+  .closeBtn {
+    position: absolute;
+    top: 13px;
+    left: 450px;
+    font-size: 24px;
+    color: grey;
+    cursor: pointer;
+  }
   .logo_container {
     width: 100%;
     height: 70px;
@@ -221,6 +301,8 @@ const LoginEnd = styled.div`
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
+    background-color: white;
+    border: none;
   }
 `;
 
