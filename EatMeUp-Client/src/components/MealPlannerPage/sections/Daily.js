@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from 'react-router-dom'
 import { BackGroundModal, ModalDialog } from "../styled/Style";
 import { SectionBox } from "../../StyledComponent/containers";
 const { Swal } = window;
@@ -17,6 +18,7 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
     { id: "저녁", icon: "dinner.png", meal: plan ? plan.mealplanDinner : [] },
   ];
 
+  console.log(getPlan)
   const deletetHandler = () => {
     setOpenDaily(true);
     Swal.fire({
@@ -82,7 +84,10 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
                           </Img>
                           <SubTitle>{card.title}</SubTitle>
                           <ShowRecipe>
+                            <Link to={`/recipe/info/${card.id}`}>
                             <i className='fas fa-sign-out-alt'></i>
+                            </Link>
+                            
                           </ShowRecipe>
                         </PlanCard>
                       );

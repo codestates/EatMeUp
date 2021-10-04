@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 
 import theme from "../../StyledComponent/theme";
 
-const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
+const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
   const meal = ["아침추가", "점심추가", "저녁추가"];
 
   const [addToMealPlan, setAddToMealPlan] = useState({
@@ -119,11 +119,11 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
           좋아요 리스트
         </ShowLikelist>
       </ButtonArea>
-
+        
       {/* 추천된레시피를 보여주는 영역 */}
       <RecipesArea>
-        {currentId === 1
-          ? recipes.map((recipe, idx) => {
+      {currentId === 1
+          ? getRecommand.map((recipe, idx) => {
               
               return (
                 <RecipeCard key={idx}>
@@ -149,7 +149,7 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
                         <i
                           className='bx bx-plus-circle'
                           onClick={(e) =>
-                            handleClick(e, recipe.main_image, recipe.title)
+                            handleClick(e, recipe.id, recipe.main_image, recipe.title)
                           }
                         ></i>
                       </div>
@@ -157,16 +157,16 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
                     <div className='DCbox-lower'>
                       <div>주재료</div>
                       <div className='tags'>
-                        {/* {foods.map((food, idx) => {
-                          return <span key={idx}>{food}</span>;
-                        })} */}
+                        {recipe.foods.slice(0,3).map((food, idx) => {
+                          return <span key={idx}>{food.name}</span>;
+                        })}
                       </div>
                     </div>
                   </DCbox>
                 </RecipeCard>
               );
             })
-          : mylikelist.map((recipe, idx) => {
+           : mylikelist.map((recipe, idx) => {
               return (
                 <RecipeCard key={idx}>
                   {/* 요리사진 */}
@@ -209,6 +209,7 @@ const RecipeCards = ({ mylikelist, recipes, setAddToPlan }) => {
               );
             })}
       </RecipesArea>
+      
     </>
   );
 };
