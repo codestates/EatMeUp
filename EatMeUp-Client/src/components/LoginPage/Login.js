@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
 import { loginRequest, clearErrors } from "../../_actions/authActions";
 
+// Google로그인
+import GoogleLogin from "react-google-login";
+
 // 컴포넌트
 import AlertBox from "../SignupPage/AlertBox";
 
@@ -41,9 +44,8 @@ const Login = ({ setShowLogin, setShowSignup }) => {
 
   const loginHandler = (data) => {
     dispatch(loginRequest(data));
-   
   };
- 
+
   const submitGuest = () => {
     const date = new Date().toLocaleString();
     const GuestData = {
@@ -55,7 +57,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
     console.log(date);
     dispatch(loginRequest(GuestData));
     history.push("/");
-    setShowLogin(false)
+    setShowLogin(false);
   };
 
   const closeLoginModal = () => {
@@ -64,8 +66,8 @@ const Login = ({ setShowLogin, setShowSignup }) => {
 
   const signupHandler = () => {
     setShowLogin(false);
-    setShowSignup(true)
-  }
+    setShowSignup(true);
+  };
 
   return (
     <>
@@ -145,13 +147,10 @@ const Login = ({ setShowLogin, setShowSignup }) => {
           <LoginEnd>
             <div className='loginLine'>
               {/* <StyledLink to='/signup'> */}
-                <SignUpButton onClick={signupHandler}>SignUp</SignUpButton>
+              <SignUpButton onClick={signupHandler}>SignUp</SignUpButton>
               {/* </StyledLink> */}
             </div>
             <form onSubmit={handleSubmit(submitGuest)}>
-              {/* <input type='text' />
-            <input type='email'/>
-            <input type='password'/> */}
               <form Control type />
               <button type='submit' className='noUser'>
                 Guest Login
@@ -183,14 +182,14 @@ const StyledContainer = styled.div`
 `;
 
 const showDialog = keyframes`
-   from {
+  from {
     opacity: 0;
     transform: translateY(-100px);
-   }
-   to{
+  }
+  to{
     opacity: 1;
     transform: translateY(0px);
-   }
+  }
 `;
 
 const LoginContainer = styled(SectionBox)`
@@ -230,7 +229,6 @@ const InputContainer = styled.div`
     margin: 20px 0;
     font-size: 18px;
     width: 50%;
-    /* height: 100%; */
     &:focus {
       outline: none;
       border-bottom: 1px solid ${theme.colors.black};

@@ -127,7 +127,7 @@ const MyPage = () => {
                   <LikedRecipeBox>
                     <Title>
                       <div className='recipe_title'>Liked Recipes</div>
-                      <Link to='/user/myrecipe'>
+                      <Link to='/user/likelist'>
                         <AddBtn>더 보기  <i class="fas fa-chevron-right"></i></AddBtn>
                       </Link>
                     </Title>

@@ -223,7 +223,7 @@ const ProfileContainer = styled.div`
   width: 100%;
   height: 60px;
   position: absolute;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, .8);
   .profile_img {
     width: 30px;
     height: 30px;

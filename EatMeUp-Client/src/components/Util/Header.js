@@ -108,28 +108,23 @@ const EatMeUpHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: white;
-
   .logo {
     width: 160px;
     /* font-family: Fredoka One; */
     font-size: 35px;
     text-indent: 30px;
   }
-
   .logo > a > img {
     width: 100%;
   }
-
   .left-menu {
     display: flex;
     margin-left: 3vw;
   }
-
   .menuBtns {
     display: flex;
     margin: 8px 60px;
   }
-
   .menu {
     font-weight: 500;
     width: 100px;
@@ -140,48 +135,40 @@ const EatMeUpHeader = styled.div`
     border-radius: 30px;
     transition: 0.3s;
   }
-
   .fa-sign-out-alt {
     cursor: pointer;
   }
-
-
   .menu:hover {
     background-color: white;
     color: #f4c050;
   }
-
   .left {
     margin-right: 5px;
   }
-
   a {
     text-decoration: none;
     color: #303030;
   }
-
   .right-menu {
     margin-right: 3vw;
   }
-
   .right {
     width: 100px;
     height: 35px;
     border-radius: 30px;
     text-align: center;
     line-height: 35px;
+    cursor: pointer;
   }
   .user {
     width: 48px;
     height: 48px;
-    
     img {
       width: 100%;
       height: 100%;
       border-radius: 50%;
     }
   }
-
   .right:hover {
     background-color: ${theme.colors.yellow};
     color: white;
