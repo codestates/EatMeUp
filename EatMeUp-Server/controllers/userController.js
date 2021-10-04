@@ -33,7 +33,8 @@ const putInfo = async (req, res) => {
 };
 
 const deleteInfo = async (req, res) => {
-  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  // const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  const { id } = req.body;
   const destroyInfo = await User.destroy({ where: { id } });
   if (!destroyInfo) {
     return res

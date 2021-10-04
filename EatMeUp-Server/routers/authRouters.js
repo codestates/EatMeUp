@@ -11,10 +11,9 @@ const authRouter = Router();
 authRouter.post("/signup", signup);
 authRouter.post("/login", login);
 authRouter.get("/logout", auth, logout);
-
-//소셜 로그인
 authRouter.post("/kakao", socialLogin);
 authRouter.post("/google", socialLogin);
+
 
 //비회원 게스트 로그인
 authRouter.post("/guest", guest);
