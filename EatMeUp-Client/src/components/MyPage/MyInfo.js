@@ -294,7 +294,6 @@ const MyInfoContainer = styled(SectionBox)`
       transition: all 0.2s ease-in-out;
     }
   }
-
   input[type="file"] {
     position: absolute;
     width: 1px;
