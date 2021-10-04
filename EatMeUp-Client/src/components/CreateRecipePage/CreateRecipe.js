@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 import styled from "styled-components";
-import Dropzone from "react-dropzone";
+
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { useHistory } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import axios from "axios";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useForm, useWatch } from "react-hook-form";
+import { createMyRecipe } from "../../_actions/userActions";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -18,12 +22,120 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const CreateRecipe = () => {
-  /* function */
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
+
+
+  //-------------image preview------------------
+  const recipeImg0 = useWatch({
+    control,
+    name: "image-0",
+    defaultValue: null,
+  });
+
+  const recipeImg1 = useWatch({
+    control,
+    name: "image-1",
+    defaultValue: null,
+  });
+
+  const recipeImg2 = useWatch({
+    control,
+    name: `image-2`,
+    defaultValue: null,
+  });
+
+  const recipeImg3 = useWatch({
+    control,
+    name: `image-3`,
+    defaultValue: null,
+  });
+
+  const recipeImg4 = useWatch({
+    control,
+    name: `image-4`,
+    defaultValue: null,
+  });
+
+  const recipeImg5 = useWatch({
+    control,
+    name: `image-5`,
+    defaultValue: null,
+  });
+
+  const recipeImg6 = useWatch({
+    control,
+    name: `image-6`,
+    defaultValue: null,
+  });
+  const recipeImg7 = useWatch({
+    control,
+    name: `image-7`,
+    defaultValue: null,
+  });
+  const recipeImg8 = useWatch({
+    control,
+    name: `image-8`,
+    defaultValue: null,
+  });
+  const recipeImg9 = useWatch({
+    control,
+    name: `image-9`,
+    defaultValue: null,
+  });
+
+  const recipeImg10 = useWatch({
+    control,
+    name: `image-10`,
+    defaultValue: null,
+  });
+
+  const recipeWatch = [
+    recipeImg0,
+    recipeImg1,
+    recipeImg2,
+    recipeImg3,
+    recipeImg4,
+    recipeImg5,
+    recipeImg6,
+    recipeImg7,
+    recipeImg8,
+    recipeImg9,
+    recipeImg10,
+  ];
+  useEffect(() => {
+    console.log(recipeImg0);
+    console.log(recipeImg1);
+    console.log(recipeImg2);
+    console.log(recipeImg3);
+    console.log(recipeImg4);
+    console.log(recipeImg5);
+    console.log(recipeImg6);
+    console.log(recipeImg7);
+    console.log(recipeImg8);
+    console.log(recipeImg9);
+    console.log(recipeImg10);
+  }, [
+    recipeImg0,
+    recipeImg1,
+    recipeImg2,
+    recipeImg3,
+    recipeImg4,
+    recipeImg5,
+    recipeImg6,
+    recipeImg7,
+    recipeImg8,
+    recipeImg9,
+    recipeImg10,
+  ]);
+//-----------image preview------------------
 
 
   //add materials
@@ -33,15 +145,20 @@ const CreateRecipe = () => {
 
   //steps
   const [menuals, setMenuals] = useState([]);
-  const [recipeBox, setRecipeBox] = useState(["recipe"]);
+  const [recipeBox, setRecipeBox] = useState(["recipe-0"]);
   const [recipeDC, setRecipeDC] = useState("");
-  const [recipeImg, setRecipeImg] = useState(
-    "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
-  );
-
   const [ingredientTag, setIngredientTag] = useState([]); //재료태그
 
-  //재료 추가하는 핸들러
+  //preview handler
+  const [mainImage, setMainImage] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const fileHandler = (e) => {
+    setMainImage(e.target.files[0]);
+  };
+
+  /* function area */
+  /*----------재료 추가하는 핸들러-----------------*/
   const AddIngredientHandler = (e) => {
     e.preventDefault();
 
@@ -59,92 +176,131 @@ const CreateRecipe = () => {
     setMaterials([...materials, material]);
   };
 
-  //추가된 재료 삭제하는 핸들러
+
+
+  /*----------추가된 재료 삭제하는 핸들러---------------*/
   const deleteIngredientHandler = (idx) => {
     const deleteTag = ingredientTag.filter((tag, id) => {
       if (id !== idx) {
         return tag;
       }
+      return "";
     });
 
     setIngredientTag(deleteTag);
   };
 
   const addRecipeHandler = () => {
-    const textarea = "recipe";
+    const textarea = `recipe-${recipeBox.length - 1}`;
 
     setRecipeBox([...recipeBox, textarea]);
     setRecipeDC("");
   };
 
-  //추가된 step영역 삭제하는 핸들러
+
+
+
+  /*---------추가된 step영역 삭제하는 핸들러--------------*/
   const deleteRecipeHandler = (idx) => {
     const deleteBox = recipeBox.filter((recipe, id) => {
       if (id !== idx) {
         return recipe;
       }
+      return "";
     });
 
     const deleteMenual = menuals.filter((recipe, id) => {
       if (id !== idx) {
         return recipe;
       }
+      return "";
     });
 
     setRecipeBox(deleteBox);
     setMenuals(deleteMenual);
   };
 
-  const mainImgDropHandler = () => {};
-  const stepImgDropHandler = () => {};
 
-  const onSubmit = (data) => {
-    const menual = [];
 
-    for (let el in data) {
-      console.log(el[2]);
-      if (el[2] === "r") {
-        menual.push(data[el]);
-      }
+  /*---------이미지 업로드 핸들러---------------------*/
+  const uploadImage = async (files) => {
+    const file = files[0];
+      console.log(file, files)
+    let imageUrl = null;
+
+    if (!file) {
+      imageUrl = null;
+    } else {
+      const data = await axios.get("https://api.eatmeup.me/image/s3url", {
+        withCredentials: true,
+      });
+
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: file,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      imageUrl = img.url.split("?")[0];
     }
+    return imageUrl;
+  };
 
-    const steps = menual.map((recipe, idx) => {
-      return {
-        cookingNum: idx + 1,
-        recipe: recipe,
-        image:
-          "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
-      };
+  /*-----------submit handler 서버요청---------------*/
+  const onSubmit = (data) => {
+    
+
+    console.log(data)
+    const imgArr = [];
+    const newRecipe = {};
+
+    uploadImage(data.main_image).then((response) => {
+      newRecipe["main_image"] = response;
     });
 
-    const newRecipe = {
-      title: data.title,
-      description: data.description,
-      cooking_time: data.cooking_time,
-      level: data.cooking_level,
-      main_image:
-        "http://file.okdab.com/UserFiles/searching/recipe/000200_p01.jpg",
-
-      foods: materials,
-      steps: steps,
+    for (let el in data) {
+      if (el[0] === "i") {
+        imgArr.push(data[el]);
+      }
+    }
+    const recipeImage = [];
+    const recipeImages = async () => {
+      for (let [idx, img] of imgArr.entries()) {
+        const modFood = await uploadImage(img);
+        recipeImage.push({
+          cookingNum: idx + 1,
+          recipe: data[`${idx}-recipe`],
+          image: modFood ? modFood : null, // 이미지주소가 있는 경우 삼항연산자
+        });
+      }
     };
 
-    axios
-      .post("https://api.eatmeup.me/myRecipe/info", newRecipe, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data) {
-          console.log("success");
-        }
-      });
-  };
+    recipeImages();
 
-  const returnidx = (idx) => {
-    return idx;
-  };
+    newRecipe["title"] = data.title;
+    newRecipe["description"] = data.description;
+    newRecipe["cooking_time"] = data.cooking_time;
+    newRecipe["level"] = data.cooking_level;
+    newRecipe["foods"] = materials;
+    newRecipe["steps"] = recipeImage;
 
-  console.log(errors);
+    setOpen(true);
+    setTimeout(() => {
+      console.log(newRecipe);
+
+      setOpen(false);
+      dispatch(createMyRecipe(newRecipe));
+      history.push("/user/myrecipe");
+    }, 1000);
+  };
 
   return (
     <>
@@ -155,6 +311,14 @@ const CreateRecipe = () => {
           <Sidebar id={1} />
 
           {/* 레시피 만들기 컨테이너 */}
+
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={open}
+          >
+            <CircularProgress color='inherit' />
+          </Backdrop>
+
           <BoxContainer>
             <form onSubmit={handleSubmit(onSubmit)}>
               {/* 제목, 요리설명, 메인이미지 컴포넌트 */}
@@ -194,21 +358,28 @@ const CreateRecipe = () => {
                   </DCBox>
 
                   {/* 이미지 업로드 */}
-                  <Dropzone
-                    onDrop={mainImgDropHandler}
-                    multiple={false}
-                    maxSize={800000000}
-                  >
-                    {({ getRootProps, getInputProps }) => (
-                      <ImageBox {...getRootProps()}>
-                        <input {...getInputProps()} />
-
+                  <ImageArea>
+                    <ImageBox>
+                      {mainImage ? (
+                        <img src={URL.createObjectURL(mainImage)} alt='main' />
+                      ) : (
                         <div>
-                          <i class='far fa-image'></i>
+                          <i className='far fa-image'></i>
                         </div>
-                      </ImageBox>
-                    )}
-                  </Dropzone>
+                      )}
+                    </ImageBox>
+                    <div className='input'>
+                      <label htmlFor='fileInput'>
+                        <i className='fas fa-upload'></i> 파일 업로드
+                      </label>
+                      <input
+                        id='fileInput'
+                        type='file'
+                        {...register("main_image")}
+                        onChange={fileHandler}
+                      />
+                    </div>
+                  </ImageArea>
                 </DescriptionBox>
               </MainDCBox>
 
@@ -219,7 +390,7 @@ const CreateRecipe = () => {
                 </div>
                 <CookInfomation>
                   <div className='cookinfo'>
-                    <i class='fas fa-clipboard-check'></i> 요리레벨
+                    <i className='fas fa-clipboard-check'></i> 요리레벨
                   </div>
                   <Selector {...register("cooking_level")}>
                     <option>초보환영</option>
@@ -228,7 +399,7 @@ const CreateRecipe = () => {
                   </Selector>
 
                   <div className='cookinfo'>
-                    <i class='far fa-clock'></i> 요리시간
+                    <i className='far fa-clock'></i> 요리시간
                   </div>
                   <Selector {...register("cooking_time")}>
                     <option>10Min</option>
@@ -240,15 +411,12 @@ const CreateRecipe = () => {
                     <option>60Min이상</option>
                   </Selector>
                 </CookInfomation>
-              </MainDCBox>
 
-              {/* 재료 추가 컴포넌트 */}
-              <MainDCBox>
-                <div>
-                  <div className='subtitle'>• 재료 추가</div>
-                </div>
                 <AddIngredientBox>
                   {/* 재료 추가 작성 영역 */}
+                  <div className='cookinfo'>
+                    <i className='fas fa-carrot'></i> 요리재료
+                  </div>
                   <FlexContainer>
                     <input
                       value={foodname}
@@ -265,9 +433,7 @@ const CreateRecipe = () => {
                     />
 
                     <div>
-                      <AddIngreBtn onClick={AddIngredientHandler}>
-                        재료 추가
-                      </AddIngreBtn>
+                      <AddBtn onClick={AddIngredientHandler}>재료 추가</AddBtn>
                     </div>
                   </FlexContainer>
 
@@ -302,22 +468,26 @@ const CreateRecipe = () => {
                         {/* 단계별 레시피 쓰는 영역 */}
                         <div className='cook-recipe_box'>
                           {/* 이미지 업로드 영역 */}
-                          <Dropzone
-                            onDrop={stepImgDropHandler}
-                            multiple={false}
-                            maxSize={800000000}
-                          >
-                            {({ getRootProps, getInputProps }) => (
-                              <div
-                                className='recipeImg_box'
-                                {...getRootProps()}
-                              >
-                                <input {...getInputProps()} />
 
-                                <i class='far fa-image'></i>
-                              </div>
+                          <div className='recipeImg_box'>
+                            <label htmlFor={idx}>
+                              <i className='bx bx-image-add'></i>
+                            </label>
+                            <input
+                              type='file'
+                              id={idx}
+                              {...register(`image-${idx}`)}
+                            />
+                            {recipeWatch[idx] ? (
+                              <img
+                                src={URL.createObjectURL(recipeWatch[idx][0])}
+                                alt='img'
+                              />
+                            ) : (
+                              "요리 단계별 이미지를 업로드 해보세요."
                             )}
-                          </Dropzone>
+                            {""}
+                          </div>
 
                           {/* 단계별 요리법 설명 영역 */}
                           <div className='recipe-dc_box'>
@@ -347,12 +517,12 @@ const CreateRecipe = () => {
                     );
                   })}
                   <BtnArea>
-                    {recipeBox.length === 20 ? (
+                    {recipeBox.length === 10 ? (
                       ""
                     ) : (
                       <PlusBtn>
                         <i
-                          class='far fa-plus-square'
+                          className='far fa-plus-square'
                           onClick={addRecipeHandler}
                         ></i>
                       </PlusBtn>
@@ -362,16 +532,11 @@ const CreateRecipe = () => {
               </StepsBox>
 
               {/* 레시피 추가버튼 영역 */}
-
-              <input type='submit' />
+              <BtnContainer>
+                <input type='submit' placeholder='레시피 추가' />
+              </BtnContainer>
             </form>
-            {/* <BtnContainer>
-              <AddBtn 
-              onClick={createRecipeHandler}
-              fillColor={theme.colors.yellow}>
-                레시피 추가하기
-              </AddBtn>
-            </BtnContainer>*/}
+            {/* */}
           </BoxContainer>
         </Container>
       </section>
@@ -391,6 +556,21 @@ const BtnContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  input {
+    width: 200px;
+    height: 40px;
+    cursor: pointer;
+    background-color: ${theme.colors.yellow};
+    border-radius: 10px;
+    color: white;
+    border: none;
+    font-size: 15px;
+    font-weight: 500;
+    &:hover {
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    }
+  }
 `;
 
 const TitleBox = styled.div`
@@ -410,7 +590,7 @@ const TitleBox = styled.div`
 `;
 
 const MainDCBox = styled(SectionBox)`
-  width: 85%;
+  width: 90%;
   margin: 10px auto;
 
   .subtitle {
@@ -426,7 +606,7 @@ const MainDCBox = styled(SectionBox)`
 `;
 
 const StepsBox = styled(SectionBox)`
-  width: 85%;
+  width: 90%;
   margin: 18px auto;
 
   .subtitle {
@@ -443,7 +623,11 @@ const StepsBox = styled(SectionBox)`
 
 const AddBtn = styled(LargeBtn)`
   cursor: pointer;
-
+  background-color: ${theme.colors.yellow};
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
   &:hover {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
   }
@@ -452,25 +636,64 @@ const AddBtn = styled(LargeBtn)`
 /* description title box css */
 const DescriptionBox = styled.div`
   width: 100%;
-  height: 300px;
+  min-height: 400px;
   margin: 0 auto;
   margin-bottom: 8px;
   display: flex;
   justify-content: center;
 `;
 
+const ImageArea = styled.div`
+  width: 45%;
+  label {
+    padding: 0.5em 12em;
+    border-radius: 10px;
+    height: 35px;
+    border: 2px solid lightgrey;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    color: grey;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  div {
+    margin-top: 20px;
+  }
+
+  .input {
+    width: 100%;
+    margin-left: 14px;
+    margin-top: 37px;
+  }
+`;
 const ImageBox = styled.div`
-  width: 40%;
-  height: 85%;
+  width: 100%;
+  height: 70%;
   border: 2px solid lightgrey;
-  border-radius: 20px;
-  margin: 8px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 50px;
   color: grey;
   cursor: pointer;
+
+  img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
 `;
 
 const DCBox = styled.div`
@@ -497,7 +720,7 @@ const DCBox = styled.div`
 
   textarea {
     width: 100%;
-    min-height: 190px;
+    min-height: 220px;
     margin-top: 10px;
     border-radius: 10px;
     border: 2px solid lightgrey;
@@ -524,7 +747,6 @@ const CookInfomation = styled.div`
   width: 90%;
   display: flex;
   margin: 10px auto;
-  height: 70px;
 
   .cookinfo {
     margin-left: 10px;
@@ -546,9 +768,13 @@ const Selector = styled.select`
 
 /* add ingredient */
 const AddIngredientBox = styled.div`
-  width: 100%;
+  width: 90%;
   min-height: 150px;
-  margin-top: 18px;
+  margin: 10px auto;
+  .cookinfo {
+    margin-left: 10px;
+    color: grey;
+  }
 `;
 
 const FlexContainer = styled.div`
@@ -557,7 +783,7 @@ const FlexContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  margin: 10px auto;
+  margin: 10px 0px;
 
   input {
     width: 200px;
@@ -574,20 +800,11 @@ const FlexContainer = styled.div`
 `;
 
 const TagContainer = styled.div`
-  width: 1000px;
-  margin: 10px auto;
+  width: 900px;
   overflow-x: scroll;
   height: 50px;
-  border: 2px solid lightgrey;
   border-radius: 10px;
-  padding: 8px;
-`;
-
-const AddIngreBtn = styled.button`
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 10px;
+  padding: 8px 4px;
 `;
 
 /* add steps */
@@ -618,17 +835,50 @@ const AddRecipeBox = styled.div`
   }
 
   .recipeImg_box {
-    width: 40%;
-    height: 200px;
+    width: 50%;
+    height: 250px;
     border: 2px solid lightgrey;
     margin: 10px;
     border-radius: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 40px;
+    font-size: 13px;
     color: gray;
     cursor: pointer;
+    position: relative;
+
+    label {
+      cursor: pointer;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      font-size: 45px;
+      z-index: 999;
+      padding: 0 20px;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+    }
+  }
+
+  .bx-image-add {
+    color: grey;
   }
 
   .recipe-dc_box {
@@ -640,10 +890,11 @@ const AddRecipeBox = styled.div`
 
   .recipe-dc_box > textarea {
     width: 100%;
-    height: 200px;
+    height: 240px;
     border-radius: 10px;
     border: 2px solid lightgrey;
     text-indent: 10px;
+    font-size: 14px;
   }
 
   .fa-times {

@@ -9,19 +9,19 @@ const Footer = () => {
         <div className='right'>
           <div className='contact-infos'>TOUCH IN US</div>
           <div className='contact'>
-            <i class='fas fa-phone'></i>
+            <i className='fas fa-phone'></i>
             <span className='contact-info'>02) 1234.5678</span>
           </div>
           <div className='contact'>
-            <i class='fas fa-envelope'></i>
+            <i className='fas fa-envelope'></i>
             <span className='contact-info'>eatmeup@gmail.com</span>
           </div>
           <div className='contact'>
-            <i class='fas fa-map-marker-alt'></i>
+            <i className='fas fa-map-marker-alt'></i>
             <span className='contact-info'>서울특별시 강동구 성내2길 123</span>
           </div>
           <div className='company'>
-            (주) EatMeUp | 공동대표: 오동욱 강주오 오가영 이세경
+            (주) EatMeUp | 공동대표: 오동욱 강주오 이세경 오가영 
           </div>
         </div>
 
@@ -47,7 +47,7 @@ const Footer = () => {
 };
 
 const FooterBox = styled.div`
-  background: #eaeaea;
+  background: #EDEBE6;
   width: 100%;
 
   font-size: 14px;
@@ -82,7 +82,7 @@ const FooterBox = styled.div`
     justify-content: center;
     width: 100%;
     height: 50px;
-    background-color: darkgrey;
+    background-color: #E4E1DA;
   }
 
   .copyright {
@@ -94,21 +94,28 @@ const FooterBox = styled.div`
     }
     a {
       padding: 0;
+      text-decoration: none;
+      :visited {
+        color: ${theme.colors.black};
+        text-decoration: none;
+      }
     }
   }
 
   .right {
-    margin: 3vw;
+    margin: 3vw 5vw;
   }
 
   .names {
-    margin: 3vw;
-    font-weight: 500;
+    margin: 3vw 5vw;
+    font-weight: 400;
+    color: ${theme.colors.darkgrey};
     i {
       padding: 10px;
+      vertical-align: middle;
     }
-
     a {
+      color: ${theme.colors.darkgrey};
       padding: 10px 10px;
       cursor: pointer;
       text-decoration: none;

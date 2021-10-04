@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Snackbar from "@mui/material/Snackbar";
-import { useSelector } from 'react-redux';
-
+import { foodLife } from './utils/convertDate'
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";
@@ -13,8 +12,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
-
-
   const [filtered, setFiltered] = useState(null);
   const [alreadyHas, setAlreadyHas] = useState(false);
   const [state, setState] = useState({
@@ -41,10 +38,6 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     }, 2000);
   };
 
-
-  /* <i class="fas fa-wind"></i> 실온
-<i class="fas fa-thermometer-half"></i> 냉장
-<i class="fas fa-snowflake"></i> 냉동 */
   const convertStr = (idx) => {
     if (idx === 0) {
       return "실온";
@@ -60,9 +53,10 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     const freshFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
-          if (item.life > 30) {
+          if (foodLife(item.life) > 30) {
             return item;
           }
+          return "";
         });
         return {
           type: idx,
@@ -75,7 +69,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
         };
       }
     });
- 
+
     setFiltered(freshFood);
   };
 
@@ -84,9 +78,10 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     const yellowFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
-          if (item.life < 30 && item.life > 7) {
+          if (foodLife(item.life) < 30 && foodLife(item.life) > 7) {
             return item;
           }
+          return ""
         });
         return {
           type: idx,
@@ -104,13 +99,14 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
   /* 위험버튼 핸들러 */
   const redFoodHandler = (idx) => {
-    console.log(typeof idx)
+    console.log(typeof idx);
     const redFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
-          if (item.life <= 7) {
+          if (foodLife(item.life) <= 7) {
             return item;
           }
+          return "";
         });
         return {
           type: idx,
@@ -128,8 +124,16 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
   };
 
   const resetFilterHandler = () => {
-    setFiltered(null)
-  }
+    setFiltered(null);
+  };
+
+  const sliceHandler = (date) => {
+    const createAt = date.slice(0, 10);
+    const Y = createAt.slice(0, 4);
+    const M = createAt.slice(5, 7);
+    const D = createAt.slice(8, 10);
+    return `${Y}.${M}.${D}`;
+  };
 
   return (
     <div>
@@ -150,135 +154,194 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
       {/* 냉장고  */}
       <FridgeInnerBox>
-        {!filtered ? foods.map((type, typeIdx) => {
-          return (
-            <FoodContainer key={typeIdx}>
-              
-              {/* 냉장고 재료 핸들러 버튼영역 */}
-              <FridgeHeader>
-                <div className='type_box'>
-                  <span className='type'>{convertStr(typeIdx)}</span>
-                </div>
-                <div className='filterBtn_box'>
-                  <FridgeButton fillColor='white' onClick={() => GreenFoodHandler(typeIdx)}>
-                    <i className='far fa-grin-beam'></i> 신선
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => yellowFoodHandler(typeIdx)}>
-                    <i className='far fa-smile'></i> 보통
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => redFoodHandler(typeIdx)}>
-                    <i className='far fa-tired'></i> 위험
-                  </FridgeButton>
-                </div>
-              </FridgeHeader>
+        {!filtered
+          ? foods.map((type, typeIdx) => {
+              return (
+                <FoodContainer key={typeIdx}>
+                  {/* 냉장고 재료 핸들러 버튼영역 */}
+                  <FridgeHeader>
+                    <div className='type_box'>
+                      <span className='type'>{convertStr(typeIdx)}</span>
+                    </div>
+                    <div className='filterBtn_box'>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => GreenFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-grin-beam'></i> 신선
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => yellowFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-smile'></i> 보통
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => redFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-tired'></i> 위험
+                      </FridgeButton>
+                    </div>
+                  </FridgeHeader>
+                  <FoodBoxs>
+                    {type.items.map((food, foodIdx) => {
+                      return (
+                        <FoodBox
+                          key={foodIdx}
+                          onClick={handleClick({
+                            vertical: "top",
+                            horizontal: "center",
+                            food: food,
+                          })}
+                        >
+                          {Number(foodLife(food.life)) <= 7 ? (
+                            <div className='alert'>
+                              <i className='fas fa-exclamation-circle'></i>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                          <div className='food'>
+                            {/* 음식사진 */}
+                            <div>
+                              <img
+                                src={
+                                  food.food_image
+                                    ? food.food_image
+                                    : "https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg"
+                                }
+                                alt='food'
+                                className='food_img'
+                                draggable={false}
+                              />
+                            </div>
 
-              {type.items.map((food, foodIdx) => {
-                return (
-                  <FoodBox
-                    key={foodIdx}
-                    onClick={handleClick({
-                      vertical: "top",
-                      horizontal: "center",
-                      food: food,
+                            {/* 음식이름과 구매일자 */}
+                            <div className='name_box'>
+                              <div>
+                                <span className='name'>{food.food_name}</span>
+                              </div>
+                              <div>
+                                <span className='date'>
+                                  {sliceHandler(food.createdAt)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* 유통기한 디데이표시 */}
+                          <div className='foodlife_box'>
+                            {Number(foodLife(food.life)) < 0 ? (
+                              <span className='red'>
+                                D+{Math.abs(foodLife(food.life))}
+                              </span>
+                            ) : (
+                              <span className='foodlife'>D-{foodLife(food.life)}</span>
+                            )}
+                          </div>
+                        </FoodBox>
+                      );
                     })}
-                  >
-                    <div className='food'>
-                      {/* 음식사진 */}
-                      <div>
-                        <img
-                          src={`../food_img/${food.food_image}`}
-                          alt='food'
-                          className='food_img'
-                          draggable={false}
-                        />
-                      </div>
-
-                      {/* 음식이름과 구매일자 */}
-                      <div className='name_box'>
-                        <div>
-                          <span className='name'>{food.food_name}</span>
-                        </div>
-                        <div>
-                          <span className='date'>2021.09.20</span>
-                        </div>
-                      </div>
+                  </FoodBoxs>
+                </FoodContainer>
+              );
+            })
+          : filtered.map((type, typeIdx) => {
+              return (
+                //  신선, 보통, 위험버튼눌렀을 때
+                <FoodContainer key={typeIdx}>
+                  {/* 냉장고 재료 핸들러 버튼영역 */}
+                  <FridgeHeader>
+                    <div className='type_box'>
+                      <span className='type' onClick={resetFilterHandler}>
+                        {convertStr(typeIdx)}
+                      </span>
                     </div>
-
-                    {/* 유통기한 디데이표시 */}
-                    <div className='foodlife_box'>
-                      <span className='foodlife'>D-{food.life}</span>
+                    <div className='filterBtn_box'>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => GreenFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-grin-beam'></i> 신선
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => yellowFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-smile'></i> 보통
+                      </FridgeButton>
+                      <FridgeButton
+                        fillColor='white'
+                        onClick={() => redFoodHandler(typeIdx)}
+                      >
+                        <i className='far fa-tired'></i> 위험
+                      </FridgeButton>
                     </div>
-                  </FoodBox>
-                );
-              })}
-            </FoodContainer>
-          );
-        }) : filtered.map((type, typeIdx) => {
-          return (
+                  </FridgeHeader>
+                  <FoodBoxs>
+                    {type.items.map((food, foodIdx) => {
+                      return (
+                        <FoodBox
+                          key={foodIdx}
+                          onClick={handleClick({
+                            vertical: "top",
+                            horizontal: "center",
+                            food: food,
+                          })}
+                        >
+                          {Number(foodLife(food.life)) <= 7 ? (
+                            <div className='alert'>
+                              <i className='fas fa-exclamation-circle'></i>
+                            </div>
+                          ) : (
+                            ""
+                          )}
+                          <div className='food'>
+                            {/* 음식사진 */}
+                            <div>
+                              <img
+                                src={
+                                  food.food_image
+                                    ? food.food_image
+                                    : "https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg"
+                                }
+                                alt='food'
+                                className='food_img'
+                                draggable={false}
+                              />
+                            </div>
 
-          //  신선, 보통, 위험버튼눌렀을 때
-            <FoodContainer key={typeIdx}>
-              {/* 냉장고 재료 핸들러 버튼영역 */}
-              <FridgeHeader>
-                <div className='type_box'>
-                  <span className='type' onClick={resetFilterHandler}>{convertStr(typeIdx)}</span>
-                </div>
-                <div className='filterBtn_box' >
-                  <FridgeButton fillColor='white' onClick={() => GreenFoodHandler(typeIdx)}>
-                    <i className='far fa-grin-beam'></i> 신선
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => yellowFoodHandler(typeIdx)}>
-                    <i className='far fa-smile' ></i> 보통
-                  </FridgeButton>
-                  <FridgeButton fillColor='white' onClick={() => redFoodHandler(typeIdx)}>
-                    <i className='far fa-tired'></i> 위험
-                  </FridgeButton>
-                </div>
-              </FridgeHeader>
+                            {/* 음식이름과 구매일자 */}
+                            <div className='name_box'>
+                              <div>
+                                <span className='name'>{food.food_name}</span>
+                              </div>
+                              <div>
+                                <span className='date'>
+                                  {sliceHandler(food.createdAt)}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
 
-              {type.items.map((food, foodIdx) => {
-                return (
-                  <FoodBox
-                    key={foodIdx}
-                    onClick={handleClick({
-                      vertical: "top",
-                      horizontal: "center",
-                      food: food,
+                          {/* 유통기한 디데이표시 */}
+                          <div className='foodlife_box'>
+                            {Number(foodLife(food.life)) < 0 ? (
+                              <span className='red'>
+                                D+{Math.abs(foodLife(food.life))}
+                              </span>
+                            ) : (
+                              <span className='foodlife'>D-{foodLife(food.life)}</span>
+                            )}
+                          </div>
+                        </FoodBox>
+                      );
                     })}
-                  >
-                    <div className='food'>
-
-                      {/* 음식사진 */}
-                      <div>
-                        <img
-                          src={`../food_img/${food.food_image}`}
-                          alt='food'
-                          className='food_img'
-                          draggable={false}
-                        />
-                      </div>
-
-                      {/* 음식이름과 구매일자 */}
-                      <div className='name_box'>
-                        <div>
-                          <span className='name'>{food.food_name}</span>
-                        </div>
-                        <div>
-                          <span className='date'>2021.09.20</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* 유통기한 디데이표시 */}
-                    <div className='foodlife_box'>
-                      <span className='foodlife'>D-{food.life}</span>
-                    </div>
-                  </FoodBox>
-                );
-              })}
-            </FoodContainer>
-          );
-        })}
+                  </FoodBoxs>
+                </FoodContainer>
+              );
+            })}
       </FridgeInnerBox>
     </div>
   );
@@ -301,7 +364,26 @@ const FridgeHeader = styled.div`
   }
   @media screen and (max-width: 1300px) {
     .type {
-      display: none;
+      font-size: 17px;
+    }
+  }
+
+
+  @media screen and (max-width: 1227px) {
+    width: 95%;
+    margin: 10px;
+
+    .type {
+     font-size: 20px;;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: 10px;
+
+    .type {
+     font-size: 17px;;
     }
   }
 `;
@@ -326,7 +408,7 @@ const FridgeButton = styled(SmallBtn)`
 `;
 
 const FridgeInnerBox = styled.div`
-  width: 1280px;
+  width: 100%;
   min-height: 450px;
   margin: 0 auto;
   display: flex;
@@ -334,19 +416,63 @@ const FridgeInnerBox = styled.div`
   @media screen and (max-width: 1500px) {
     width: 100%;
   }
+
+
+  @media screen and (max-width: 1227px) {
+    display: block;
+    width: 100%;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 100%;
+  }
 `;
 
 const FoodContainer = styled.div`
-  width: 400px;
+  width: calc(100%/3);
   min-height: 500px;
   border-radius: 20px;
-  margin: 0px 10px 0px 10px;
+  margin: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
+
+
+  @media screen and (max-width: 1227px) {
+    display: flex;
+    width: 90%;
+    flex-direction: column;
+    margin: 5px auto;
+    min-height: 250px;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    margin: 5px;
+    min-height: 250px;
+  }
+`;
+
+const FoodBoxs = styled.div`
+  display: block;
+
+  @media screen and (max-width: 1227px) {
+    width: 90%;
+    display: flex;
+    overflow: auto;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 345px;
+    display: flex;
+    overflow: auto;
+  }
 `;
 
 const FoodBox = styled.div`
-  width: 88%;
+
+width: 88%;
   height: 80px;
   background: #ffffff;
   border-radius: 30px;
@@ -359,6 +485,14 @@ const FoodBox = styled.div`
 
   &:hover {
     border: 1px solid ${theme.colors.lightgrey};
+  }
+
+  .alert {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    font-size: 20px;
+    color: red;
   }
 
   .food {
@@ -375,6 +509,7 @@ const FoodBox = styled.div`
     object-fit: contain;
     border-radius: 50%;
     margin-left: 12px;
+    border: 1px solid ${theme.colors.lightgrey};
   }
 
   .name_box {
@@ -398,7 +533,107 @@ const FoodBox = styled.div`
     font-size: 15px;
     background-color: #eaeaea;
   }
-  @media screen and (max-width: 1300px) {
+
+  .red {
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 15px;
+    background-color: #fe8f8f;
+    color: white;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  width: 88%;
+  height: 80px;
+  background: #ffffff;
+  border-radius: 30px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin: 13px auto;
+  align-items: center;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid ${theme.colors.lightgrey};
+  }
+
+  .alert {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    font-size: 20px;
+    color: red;
+  }
+
+  .food {
+    display: flex;
+    align-items: center;
+    font-size: 17px;
+    border-radius: 30px;
+    margin: 10px;
+  }
+
+  .food_img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 50%;
+    margin-left: 12px;
+    border: 1px solid ${theme.colors.lightgrey};
+  }
+
+  .name_box {
+    margin-left: 15px;
+  }
+
+  .date {
+    font-size: 12px;
+  }
+
+  .foodlife_box {
+    width: 25%;
+    text-align: center;
+    line-height: 80px;
+    margin-right: 10px;
+  }
+
+  .foodlife {
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 15px;
+    background-color: #eaeaea;
+  }
+
+  .red {
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 15px;
+    background-color: #fe8f8f;
+    color: white;
+  }
+}
+
+  @media screen and (max-width: 1200px) {
+
+    height: 100px;
+
+    .foodlife_box {
+      text-align: center;
+      line-height: 80px;
+      margin-right: 10px;
+    }
+
+    .foodlife {
+      padding: 8px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      background-color: #eaeaea;
+    }
+  }
+
+  /* @media screen and (max-width: 1227px) {
     justify-content: center;
     height: 100px;
 
@@ -413,6 +648,132 @@ const FoodBox = styled.div`
       border-radius: 30px;
       font-size: 12px;
       background-color: #eaeaea;
+    }
+  } */
+
+  @media screen and (max-width: 1227px) {
+    
+    display: block;
+    min-width: 100px;
+    max-width: 100px;
+    height: 150px;
+    margin: 4px;
+    background: #ffffff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+
+    .food {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 30px;
+      margin: 0 auto;
+    }
+
+    .food_img {
+      width: 60px;
+      height: 60px;
+      margin: 0;
+      margin-top: 10px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 1px solid ${theme.colors.lightgrey};
+    }
+
+    .name_box {
+      margin-left: 0;
+    }
+
+    .date {
+      font-size: 10px;
+    }
+
+    .foodlife_box {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 10px;
+    }
+
+    .foodlife {
+      padding: 3px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      background-color: #eaeaea;
+    }
+
+    .red {
+      padding: 3px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      background-color: #fe8f8f;
+      color: white;
+    }
+    .alert {
+      left: 18px;
+    }
+
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    min-width: 100px;
+    max-width: 100px;
+    height: 150px;
+    margin: 4px;
+    background: #ffffff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+
+    .food {
+      display: block;
+      text-align: center;
+      font-size: 14px;
+      border-radius: 30px;
+      margin: 0 auto;
+    }
+
+    .food_img {
+      width: 60px;
+      height: 60px;
+      margin: 0;
+      margin-top: 10px;
+      object-fit: contain;
+      border-radius: 50%;
+      border: 1px solid ${theme.colors.lightgrey};
+    }
+
+    .name_box {
+      margin-left: 0;
+    }
+
+    .date {
+      font-size: 12px;
+    }
+
+    .foodlife_box {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 10px;
+    }
+
+    .foodlife {
+      padding: 3px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      background-color: #eaeaea;
+    }
+
+    .red {
+      padding: 3px 15px;
+      border-radius: 30px;
+      font-size: 12px;
+      background-color: #fe8f8f;
+      color: white;
+    }
+    .alert {
+      left: 18px;
     }
   }
 `;

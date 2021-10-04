@@ -2,93 +2,105 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { useDispatch, useSelector } from "react-redux";
-import { allRecipes } from "../../_actions/recipeActions";
+import { useSelector } from "react-redux";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
-import Card from "./sections/Card";
 import Footer from "../Util/Footer";
+import Loader from "../Util/Loader";
+import ResultCard from "./sections/ResultCard";
 
 const ResultRecipes = () => {
   // Todo
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const dispatch = useDispatch();
-  const { loading, recipes } = useSelector((state) => state.allRecipes);
+  const { loading, recommandRecipes, food } = useSelector(
+    (state) => state.recommandrecipes,
+  );
 
-  const slicedArr = recipes.slice(0, 12);
-  const loadMore = 4;
-  const [showRecipes, setShowRecipes] = useState(slicedArr);
 
-  useEffect(() => {
-    dispatch(allRecipes());
-  }, [dispatch]);
-
-  const loadMoreHandler = () => {
-    const loadmore = recipes.slice(0, showRecipes.length + loadMore);
-    setShowRecipes(loadmore);
-  };
-
-  const deleteIngredientHandler = () => {};
-  console.log(showRecipes);
   return (
     <>
       <Header id={0} />
-      <section>
-        {/* 페이지 제목 */}
-        <TitleBox>
-          <h1>
-            <i className='fas fa-utensils'></i> 추천 레시피
-          </h1>
-        </TitleBox>
+      {loading ? (
+        <Loader />
+      ) : (
+        <section>
+          {/* 페이지 제목 */}
+          <TitleBox>
+            <h1>
+              <i className='fas fa-utensils'></i> 추천 레시피
+            </h1>
+          </TitleBox>
 
-        {/* 냉장고 재료기반 추천된 재료리스트 */}
-        <SearchBox>
-          <div className='search_box'>
-            <Stack direction='row' spacing={1}>
-              <i className='fas fa-shopping-basket'></i>
-              <Chip label='감자' onDelete={() => deleteIngredientHandler()} />
-              <Chip label='우유' onDelete={() => deleteIngredientHandler()} />
-              <Chip label='김치' onDelete={() => deleteIngredientHandler()} />
-              <Chip
-                label='요구르트'
-                onDelete={() => deleteIngredientHandler()}
-              />
-              <Chip
-                label='닭가슴살'
-                onDelete={() => deleteIngredientHandler()}
-              />
-            </Stack>
-          </div>
-        </SearchBox>
+          {/* 냉장고 재료기반 추천된 재료리스트 */}
+          {/* <SearchBox>
+            <div className='search_box'>
+              <Stack direction='row' spacing={1}>
+                <i className='fas fa-shopping-basket'></i>
+                {foods.map((item, idx) => {
+                  return <Chip label={item.name} key={idx} />;
+                })}
+              </Stack>
+            </div>
+          </SearchBox> */}
 
-        {/* 카드리스트 컨테이너 */}
-        <Container>
-          {showRecipes.map((recipe, idx) => {
-            return <Card recipe={recipe} key={idx} />;
-          })}
-        </Container>
-        <LoadMoreBtn>
-          <div>
-            {recipes.length === showRecipes.length ? (
-              ""
-            ) : (
-              <button onClick={loadMoreHandler}>더보기</button>
-            )}
-          </div>
-        </LoadMoreBtn>
-      </section>
+          {/* 카드리스트 컨테이너 */}
+
+          {recommandRecipes.length === 0 ? (
+            <NoResultBox>
+              <div className='box'>
+                <div className='icon'>
+                  <i className='bx bx-search-alt'></i>
+                </div>
+                <div className='text'>검색 결과가 없습니다.</div>
+              </div>
+            </NoResultBox>
+          ) : (
+            <Container>
+              {recommandRecipes.map((recipe, idx) => {
+                return <ResultCard recipe={recipe} key={idx} />;
+              })}
+            </Container>
+          )}
+        </section>
+      )}
       <Footer />
     </>
   );
 };
 
+const NoResultBox = styled.div`
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .box {
+    width: 500px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 45px;
+  }
+
+  .bx-search-alt {
+    font-size: 150px;
+    color: #a9a7a3;
+  }
+
+  .text {
+    font-size: 20px;
+    color: #a9a7a3;
+  }
+`;
 const TitleBox = styled.div`
   width: 90%;
   margin: 0 auto;
-  margin-top: 10px;
+  margin-top: 60px;
 `;
 const SearchBox = styled.div`
   width: 90%;
@@ -121,31 +133,65 @@ const SearchBox = styled.div`
 `;
 
 const Container = styled.div`
-  width: 95%;
-  column-width: 280px;
-  gap: 15px;
+  width: 80%;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
 
+  a {
+    color: #404040;
+  }
   @media screen and (max-width: 1500px) {
-    column-width: 300px;
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 `;
 
-const LoadMoreBtn = styled.div`
-  width: 90%;
-  margin: 20px auto;
-  display: flex;
-  justify-content: center;
-
-  button {
-    width: 150px;
-    height: 40px;
-    background-color: #ced0ce;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 15px;
-    cursor: pointer;
-  }
-`;
 export default ResultRecipes;

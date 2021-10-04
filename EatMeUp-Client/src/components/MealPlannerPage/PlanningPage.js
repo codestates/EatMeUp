@@ -1,6 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyLikelist } from "../../_actions/userActions";
+import { getRecommandRecipes } from '../../_actions/calendarActions';
+import { allFoods } from '../../_actions/fridgeActions'
+import { createMealPlan } from '../../_actions/calendarActions'
+import axios from 'axios';
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -15,6 +21,75 @@ import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
 const PlanningPage = () => {
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { foods } = useSelector(state => state.allFoods)
+  const { mylikelist } = useSelector((state) => state.mylikelist);
+
+  const [date, setDate] = useState("")
+  const [getRecommand, setGetRecommand] = useState([])
+  const [addToPlan, setAddToPlan] = useState({
+    image: null,
+    title: "",
+    id: null,
+  });
+
+  const [mealPlan, setMealPlan] = useState([
+    { id: 0, meal: "아침", plan: [], recipeId: [] },
+    { id: 1, meal: "점심", plan: [], recipeId: [] },
+    { id: 2, meal: "저녁", plan: [], recipeId: [] },
+  ]);
+
+  useEffect(() => {
+    dispatch(getMyLikelist());
+    dispatch(allFoods());
+    
+  }, [dispatch]);
+ 
+  
+
+  useEffect(() => {
+
+    const food = [];
+    foods.forEach(type => {
+
+      type.items.forEach((item) => {
+        food.push({name: item.food_name})
+      })
+    })
+
+    const data = {
+      food: food
+    }
+    
+   
+    axios.post(`${process.env.REACT_APP_API}/recipe/food`, data, {withCredentials: true}).then(response => {
+      
+      if(response.data) {
+        setGetRecommand(response.data.recipeInfo[0])
+      }
+     
+    })
+  }, [foods]);
+
+  const addMealplanHandler = () => {
+
+    if(date === "") {
+      alert('날짜를 선택해 주세요.')
+    }
+
+    const plan = {
+      date: date,
+      breakfast: mealPlan[0].recipeId,
+      lunch: mealPlan[1].recipeId,
+      dinner: mealPlan[2].recipeId,
+    }
+ 
+    dispatch(createMealPlan(plan))
+    history.push('/user/myplanner')
+  }
+
   return (
     <>
       <Header id={2} />
@@ -25,7 +100,6 @@ const PlanningPage = () => {
 
           {/* 콘텐츠영역 */}
           <PlannerContainer>
-
             {/* 타이틀/날짜핸들러/달력보러가기버튼 영역 */}
             <TitleBox>
               <div>
@@ -33,10 +107,13 @@ const PlanningPage = () => {
               </div>
               <div>
                 <ThisMonth>
-                  <input type='date' />
+                  <input type='date' value={date} onChange={(e) => setDate(e.target.value) } />
                 </ThisMonth>
               </div>
               <div>
+                <CalendarBtn onClick={addMealplanHandler} fillColor={theme.colors.yellow} style={{ color: "white"}}>
+                  식단 추가하기
+                </CalendarBtn>
                 <Link to='/user/myplanner'>
                   <CalendarBtn fillColor={theme.colors.lightgrey}>
                     달력보러 가기
@@ -49,18 +126,26 @@ const PlanningPage = () => {
             <MealPlaner>
               {/* 레시피 추천 */}
               <RecommandRecipesBox>
-                <RecipeCards />
+                <RecipeCards
+                  mylikelist={mylikelist}
+                  getRecommand={getRecommand}
+                  setAddToPlan={setAddToPlan}
+                />
               </RecommandRecipesBox>
 
               {/* 아침/점심/저녁 식단 */}
               <PlannerBox>
-                
                 {/* 사야할 재료 */}
-                <IngredientBox></IngredientBox>
+                <IngredientBox>
+                  <div className='title'>사야할 재료</div>
+                  <div className='emptybox'>
+                    <div><i class="fas fa-hourglass-start"></i>서비스 준비중..</div>
+                  </div>
+                </IngredientBox>
 
                 {/* 아침/점심/저녁 적는 식단 */}
                 <MealPlanCardBox>
-                  <MealPlanCard />
+                  <MealPlanCard addToPlan={addToPlan} mealPlan={mealPlan} setMealPlan={setMealPlan} />
                 </MealPlanCardBox>
               </PlannerBox>
             </MealPlaner>
@@ -97,8 +182,6 @@ const ThisMonth = styled.span`
   font-weight: bold;
   font-size: 30px;
   color: #303030;
-  input {
-  }
 `;
 
 const CalendarBtn = styled(MiddleBtn)`
@@ -107,6 +190,11 @@ const CalendarBtn = styled(MiddleBtn)`
   font-weight: bold;
   color: #303030;
   width: 130px;
+  
+
+  &:hover {
+    border: 2px solid ${theme.colors.lightgrey};
+  }
 `;
 
 const MealPlaner = styled.div`
@@ -130,6 +218,17 @@ const PlannerBox = styled.div`
   margin: 0px 20px 0px 10px;
 `;
 
+const rotate = keyframes`
+  from {
+
+    transform: rotate(-180deg)
+  }
+
+  to {
+    transform: rotate(0deg)
+  }
+`
+
 const IngredientBox = styled.div`
   width: 100%;
   height: 150px;
@@ -137,6 +236,28 @@ const IngredientBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
+
+  .title {
+    margin-top: 10px;
+    text-indent: 15px;
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 10px;
+  }
+
+
+  .emptybox {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    font-size: 20px;
+    color: grey;
+  }
+
+  .fa-hourglass-start  {
+    margin-right: 10px;
+    animation: ${rotate} 2s infinite;
+  }
 `;
 
 const MealPlanCardBox = styled.div`

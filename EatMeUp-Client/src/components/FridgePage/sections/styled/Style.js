@@ -35,7 +35,7 @@ const ModalDialog = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
   width: 400px;
-  height: 400px;
+  height: 450px;
   border-radius: 20px;
   border: 2px solid gray;
   max-width: calc(100% - 0.01px) !important;
@@ -81,13 +81,27 @@ const DropzoneArea = styled.div`
 const FoodInfoBox = styled.div`
   width: 70%;
   padding: 8px;
-  margin: 0.5rem auto;
+  margin: 0.3rem auto;
   font-size: 13px;
 
   .foodname-box {
     margin-bottom: 8px;
-    font-size: 13px
+    font-size: 13px 
+
   }
+
+  input {
+      border: none;
+      border-bottom: 1px solid lightgrey;
+      margin: 5px auto;
+      font-size: 14px;
+      width: 67%;
+      &:focus {
+        outline: none;
+        border-bottom: 1px solid black;
+        transition: all 0.2s ease-in-out;
+      }
+    }
 
   .foodname-box > input {
     height: 30px;
@@ -96,12 +110,13 @@ const FoodInfoBox = styled.div`
 
   .buydate-box {
     margin-bottom: 8px;
-    font-size: 13px
+    font-size: 13px;
   }
 
   .buydate-box > input {
     width: 177px;
     height: 30px;
+  
   }
 `;
 

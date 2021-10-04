@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Dropzone from "react-dropzone";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addToFridge } from "../../../../_actions/fridgeActions";
 import axios from "axios";
@@ -16,86 +16,60 @@ import { Button } from "../../../StyledComponent/buttons";
 
 const AddIngre = ({ setOpenAddWindow }) => {
   const dispatch = useDispatch();
-
   const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
-  const [registerDate, setRegisterDate] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
+
   const closeHandler = () => {
     setOpenAddWindow(false);
   };
 
   // 음식을 냉장고에 추가하는 핸들러
-
-  // const dropHandler = async (files) => {
-
-  //   // const data = await axios.get("https://api.eatmeup.me/image/s3url", {
-  //   //   withCredentials: true,
-  //   // });
-
-  //   const file = files[0];
-
-  //   axios.get("https://api.eatmeup.me/image/s3url", {
-  //     withCredentials: true
-  //   }).then((response) => {
-  //     const signedUrl = response.data.s3url
-  //     console.log(signedUrl)
-  //     const options = {
-  //       headers: {
-  //         'Content-Type': file.type
-  //       }
-  //     }
-
-  //     return axios.put(signedUrl, file, options);
-  //   }).then((response) => {
-  //     console.log(response)
-  //   })
-  // };
-
   const imgFileHandler = (e) => {
-    
     setImage(e.target.files[0]);
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
-    // 서버로부터 S3업로드 url 받아오기
-    try{
-      const data = await axios.get("https://api.eatmeup.me/image/s3url", {withCredentials: true})
-    console.log(data.data);
 
-    //url을 사용해서 S3 버킷에 업로드
-    //axios
-    const img = await fetch(data.data.s3url, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-      body: image,
-    }, {withCredentials: true});
+    let foodImage = null;
 
-    console.log(img)
-    } catch(error) {
-      console.log(error)
+    if (!image) {
+      foodImage = null;
+    } else {
+      const data = await axios.get(`${process.env.REACT_APP_API}/image/s3url`, {
+        withCredentials: true,
+      });
+
+      //url을 사용해서 S3 버킷에 업로드
+      //axios
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: image,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      foodImage = img.url.split("?")[0];
     }
-    
-
-   
 
     const food = {
-      food_image: "food2.jpeg",
+      food_image: foodImage ? foodImage : null,
       food_name: foodname,
-      life: 50,
+      life: foodlife,
       frez_type: 0,
-      created_at: registerDate,
-      update_at: "2021-01-02",
     };
 
     dispatch(addToFridge(food));
     setOpenAddWindow(false);
   };
-
 
   return (
     <>
@@ -106,18 +80,37 @@ const AddIngre = ({ setOpenAddWindow }) => {
           </div>
           <form onSubmit={submitHandler}>
             {/* 음식사진 업로드 */}
-            {/* <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
-              {({ getRootProps, getInputProps }) => (
-                <DropzoneArea {...getRootProps()}>
-                  <input {...getInputProps()} />
-
-                  <div>
-                    <i className='bx bxs-camera-plus'></i>
-                  </div>
-                </DropzoneArea>
+            <DropzoneArea>
+              {image ? (
+                <div>
+                  <img
+                    src={URL.createObjectURL(image)}
+                    style={{
+                      width: "150px",
+                      height: "150px",
+                      borderRadius: "50%",
+                    }}
+                    alt='foodimg'
+                  />
+                </div>
+              ) : (
+                <div>
+                  <i className='bx bxs-camera-plus'></i>
+                </div>
               )}
-            </Dropzone> */}
-            <input type='file' onChange={imgFileHandler} accept='image/*' />
+            </DropzoneArea>
+            <InputBox>
+              <label htmlFor='foodimg'>
+                <i className='fas fa-upload'></i> 이미지 업로드
+              </label>
+              <input
+                type='file'
+                id='foodimg'
+                onChange={imgFileHandler}
+                accept='image/*'
+              />
+            </InputBox>
+
             <FoodInfoBox>
               {/* 음식이름입력창 */}
               <div className='foodname-box'>
@@ -127,16 +120,6 @@ const AddIngre = ({ setOpenAddWindow }) => {
                   onChange={(e) => setFoodname(e.currentTarget.value)}
                   type='text'
                   placeholder='음식이름을 입력해주세요.'
-                />
-              </div>
-
-              {/* 구매일자 입력창 */}
-              <div className='buydate-box'>
-                <span>구매일자 : </span>
-                <input
-                  value={registerDate}
-                  onChange={(e) => setRegisterDate(e.currentTarget.value)}
-                  type='date'
                 />
               </div>
 
@@ -152,8 +135,10 @@ const AddIngre = ({ setOpenAddWindow }) => {
             </FoodInfoBox>
             <AddToRefriBtn>
               <Button
-                fillColor='#EAEAEA'
-                heightSize='30px'
+                fillColor='#FEBD2F'
+                width='200px'
+                height='35px'
+                color='white'
                 onClick={submitHandler}
               >
                 추가하기
@@ -165,5 +150,36 @@ const AddIngre = ({ setOpenAddWindow }) => {
     </>
   );
 };
+
+const InputBox = styled.div`
+  margin: 15px 0px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  label {
+    padding: 0.3em 0.5em;
+    border-radius: 10px;
+    height: 27px;
+    border: 1px solid lightgrey;
+    cursor: pointer;
+    background-color: #f8f8f8;
+    font-size: 14px;
+    line-height: 27px;
+    color: grey;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`;
+
 
 export default AddIngre;

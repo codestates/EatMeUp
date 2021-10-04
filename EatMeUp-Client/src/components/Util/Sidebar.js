@@ -28,7 +28,7 @@ const Sidebar = ({ id }) => {
       <SideMenu>
         {menu.map((item, idx) => {
           return (
-            <Link to={item.link}>
+            <Link to={item.link} key={idx}>
               <MenuBtn
                 onClick={() => {
                   menuHandler(idx);
@@ -62,22 +62,25 @@ const SideMenu = styled.div`
   border-radius: 30px;
   align-items: left;
   margin: 0 2vw 0 4vw;
-  
-
   a {
     text-decoration: none;
+  }
+
+  @media screen and (max-width: 375px){
+    width: 65px;
+    margin: 0 2vw 0 1vw;
+   
   }
 `
 
 const MenuBtn = styled(XSmallBtn)`
   width: 170px;
-  height: 48px;
+  height: 50px;
   display: flex;
   align-items: center;
   border: solid 1px ${theme.colors.lightgrey};
   margin: 0 0 15px 15px;
   font-family: "Noto Sans KR";
-  font-size: 14px;
   font-weight: 500;
 
   &:hover {
@@ -87,28 +90,35 @@ const MenuBtn = styled(XSmallBtn)`
   }
 
   .point {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
     background-color: white;
     text-align: center;
     margin-left: 5px;
+    i {
+      margin: 8px;
+      color: black;
+      font-size: 14px;
+    }
   }
 
   .menu {
     margin-left: 10px;
     font-size: 14px;
-    text-decoration: none;
-  }
- 
-
-  #icon {
-    margin: 8px 8px 10px 8px;
-    color: black;
-    font-size: 16px;
+    line-height: 8px;
   }
 
-  
+
+  @media screen and (max-width: 375px){
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    
+
+    
+  }
 `;
 
 export default Sidebar;
