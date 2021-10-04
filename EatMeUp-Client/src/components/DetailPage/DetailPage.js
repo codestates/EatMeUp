@@ -48,9 +48,9 @@ const DetailePage = ({ match }) => {
   }, []);
 
   useEffect(() => {
-    // if (isAuthenticated) {
-    //   dispatch(getUserinfo());
-    // }
+    if (isAuthenticated) {
+      dispatch(getUserinfo());
+    }
 
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
@@ -74,15 +74,15 @@ const DetailePage = ({ match }) => {
     }
   };
 
-  // useEffect(() => {
-  //   likelist.forEach((like) => {
-  //     console.log(like.id, user.id)
-  //     if (like.id === user.id) {
-  //       setIsLiked(true);
-  //       setClicked(true);
-  //     }
-  //   });
-  // }, [likelist]);
+  useEffect(() => {
+    likelist.forEach((like) => {
+      console.log(like.id, user.id)
+      if (like.id === user.id) {
+        setIsLiked(true);
+        setClicked(true);
+      }
+    });
+  }, [likelist]);
 
   // console.log(likelist);
 
@@ -117,7 +117,7 @@ const DetailePage = ({ match }) => {
 
           <TitleBox>
             {getRecipe.title}
-            {/* <i
+            <i
               className={
                 isLiked ? "fas fa-heart" : clicked ? "fas fa-heart" : "far fa-heart"
               }
@@ -125,7 +125,7 @@ const DetailePage = ({ match }) => {
                 isLiked ? { color: theme.colors.red } : clicked ? { color: theme.colors.red } : { color: theme.colors.black } 
               }
               onClick={() => likeBtnHandler(getRecipe.id)}
-            ></i> */}
+            ></i>
           </TitleBox>
 
           {getRecipe.level === "초보환영" && (
