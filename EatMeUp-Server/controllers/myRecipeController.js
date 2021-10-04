@@ -4,8 +4,8 @@ const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
 
 const getRecipe = async (req, res) => {
-  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
-
+  // const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  const { id } = req.body;
   try {
     const recipeInfo = await Recipe.findAll({
       include: [
@@ -63,7 +63,7 @@ const putRecipe = async (req, res) => {
           .status(400)
           .json({ success: false, message: "failed to recipe edit" });
       }
-      recipeFood.foods = JSON.stringify(foods);
+      recipeFood.foods = foods;
       await recipeFood.save();
     }
     if (steps) {
@@ -73,7 +73,7 @@ const putRecipe = async (req, res) => {
           .status(400)
           .json({ success: false, message: "failed to recipe edit" });
       }
-      recipeStep.steps = JSON.stringify(steps);
+      recipeStep.steps = steps;
       await recipeStep.save();
     }
     return res.status(200).json({ success: true });
