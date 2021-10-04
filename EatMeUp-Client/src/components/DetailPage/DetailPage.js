@@ -37,11 +37,12 @@ const DetailePage = ({ match }) => {
       })
       .then((response) => {
         if (response.data) {
-          setGetRecipe(response.data.recipeInfo);
-          setSteps(response.data.recipeInfo.steps);
-          setFoods(response.data.recipeInfo.foods);
-          setPostedUser(response.data.recipeInfo.user);
-          setLikelist(response.data.recipeInfo.likeUser);
+          console.log(response.data.recipeInfo[0])
+          setGetRecipe(response.data.recipeInfo[0]);
+          setSteps(response.data.recipeInfo[0].steps);
+          setFoods(response.data.recipeInfo[0].foods);
+          setPostedUser(response.data.recipeInfo[0].user);
+          setLikelist(response.data.recipeInfo[0].likeUser);
         }
       });
   }, []);
@@ -83,9 +84,9 @@ const DetailePage = ({ match }) => {
     });
   }, [likelist]);
 
-  console.log(likelist);
+  // console.log(likelist);
 
-  console.log(isLiked);
+  // console.log(isLiked);
 
   return (
     <div>
@@ -192,7 +193,7 @@ const DetailePage = ({ match }) => {
                           : "https://ifh.cc/g/dHepyz.png"
                       }
                       alt='step_image'
-                      height={step.image === "" && "130"}
+                      // height={step.image === "" && "130"}
                     />
                   </div>
                   <div className='steps'>
