@@ -3,8 +3,11 @@ import styled, { keyframes } from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyLikelist } from "../../_actions/userActions";
-import { allRecipes } from "../../_actions/recipeActions";
+import { getRecommandRecipes } from '../../_actions/calendarActions';
+import { allFoods } from '../../_actions/fridgeActions'
 import { createMealPlan } from '../../_actions/calendarActions'
+import axios from 'axios';
+
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import MealPlanCard from "./sections/MealPlanCard";
@@ -19,13 +22,13 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 
 const PlanningPage = () => {
 
-
   const dispatch = useDispatch();
   const history = useHistory();
-  const { recipes } = useSelector((state) => state.recommandrecipes);
+  const { foods } = useSelector(state => state.allFoods)
   const { mylikelist } = useSelector((state) => state.mylikelist);
 
   const [date, setDate] = useState("")
+  const [getRecommand, setGetRecommand] = useState([])
   const [addToPlan, setAddToPlan] = useState({
     image: null,
     title: "",
@@ -40,13 +43,41 @@ const PlanningPage = () => {
 
   useEffect(() => {
     dispatch(getMyLikelist());
-    dispatch(allRecipes({ page: 1 }));
+    dispatch(allFoods());
+    
   }, [dispatch]);
-  console.log(mealPlan);
+ 
+  
+
+  useEffect(() => {
+
+    const food = [];
+    foods.forEach(type => {
+
+      type.items.forEach((item) => {
+        food.push({name: item.food_name})
+      })
+    })
+
+    const data = {
+      food: food
+    }
+    
+   
+    axios.post(`${process.env.REACT_APP_API}/recipe/food`, data, {withCredentials: true}).then(response => {
+      
+      if(response.data) {
+        setGetRecommand(response.data.recipeInfo[0])
+      }
+     
+    })
+  }, [foods]);
 
   const addMealplanHandler = () => {
 
-
+    if(date === "") {
+      alert('날짜를 선택해 주세요.')
+    }
 
     const plan = {
       date: date,
@@ -54,9 +85,9 @@ const PlanningPage = () => {
       lunch: mealPlan[1].recipeId,
       dinner: mealPlan[2].recipeId,
     }
-    console.log(plan)
+ 
     dispatch(createMealPlan(plan))
-
+    history.push('/user/myplanner')
   }
 
   return (
@@ -97,7 +128,7 @@ const PlanningPage = () => {
               <RecommandRecipesBox>
                 <RecipeCards
                   mylikelist={mylikelist}
-                  recipes={recipes}
+                  getRecommand={getRecommand}
                   setAddToPlan={setAddToPlan}
                 />
               </RecommandRecipesBox>

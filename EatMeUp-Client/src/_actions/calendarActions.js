@@ -26,7 +26,7 @@ export const getMealPlans = () => async (dispatch) => {
     const { data } = await axios.get(`${process.env.REACT_APP_API}/calendar/mealplan`,
       { withCredentials: true },
     );
-    console.log(data.mealPlan);
+   
     dispatch({
       type: GET_MEALPLANS_SUCCESS,
       payload: data.mealPlan
@@ -40,13 +40,18 @@ export const getMealPlans = () => async (dispatch) => {
   }
 };
 
-export const getRecommandRecipes = () => async (dispatch) => {
+export const getRecommandRecipes = (food) => async (dispatch) => {
   try {
     dispatch({
       type: GET_RECOMMAND_REQUEST,
     });
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`);
+    const { data } = await axios.post(`${process.env.REACT_APP_API}/recipe/food`, food, {withCredentials: true});
+console.log(data)
+    dispatch({
+      type: GET_RECOMMAND_SUCCESS,
+      payload: data.recipeInfo
+    })
   } catch (error) {
     dispatch({
       type: GET_RECOMMAND_FAIL,
@@ -68,7 +73,7 @@ export const createMealPlan = (plan) => async (dispatch) => {
     );
 
     dispatch({
-      type: GET_MEALPLANS_SUCCESS,
+      type: NEW_MEALPLAN_SUCCESS,
       payload: data.success,
     });
   } catch (error) {
