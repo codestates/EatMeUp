@@ -3,10 +3,17 @@ import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
-import { loginRequest, clearErrors } from "../../_actions/authActions";
+import {
+  loginRequest,
+  clearErrors,
+  guestLoginRequest,
+  GoogleLoginRequest,
+  KakaoLoginRequest
+} from "../../_actions/authActions";
 
-// 컴포넌트
-import AlertBox from "../SignupPage/AlertBox";
+// 소셜로그인
+import GoogleLogin from "react-google-login";
+import KakaoLogin from "react-kakao-login";
 
 // 스타일 컴포넌트
 import { LargeBtn } from "../StyledComponent/buttons";
@@ -16,6 +23,7 @@ import theme from "../StyledComponent/theme";
 const { swal } = window;
 
 const Login = ({ setShowLogin, setShowSignup }) => {
+  // console.log(process.env.REACT_APP_GOOGLE_API_KEY)
   const history = useHistory();
   const dispatch = useDispatch();
   const { loading, isAuthenticated, error } = useSelector(
@@ -41,20 +49,38 @@ const Login = ({ setShowLogin, setShowSignup }) => {
 
   const loginHandler = (data) => {
     dispatch(loginRequest(data));
-    setShowLogin(false);
   };
 
+  const googleSuccess = (res) => {
+    console.log(res);
+    const data = {
+      id: res.googleId,
+      email: res.profileObj.email,
+      username: res.profileObj.name,
+      avatar: res.profileObj.imageUrl,
+    }
+    dispatch(GoogleLoginRequest(data));
+  };
+
+  const kakaoSuccess = (res) => {
+    const data = {
+      id: res.profile.id,
+      email: res.profile.kakao_account.email,
+      username: res.profile.kakao_account.profile.nickname,
+      avatar: res.profile.kakao_account.profile.profile_image_url,
+    }
+    dispatch(KakaoLoginRequest(data))
+  }
 
   const submitGuest = () => {
-    const date = new Date().toLocaleString();
-   
+    const date = Date.now();
     const GuestData = {
       username: "guest",
-      email: `test${date}@eatmeup.me`,
+      email: `guest_${date}@eatmeup.me`,
       password: `123456`,
     };
 
-    dispatch(loginRequest(GuestData));
+    dispatch(guestLoginRequest(GuestData));
     history.push("/");
     setShowLogin(false);
   };
@@ -119,30 +145,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
               </LoginButton>
             </form>
           </InputContainer>
-          <SocialButton>
-            <div className='google'>
-              <span>
-                <img
-                  className='google_logo'
-                  src='../food_img/google_logo.png'
-                  alt='google'
-                />
-              </span>
-              <span className='google_text'> Login with Google</span>
-            </div>
-          </SocialButton>
-          <SocialButton>
-            <div className='google'>
-              <span>
-                <img
-                  className='google_logo'
-                  src='../food_img/google_logo.png'
-                  alt='google'
-                />
-              </span>
-              <span className='google_text'> Login with Kakao</span>
-            </div>
-          </SocialButton>
+
           <LoginEnd>
             <div className='loginLine'>
               {/* <StyledLink to='/signup'> */}
@@ -150,14 +153,50 @@ const Login = ({ setShowLogin, setShowSignup }) => {
               {/* </StyledLink> */}
             </div>
             <form onSubmit={handleSubmit(submitGuest)}>
-              {/* <input type='text' />
-            <input type='email'/>
-            <input type='password'/> */}
-              <form Control type />
-              <button type='submit' className='noUser'>
+              {/* <form Control type /> */}
+              <button onClick={submitGuest} type='submit' className='noUser'>
                 Guest Login
               </button>
             </form>
+
+            <GoogleBtn
+              // icon={false}
+              clientId={process.env.REACT_APP_GOOGLE_API_KEY}
+              // buttonText=''
+              onSuccess={googleSuccess}
+              onFailure={(error) => console.log(error)}
+              cookiePolicy={"single_host_origin"}
+              responseType={"id_token"}
+              render={(renderProps) => (
+                <button
+                style={{
+                  width: 50,
+                  border: "none",
+                  backgroundColor: "white",
+                  margin: 5,
+                  padding: 0,
+                  cursor: "pointer"
+                  }}
+                  className='google'
+                  onClick={renderProps.onClick}
+                >
+                  <img src='../food_img/google_logo.png' width='37' />
+                </button>
+              )}
+            />
+
+            <KakaoBtn
+              buttonText='Login with kakao'
+              id='kakaobutton'
+              onSuccess={kakaoSuccess}
+              onFail={(error) => console.log(error)}
+              token={process.env.REACT_APP_KAKAO_API_KEY}
+              needProfile={true}
+              useLoginForm={true}
+              style={{ color: "white", fontSize: 20, margin: 5, padding: 0 }}
+            >
+              <img src='../food_img/kakao.png' width='20' />
+            </KakaoBtn>
           </LoginEnd>
         </LoginContainer>
       </StyledContainer>
@@ -184,14 +223,14 @@ const StyledContainer = styled.div`
 `;
 
 const showDialog = keyframes`
-   from {
+  from {
     opacity: 0;
     transform: translateY(-100px);
-   }
-   to{
+  }
+  to{
     opacity: 1;
     transform: translateY(0px);
-   }
+  }
 `;
 
 const LoginContainer = styled(SectionBox)`
@@ -231,7 +270,6 @@ const InputContainer = styled.div`
     margin: 20px 0;
     font-size: 18px;
     width: 50%;
-    /* height: 100%; */
     &:focus {
       outline: none;
       border-bottom: 1px solid ${theme.colors.black};
@@ -256,14 +294,14 @@ const LoginButton = styled(LargeBtn)`
   color: ${theme.colors.black};
   font-size: 20px;
   font-weight: 600;
-  margin: 15px auto;
+  margin: 10px auto;
   cursor: pointer;
 `;
 
 const SocialButton = styled(LargeBtn)`
   width: 50%;
   height: 50px;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   background-color: white;
   color: ${theme.colors.black};
   border: 1px solid ${theme.colors.lightgrey};
@@ -276,6 +314,32 @@ const SocialButton = styled(LargeBtn)`
     color: ${theme.colors.black};
     font-size: 18px;
     font-weight: 600;
+    margin: 0 0 0 5px;
+  }
+  .kakao_logo {
+    vertical-align: middle;
+    height: 28px;
+  }
+  .kakao_text {
+    color: ${theme.colors.black};
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 0 5px;
+  }
+`;
+
+const GoogleBtn = styled(GoogleLogin)`
+`;
+
+const KakaoBtn = styled(KakaoLogin)`
+  background-color: white;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-family: "Noto Sans KR";
+  font-size: 22px;
+  img {
+    width: 40px;
   }
 `;
 
@@ -286,7 +350,7 @@ const SignUpButton = styled(LargeBtn)`
   color: ${theme.colors.black};
   font-size: 20px;
   font-weight: 600;
-  margin: 15px auto;
+  margin: 0 auto 10px auto;
   cursor: pointer;
 `;
 
@@ -298,7 +362,7 @@ const LoginEnd = styled.div`
   }
   .noUser {
     width: 30%;
-    margin: 0 auto;
+    margin: 10px auto 30px auto;
     color: ${theme.colors.gray};
     font-size: 20px;
     font-weight: 500;
