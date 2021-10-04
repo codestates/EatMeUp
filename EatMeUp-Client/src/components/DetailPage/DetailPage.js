@@ -37,19 +37,20 @@ const DetailePage = ({ match }) => {
       })
       .then((response) => {
         if (response.data) {
-          setGetRecipe(response.data.recipeInfo);
-          setSteps(response.data.recipeInfo.steps);
-          setFoods(response.data.recipeInfo.foods);
-          setPostedUser(response.data.recipeInfo.user);
-          setLikelist(response.data.recipeInfo.likeUser);
+          console.log(response.data.recipeInfo[0])
+          setGetRecipe(response.data.recipeInfo[0]);
+          setSteps(response.data.recipeInfo[0].steps);
+          setFoods(response.data.recipeInfo[0].foods);
+          setPostedUser(response.data.recipeInfo[0].user);
+          setLikelist(response.data.recipeInfo[0].likeUser);
         }
       });
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(getUserinfo());
-    }
+    // if (isAuthenticated) {
+    //   dispatch(getUserinfo());
+    // }
 
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
@@ -73,19 +74,19 @@ const DetailePage = ({ match }) => {
     }
   };
 
-  useEffect(() => {
-    likelist.forEach((like) => {
-      console.log(like.id, user.id)
-      if (like.id === user.id) {
-        setIsLiked(true);
-        setClicked(true);
-      }
-    });
-  }, [likelist]);
+  // useEffect(() => {
+  //   likelist.forEach((like) => {
+  //     console.log(like.id, user.id)
+  //     if (like.id === user.id) {
+  //       setIsLiked(true);
+  //       setClicked(true);
+  //     }
+  //   });
+  // }, [likelist]);
 
-  console.log(likelist);
+  // console.log(likelist);
 
-  console.log(isLiked);
+  // console.log(isLiked);
 
   return (
     <div>
@@ -116,7 +117,7 @@ const DetailePage = ({ match }) => {
 
           <TitleBox>
             {getRecipe.title}
-            <i
+            {/* <i
               className={
                 isLiked ? "fas fa-heart" : clicked ? "fas fa-heart" : "far fa-heart"
               }
@@ -124,7 +125,7 @@ const DetailePage = ({ match }) => {
                 isLiked ? { color: theme.colors.red } : clicked ? { color: theme.colors.red } : { color: theme.colors.black } 
               }
               onClick={() => likeBtnHandler(getRecipe.id)}
-            ></i>
+            ></i> */}
           </TitleBox>
 
           {getRecipe.level === "초보환영" && (
@@ -192,7 +193,7 @@ const DetailePage = ({ match }) => {
                           : "https://ifh.cc/g/dHepyz.png"
                       }
                       alt='step_image'
-                      height={step.image === "" && "130"}
+                      // height={step.image === "" && "130"}
                     />
                   </div>
                   <div className='steps'>
