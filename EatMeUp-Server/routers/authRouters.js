@@ -10,7 +10,6 @@ const authRouter = Router();
 authRouter.post("/signup", signup);
 authRouter.post("/login", login);
 authRouter.get("/logout", auth, logout);
-authRouter.get("kakao");
 
 //비회원 게스트 로그인
 authRouter.post("/guest", guest);
