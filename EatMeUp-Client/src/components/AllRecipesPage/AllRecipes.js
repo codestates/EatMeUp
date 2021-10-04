@@ -396,6 +396,70 @@ const TitleBox = styled.div`
     }
 
   }
+
+
+  @media screen and (max-width: 1024px) {
+    div {
+    display: block;
+  }
+    
+  .max_box {
+      min-width: 92%;
+      margin: 10px auto;
+    }
+
+    .min_box{
+      min-width: 45%;
+      margin:10 20px;
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+    div {
+    display: block;
+  }
+    
+  .max_box {
+      min-width: 92%;
+    }
+
+    .min_box{
+      min-width: 45%;
+      margin-top: 10px;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    div {
+    display: block;
+  }
+    .max_box {
+      display: none;
+    }
+
+    .min_box{
+      min-width: 90%;
+    }
+  }
+
+  
+
+  @media screen and (max-width: 375px) {
+
+    
+  div {
+    display: block;
+  }
+    .max_box {
+      display: none;
+    }
+
+    .min_box{
+      min-width: 90%;
+    }
+   
+  }
 `;
 
 const SearchBox = styled.div`
@@ -444,6 +508,46 @@ const Container = styled.div`
     a {
       color: #404040;
     }
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 `;
 
