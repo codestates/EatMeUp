@@ -175,16 +175,18 @@ const MyInfo = () => {
                 <div className='info_box'>
                   <div className='username'>
                     username
-                    <input
-                      type='text'
-                      onChange={(e) => setName(e.target.value)}
-                      value={name}
-                      placeholder={user.username}
-                    />
+                    <div className='input_box'>
+                      <input
+                        type='text'
+                        onChange={(e) => setName(e.target.value)}
+                        value={name}
+                        placeholder={user.username}
+                      />
+                    </div>
                   </div>
                   <div className='email'>
                     email
-                    <input placeholder={user.email} disabled />
+                    <div className='email_box'><input placeholder={user.email} disabled /></div>
                   </div>
                 </div>
               </div>
@@ -258,24 +260,24 @@ const MyInfoContainer = styled(SectionBox)`
   }
   .username {
     text-align: center;
-    margin: 20px 10px;
+    /* margin: 20px 10px; */
     font-size: 17px;
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
   }
   .email {
     text-align: center;
-    margin: 20px 24px;
+    /* margin: 20px 24px; */
     font-size: 17px;
     width: 100%;
-    height: 50px;
+    /* height: 50px; */
   }
-  .info3 {
-    text-align: center;
-    margin: 20px 24px;
-    font-size: 17px;
+  .input_box {
     width: 100%;
-    height: 50px;
+    input {
+      width: 20%;
+      margin: 10px;
+    }
   }
   input {
     background-color: transparent;
@@ -284,10 +286,12 @@ const MyInfoContainer = styled(SectionBox)`
     color: #555;
     box-sizing: border-box;
     font-size: 18px;
-    height: 50px;
-    width: 60%;
+    /* height: 50px; */
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
     font-family: "Noto Sans KR";
-    margin: 0 30px;
+    /* margin: 0 30px; */
     &:focus {
       outline: none;
       border-bottom: 1px solid ${theme.colors.black};
@@ -321,6 +325,7 @@ const EditButton = styled(LargeBtn)`
   font-family: "Noto Sans KR";
   cursor: pointer;
 `;
+
 const DeleteButton = styled(LargeBtn)`
   width: 180px;
   height: 50px;
@@ -333,70 +338,5 @@ const DeleteButton = styled(LargeBtn)`
   font-family: "Noto Sans KR";
   cursor: pointer;
 `;
-
-const Modal = ({ onClose }) => {
-  const onMaskClick = (e) => {
-    if (e.target === e.currentTarget) {
-      onClose(e);
-    }
-  };
-
-  const close = (e) => {
-    if (onClose) {
-      onClose(e);
-    }
-  };
-  return (
-    <>
-      <ModalOverlay />
-      <ModalWrapper tabIndex='-1'>
-        <ModalInner tabIndex='0' className='modal-inner'>
-          계정을 삭제하시면 되돌릴 수 없습니다 정말 삭제하시겠습니까?
-          <CloseButton>삭제</CloseButton>
-          <CloseButton onClose={(e) => close}>취소</CloseButton>
-        </ModalInner>
-      </ModalWrapper>
-    </>
-  );
-};
-
-const ModalWrapper = styled.div`
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: auto;
-  outline: 0;
-`;
-
-const ModalOverlay = styled.div`
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 999;
-`;
-
-const ModalInner = styled.div`
-  box-sizing: border-box;
-  position: relative;
-  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-  background-color: #fff;
-  border-radius: 10px;
-  width: 360px;
-  max-width: 480px;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 auto;
-  padding: 40px 20px;
-`;
-
-const CloseButton = styled.button``;
 
 export default MyInfo;
