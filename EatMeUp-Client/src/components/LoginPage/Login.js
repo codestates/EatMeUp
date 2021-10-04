@@ -6,7 +6,8 @@ import styled, { keyframes } from "styled-components";
 import { loginRequest, clearErrors } from "../../_actions/authActions";
 
 // Google로그인
-import GoogleLogin from "react-google-login";
+import LoginGoogle from "./GoogleLogin";
+import LoginKakao from "./KakaoLogin";
 
 // 컴포넌트
 import AlertBox from "../SignupPage/AlertBox";
@@ -49,7 +50,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   const submitGuest = () => {
     const date = new Date().toLocaleString();
     const GuestData = {
-      username: date,
+      username: 'guest',
       email: `test${date}@eatmeup.me`,
       password: `123456`,
     };
@@ -128,19 +129,19 @@ const Login = ({ setShowLogin, setShowSignup }) => {
                   alt='google'
                 />
               </span>
-              <span className='google_text'> Login with Google</span>
+              <span className='google_text' onClick={LoginGoogle}> Login with Google</span>
             </div>
           </SocialButton>
           <SocialButton>
-            <div className='google'>
+            <div className='kakao'>
               <span>
                 <img
-                  className='google_logo'
-                  src='../food_img/google_logo.png'
+                  className='kakao_logo'
+                  src='../food_img/kakao.png'
                   alt='google'
                 />
               </span>
-              <span className='google_text'> Login with Kakao</span>
+              <span className='kakao_text' onClick={LoginKakao}> Login with kakao</span>
             </div>
           </SocialButton>
           <LoginEnd>
@@ -252,14 +253,14 @@ const LoginButton = styled(LargeBtn)`
   color: ${theme.colors.black};
   font-size: 20px;
   font-weight: 600;
-  margin: 15px auto;
+  margin: 10px auto;
   cursor: pointer;
 `;
 
 const SocialButton = styled(LargeBtn)`
   width: 50%;
   height: 50px;
-  margin: 0 auto;
+  margin: 0 auto 10px auto;
   background-color: white;
   color: ${theme.colors.black};
   border: 1px solid ${theme.colors.lightgrey};
@@ -272,6 +273,17 @@ const SocialButton = styled(LargeBtn)`
     color: ${theme.colors.black};
     font-size: 18px;
     font-weight: 600;
+    margin: 0 0 0 5px;
+  }
+  .kakao_logo {
+    vertical-align: middle;
+    height: 28px;
+  }
+  .kakao_text {
+    color: ${theme.colors.black};
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 0 0 5px;
   }
 `;
 
@@ -282,7 +294,7 @@ const SignUpButton = styled(LargeBtn)`
   color: ${theme.colors.black};
   font-size: 20px;
   font-weight: 600;
-  margin: 15px auto;
+  margin: 0 auto 10px auto;
   cursor: pointer;
 `;
 

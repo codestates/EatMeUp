@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   editUserinfo,
   deleteMyaccount,
   getUserinfo,
+  clearErrors,
 } from "../../_actions/userActions";
+import { logoutRequest } from "../../_actions/authActions";
 
 import { EDIT_USERINFO_RESET } from "../../_types/userTypes";
 import axios from "axios";
@@ -25,9 +27,10 @@ import theme from "../StyledComponent/theme";
 const { Swal } = window;
 
 const MyInfo = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
-  const { isEdited, loading } = useSelector((state) => state.useraction);
+  const { isEdited, loading, error } = useSelector((state) => state.useraction);
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
 
@@ -37,10 +40,13 @@ const MyInfo = () => {
     if (isEdited) {
       dispatch({ type: EDIT_USERINFO_RESET });
     }
-  }, [dispatch, isEdited]);
+
+    if (error) {
+      dispatch(clearErrors());
+    }
+  }, [dispatch, isEdited, error]);
 
   const userEditHandler = async (e) => {
-    
     e.preventDefault();
 
     let image = null;
@@ -95,17 +101,22 @@ const MyInfo = () => {
 
   const deleteHandler = () => {
     Swal.fire({
-      title: "내 정보 수정",
-      text: "정보를 수정 하시겠습니까?",
-      icon: "success",
+      title: "내 계정 삭제",
+      text: "정보를 삭제 하시겠습니까?",
+      icon: "warning",
       showCancleButton: true,
       confirmButtonColor: "#FEBD2F",
       cancelButtonColor: "#d33",
-      confirmButtonText: "수정",
+      confirmButtonText: "삭제",
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(editUserinfo());
+        dispatch(deleteMyaccount());
+        
+        setTimeout(() => {
+          dispatch(logoutRequest());
+          history.push("/");
+        }, 1000);
       }
     });
   };
@@ -179,7 +190,7 @@ const MyInfo = () => {
               </div>
               <div className='btn_container'>
                 <EditButton onClick={userEditHandler}>수정 완료</EditButton>
-                <DeleteButton>계정 삭제</DeleteButton>
+                <DeleteButton onClick={deleteHandler}>계정 삭제</DeleteButton>
               </div>
             </MyInfoContainer>
           )}
@@ -283,7 +294,6 @@ const MyInfoContainer = styled(SectionBox)`
       transition: all 0.2s ease-in-out;
     }
   }
-
   input[type="file"] {
     position: absolute;
     width: 1px;

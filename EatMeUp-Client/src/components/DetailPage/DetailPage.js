@@ -189,11 +189,11 @@ const DetailePage = ({ match }) => {
                         step.image
                           ? step.image
                           : step.image === ""
-                          ? "https://ifh.cc/g/dHepyz.png"
-                          : "https://ifh.cc/g/dHepyz.png"
+                          ? "https://i.ibb.co/2WWRRxL/cooking.png"
+                          : "https://i.ibb.co/2WWRRxL/cooking.png"
                       }
                       alt='step_image'
-                      // height={step.image === "" && "130"}
+                      // height={step.image === "" && "200"}
                     />
                   </div>
                   <div className='steps'>
@@ -359,11 +359,13 @@ const StepBox = styled.div`
   margin: 10px 0;
   .step_image {
     display: flex;
-    width: 170px;
+    width: 300px;
+    height: 200px;
+    border-radius: 20px;
     img {
       border-radius: 20px;
-      width: 170px;
-      object-fit: contain;
+      width: 300px;
+      object-fit: cover;
     }
   }
   .steps {
