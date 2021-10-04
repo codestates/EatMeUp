@@ -509,7 +509,9 @@ const EditRecipePage = ({ match }) => {
                               <input
                                 type='file'
                                 id={idx}
-                                {...register(`image-${idx}`)}
+                                {...register(`image-${idx}`, {
+                                  required: "요리 단계별 이미지를 업로드 해보세요.",
+                                })}
                               />
                               {recipeWatch[idx] ? (
                                 <img
@@ -520,6 +522,11 @@ const EditRecipePage = ({ match }) => {
                                 <img src={item.image} alt='recipe' />
                               ) : (
                                 "요리 단계별 이미지를 업로드 해보세요."
+                              )}
+                              {errors[`image-${idx}`] ? (
+                                <p>{errors[`image-${idx}`].message}</p>
+                              ) : (
+                                ""
                               )}
                               {""}
                             </div>
@@ -913,6 +920,12 @@ const AddRecipeBox = styled.div`
     cursor: pointer;
     position: relative;
 
+    p {
+      position: absolute;
+      color: #bf1650;
+      top: 257px;
+    }
+
     label {
       cursor: pointer;
       position: absolute;
@@ -939,6 +952,7 @@ const AddRecipeBox = styled.div`
       width: 100%;
       height: 250px;
       object-fit: cover;
+      border-radius: 20px;
     }
   }
 
@@ -972,7 +986,7 @@ const AddRecipeBox = styled.div`
   p {
     color: #bf1650;
     font-size: 12px;
-    line-height: 0.1;
+    line-height:1;
   }
 
   p::before {

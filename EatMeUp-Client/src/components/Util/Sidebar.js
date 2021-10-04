@@ -65,6 +65,12 @@ const SideMenu = styled.div`
   a {
     text-decoration: none;
   }
+
+  @media screen and (max-width: 375px){
+    width: 65px;
+    margin: 0 2vw 0 1vw;
+   
+  }
 `
 
 const MenuBtn = styled(XSmallBtn)`
@@ -103,6 +109,16 @@ const MenuBtn = styled(XSmallBtn)`
     line-height: 8px;
   }
 
+
+  @media screen and (max-width: 375px){
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    
+
+    
+  }
 `;
 
 export default Sidebar;

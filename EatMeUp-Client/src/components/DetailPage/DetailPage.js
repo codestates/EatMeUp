@@ -19,9 +19,15 @@ import theme from "../StyledComponent/theme";
 
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
+
+
+  // selector
   const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
+
+
+  // state
   const [getRecipe, setGetRecipe] = useState("");
   const [clicked, setClicked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
@@ -31,13 +37,14 @@ const DetailePage = ({ match }) => {
   const [posteduser, setPostedUser] = useState([]);
 
   useEffect(() => {
+   
     axios
       .get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {
         withCredentials: true,
       })
       .then((response) => {
         if (response.data) {
-          console.log(response.data.recipeInfo[0])
+          console.log(response.data.recipeInfo);
           setGetRecipe(response.data.recipeInfo[0]);
           setSteps(response.data.recipeInfo[0].steps);
           setFoods(response.data.recipeInfo[0].foods);
@@ -48,10 +55,10 @@ const DetailePage = ({ match }) => {
   }, []);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      dispatch(getUserinfo());
-    }
 
+    if(isAuthenticated) {
+      dispatch(getUserinfo())
+    }
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
     }
@@ -76,17 +83,13 @@ const DetailePage = ({ match }) => {
 
   useEffect(() => {
     likelist.forEach((like) => {
-      console.log(like.id, user.id)
+    
       if (like.id === user.id) {
         setIsLiked(true);
-        setClicked(true);
       }
     });
   }, [likelist]);
 
-  // console.log(likelist);
-
-  // console.log(isLiked);
 
   return (
     <div>
@@ -117,15 +120,34 @@ const DetailePage = ({ match }) => {
 
           <TitleBox>
             {getRecipe.title}
-            <i
-              className={
-                isLiked ? "fas fa-heart" : clicked ? "fas fa-heart" : "far fa-heart"
-              }
-              style={
-                isLiked ? { color: theme.colors.red } : clicked ? { color: theme.colors.red } : { color: theme.colors.black } 
-              }
-              onClick={() => likeBtnHandler(getRecipe.id)}
-            ></i>
+            {isLiked === true &&
+              (clicked ? (
+                <i
+                  onClick={() => likeBtnHandler(getRecipe.id)}
+                  className='far fa-heart'
+                  style={{ color: theme.colors.black }}
+                ></i>
+              ) : (
+                <i
+                  onClick={() => likeBtnHandler(getRecipe.id)}
+                  className='fas fa-heart'
+                  style={{ color: theme.colors.red }}
+                ></i>
+              ))}
+            {isLiked === false &&
+              (clicked ? (
+                <i
+                  onClick={() => likeBtnHandler(getRecipe.id)}
+                  className='fas fa-heart'
+                  style={{ color: theme.colors.red }}
+                ></i>
+              ) : (
+                <i
+                  onClick={() => likeBtnHandler(getRecipe.id)}
+                  className='far fa-heart'
+                  style={{ color: theme.colors.black }}
+                ></i>
+              ))}
           </TitleBox>
 
           {getRecipe.level === "초보환영" && (

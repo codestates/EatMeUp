@@ -35,7 +35,7 @@ const ModalDialog = styled.div`
   box-sizing: border-box;
   margin: 0 auto;
   width: 400px;
-  height: 500px;
+  height: 450px;
   border-radius: 20px;
   border: 2px solid gray;
   max-width: calc(100% - 0.01px) !important;
@@ -93,9 +93,9 @@ const FoodInfoBox = styled.div`
   input {
       border: none;
       border-bottom: 1px solid lightgrey;
-      margin: 5px 3px;
+      margin: 5px auto;
       font-size: 14px;
-      width: 70%;
+      width: 67%;
       &:focus {
         outline: none;
         border-bottom: 1px solid black;
@@ -116,6 +116,7 @@ const FoodInfoBox = styled.div`
   .buydate-box > input {
     width: 177px;
     height: 30px;
+  
   }
 `;
 

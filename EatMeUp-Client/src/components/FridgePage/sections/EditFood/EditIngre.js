@@ -23,7 +23,6 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
 
   const [foodname, setFoodname] = useState(food_name);
   const [life, setlife] = useState("");
-  const [boughtDate, setboughtDate] = useState("");
   const [image, setImage] = useState(null);
 
   const closeEditModal = (e) => {
@@ -66,15 +65,12 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
       foodImage = img.url.split("?")[0];
     }
 
-    const foodlife = foodLife(life);
-
+  
     const food = {
       food_name: foodname ? foodname : food_name,
       frez_type: frez_type,
-      life: foodlife ? foodlife : life,
+      life: life ? life : food_life,
       food_image: foodImage ? foodImage : food_image,
-      created_at: boughtDate,
-      update_at: "2021-01-02",
     };
 
     dispatch(editFood(id, food));
@@ -142,16 +138,6 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                   type='text'
                   value={foodname}
                   onChange={(e) => setFoodname(e.currentTarget.value)}
-                />
-              </div>
-
-              {/* 구매일자 입력창 */}
-              <div className='buydate-box'>
-                <span>구매일자 : </span>
-                <input
-                  value={boughtDate ? boughtDate : creatAt}
-                  onChange={(e) => setboughtDate(e.currentTarget.value)}
-                  type='date'
                 />
               </div>
 
