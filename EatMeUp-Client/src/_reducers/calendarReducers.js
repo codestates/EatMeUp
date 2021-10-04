@@ -46,6 +46,26 @@ export const getMealPlansReducer = (state = { plans: [] }, action) => {
 
 export const getRecommandReducer = (state = { recommandedRecipe: [] }, action) => {
   switch (action.type) {
+    case GET_RECOMMAND_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case GET_RECOMMAND_SUCCESS:
+      return {
+        loading: false,
+        recommandedRecipe: action.payload
+      }
+    case GET_RECOMMAND_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      }
+    case CLEAR_ERRORS:
+      return {
+        loading: false,
+        error: null
+      }
     default:
       return state;
   }

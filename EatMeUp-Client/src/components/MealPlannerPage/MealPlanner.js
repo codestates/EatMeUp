@@ -14,19 +14,21 @@ import Sidebar from "../Util/Sidebar";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
 const MealPlanner = () => {
-
   const dispatch = useDispatch();
+
+  const { plans } = useSelector((state) => state.getmealplan);
+
   /* 월별/주별 핸들러 */
   const [showMonth, setShowMonth] = useState(true);
 
   useEffect(() => {
-    
-    dispatch(getMealPlans())
-  }, [dispatch])
+    dispatch(getMealPlans());
+  }, [dispatch]);
   const showWeekHandler = () => {
     setShowMonth(false);
   };
 
+  console.log(plans);
   const showMonthHandler = () => {
     setShowMonth(true);
   };
@@ -44,6 +46,7 @@ const MealPlanner = () => {
             {/* 월별/주별 핸들러 */}
             {showMonth ? (
               <Calendar
+                plans={plans}
                 showWeekHandler={showWeekHandler}
                 showMonthHandler={showMonthHandler}
               />
