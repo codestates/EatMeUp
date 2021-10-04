@@ -57,9 +57,10 @@ const MyInfo = () => {
       text: "정보를 수정 하시겠습니까?",
       icon: "success",
       showCancleButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#FEBD2F",
       cancelButtonColor: "#d33",
-      confirmButtonText: "수정하기",
+      confirmButtonText: "수정",
+      cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(editUserinfo());
@@ -116,7 +117,7 @@ const MyInfo = () => {
                 </div>
               </div>
               <div className='info_box'>
-                <div className='info1'>
+                <div className='username'>
                   username
                   <input
                     type='text'
@@ -125,18 +126,14 @@ const MyInfo = () => {
                     placeholder={user.username}
                   />
                 </div>
-                <div className='info2'>
-                  avatar
-                  <input placeholder='kimcoding' />
-                </div>
-                <div className='info3'>
+                <div className='email'>
                   email
                   <input placeholder={user.email} disabled />
                 </div>
               </div>
             </div>
             <div className='btn_container'>
-              <EditButton onClick={userEditHandler}>수정 완료</EditButton>
+              <EditButton onClick={deleteHandler}>수정 완료</EditButton>
               <DeleteButton>계정 삭제</DeleteButton>
             </div>
           </MyInfoContainer>
@@ -200,16 +197,16 @@ const MyInfoContainer = styled(SectionBox)`
   }
   .info_box {
     width: 400px;
-    margin: 40px auto;
+    margin: 50px auto;
   }
-  .info1 {
+  .username {
     text-align: center;
     margin: 20px 10px;
     font-size: 17px;
     width: 100%;
     height: 50px;
   }
-  .info2 {
+  .email {
     text-align: center;
     margin: 20px 24px;
     font-size: 17px;
@@ -231,7 +228,7 @@ const MyInfoContainer = styled(SectionBox)`
     box-sizing: border-box;
     font-size: 18px;
     height: 50px;
-    width: 250px;
+    width: 60%;
     font-family: "Noto Sans KR";
     margin: 0 30px;
     &:focus {
