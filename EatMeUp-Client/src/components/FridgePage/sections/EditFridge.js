@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 /* 컴포넌트 */
 import EditIngre from "./EditFood/EditIngre";
+import { foodLife } from './utils/convertDate'
 
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
@@ -233,10 +234,10 @@ const EditFridge = ({
                           : { opacity: "1" }
                       }
                     >
-                      {Number(food.life) < 0 ? (
-                        <span className='red'>D+{Math.abs(food.life)}</span>
+                      {Number(foodLife(food.life)) < 0 ? (
+                        <span className='red'>D+{Math.abs(foodLife(food.life))}</span>
                       ) : (
-                        <span className='foodlife'>D-{food.life}</span>
+                        <span className='foodlife'>D-{foodLife(food.life)}</span>
                       )}
                     </div>
                   </FoodBox>
