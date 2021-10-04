@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Snackbar from "@mui/material/Snackbar";
-
+import { foodLife } from './utils/convertDate'
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";
@@ -53,9 +53,10 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     const freshFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
-          if (item.life > 30) {
+          if (foodLife(item.life) > 30) {
             return item;
           }
+          return "";
         });
         return {
           type: idx,
@@ -77,9 +78,10 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     const yellowFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
-          if (item.life < 30 && item.life > 7) {
+          if (foodLife(item.life) < 30 && foodLife(item.life) > 7) {
             return item;
           }
+          return ""
         });
         return {
           type: idx,
@@ -101,9 +103,10 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     const redFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
-          if (item.life <= 7) {
+          if (foodLife(item.life) <= 7) {
             return item;
           }
+          return "";
         });
         return {
           type: idx,
@@ -192,7 +195,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                             food: food,
                           })}
                         >
-                          {Number(food.life) <= 7 ? (
+                          {Number(foodLife(food.life)) <= 7 ? (
                             <div className='alert'>
                               <i className='fas fa-exclamation-circle'></i>
                             </div>
@@ -229,12 +232,12 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
                           {/* 유통기한 디데이표시 */}
                           <div className='foodlife_box'>
-                            {Number(food.life) < 0 ? (
+                            {Number(foodLife(food.life)) < 0 ? (
                               <span className='red'>
-                                D+{Math.abs(food.life)}
+                                D+{Math.abs(foodLife(food.life))}
                               </span>
                             ) : (
-                              <span className='foodlife'>D-{food.life}</span>
+                              <span className='foodlife'>D-{foodLife(food.life)}</span>
                             )}
                           </div>
                         </FoodBox>
@@ -287,7 +290,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                             food: food,
                           })}
                         >
-                          {Number(food.life) <= 7 ? (
+                          {Number(foodLife(food.life)) <= 7 ? (
                             <div className='alert'>
                               <i className='fas fa-exclamation-circle'></i>
                             </div>
@@ -324,12 +327,12 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
                           {/* 유통기한 디데이표시 */}
                           <div className='foodlife_box'>
-                            {Number(food.life) < 0 ? (
+                            {Number(foodLife(food.life)) < 0 ? (
                               <span className='red'>
-                                D+{Math.abs(food.life)}
+                                D+{Math.abs(foodLife(food.life))}
                               </span>
                             ) : (
-                              <span className='foodlife'>D-{food.life}</span>
+                              <span className='foodlife'>D-{foodLife(food.life)}</span>
                             )}
                           </div>
                         </FoodBox>

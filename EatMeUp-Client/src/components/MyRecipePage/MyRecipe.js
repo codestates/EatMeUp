@@ -86,6 +86,12 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    font-size: 25px;
+    margin: 0;
+  }
 `;
 
 const Button = styled(LargeBtn)`
@@ -95,6 +101,19 @@ const Button = styled(LargeBtn)`
   cursor: pointer;
   span {
     margin: 8px;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    margin-right: 45px;
+    font-size: 13px;
+    width: 120px;
+    height: 35px;
+    float: right;
+
+    a {
+      text-decoration: none;
+    }
   }
 `;
 
@@ -126,6 +145,10 @@ const ListBox = styled.div`
   gap: 15px;
   padding: 10px;
 }
+
+@media screen and (max-width: 375px) {
+    margin-top: 40px;
+  }
 `;
 
 export default MyRecipe;

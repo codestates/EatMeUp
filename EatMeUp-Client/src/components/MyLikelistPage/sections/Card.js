@@ -36,7 +36,7 @@ const Card = ({ recipes }) => {
         <Link to={`/recipe/info/${recipe.id}`}><img src={recipe.main_image} alt='recipe' className='recipe-img' /></Link>
 
         {/* figure태그의 캡션 */}
-
+      <div>
         <div className='recipe-info_box'>
           {/* 요리시간 */}
           <div className='time'>
@@ -67,6 +67,7 @@ const Card = ({ recipes }) => {
               return <span>#{food.name}</span>;
             })}
           </div>
+        </div>
         </div>
       </Recipes>
     );
@@ -103,9 +104,6 @@ const Recipes = styled.div`
     justify-content: space-between;
   }
 
-.userprofile_box {
-  margin-right: 20px;
-}
   .fa-clock {
     color: gray;
     font-size: 12px;
@@ -150,7 +148,7 @@ const Recipes = styled.div`
   .fa-trash-alt {
     margin-top: 3px;
     font-size: 20px;
-    margin-right: 10px;
+    margin-right: 30px;
     cursor: pointer;
     color: black;
 
@@ -158,6 +156,70 @@ const Recipes = styled.div`
   .fa-clock {
     font-size: 12px;
     margin: 0;
+  }
+
+
+  @media screen and (max-width: 375px){
+    height: 125px;
+    display: flex;
+
+    a > img {
+    width: 90%;
+    height: 110px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin: 7px 2px 0px 7px;
+  }
+   
+  .fa-trash-alt {
+    font-size: 13px;
+  }
+
+  .far {
+    font-size: 13px;
+    margin-right: 5px;
+  }
+
+  .recipe-info_box {
+    font-size:9px;
+    margin: 20px 0px 0px 0px;
+  }
+
+  .ingres > span {
+    padding: 3px 5px;
+    background-color: #EAEAEA;
+    border-radius: 30px;
+    margin-right:5px;
+  }
+
+
+  .fa-clock {
+    font-size: 9px;
+    margin: 0;
+  }
+
+
+  .recipe-ingre_box {
+    font-size: 12px;
+    display: flex;
+    
+    margin: 10px 0px 5px 0px;
+  }
+  .title_box {
+    text-indent: 5px;
+    margin: 0;
+  }
+
+  .fa-heart {
+    color: ${theme.colors.red};
+    font-size: 14px;
+    margin-right: 5px;
+  }
+
+  .ingres {
+    font-size: 4px;
+
+  }
   }
 `;
 

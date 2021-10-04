@@ -133,14 +133,64 @@ const SearchBox = styled.div`
 `;
 
 const Container = styled.div`
-  width: 95%;
+  width: 80%;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
-  margin: 0 auto;
 
   a {
     color: #404040;
+  }
+  @media screen and (max-width: 1500px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 `;
 
