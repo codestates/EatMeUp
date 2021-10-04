@@ -41,12 +41,12 @@ const Card = ({ recipe }) => {
                   src={
                     recipe.user.avatar
                       ? recipe.user.avatar
-                      : "../food_img/favicon.png"
+                      : "../food_img/people.jpeg"
                   }
                   alt='people'
                 />
               </div>
-              <div>
+              <div className='username'>
                 <div>
                   <span>
                     {recipe.user.username === "test1"
@@ -54,7 +54,6 @@ const Card = ({ recipe }) => {
                       : recipe.user.username}
                   </span>
                 </div>
-                <div className='update-time'>hello world!</div>
               </div>
             </div>
 
@@ -117,18 +116,20 @@ const RecipeCard = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding-top: 6px;
+    margin-top: 4px;
   }
 
   .imgbox-left > div > img {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     margin: 5px;
+    border-radius: 50%;
     object-fit: cover;
   }
 
   .imgbox-left {
     display: flex;
+    align-items: center;
   }
 
   .imgbox-left > div {
@@ -137,14 +138,14 @@ const RecipeCard = styled.div`
     object-fit: cover;
   }
 
-  .update-time {
-    font-size: 9px;
-    color: grey;
-  }
-
   .imgbox-right {
     display: flex;
     margin-right: 10px;
+  }
+
+  .username > div {
+    font-size: 16px;
+    color: #404040;
   }
 
   #level {
@@ -171,7 +172,7 @@ const RecipeCard = styled.div`
     height: 230px;
     border-radius: 20px;
     object-fit: cover;
-    margin: 10px 7px 0px 7px;
+    margin: 0px 7px 0px 7px;
   }
 
   /* 레시피카드 정보(제목, 시간, 주재료) css영역 */

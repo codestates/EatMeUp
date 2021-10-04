@@ -44,10 +44,12 @@ const Login = ({ setShowLogin, setShowSignup }) => {
     setShowLogin(false);
   };
 
+
   const submitGuest = () => {
     const date = new Date().toLocaleString();
+   
     const GuestData = {
-      username: date,
+      username: "guest",
       email: `test${date}@eatmeup.me`,
       password: `123456`,
     };

@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
-import { getMyLikelist  } from '../../_actions/userActions';
-import {
-  REMOVE_FROM_LIKELIST_RESET,
-} from "../../_types/userTypes";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyLikelist } from "../../_actions/userActions";
+import { REMOVE_FROM_LIKELIST_RESET } from "../../_types/userTypes";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -18,20 +16,17 @@ import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
 const MyLikelist = () => {
-
   const dispatch = useDispatch();
-  const { mylikelist } = useSelector(state => state.mylikelist)
-  const { isDeleted } = useSelector(state => state.likelist)
+  const { mylikelist } = useSelector((state) => state.mylikelist);
+  const { isDeleted } = useSelector((state) => state.likelist);
 
   useEffect(() => {
+    dispatch(getMyLikelist());
 
-    dispatch(getMyLikelist())
-
-    if(isDeleted) {
-      dispatch({ type: REMOVE_FROM_LIKELIST_RESET})
+    if (isDeleted) {
+      dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
-    
-  }, [dispatch, isDeleted])
+  }, [dispatch, isDeleted]);
 
   return (
     <>
@@ -39,7 +34,7 @@ const MyLikelist = () => {
       <section>
         <Container>
           {/* 사이드바영역 */}
-          <Sidebar id={2}/>
+          <Sidebar id={2} />
 
           {/* 좋아요한 레시피 리스트 영역 */}
           <ListContainer>
@@ -79,8 +74,13 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
-`;
 
+  @media screen and (max-width: 375px) {
+    display: block;
+    font-size: 20px;
+    margin: 0;
+  }
+`;
 
 const ListBox = styled.div`
   width: 95%;
@@ -88,9 +88,33 @@ const ListBox = styled.div`
   margin: 0 auto;
   min-height: 720px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
   padding: 10px;
+
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 800px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 375px) {
+    grid-template-columns: 1fr;
+    grid-gap: 0;
+    padding: 10px;
+  }
 `;
 
 export default MyLikelist;

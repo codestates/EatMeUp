@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { addToFridge } from "../../../../_actions/fridgeActions";
-import { foodLife } from "../utils/convertDate";
 import axios from "axios";
+
 /* 스타일 컴포넌트 */
 import {
   BackGroundModal,
@@ -14,14 +14,10 @@ import {
 } from "../styled/Style";
 import { Button } from "../../../StyledComponent/buttons";
 
-//Todo
-// 음식 추가시 에러시 메세지 띄우기!!
-
 const AddIngre = ({ setOpenAddWindow }) => {
   const dispatch = useDispatch();
   const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
-  const [registerDate, setRegisterDate] = useState("");
   const [image, setImage] = useState(null);
 
   const closeHandler = () => {
@@ -64,15 +60,11 @@ const AddIngre = ({ setOpenAddWindow }) => {
       foodImage = img.url.split("?")[0];
     }
 
-    const food_life = foodLife(foodlife);
-    const buyingDate = foodLife(registerDate);
-
     const food = {
       food_image: foodImage ? foodImage : null,
       food_name: foodname,
-      life: food_life ? food_life : buyingDate,
+      life: foodlife,
       frez_type: 0,
-      created_at: registerDate,
     };
 
     dispatch(addToFridge(food));
@@ -131,16 +123,6 @@ const AddIngre = ({ setOpenAddWindow }) => {
                 />
               </div>
 
-              {/* 구매일자 입력창 */}
-              <div className='buydate-box'>
-                <span>구매일자 : </span>
-                <input
-                  value={registerDate}
-                  onChange={(e) => setRegisterDate(e.currentTarget.value)}
-                  type='date'
-                />
-              </div>
-
               {/* 유통기한 입력창 */}
               <div className='foodlife-box'>
                 <span>유통기한 : </span>
@@ -174,6 +156,7 @@ const InputBox = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+
   label {
     padding: 0.3em 0.5em;
     border-radius: 10px;

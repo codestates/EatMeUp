@@ -104,9 +104,7 @@ const Recipes = styled.div`
     justify-content: space-between;
   }
 
-.userprofile_box {
-  margin-right: 20px;
-}
+
   .fa-clock {
     color: gray;
     font-size: 12px;
@@ -142,25 +140,81 @@ const Recipes = styled.div`
     margin-right:5px;
   }
 
-  
-  .fa-clock {
-    font-size: 12px;
-    margin: 0;
-  }
+
   .far {
     font-size: 20px;
-    margin-right: 10px;
+    margin-right: 5px;
   }
 
   .fa-trash-alt {
     margin-top: 3px;
     cursor: pointer;
     color: black;
+    margin-right: 30px;
   }
 
   .fa-clock {
     font-size: 12px;
     margin: 0;
+  }
+
+  @media screen and (max-width: 375px){
+    height: 125px;
+    display: flex;
+
+
+    img {
+    width: 40%;
+    height: 110px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin: 7px 2px 0px 7px;
+  }
+   
+  .fa-trash-alt {
+    font-size: 13px;
+  }
+
+  .far {
+    font-size: 13px;
+    margin-right: 5px;
+  }
+
+  .recipe-info_box {
+    font-size:9px;
+
+    margin: 30px 0px 0px 0px;
+  }
+
+  .ingres > span {
+    padding: 3px 5px;
+    background-color: #EAEAEA;
+    border-radius: 30px;
+    margin-right:5px;
+  }
+
+
+  .fa-clock {
+    font-size: 9px;
+    margin: 0;
+  }
+
+
+  .recipe-ingre_box {
+    font-size: 14px;
+    display: flex;
+    
+    margin: 10px 0px 5px 0px;
+  }
+  .title_box {
+    text-indent: 5px;
+    margin: 0;
+  }
+
+  .ingres {
+    font-size: 4px;
+
+  }
   }
 `;
 
