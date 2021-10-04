@@ -4,8 +4,7 @@ const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
 
 const getRecipe = async (req, res) => {
-  // const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
-  const { id } = req.body;
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
   try {
     const recipeInfo = await Recipe.findAll({
       include: [
