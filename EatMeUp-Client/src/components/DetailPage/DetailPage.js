@@ -99,7 +99,6 @@ const DetailePage = ({ match }) => {
                 {posteduser.avatar === null ? (
                   <i class='far fa-user-circle'></i>
                 ) : (
-<<<<<<< HEAD
                   <img
                     src={posteduser.avatar}
                     alt='userimg'
@@ -109,9 +108,6 @@ const DetailePage = ({ match }) => {
                       borderRadius: "50%",
                     }}
                   />
-=======
-                  <img src={user.avatar} />
->>>>>>> 8e6f48a5f1fdd31fe3f60e240d81e0de2072b43a
                 )}
               </div>
               <span className='username'>{posteduser.username}</span>
@@ -189,15 +185,11 @@ const DetailePage = ({ match }) => {
                   <div className='step_image'>
                     <img
                       src={
-<<<<<<< HEAD
                         step.image
                           ? step.image
                           : step.image === ""
                           ? "https://ifh.cc/g/dHepyz.png"
                           : "https://ifh.cc/g/dHepyz.png"
-=======
-                        step.image ? step.image : "https://ifh.cc/g/dHepyz.png"
->>>>>>> 8e6f48a5f1fdd31fe3f60e240d81e0de2072b43a
                       }
                       alt='step_image'
                       height={step.image === "" && "130"}
