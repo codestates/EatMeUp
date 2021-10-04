@@ -10,7 +10,7 @@ import AlertBox from "../SignupPage/AlertBox";
 
 // 스타일 컴포넌트
 import { LargeBtn } from "../StyledComponent/buttons";
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const { swal } = window;
@@ -37,13 +37,13 @@ const Login = ({ setShowLogin, setShowSignup }) => {
       dispatch(clearErrors());
       return;
     }
-  }, [isAuthenticated, error]);
+  }, [dispatch, isAuthenticated, error, history]);
 
   const loginHandler = (data) => {
     dispatch(loginRequest(data));
-   
+    setShowLogin(false);
   };
- 
+
   const submitGuest = () => {
     const date = new Date().toLocaleString();
     const GuestData = {
@@ -52,10 +52,9 @@ const Login = ({ setShowLogin, setShowSignup }) => {
       password: `123456`,
     };
 
-    console.log(date);
     dispatch(loginRequest(GuestData));
     history.push("/");
-    setShowLogin(false)
+    setShowLogin(false);
   };
 
   const closeLoginModal = () => {
@@ -64,8 +63,8 @@ const Login = ({ setShowLogin, setShowSignup }) => {
 
   const signupHandler = () => {
     setShowLogin(false);
-    setShowSignup(true)
-  }
+    setShowSignup(true);
+  };
 
   return (
     <>
@@ -145,7 +144,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
           <LoginEnd>
             <div className='loginLine'>
               {/* <StyledLink to='/signup'> */}
-                <SignUpButton onClick={signupHandler}>SignUp</SignUpButton>
+              <SignUpButton onClick={signupHandler}>SignUp</SignUpButton>
               {/* </StyledLink> */}
             </div>
             <form onSubmit={handleSubmit(submitGuest)}>

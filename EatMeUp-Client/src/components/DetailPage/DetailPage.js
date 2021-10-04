@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getMyLikelist,
-  addToLikelist,
-  removeFromLikelist,
-} from "../../_actions/userActions";
+import { addToLikelist, removeFromLikelist } from "../../_actions/userActions";
+import { getUserinfo } from "../../_actions/userActions";
 import {
   ADD_TO_LIKELIST_RESET,
   REMOVE_FROM_LIKELIST_RESET,
@@ -23,13 +20,15 @@ import theme from "../StyledComponent/theme";
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
   const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
-
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.user);
   const [getRecipe, setGetRecipe] = useState("");
   const [clicked, setClicked] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [likelist, setLikelist] = useState([]);
   const [steps, setSteps] = useState([]);
   const [foods, setFoods] = useState([]);
-  const [user, setUser] = useState([]);
+  const [posteduser, setPostedUser] = useState([]);
 
   useEffect(() => {
     axios
@@ -38,20 +37,20 @@ const DetailePage = ({ match }) => {
       })
       .then((response) => {
         if (response.data) {
-          console.log(response.data);
           setGetRecipe(response.data.recipeInfo);
           setSteps(response.data.recipeInfo.steps);
           setFoods(response.data.recipeInfo.foods);
-          setUser(response.data.recipeInfo.user);
-          if (response.data.recipeInfo.likeUser.length > 0) {
-            setIsLiked(true);
-          }
+          setPostedUser(response.data.recipeInfo.user);
+          setLikelist(response.data.recipeInfo.likeUser);
         }
       });
   }, []);
 
   useEffect(() => {
-    dispatch(getMyLikelist());
+    if (isAuthenticated) {
+      dispatch(getUserinfo());
+    }
+
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
     }
@@ -64,7 +63,7 @@ const DetailePage = ({ match }) => {
   const likeBtnHandler = (id) => {
     setClicked(!clicked);
 
-    if (!clicked) {
+    if (!isLiked) {
       const recipeId = {
         id: match.params.id,
       };
@@ -73,6 +72,20 @@ const DetailePage = ({ match }) => {
       dispatch(removeFromLikelist(id));
     }
   };
+
+  useEffect(() => {
+    likelist.forEach((like) => {
+      console.log(like.id, user.id)
+      if (like.id === user.id) {
+        setIsLiked(true);
+        setClicked(true);
+      }
+    });
+  }, [likelist]);
+
+  console.log(likelist);
+
+  console.log(isLiked);
 
   return (
     <div>
@@ -83,24 +96,32 @@ const DetailePage = ({ match }) => {
             <img src={getRecipe.main_image} alt='recipe_img' />
             <ProfileContainer>
               <div className='profile_img'>
-                {user.avatar === null ? (
+                {posteduser.avatar === null ? (
                   <i class='far fa-user-circle'></i>
                 ) : (
-                  <div>user.avatar</div>
+                  <img
+                    src={posteduser.avatar}
+                    alt='userimg'
+                    style={{
+                      width: "35px",
+                      height: "35px",
+                      borderRadius: "50%",
+                    }}
+                  />
                 )}
               </div>
-              <span className='username'>{user.username}</span>
+              <span className='username'>{posteduser.username}</span>
             </ProfileContainer>
           </ImgBox>
 
           <TitleBox>
             {getRecipe.title}
             <i
-              className={isLiked ? "fas fa-heart" : "far fa-heart"}
+              className={
+                isLiked ? "fas fa-heart" : clicked ? "fas fa-heart" : "far fa-heart"
+              }
               style={
-                isLiked
-                  ? { color: theme.colors.red }
-                  : { color: theme.colors.black }
+                isLiked ? { color: theme.colors.red } : clicked ? { color: theme.colors.red } : { color: theme.colors.black } 
               }
               onClick={() => likeBtnHandler(getRecipe.id)}
             ></i>
@@ -148,7 +169,9 @@ const DetailePage = ({ match }) => {
                 let name = food.name;
                 let capacity = food.capacity;
                 return (
-                  <button className='foodtag'>{name.concat(capacity)}</button>
+                  <button className='foodtag' key={idx}>
+                    {name.concat(capacity)}
+                  </button>
                 );
               })}
             </div>
@@ -162,9 +185,11 @@ const DetailePage = ({ match }) => {
                   <div className='step_image'>
                     <img
                       src={
-                        step.image === ""
+                        step.image
+                          ? step.image
+                          : step.image === ""
                           ? "https://ifh.cc/g/dHepyz.png"
-                          : step.image
+                          : "https://ifh.cc/g/dHepyz.png"
                       }
                       alt='step_image'
                       height={step.image === "" && "130"}

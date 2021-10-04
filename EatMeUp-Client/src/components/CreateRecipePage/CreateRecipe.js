@@ -22,8 +22,6 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const CreateRecipe = () => {
-  /* function */
-
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -34,6 +32,8 @@ const CreateRecipe = () => {
     formState: { errors },
   } = useForm();
 
+
+  //-------------image preview------------------
   const recipeImg0 = useWatch({
     control,
     name: "image-0",
@@ -135,6 +135,8 @@ const CreateRecipe = () => {
     recipeImg9,
     recipeImg10,
   ]);
+//-----------image preview------------------
+
 
   //add materials
   const [foodname, setFoodname] = useState("");
@@ -145,10 +147,18 @@ const CreateRecipe = () => {
   const [menuals, setMenuals] = useState([]);
   const [recipeBox, setRecipeBox] = useState(["recipe-0"]);
   const [recipeDC, setRecipeDC] = useState("");
-
   const [ingredientTag, setIngredientTag] = useState([]); //재료태그
 
-  //재료 추가하는 핸들러
+  //preview handler
+  const [mainImage, setMainImage] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  const fileHandler = (e) => {
+    setMainImage(e.target.files[0]);
+  };
+
+  /* function area */
+  /*----------재료 추가하는 핸들러-----------------*/
   const AddIngredientHandler = (e) => {
     e.preventDefault();
 
@@ -166,13 +176,15 @@ const CreateRecipe = () => {
     setMaterials([...materials, material]);
   };
 
-  //추가된 재료 삭제하는 핸들러
+
+
+  /*----------추가된 재료 삭제하는 핸들러---------------*/
   const deleteIngredientHandler = (idx) => {
     const deleteTag = ingredientTag.filter((tag, id) => {
       if (id !== idx) {
         return tag;
       }
-      return"";
+      return "";
     });
 
     setIngredientTag(deleteTag);
@@ -185,66 +197,68 @@ const CreateRecipe = () => {
     setRecipeDC("");
   };
 
- 
 
-  //추가된 step영역 삭제하는 핸들러
+
+
+  /*---------추가된 step영역 삭제하는 핸들러--------------*/
   const deleteRecipeHandler = (idx) => {
     const deleteBox = recipeBox.filter((recipe, id) => {
       if (id !== idx) {
         return recipe;
       }
-      return ""
+      return "";
     });
 
     const deleteMenual = menuals.filter((recipe, id) => {
       if (id !== idx) {
         return recipe;
       }
-      return ""
+      return "";
     });
 
     setRecipeBox(deleteBox);
     setMenuals(deleteMenual);
   };
 
-  // 이미지 업로드
+
+
+  /*---------이미지 업로드 핸들러---------------------*/
   const uploadImage = async (files) => {
     const file = files[0];
+      console.log(file, files)
+    let imageUrl = null;
 
-    const data = await axios.get("https://api.eatmeup.me/image/s3url", {
-      withCredentials: true,
-    });
-
-    const img = await fetch(
-      data.data.s3url,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "image/jpeg",
-        },
-        body: file,
-      },
-      {
+    if (!file) {
+      imageUrl = null;
+    } else {
+      const data = await axios.get("https://api.eatmeup.me/image/s3url", {
         withCredentials: true,
-      },
-    );
+      });
 
-    const imageUrl = img.url.split("?")[0];
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: file,
+        },
+        {
+          withCredentials: true,
+        },
+      );
 
+      imageUrl = img.url.split("?")[0];
+    }
     return imageUrl;
   };
 
-  //preview handler
-  const [mainImage, setMainImage] = useState(null);
-  const [open, setOpen] = React.useState(false);
-
-  const fileHandler = (e) => {
-    setMainImage(e.target.files[0]);
-  };
-
-  // submit handler 서버요청
+  /*-----------submit handler 서버요청---------------*/
   const onSubmit = (data) => {
-    //data
+    
+
+    console.log(data)
     const imgArr = [];
     const newRecipe = {};
 
@@ -264,7 +278,7 @@ const CreateRecipe = () => {
         recipeImage.push({
           cookingNum: idx + 1,
           recipe: data[`${idx}-recipe`],
-          image: modFood,
+          image: modFood ? modFood : null, // 이미지주소가 있는 경우 삼항연산자
         });
       }
     };
@@ -278,12 +292,11 @@ const CreateRecipe = () => {
     newRecipe["foods"] = materials;
     newRecipe["steps"] = recipeImage;
 
-  
-    setOpen(true)
+    setOpen(true);
     setTimeout(() => {
       console.log(newRecipe);
-     
-      setOpen(false)
+
+      setOpen(false);
       dispatch(createMyRecipe(newRecipe));
       history.push("/user/myrecipe");
     }, 1000);
@@ -356,7 +369,9 @@ const CreateRecipe = () => {
                       )}
                     </ImageBox>
                     <div className='input'>
-                      <label htmlFor='fileInput'><i className="fas fa-upload"></i> 파일 업로드</label>
+                      <label htmlFor='fileInput'>
+                        <i className='fas fa-upload'></i> 파일 업로드
+                      </label>
                       <input
                         id='fileInput'
                         type='file'
