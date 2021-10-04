@@ -171,6 +171,7 @@ export const editUserinfo = (userInfo) => async (dispatch) => {
 
     const { data } = await axios.put(`${process.env.REACT_APP_API}/user/info`, userInfo, { withCredentials: true });
 
+    console.log(data)
     dispatch({
       type: EDIT_USERINFO_SUCCESS,
       payload: data,

@@ -7,14 +7,15 @@ import {
   deleteMyaccount,
   getUserinfo,
 } from "../../_actions/userActions";
-import { imageUpload } from "../../_actions/imageAction";
+
 import { EDIT_USERINFO_RESET } from "../../_types/userTypes";
-// import Modal from "./Modal"
+import axios from "axios";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
+import Loader from "../Util/Loader";
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
@@ -25,9 +26,8 @@ const { Swal } = window;
 
 const MyInfo = () => {
   const dispatch = useDispatch();
-  const { user, loading } = useSelector((state) => state.user);
-  const { image } = useSelector((state) => state.image);
-  const { isEdited } = useSelector((state) => state.useraction);
+  const { user } = useSelector((state) => state.user);
+  const { isEdited, loading } = useSelector((state) => state.useraction);
   const [name, setName] = useState("");
   const [file, setFile] = useState("");
 
@@ -39,8 +39,37 @@ const MyInfo = () => {
     }
   }, [dispatch, isEdited]);
 
-  const userEditHandler = () => {
-    dispatch(imageUpload(file));
+  const userEditHandler = async (e) => {
+    
+    e.preventDefault();
+
+    let image = null;
+
+    if (!file) {
+      image = null;
+    } else {
+      const data = await axios.get(`${process.env.REACT_APP_API}/image/s3url`, {
+        withCredentials: true,
+      });
+
+      //url을 사용해서 S3 버킷에 업로드
+      //axios
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: file,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      image = img.url.split("?")[0];
+    }
 
     const data = {
       avatar: image ? image : user.avatar,
@@ -48,7 +77,20 @@ const MyInfo = () => {
       email: user.email,
     };
 
-    dispatch(editUserinfo(data));
+    Swal.fire({
+      title: "내 정보 수정",
+      text: "정보를 수정 하시겠습니까?",
+      icon: "success",
+      showCancleButton: true,
+      confirmButtonColor: "#FEBD2F",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "수정",
+      cancelButtonText: "취소",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(editUserinfo(data));
+      }
+    });
   };
 
   const deleteHandler = () => {
@@ -74,69 +116,73 @@ const MyInfo = () => {
       <section>
         <Container>
           <Sidebar id={4} />
-          <MyInfoContainer>
-            <TitleBox>
-              <div className='title'>My Info</div>
-            </TitleBox>
-            <div className='info_container'>
-              <div className='profile_container'>
-                {file ? (
-                  <img
-                    src={URL.createObjectURL(file)}
-                    alt='avatar'
-                    style={{
-                      width: "190px",
-                      height: "190px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                ) : user.avatar ? (
-                  <img
-                    src={user.avatar}
-                    alt='avatar'
-                    style={{
-                      width: "190px",
-                      height: "190px",
-                      borderRadius: "50%",
-                    }}
-                  />
-                ) : (
-                  <i class='far fa-user-circle fa-10x' id='userimg'></i>
-                )}
+          {loading ? (
+            <Loader />
+          ) : (
+            <MyInfoContainer>
+              <TitleBox>
+                <div className='title'>My Info</div>
+              </TitleBox>
+              <div className='info_container'>
+                <div className='profile_container'>
+                  {file ? (
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt='avatar'
+                      style={{
+                        width: "190px",
+                        height: "190px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : user.avatar ? (
+                    <img
+                      src={user.avatar}
+                      alt='avatar'
+                      style={{
+                        width: "190px",
+                        height: "190px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  ) : (
+                    <i class='far fa-user-circle fa-10x' id='userimg'></i>
+                  )}
 
-                <div className='profileImg_box'>
-                  <label for='userimg'>
-                    <i class='fas fa-camera'></i>
-                  </label>
-                  <input
-                    type='file'
-                    id='userimg'
-                    accept='image/*'
-                    onChange={(e) => setFile(e.target.files[0])}
-                  />
+                  <div className='profileImg_box'>
+                    <label for='userimg'>
+                      <i class='fas fa-camera'></i>
+                    </label>
+                    <input
+                      type='file'
+                      id='userimg'
+                      accept='image/*'
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
+                  </div>
+                </div>
+                <div className='info_box'>
+                  <div className='username'>
+                    username
+                    <input
+                      type='text'
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
+                      placeholder={user.username}
+                    />
+                  </div>
+                  <div className='email'>
+                    email
+                    <input placeholder={user.email} disabled />
+                  </div>
                 </div>
               </div>
-              <div className='info_box'>
-                <div className='username'>
-                  username
-                  <input
-                    type='text'
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                    placeholder={user.username}
-                  />
-                </div>
-                <div className='email'>
-                  email
-                  <input placeholder={user.email} disabled />
-                </div>
+              <div className='btn_container'>
+                <EditButton onClick={userEditHandler}>수정 완료</EditButton>
+                <DeleteButton>계정 삭제</DeleteButton>
               </div>
-            </div>
-            <div className='btn_container'>
-              <EditButton onClick={deleteHandler}>수정 완료</EditButton>
-              <DeleteButton>계정 삭제</DeleteButton>
-            </div>
-          </MyInfoContainer>
+            </MyInfoContainer>
+          )}
         </Container>
       </section>
       <Footer />

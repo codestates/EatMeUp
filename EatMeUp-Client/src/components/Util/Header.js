@@ -65,7 +65,7 @@ const Header = () => {
       <div className='right-menu'>
         <div className='menuBtns'>
           <Link to='/user/mypage'>
-            <div className='user'><img src="../food_img/people.jpeg" alt="user" /></div>
+            <div className='menu right'>마이페이지</div>
           </Link>
           <Logout><i className="fas fa-sign-out-alt" onClick={logoutHandler}></i></Logout>
         </div>
