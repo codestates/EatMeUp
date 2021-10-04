@@ -220,19 +220,16 @@ export const userInfoReducer = (state = {}, action) => {
       };
     case EDIT_USERINFO_SUCCESS:
       return {
-        ...state,
         loading: false,
         isEdited: true,
       };
     case DELETE_USER_SUCCESS:
       return {
-        ...state,
         loading: false,
         isDeleted: true,
       };
     case EDIT_USERINFO_RESET:
       return {
-        ...state,
         loading: false,
         isEdited: false,
       };

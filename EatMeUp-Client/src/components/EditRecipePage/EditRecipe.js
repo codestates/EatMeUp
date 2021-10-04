@@ -31,15 +31,19 @@ const EditRecipePage = ({ match }) => {
   const { recipe, loading } = useSelector((state) => state.recipe);
 
   const [myrecipe, setMyrecipe] = useState("");
-  const [steps, setSteps] = useState([{
-    cookingNum: 0,
-    image: null,
-    recipe: ""
-  }]);
-  const [foods, setFoods] = useState([{
-    name: "",
-    capacity: "",
-  }]);
+  const [steps, setSteps] = useState([
+    {
+      cookingNum: 0,
+      image: null,
+      recipe: "",
+    },
+  ]);
+  const [foods, setFoods] = useState([
+    {
+      name: "",
+      capacity: "",
+    },
+  ]);
 
   useEffect(() => {
     axios
@@ -49,23 +53,12 @@ const EditRecipePage = ({ match }) => {
       .then((response) => {
         console.log(response.data);
         if (response.data) {
-          setMyrecipe(response.data.recipeInfo);
-          setSteps(response.data.recipeInfo.steps);
-          setFoods(response.data.recipeInfo.foods);
+          setMyrecipe(response.data.recipeInfo[0]);
+          setSteps(response.data.recipeInfo[0].steps);
+          setFoods(response.data.recipeInfo[0].foods);
         }
       });
   }, []);
-
-  console.log(steps)
-  // const [recipeBox, setRecipeBox] = useState(steps);
-  // const [ingredientTag, setIngredientTag] = useState(foods);
-
-  // useEffect(() => {
-  //   setRecipeBox(steps);
-  //   setIngredientTag(foods);
-  // }, [steps, foods]);
-
-  // console.log(foods, steps);
 
   const {
     register,
@@ -74,6 +67,7 @@ const EditRecipePage = ({ match }) => {
     formState: { errors },
   } = useForm();
 
+  /*-------- preview image --------------*/
   const recipeImg0 = useWatch({
     control,
     name: "image-0",
@@ -179,96 +173,9 @@ const EditRecipePage = ({ match }) => {
   //add materials
   const [foodname, setFoodname] = useState("");
   const [foodQuantity, setFoodQuantity] = useState("");
-  const [materials, setMaterials] = useState([]);
-  // const [recipeBox, setRecipeBox] = useState(steps);
 
   //steps
-  const [menuals, setMenuals] = useState([]);
   const [recipeDC, setRecipeDC] = useState("");
-
-  // const [ingredientTag, setIngredientTag] = useState(foods); //재료태그
-
-  //재료 추가하는 핸들러
-  // const AddIngredientHandler = (e) => {
-  //   e.preventDefault();
-
-  //   const tag = foodname + foodQuantity;
-  //   const material = {
-  //     name: foodname,
-  //     capacity: foodQuantity,
-  //   };
-  //   if (tag === "") {
-  //     return;
-  //   }
-  //   setIngredientTag([...ingredientTag, tag]);
-  //   setFoodname("");
-  //   setFoodQuantity("");
-  //   setMaterials([...materials, material]);
-  // };
-
-  // //추가된 재료 삭제하는 핸들러
-  // const deleteIngredientHandler = (idx) => {
-  //   const deleteTag = ingredientTag.filter((tag, id) => {
-  //     if (id !== idx) {
-  //       return tag;
-  //     }
-  //   });
-
-  //   setIngredientTag(deleteTag);
-  // };
-
-  // const addRecipeHandler = () => {
-  //   const textarea = `recipe-${recipeBox.length - 1}`;
-
-  //   setRecipeBox([...recipeBox, textarea]);
-  //   setRecipeDC("");
-  // };
-
-  //추가된 step영역 삭제하는 핸들러
-  // const deleteRecipeHandler = (idx) => {
-  //   const deleteBox = recipeBox.filter((recipe, id) => {
-  //     if (id !== idx) {
-  //       return recipe;
-  //     }
-  //   });
-
-  //   const deleteMenual = menuals.filter((recipe, id) => {
-  //     if (id !== idx) {
-  //       return recipe;
-  //     }
-  //   });
-
-  //   setRecipeBox(deleteBox);
-  //   setMenuals(deleteMenual);
-  // };
-
-  const uploadImage = async (files) => {
-    const file = files[0];
-
-    const data = await axios.get("https://api.eatmeup.me/image/s3url", {
-      withCredentials: true,
-    });
-
-    //url을 사용해서 S3 버킷에 업로드
-    //axios
-    const img = await fetch(
-      data.data.s3url,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "image/jpeg",
-        },
-        body: file,
-      },
-      {
-        withCredentials: true,
-      },
-    );
-
-    const imageUrl = img.url.split("?")[0];
-
-    return imageUrl;
-  };
 
   //preview handler
   const [mainImage, setMainImage] = useState(null);
@@ -278,7 +185,90 @@ const EditRecipePage = ({ match }) => {
     setMainImage(e.target.files[0]);
   };
 
-  // submit handler 서버요청
+  /*-------재료 추가하는 핸들러----------*/
+  const AddIngredientHandler = (e) => {
+    e.preventDefault();
+
+    const material = {
+      name: foodname,
+      capacity: foodQuantity,
+    };
+
+    if (foodname === "" || foodQuantity === "") {
+      return;
+    }
+
+    setFoodname("");
+    setFoodQuantity("");
+    setFoods([...foods, material]);
+  };
+
+  /*---------추가된 재료 삭제하는 핸들러----------*/
+  const deleteIngredientHandler = (idx) => {
+    const deleteFood = foods.filter((food, id) => {
+      if (id !== idx) {
+        return food;
+      }
+      return "";
+    });
+
+    setFoods(deleteFood);
+  };
+
+  /*----------레시피 추가하는 핸들러----------*/
+  const addRecipeHandler = () => {
+    const textarea = `recipe-${steps.length - 1}`;
+
+    setSteps([...steps, textarea]);
+    setRecipeDC("");
+  };
+
+  /*----------레시피 추가하는 핸들러----------*/
+  const deleteRecipeHandler = (idx) => {
+    const deleteBox = steps.filter((recipe, id) => {
+      if (id !== idx) {
+        return recipe;
+      }
+      return "";
+    });
+
+    setSteps(deleteBox);
+  };
+
+  /*-------이미지 업로드---------------*/
+  const uploadImage = async (files) => {
+    const file = files[0];
+
+    let imageUrl = null;
+    if (!file) {
+      imageUrl = null;
+    } else {
+      const data = await axios.get("https://api.eatmeup.me/image/s3url", {
+        withCredentials: true,
+      });
+
+      //url을 사용해서 S3 버킷에 업로드
+      //axios
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: file,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      imageUrl = img.url.split("?")[0];
+    }
+    return imageUrl;
+  };
+
+  /*----------submit handler 서버요청-------------ㄴ*/
   const onSubmit = (data) => {
     //data
     const imgArr = [];
@@ -311,9 +301,9 @@ const EditRecipePage = ({ match }) => {
     newRecipe["description"] = data.description;
     newRecipe["cooking_time"] = data.cooking_time;
     newRecipe["level"] = data.cooking_level;
-    newRecipe["foods"] = materials;
+    newRecipe["foods"] = foods;
     newRecipe["steps"] = recipeImage;
-    console.log(newRecipe);
+
     setOpen(true);
     setTimeout(() => {
       console.log(newRecipe);
@@ -408,7 +398,7 @@ const EditRecipePage = ({ match }) => {
                           })}
                           onChange={fileHandler}
                         />
-                         {errors.main_image ? (
+                        {errors.main_image ? (
                           <p> {errors.main_image.message}</p>
                         ) : (
                           ""
@@ -474,9 +464,9 @@ const EditRecipePage = ({ match }) => {
                       />
 
                       <div>
-                        {/* <AddBtn onClick={AddIngredientHandler}>
+                        <AddBtn onClick={AddIngredientHandler}>
                           재료 추가
-                        </AddBtn> */}
+                        </AddBtn>
                       </div>
                     </FlexContainer>
 
@@ -486,8 +476,8 @@ const EditRecipePage = ({ match }) => {
                         {foods.map((food, idx) => {
                           return (
                             <Chip
-                              label={food.name}
-                              // onDelete={() => deleteIngredientHandler(idx)}
+                              label={`${food.name} ${food.capacity}`}
+                              onDelete={() => deleteIngredientHandler(idx)}
                               key={idx}
                             />
                           );
@@ -521,7 +511,7 @@ const EditRecipePage = ({ match }) => {
                                 id={idx}
                                 {...register(`image-${idx}`)}
                               />
-                              {/* {recipeWatch[idx] ? (
+                              {recipeWatch[idx] ? (
                                 <img
                                   src={URL.createObjectURL(recipeWatch[idx][0])}
                                   alt='img'
@@ -530,7 +520,7 @@ const EditRecipePage = ({ match }) => {
                                 <img src={item.image} alt='recipe' />
                               ) : (
                                 "요리 단계별 이미지를 업로드 해보세요."
-                              )} */}
+                              )}
                               {""}
                             </div>
 
@@ -555,7 +545,7 @@ const EditRecipePage = ({ match }) => {
                             <div>
                               <i
                                 className='fas fa-times'
-                                // onClick={() => deleteRecipeHandler(idx)}
+                                onClick={() => deleteRecipeHandler(idx)}
                               ></i>
                             </div>
                           </div>
@@ -563,7 +553,7 @@ const EditRecipePage = ({ match }) => {
                       );
                     })}
                     <BtnArea>
-                      {/* {recipeBox.length === 10 ? (
+                      {steps.length === 10 ? (
                         ""
                       ) : (
                         <PlusBtn>
@@ -572,7 +562,7 @@ const EditRecipePage = ({ match }) => {
                             onClick={addRecipeHandler}
                           ></i>
                         </PlusBtn>
-                      )} */}
+                      )}
                     </BtnArea>
                   </AddRecipeArea>
                 </StepsBox>
@@ -722,6 +712,16 @@ const ImageArea = styled.div`
     margin-left: 14px;
     margin-top: 37px;
   }
+  p {
+    color: #bf1650;
+    font-size: 12px;
+    line-height: 1;
+  }
+
+  p::before {
+    display: inline;
+    content: "⚠ ";
+  }
 `;
 const ImageBox = styled.div`
   width: 100%;
@@ -740,6 +740,17 @@ const ImageBox = styled.div`
     height: 300px;
     object-fit: cover;
     border-radius: 10px;
+  }
+
+  p {
+    color: #bf1650;
+    font-size: 12px;
+    line-height: 0.1;
+  }
+
+  p::before {
+    display: inline;
+    content: "⚠ ";
   }
 `;
 

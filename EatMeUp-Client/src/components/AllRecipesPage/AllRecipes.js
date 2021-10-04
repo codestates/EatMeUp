@@ -4,15 +4,13 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useDispatch, useSelector } from "react-redux";
 import { allRecipes } from "../../_actions/recipeActions";
+import { getUserinfo } from "../../_actions/userActions";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import Card from "./sections/Card";
 import Footer from "../Util/Footer";
 import Loader from "../Util/Loader";
-
-/* 스타일 컴포넌트 */
-import { SectionBox } from "../StyledComponent/containers";
 
 const AllRecipes = () => {
   // Todo
@@ -21,9 +19,10 @@ const AllRecipes = () => {
   const { loading, recipes, recipeCount } = useSelector(
     (state) => state.allRecipes,
   );
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [page, setPage] = useState(1);
-
+  const [getRecipes, setGetRecipes] = useState([]);
   const count = Math.ceil(recipeCount / 12);
 
   useEffect(() => {
@@ -31,6 +30,11 @@ const AllRecipes = () => {
       page: page,
     };
     dispatch(allRecipes(getPage));
+    setGetRecipes(recipes);
+
+    if (isAuthenticated) {
+      dispatch(getUserinfo());
+    }
   }, [dispatch, page]);
 
   const mainCardHandler = (e, idx) => {
@@ -132,7 +136,7 @@ const AllRecipes = () => {
 
           {/* 카드리스트 컨테이너 */}
           <Container>
-            {recipes.map((recipe, idx) => {
+            {getRecipes.map((recipe, idx) => {
               return <Card recipe={recipe} key={idx} />;
             })}
           </Container>
@@ -188,142 +192,9 @@ const TitleBox = styled.div`
     display: flex;
   }
 
-  /* 큰카드 */
-  .max_box {
-    height: 350px;
-    transition: all 0.4s;
-    margin: 0px 7.5px;
-    background: #ffffff;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-    border-radius: 30px;
-    display: flex;
-    font-size: 15px;
-
-    .recipeInfo {
-      display: block;
-    }
-
-    .bxs-star {
-      color: #febd2f;
-    }
-
-    img {
-      width: 50%;
-      transition: all 0.4s;
-      height: 95%;
-      border-radius: 25px;
-      margin: 7px;
-    }
-
-    .description_box {
-      font-size: 13px;
-    }
-  }
-
-  /* 작은카드 */
-  .min_box {
-    
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  display: inline-block;
-  background-color: #ffffff;
-  width: 95%;
-  height: 350px;
-  margin: 0px 10px;
-  margin-bottom: 30px;
-
-  .recipeInfo {
-    display: block;
-  }
-
-  img {
-    width: 95%;
-    height: 250px;
-    border-radius: 20px;
-    object-fit: cover;
-    margin: 10px 7px 0px 7px;
-  }
-
-  .description_box {
-    display: none;
-  }
-
-  .level {
-    display: none;
-  }
-
-  .recipe-info_box {
-    display: flex;
-    font-size: 12px;
-    color: #A9A7A3;
-    margin-left: 10px;
-    width: 100%;
-    justify-content: space-between;
-  }
-
-  .userprofile_box {
-    margin-right: 20px;
-  }
-
-  .fa-clock {
-    color: gray;
-    font-size: 12px;
-  }
-
-  .title_box {
-    text-indent: 5px;
-    margin-left: 15px;
-    font-weight: 500;
-  }
-
-  .recipe-ingre_box {
-    font-size: 14px;
-    display: flex;
-    margin: 5px 0px 15px 10px;
-  }
-
-  .ingre-label {
-    text-indent: 10px;
-    font-size: 13px;
-  }
-
-  .ingres {
-    font-size: 11px;
-    margin-left: 5px;
-  }
-
-  .ingres > span {
-    padding: 3px 8px;
-    background-color: #EAEAEA;
-    border-radius: 30px;
-    margin-right:5px;ƒ
-  }
- }
-
-@media screen and (max-width: 1500px) {
-    width: 100%;
-    margin: 0 auto;
-
-    div {
-      display: flex;
-    }
-
-
-    /* 작은카드 */
-    .min_box {
-      .fa-clock {
-        font-size: 12px;
-        margin: 4px;
-      } 
-
-      .main-ingre {
-        display: none;
-      }
-    }
-
 
     /* 큰 카드 */
-   .max_box {
+    .max_box {
     font-size: 40px;
     height: 350px;
     transition: all 0.4s;
@@ -415,11 +286,184 @@ const TitleBox = styled.div`
       }
     }
 
+  /* 작은카드 */
+  .min_box {
+    
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  display: inline-block;
+  background-color: #ffffff;
+  width: 95%;
+  height: 350px;
+  margin: 0px 10px;
+  margin-bottom: 30px;
+
+  .recipeInfo {
+    display: block;
+  }
+
+  img {
+    width: 95%;
+    height: 250px;
+    border-radius: 20px;
+    object-fit: cover;
+    margin: 10px 7px 0px 7px;
+  }
+
+  .description_box {
+    display: none;
+  }
+
+  .level {
+    display: none;
+  }
+
+
+  .main-ingre {
+     display: none;
+      }
+
+  .recipe-info_box {
+    display: flex;
+    font-size: 12px;
+    color: #A9A7A3;
+    margin-left: 10px;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .userprofile_box {
+    margin-right: 20px;
+  }
+
+ 
+
+  .title_box {
+    text-indent: 5px;
+    margin-left: 15px;
+    font-weight: 500;
+  }
+
+  .recipe-ingre_box {
+    font-size: 14px;
+    display: flex;
+    margin: 5px 0px 15px 10px;
+  }
+
+  .ingre-label {
+    text-indent: 10px;
+    font-size: 13px;
+  }
+
+  .ingres {
+    font-size: 11px;
+    margin-left: 5px;
+  }
+
+  .fa-clock {
+    color: grey;
+    font-size: 12px;
+    margin: 4px;
+ } 
+
+  .ingres > span {
+    padding: 3px 8px;
+    background-color: #EAEAEA;
+    border-radius: 30px;
+    margin-right:5px;ƒ
+  }
+ }
+
+@media screen and (max-width: 1500px) {
+    width: 100%;
+    margin: 0 auto;
+
+    div {
+      display: flex;
+    }
+
+
+    /* 작은카드 */
+    .min_box {
+      .fa-clock {
+        font-size: 12px;
+        margin: 4px;
+      } 
+
+      .main-ingre {
+        display: none;
+      }
+    }
+
+  }
+
+
+  @media screen and (max-width: 1024px) {
+    div {
+    display: block;
+  }
+    
+  .max_box {
+      min-width: 92%;
+      margin: 10px auto;
+    }
+
+    .min_box{
+      min-width: 45%;
+      margin:10 20px;
+    }
+
+  }
+
+  @media screen and (max-width: 768px) {
+    div {
+    display: block;
+  }
+    
+  .max_box {
+      min-width: 92%;
+    }
+
+    .min_box{
+      min-width: 45%;
+      margin-top: 10px;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    div {
+    display: block;
+  }
+    .max_box {
+      display: none;
+    }
+
+    .min_box{
+      min-width: 90%;
+    }
+  }
+
+  
+
+  @media screen and (max-width: 375px) {
+
+    
+  div {
+    display: block;
+  }
+    .max_box {
+      display: none;
+    }
+
+    .min_box{
+      min-width: 90%;
+    }
+   
   }
 `;
 
 const SearchBox = styled.div`
-  width: 90%;
+  width: 80%;
   margin: 10px auto;
   align-items: center;
 
@@ -438,6 +482,10 @@ const SearchBox = styled.div`
   }
   .fa-concierge-bell {
     color: #a9a7a3;
+  }
+
+  @media screen and (max-width: 1500px) {
+    width: 90%;
   }
 `;
 
@@ -460,6 +508,46 @@ const Container = styled.div`
     a {
       color: #404040;
     }
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    grid-template-columns: 1fr;
+    gap: 15px;
   }
 `;
 

@@ -13,7 +13,7 @@ import AlertBox from "../SignupPage/AlertBox";
 
 // 스타일 컴포넌트
 import { LargeBtn } from "../StyledComponent/buttons";
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const { swal } = window;
@@ -40,7 +40,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
       dispatch(clearErrors());
       return;
     }
-  }, [isAuthenticated, error]);
+  }, [dispatch, isAuthenticated, error, history]);
 
   const loginHandler = (data) => {
     dispatch(loginRequest(data));
@@ -54,7 +54,6 @@ const Login = ({ setShowLogin, setShowSignup }) => {
       password: `123456`,
     };
 
-    console.log(date);
     dispatch(loginRequest(GuestData));
     history.push("/");
     setShowLogin(false);
