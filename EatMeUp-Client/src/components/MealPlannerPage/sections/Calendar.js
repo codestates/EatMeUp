@@ -12,7 +12,7 @@ import theme from "../../StyledComponent/theme";
 
 import { mealPlan } from "../../dummydata";
 
-function Calendar({ showWeekHandler, showMonthHandler }) {
+function Calendar({ showWeekHandler, showMonthHandler, plans }) {
   // 달력 알고리즘 (moment.js를 이용한 달력만들기)
   const [getMoment, setMoment] = useState(moment());
   const [openDaily, setOpenDaily] = useState(false);
@@ -22,10 +22,10 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
   const openModalHandler = (date, plan) => {
     setOpenDaily(true);
     setGetDate(date);
-    setPlan(plan)
+    setPlan(plan);
   };
 
-  const dates = mealPlan.map((plan) => {
+  const dates = plans.map((plan) => {
     return plan.date.split("-").join("");
   });
 
@@ -59,44 +59,55 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
                     <HasPlanCell
                       key={index}
                       onClick={() =>
-                        openModalHandler(
-                          days.format("YYYYMMDD"),
-                          mealPlan[i],
-                        )
+                        openModalHandler(days.format("YYYYMMDD"), plans[i])
                       }
                     >
                       <span className='day'>{days.format("D")}</span>
                       <br />
-                      <TitleBox>
-                        <Img>
-                          <img
-                            src='../food_img/breakfast.png'
-                            alt='breakfast'
-                            style={{ width: "25px", height: "25px" }}
-                          />
-                        </Img>
-                        <Title>아침식단</Title>
-                      </TitleBox>
-                      <TitleBox>
-                        <Img>
-                          <img
-                            src='../food_img/lunch.png'
-                            alt='breakfast'
-                            style={{ width: "25px", height: "25px" }}
-                          />
-                        </Img>
-                        <Title>점심식단</Title>
-                      </TitleBox>
-                      <TitleBox>
-                        <Img>
-                          <img
-                            src='../food_img/dinner.png'
-                            alt='breakfast'
-                            style={{ width: "25px", height: "25px" }}
-                          />
-                        </Img>
-                        <Title>저녁식단</Title>
-                      </TitleBox>
+                      {plans[i].mealplanBreakfast.length > 0 ? (
+                        <TitleBox>
+                          <Img>
+                            <img
+                              src='../food_img/breakfast.png'
+                              alt='breakfast'
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                          </Img>
+                          <Title>아침식단</Title>
+                        </TitleBox>
+                      ) : (
+                        ""
+                      )}
+
+                      {plans[i].mealplanLunch.length > 0 ? (
+                        <TitleBox>
+                          <Img>
+                            <img
+                              src='../food_img/lunch.png'
+                              alt='breakfast'
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                          </Img>
+                          <Title>점심식단</Title>
+                        </TitleBox>
+                      ) : (
+                        ""
+                      )}
+
+                      {plans[i].mealplanDinner.length > 0 ? (
+                        <TitleBox>
+                          <Img>
+                            <img
+                              src='../food_img/dinner.png'
+                              alt='breakfast'
+                              style={{ width: "25px", height: "25px" }}
+                            />
+                          </Img>
+                          <Title>저녁식단</Title>
+                        </TitleBox>
+                      ) : (
+                        ""
+                      )}
                     </HasPlanCell>
                   );
                 }
@@ -127,7 +138,9 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
                 return (
                   <Cell
                     key={index}
-                    onClick={() => openModalHandler(days.format("YYYYMMDD"), null)}
+                    onClick={() =>
+                      openModalHandler(days.format("YYYYMMDD"), null)
+                    }
                   >
                     <span className='day'>{days.format("D")}</span>
                   </Cell>
@@ -203,7 +216,11 @@ function Calendar({ showWeekHandler, showMonthHandler }) {
       </div>
 
       {/* 일별 일정보여주는 모달창 핸들러 */}
-      {openDaily ? <Daily setOpenDaily={setOpenDaily} getDate={getDate} plan={plan} /> : ""}
+      {openDaily ? (
+        <Daily setOpenDaily={setOpenDaily} getDate={getDate} plan={plan} />
+      ) : (
+        ""
+      )}
     </>
   );
 }
