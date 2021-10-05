@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getMealPlans } from "../../_actions/calendarActions";
-import { DELETE_MEALPLAN_RESET } from "../../_types/calendarTypes";
+import { DELETE_MEALPLAN_RESET, NEW_MEALPLAN_RESET } from "../../_types/calendarTypes";
 
 /* 컴포넌트 */
 import Calendar from "./sections/Calendar";
@@ -18,15 +18,22 @@ const MealPlanner = () => {
   const dispatch = useDispatch();
 
   const { loading, plans } = useSelector((state) => state.getmealplan);
+  const { isAdded } = useSelector((state) => state.mealplan);
   const { isDeletetd } = useSelector((state) => state.deleteplan);
 
   useEffect(() => {
     dispatch(getMealPlans());
 
+    if(isAdded) {
+      dispatch({ type: NEW_MEALPLAN_RESET });
+    }
+
     if (isDeletetd) {
       dispatch({ type: DELETE_MEALPLAN_RESET });
     }
-  }, [dispatch, isDeletetd]);
+
+
+  }, [dispatch, isDeletetd, isAdded]);
 
   
 
