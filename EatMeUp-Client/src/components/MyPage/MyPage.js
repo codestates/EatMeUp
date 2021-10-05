@@ -33,7 +33,7 @@ const MyPage = () => {
     username: "",
     email: "",
     avatar: null,
-  })
+  });
 
   useEffect(() => {
     dispatch(getMyLikelist());
@@ -48,7 +48,7 @@ const MyPage = () => {
         "warning",
       );
       dispatch(clearErrors());
-      history.push('/');
+      history.push("/");
       return;
     }
   }, [dispatch, history, error]);
@@ -86,13 +86,13 @@ const MyPage = () => {
                       <i class='far fa-user-circle' id='userimg'></i>
                     )}
                   </div>
-                  <div className='info1'>
+                  <div className='info_username'>
                     name
-                    <input placeholder={getUser.username} disabled />
+                    <div className='email'>{getUser.username}</div>
                   </div>
-                  <div className='info2'>
+                  <div className='info_email'>
                     email
-                    <input placeholder={user.email} disabled />
+                    <div className='email'>{user.email}</div>
                   </div>
                   <div className='info3'></div>
                   <div className='btn_container'>
@@ -107,7 +107,9 @@ const MyPage = () => {
                     <Title>
                       <div className='recipe_title'>My Recipes</div>
                       <Link to='/user/myrecipe'>
-                        <AddBtn>더 보기  <i class="fas fa-chevron-right"></i></AddBtn>
+                        <AddBtn>
+                          더 보기 <i class='fas fa-chevron-right'></i>
+                        </AddBtn>
                       </Link>
                     </Title>
                     <CardContainer>
@@ -129,8 +131,10 @@ const MyPage = () => {
                   <LikedRecipeBox>
                     <Title>
                       <div className='recipe_title'>Liked Recipes</div>
-                      <Link to='/user/myrecipe'>
-                        <AddBtn>더 보기  <i class="fas fa-chevron-right"></i></AddBtn>
+                      <Link to='/user/likelist'>
+                        <AddBtn>
+                          더 보기 <i class='fas fa-chevron-right'></i>
+                        </AddBtn>
                       </Link>
                     </Title>
                     <CardContainer>
@@ -205,7 +209,7 @@ const ProfileContainer = styled.div`
       color: ${theme.colors.lightgrey};
     }
   }
-  .info1 {
+  .info_username {
     text-align: center;
     margin: 20px 0;
     font-size: 17px;
@@ -213,34 +217,32 @@ const ProfileContainer = styled.div`
     height: 50px;
     color: ${theme.colors.gray};
   }
-  .info2 {
+  .info_email {
     text-align: center;
     margin: 20px 0;
     font-size: 17px;
     width: 100%;
-    height: 50px;
+    height: 100px;
     color: ${theme.colors.gray};
   }
-  .info3 {
-    text-align: center;
-    margin: 20px 0;
-    font-size: 17px;
-    width: 100%;
-    height: 50px;
-    color: ${theme.colors.gray};
-  }
-  input {
-    height: 50px;
+  .email {
+    height: 40px;
     width: 80%;
+    color: ${theme.colors.black};
     text-align: center;
-    background-color: transparent;
-    border: none;
     box-sizing: border-box;
     font-size: 18px;
     font-family: "Noto Sans KR";
-    margin: 0 20px;
-    ::placeholder {
-      color: ${theme.colors.black};
+    margin: 15px auto 0 auto;
+    white-space: nowrap;
+    overflow-x: scroll;
+    ::-webkit-scrollbar {
+      height: 5px;
+      width: 5px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: ${theme.colors.lightgrey};
+      border-radius: 30px;
     }
   }
   .btn_container {
@@ -307,7 +309,7 @@ const AddBtn = styled(LargeBtn)`
   &:active {
     background-color: ${theme.colors.lightgrey};
   }
-`
+`;
 
 const CardContainer = styled.div`
   list-style: none;
