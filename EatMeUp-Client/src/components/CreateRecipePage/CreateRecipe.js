@@ -32,7 +32,6 @@ const CreateRecipe = () => {
     formState: { errors },
   } = useForm();
 
-
   //-------------image preview------------------
   const recipeImg0 = useWatch({
     control,
@@ -135,8 +134,7 @@ const CreateRecipe = () => {
     recipeImg9,
     recipeImg10,
   ]);
-//-----------image preview------------------
-
+  //-----------image preview------------------
 
   //add materials
   const [foodname, setFoodname] = useState("");
@@ -176,8 +174,6 @@ const CreateRecipe = () => {
     setMaterials([...materials, material]);
   };
 
-
-
   /*----------추가된 재료 삭제하는 핸들러---------------*/
   const deleteIngredientHandler = (idx) => {
     const deleteTag = ingredientTag.filter((tag, id) => {
@@ -196,9 +192,6 @@ const CreateRecipe = () => {
     setRecipeBox([...recipeBox, textarea]);
     setRecipeDC("");
   };
-
-
-
 
   /*---------추가된 step영역 삭제하는 핸들러--------------*/
   const deleteRecipeHandler = (idx) => {
@@ -220,12 +213,10 @@ const CreateRecipe = () => {
     setMenuals(deleteMenual);
   };
 
-
-
   /*---------이미지 업로드 핸들러---------------------*/
   const uploadImage = async (files) => {
     const file = files[0];
-      console.log(file, files)
+    console.log(file, files);
     let imageUrl = null;
 
     if (!file) {
@@ -256,9 +247,7 @@ const CreateRecipe = () => {
 
   /*-----------submit handler 서버요청---------------*/
   const onSubmit = (data) => {
-    
-
-    console.log(data)
+    console.log(data);
     const imgArr = [];
     const newRecipe = {};
 
@@ -364,13 +353,13 @@ const CreateRecipe = () => {
                         <img src={URL.createObjectURL(mainImage)} alt='main' />
                       ) : (
                         <div>
-                          <i className='far fa-image'></i>
+                          요리 단계별 이미지를 업로드 해보세요.
                         </div>
                       )}
                     </ImageBox>
                     <div className='input'>
                       <label htmlFor='fileInput'>
-                        <i className='fas fa-upload'></i> 파일 업로드
+                        <i className='bx bx-image-add'></i>
                       </label>
                       <input
                         id='fileInput'
@@ -587,6 +576,16 @@ const TitleBox = styled.div`
   @media screen and (max-width: 1500px) {
     width: 100%;
   }
+  @media screen and (max-width: 775px) {
+    display: block;
+    font-size: 25px;
+    text-indent: 20px;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    font-size: 25px;
+    text-indent: 20px;
+  }
 `;
 
 const MainDCBox = styled(SectionBox)`
@@ -602,6 +601,13 @@ const MainDCBox = styled(SectionBox)`
 
   @media screen and (max-width: 1500px) {
     width: 100%;
+  }
+  @media screen and (max-width: 775px) {
+    display: block;
+  
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
   }
 `;
 
@@ -641,18 +647,31 @@ const DescriptionBox = styled.div`
   margin-bottom: 8px;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 775px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 `;
 
 const ImageArea = styled.div`
   width: 45%;
+  position: relative;
+
   label {
-    padding: 0.5em 12em;
-    border-radius: 10px;
-    height: 35px;
-    border: 2px solid lightgrey;
     cursor: pointer;
-    background-color: #f8f8f8;
-    color: grey;
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      font-size: 45px;
+      z-index: 999;
+      padding: 0 20px;
+      cursor: pointer;
   }
 
   input[type="file"] {
@@ -675,6 +694,64 @@ const ImageArea = styled.div`
     margin-left: 14px;
     margin-top: 37px;
   }
+  @media screen and (max-width: 775px) {
+    width: 95%;
+    label {
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      font-size: 45px;
+      z-index: 999;
+      padding: 0 20px;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    div {
+      margin-top: 10px;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: 5px auto;
+    label {
+      cursor: pointer;
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      font-size: 45px;
+      z-index: 999;
+      padding: 0 20px;
+      cursor: pointer;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    div {
+      margin: 0;
+    }
+
+  }
 `;
 const ImageBox = styled.div`
   width: 100%;
@@ -684,7 +761,7 @@ const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 50px;
+  font-size: 15px;
   color: grey;
   cursor: pointer;
 
@@ -693,6 +770,29 @@ const ImageBox = styled.div`
     height: 300px;
     object-fit: cover;
     border-radius: 10px;
+  }
+  @media screen and (max-width: 775px) {
+    
+    margin-left: 6px;
+    height: 230px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    height: 230px;
+    margin-left: 6px;
+
+    img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
   }
 `;
 
@@ -740,6 +840,24 @@ const DCBox = styled.div`
     display: inline;
     content: "⚠ ";
   }
+  @media screen and (max-width: 775px) {
+    display: block;
+    width: 95%;
+    margin: 5px auto;
+
+    div {
+      width: 95%;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 5px auto;
+
+    div {
+      width: 95%;
+    }
+  }
 `;
 
 /* cooking info */
@@ -752,6 +870,19 @@ const CookInfomation = styled.div`
     margin-left: 10px;
     line-height: 35px;
     color: grey;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
   }
 `;
 
@@ -775,6 +906,20 @@ const AddIngredientBox = styled.div`
     margin-left: 10px;
     color: grey;
   }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
+  }
 `;
 
 const FlexContainer = styled.div`
@@ -797,6 +942,27 @@ const FlexContainer = styled.div`
   input:focus {
     outline: none;
   }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
+
+    input {
+      margin-top: 6px;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
+
+    input {
+      margin-top: 6px;
+    }
+  }
 `;
 
 const TagContainer = styled.div`
@@ -805,6 +971,12 @@ const TagContainer = styled.div`
   height: 50px;
   border-radius: 10px;
   padding: 8px 4px;
+  @media screen and (max-width: 775px) {
+    width: 260px;
+  }
+  @media screen and (max-width: 375px) {
+    width: 260px;
+  }
 `;
 
 /* add steps */
@@ -913,6 +1085,71 @@ const AddRecipeBox = styled.div`
   p::before {
     display: inline;
     content: "⚠ ";
+  }
+
+}
+
+@media screen and (max-width: 775px) {
+    display: block;
+    width: 95%;
+    margin: 5px auto;
+    position: relative;
+
+    div {
+      width: 95%;
+    }
+
+    .cook-recipe_box {
+      display: block;
+    }
+
+    .recipe-dc_box {
+      width: 90%;
+  
+    }
+
+    .recipeImg_box {
+      width: 90%;
+    }
+
+    .fa-times {
+      position: absolute;
+      top: 30px;
+      z-index: 99999;
+    }
+
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 5px auto;
+    position: relative;
+
+    div {
+      width: 95%;
+    }
+
+    .cook-recipe_box {
+      display: block;
+    }
+
+    .recipe-dc_box {
+      width: 90%;
+  
+    }
+
+    .recipeImg_box {
+      width: 90%;
+    }
+
+    .fa-times {
+      position: absolute;
+      top: 30px;
+      left: 230px;
+      z-index: 99999;
+    }
+
   }
 `;
 

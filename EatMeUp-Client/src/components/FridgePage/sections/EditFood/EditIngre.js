@@ -18,11 +18,11 @@ import theme from "../../../StyledComponent/theme";
 const EditIngre = ({ setOpenEditWindow, food }) => {
   const dispatch = useDispatch();
 
-  const { id, food_name, food_image, food_life, createdAt, frez_type } = food;
+  const { id, food_name, food_image, life, createdAt, frez_type } = food;
   const creatAt = createdAt.slice(0, 10);
 
   const [foodname, setFoodname] = useState(food_name);
-  const [life, setlife] = useState("");
+  const [foodlife, setFoodlife] = useState("");
   const [image, setImage] = useState(null);
 
   const closeEditModal = (e) => {
@@ -69,7 +69,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
     const food = {
       food_name: foodname ? foodname : food_name,
       frez_type: frez_type,
-      life: life ? life : food_life,
+      life: foodlife ? foodlife : life,
       food_image: foodImage ? foodImage : food_image,
     };
 
@@ -147,7 +147,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                 <input
                   value={life ? life : creatAt}
                   type='date'
-                  onChange={(e) => setlife(e.currentTarget.value)}
+                  onChange={(e) => setFoodlife(e.currentTarget.value)}
                 />
               </div>
             </FoodInfoBox>

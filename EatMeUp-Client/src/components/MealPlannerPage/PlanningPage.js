@@ -72,7 +72,7 @@ const PlanningPage = () => {
 
   const addMealplanHandler = () => {
     if (date === "") {
-      alert('날짜를 추가해주세요.')
+      alert("날짜를 추가해주세요.");
       return;
     }
 
@@ -198,6 +198,18 @@ const TitleBox = styled.div`
     border-radius: 20px;
     border: none;
   }
+
+  /* 반응형 css */
+  @media screen and (max-width: 375px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    input {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+  }
 `;
 
 const ThisMonth = styled.span`
@@ -205,6 +217,11 @@ const ThisMonth = styled.span`
   font-weight: bold;
   font-size: 30px;
   color: #303030;
+
+   /* 반응형 css */
+  @media screen and (max-width: 375px) {
+    font-size: 18px;
+  }
 `;
 
 const CalendarBtn = styled(MiddleBtn)`
@@ -217,12 +234,25 @@ const CalendarBtn = styled(MiddleBtn)`
   &:hover {
     border: 2px solid ${theme.colors.lightgrey};
   }
+
+   /* 반응형 css */
+  @media screen and (max-width: 375px) {
+   width: 120px;
+   height: 30px;
+ 
+  }
 `;
 
 const MealPlaner = styled.div`
   width: 100%;
   margin-bottom: 20px;
   display: flex;
+
+  /* 반응형 css */
+  @media screen and (max-width: 375px) {
+    display: block;
+    margin-top: 15px;
+  }
 `;
 
 const RecommandRecipesBox = styled.div`
@@ -232,12 +262,29 @@ const RecommandRecipesBox = styled.div`
   border-radius: 30px;
   height: 560px;
   margin: 0px 10px 0px 20px;
+
+   /* 반응형 css */
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    max-width: 260px;
+    margin: 5px auto;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
 `;
-// margin top right bottom left (시계방향)
-// margin 위아래, 오른쪽왼쪽
+
 const PlannerBox = styled.div`
   width: 70%;
   margin: 0px 20px 0px 10px;
+
+   /* 반응형 css */
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    max-width: 260px;
+    margin: 5px auto;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
 `;
 
 const rotate = keyframes`
@@ -279,6 +326,11 @@ const IngredientBox = styled.div`
     margin-right: 10px;
     animation: ${rotate} 2s infinite;
   }
+
+   /* 반응형 css */
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
 `;
 
 const MealPlanCardBox = styled.div`
@@ -286,6 +338,11 @@ const MealPlanCardBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
+
+   /* 반응형 css */
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
 `;
 
 export default PlanningPage;

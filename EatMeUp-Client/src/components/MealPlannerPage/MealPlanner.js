@@ -30,6 +30,8 @@ const MealPlanner = () => {
     if (isDeletetd) {
       dispatch({ type: DELETE_MEALPLAN_RESET });
     }
+
+    
   }, [dispatch, isDeletetd]);
 
   const showWeekHandler = () => {
@@ -78,5 +80,6 @@ const MealPlanner = () => {
 const CalendarContainer = styled(SectionBox)`
   width: 77%;
 `;
+
 
 export default MealPlanner;

@@ -166,6 +166,7 @@ const MyInfo = () => {
 
                   <div className='profileImg_box'>
                     <label for='userimg'>
+                      
                       <i class='fas fa-camera'></i>
                     </label>
                     <input

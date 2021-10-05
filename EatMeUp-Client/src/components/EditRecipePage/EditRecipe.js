@@ -339,7 +339,7 @@ const EditRecipePage = ({ match }) => {
                 {/* 제목, 요리설명, 메인이미지 컴포넌트 */}
                 <MainDCBox>
                   <TitleBox>
-                    <div className='title'>New Recipe</div>
+                    <div className='title'>Edit Recipe</div>
                   </TitleBox>
 
                   <DescriptionBox>
@@ -510,7 +510,8 @@ const EditRecipePage = ({ match }) => {
                                 type='file'
                                 id={idx}
                                 {...register(`image-${idx}`, {
-                                  required: "요리 단계별 이미지를 업로드 해보세요.",
+                                  required:
+                                    "요리 단계별 이미지를 업로드 해보세요.",
                                 })}
                               />
                               {recipeWatch[idx] ? (
@@ -631,6 +632,12 @@ const TitleBox = styled.div`
   @media screen and (max-width: 1500px) {
     width: 100%;
   }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    font-size: 25px;
+    text-indent: 20px;
+  }
 `;
 
 const MainDCBox = styled(SectionBox)`
@@ -646,6 +653,9 @@ const MainDCBox = styled(SectionBox)`
 
   @media screen and (max-width: 1500px) {
     width: 100%;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
   }
 `;
 
@@ -685,6 +695,11 @@ const DescriptionBox = styled.div`
   margin-bottom: 8px;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 375px) {
+    display: flex;
+    flex-direction: column-reverse;
+  }
 `;
 
 const ImageArea = styled.div`
@@ -729,6 +744,33 @@ const ImageArea = styled.div`
     display: inline;
     content: "⚠ ";
   }
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    label {
+      padding: 0.5em 5em;
+      border-radius: 10px;
+      height: 30px;
+      border: 2px solid lightgrey;
+      cursor: pointer;
+      background-color: #f8f8f8;
+      color: grey;
+    }
+
+    input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    div {
+      margin-top: 10px;
+    }
+  }
 `;
 const ImageBox = styled.div`
   width: 100%;
@@ -758,6 +800,18 @@ const ImageBox = styled.div`
   p::before {
     display: inline;
     content: "⚠ ";
+  }
+
+  @media screen and (max-width: 375px) {
+    height: 230px;
+    margin-left: 6px;
+
+    img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
   }
 `;
 
@@ -805,6 +859,16 @@ const DCBox = styled.div`
     display: inline;
     content: "⚠ ";
   }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 5px auto;
+
+    div {
+      width: 95%;
+    }
+  }
 `;
 
 /* cooking info */
@@ -817,6 +881,12 @@ const CookInfomation = styled.div`
     margin-left: 10px;
     line-height: 35px;
     color: grey;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
   }
 `;
 
@@ -840,6 +910,14 @@ const AddIngredientBox = styled.div`
     margin-left: 10px;
     color: grey;
   }
+
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
+  }
 `;
 
 const FlexContainer = styled.div`
@@ -862,6 +940,17 @@ const FlexContainer = styled.div`
   input:focus {
     outline: none;
   }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 8px auto;
+    position: relative;
+
+    input{
+      margin-top: 6px;
+    }
+  }
 `;
 
 const TagContainer = styled.div`
@@ -870,6 +959,10 @@ const TagContainer = styled.div`
   height: 50px;
   border-radius: 10px;
   padding: 8px 4px;
+
+  @media screen and (max-width: 375px) {
+    width: 260px;
+  }
 `;
 
 const AddIngreBtn = styled.button`
@@ -986,12 +1079,44 @@ const AddRecipeBox = styled.div`
   p {
     color: #bf1650;
     font-size: 12px;
-    line-height:1;
+    line-height: 1;
   }
 
   p::before {
     display: inline;
     content: "⚠ ";
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 95%;
+    margin: 5px auto;
+    position: relative;
+
+    div {
+      width: 95%;
+    }
+
+    .cook-recipe_box {
+      display: block;
+    }
+
+    .recipe-dc_box {
+      width: 90%;
+  
+    }
+
+    .recipeImg_box {
+      width: 90%;
+    }
+
+    .fa-times {
+      position: absolute;
+      top: 30px;
+      left: 230px;
+      z-index: 99999;
+    }
+
   }
 `;
 

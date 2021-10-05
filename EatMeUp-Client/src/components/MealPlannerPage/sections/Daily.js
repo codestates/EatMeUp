@@ -1,19 +1,18 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
-import { deleteMealPlan } from '../../../_actions/calendarActions'
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { deleteMealPlan } from "../../../_actions/calendarActions";
 
 /* 스타일 컴포넌트 */
 import { BackGroundModal, ModalDialog } from "../styled/Style";
 import { SectionBox } from "../../StyledComponent/containers";
 
-
 const { Swal } = window;
 
 const Daily = ({ setOpenDaily, getDate, plan }) => {
   /* function area */
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const getPlan = [
     {
       id: "아침",
@@ -24,7 +23,6 @@ const dispatch = useDispatch()
     { id: "저녁", icon: "dinner.png", meal: plan ? plan.mealplanDinner : [] },
   ];
 
- 
   const deletetHandler = (id) => {
     setOpenDaily(true);
     Swal.fire({
@@ -37,7 +35,7 @@ const dispatch = useDispatch()
       confirmButtonText: "삭제하기",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteMealPlan(id))
+        dispatch(deleteMealPlan(id));
         setOpenDaily(false);
       }
     });
@@ -58,7 +56,10 @@ const dispatch = useDispatch()
         <ModalDialog onClick={closeModalHandler}>
           <Date>
             {date}
-            <i class='far fa-trash-alt' onClick={() => deletetHandler(plan.id)}></i>
+            <i
+              class='far fa-trash-alt'
+              onClick={() => deletetHandler(plan.id)}
+            ></i>
           </Date>
           {/* flex box */}
           <MealPlanBox>
@@ -91,9 +92,8 @@ const dispatch = useDispatch()
                           <SubTitle>{card.title}</SubTitle>
                           <ShowRecipe>
                             <Link to={`/recipe/info/${card.id}`}>
-                            <i className='fas fa-sign-out-alt'></i>
+                              <i className='fas fa-sign-out-alt'></i>
                             </Link>
-                            
                           </ShowRecipe>
                         </PlanCard>
                       );
@@ -121,12 +121,20 @@ const Date = styled.div`
     font-size: 22px;
     cursor: pointer;
   }
+  @media screen and (max-width: 375px) {
+    font-size: 20px;
+    margin-top: 20px;
+  }
 `;
 
 const MealPlanBox = styled.div`
   width: 90%;
   margin: 10px auto;
   display: flex;
+  @media screen and (max-width: 375px) {
+    display: block;
+
+  }
 `;
 
 const MealPlanCard = styled(SectionBox)`
@@ -135,6 +143,10 @@ const MealPlanCard = styled(SectionBox)`
   margin: 10px auto;
   text-align: center;
   line-height: 10px;
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    max-height: 140px;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -142,11 +154,14 @@ const TitleBox = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px 0px;
+  @media screen and (max-width: 375px) {
+    margin: 10px 0px;
+  }
 `;
 
 const Img = styled.div`
   width: 45px;
-  height:45px;
+  height: 45px;
   margin-left: 5px;
 
   img {
@@ -155,6 +170,10 @@ const Img = styled.div`
     border-radius: 50%;
     object-fit: contain;
   }
+
+  @media screen and (max-width: 375px) {
+    margin: 10px 0px 0px 0px;
+  }
 `;
 
 const Title = styled.div`
@@ -162,15 +181,21 @@ const Title = styled.div`
   font-weight: 500;
   display: flex;
   align-items: center;
-  
+
   div > img {
     margin-right: 5px;
   }
+ 
 `;
 const PlansBox = styled.div`
   width: 100%;
   height: 300px;
   overflow-y: auto;
+  @media screen and (max-width: 375px) {
+
+    display: flex;
+    overflow-x: scroll;
+  }
 `;
 
 const PlanCard = styled.div`
@@ -187,9 +212,22 @@ const PlanCard = styled.div`
   &:hover .fa-sign-out-alt {
     opacity: 1;
   }
+  @media screen and (max-width: 375px) {
+    max-width: 70px;
+    height: 80px;
+    display: flex;
+    margin: 5px;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 const SubTitle = styled.div`
   font-size: 13px;
+  @media screen and (max-width: 375px) {
+    margin-top: 10px;
+    font-size: 11px;
+  }
 `;
 const ShowRecipe = styled.div`
   margin-right: 10px;

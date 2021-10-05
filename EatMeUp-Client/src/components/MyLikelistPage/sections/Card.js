@@ -76,7 +76,6 @@ const Card = ({ recipes }) => {
 
 const Recipes = styled.div`
   border: 1px solid #e6e8e6;
-  
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   display: inline-block;
@@ -162,9 +161,10 @@ const Recipes = styled.div`
   @media screen and (max-width: 375px){
     height: 125px;
     display: flex;
+    margin-bottom: 10px;
 
     a > img {
-    width: 90%;
+    width: 100px;
     height: 110px;
     border-radius: 20px;
     object-fit: cover;
@@ -173,13 +173,8 @@ const Recipes = styled.div`
    
   .fa-trash-alt {
     font-size: 13px;
+    margin-right: 10px;
   }
-
-  .far {
-    font-size: 13px;
-    margin-right: 5px;
-  }
-
   .recipe-info_box {
     font-size:9px;
     margin: 20px 0px 0px 0px;
@@ -190,6 +185,7 @@ const Recipes = styled.div`
     background-color: #EAEAEA;
     border-radius: 30px;
     margin-right:5px;
+    font-size: 10px;
   }
 
 
@@ -202,12 +198,13 @@ const Recipes = styled.div`
   .recipe-ingre_box {
     font-size: 12px;
     display: flex;
-    
     margin: 10px 0px 5px 0px;
   }
+  
   .title_box {
     text-indent: 5px;
     margin: 0;
+    font-size: 14px;
   }
 
   .fa-heart {
