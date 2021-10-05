@@ -52,7 +52,7 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
 
   return (
     <>
-      <BackGroundModal>
+      <BackGroundModal onClick={closeModalHandler}>
         <ModalDialog onClick={closeModalHandler}>
           <Date>
             {date}

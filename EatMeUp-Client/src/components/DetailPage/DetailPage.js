@@ -220,12 +220,12 @@ const DetailePage = ({ match }) => {
                   </div>
                   <div className='steps'>
                     <div className='stepNo'>
-                      <span class='fa-stack'>
+                      <span className='fa-stack'>
                         <i
-                          class='fas fa-circle fa-stack-2x'
+                          className='fas fa-circle fa-stack-2x'
                           style={{ color: theme.colors.lightgrey }}
                         />
-                        <strong class='fa-stack-1x'>{step.cookingNum}</strong>
+                        <strong className='fa-stack-1x'>{step.cookingNum}</strong>
                       </span>
                     </div>
                     <span className='step'>{step.recipe}</span>

@@ -16,6 +16,7 @@ function Calendar({ plans }) {
   const [openDaily, setOpenDaily] = useState(false);
   const [getDate, setGetDate] = useState("");
   const [plan, setPlan] = useState("");
+  const [date, setDate] = useState([]);
 
   const openModalHandler = (date, plan) => {
     setOpenDaily(true);
@@ -23,13 +24,19 @@ function Calendar({ plans }) {
     setPlan(plan);
   };
 
-  const dates = [];
 
-    plans.forEach((plan) => {
-      const date = plan.date.split("-").join("")
-      dates.push(date);
+  useEffect(() => {
+   const getDate = plans.map((plan) => {
+
+      const dates = plan.date.split("-").join("");
+
+      return dates
      
     });
+
+    setDate(getDate)
+
+  }, [plans]);
 
   const today = getMoment;
 
@@ -54,9 +61,8 @@ function Calendar({ plans }) {
                 .week(week)
                 .startOf("week")
                 .add(index, "day");
-              for (let i = 0; i < dates.length; i++) {
-                if (days.format("YYYYMMDD") === dates[i]) {
-                 
+              for (let i = 0; i < date.length; i++) {
+                if (days.format("YYYYMMDD") === date[i]) {
                   return (
                     <HasPlanCell
                       key={index}
@@ -190,8 +196,6 @@ function Calendar({ plans }) {
             <i className='fas fa-caret-right'></i>
           </RightControl>
         </div>
-
-       
       </CalendarControls>
 
       {/* 달력영역 */}
@@ -466,7 +470,6 @@ const TodayCell = styled.td`
     height: 30px;
     border-radius: 5px;
 
-
     .day {
       position: absolute;
       top: 0;
@@ -509,7 +512,6 @@ const HasPlanCell = styled.td`
   &:hover {
     border: 2px solid ${theme.colors.yellow};
   }
-
 
   @media screen and (max-width: 775px) {
     width: 65px;
@@ -570,7 +572,6 @@ const Title = styled.div`
   margin-left: 7px;
   font-weight: 500;
   font-size: 12px;
-
 
   @media screen and (max-width: 875px) {
     display: none;
