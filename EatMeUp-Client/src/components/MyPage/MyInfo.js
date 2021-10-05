@@ -161,13 +161,13 @@ const MyInfo = () => {
                       }}
                     />
                   ) : (
-                    <i class='far fa-user-circle fa-10x' id='userimg'></i>
+                    <i className='far fa-user-circle fa-10x' id='userimg'></i>
                   )}
 
                   <div className='profileImg_box'>
                     <label for='userimg'>
                       
-                      <i class='fas fa-camera'></i>
+                      <i className='fas fa-camera'></i>
                     </label>
                     <input
                       type='file'

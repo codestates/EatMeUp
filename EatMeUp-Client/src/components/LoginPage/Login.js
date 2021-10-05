@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,7 +26,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   // console.log(process.env.REACT_APP_GOOGLE_API_KEY)
   const history = useHistory();
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, error } = useSelector(
+  const { isAuthenticated, error } = useSelector(
     (state) => state.auth,
   );
 

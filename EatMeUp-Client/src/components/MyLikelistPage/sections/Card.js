@@ -47,9 +47,9 @@ const Card = ({ recipes }) => {
             {/* 삭제버튼과 수정버튼 영역 */}
             <div>
               <div className='recipe-dc-right_box'>
-                <i class='fas fa-heart'></i>
+                <i className='fas fa-heart'></i>
                 <i
-                  class='far fa-trash-alt'
+                  className='far fa-trash-alt'
                   onClick={() => deleteHandler(recipe.id)}
                 ></i>
               </div>

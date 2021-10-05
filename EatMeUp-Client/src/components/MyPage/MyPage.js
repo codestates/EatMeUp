@@ -83,7 +83,7 @@ const MyPage = () => {
                         }}
                       />
                     ) : (
-                      <i class='far fa-user-circle' id='userimg'></i>
+                      <i className='far fa-user-circle' id='userimg'></i>
                     )}
                   </div>
                   <div className='info_username'>
@@ -108,7 +108,7 @@ const MyPage = () => {
                       <div className='recipe_title'>My Recipes</div>
                       <Link to='/user/myrecipe'>
                         <AddBtn>
-                          더 보기 <i class='fas fa-chevron-right'></i>
+                          더 보기 <i className='fas fa-chevron-right'></i>
                         </AddBtn>
                       </Link>
                     </Title>
@@ -133,7 +133,7 @@ const MyPage = () => {
                       <div className='recipe_title'>Liked Recipes</div>
                       <Link to='/user/likelist'>
                         <AddBtn>
-                          더 보기 <i class='fas fa-chevron-right'></i>
+                          더 보기 <i className='fas fa-chevron-right'></i>
                         </AddBtn>
                       </Link>
                     </Title>

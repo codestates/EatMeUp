@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getMealPlans } from "../../_actions/calendarActions";
@@ -21,26 +21,15 @@ const MealPlanner = () => {
   const { loading, plans } = useSelector((state) => state.getmealplan);
   const { isDeletetd } = useSelector((state) => state.deleteplan);
 
-  /* 월별/주별 핸들러 */
-  const [showMonth, setShowMonth] = useState(true);
-
   useEffect(() => {
     dispatch(getMealPlans());
 
     if (isDeletetd) {
       dispatch({ type: DELETE_MEALPLAN_RESET });
     }
-
-    
   }, [dispatch, isDeletetd]);
 
-  const showWeekHandler = () => {
-    setShowMonth(false);
-  };
-
-  const showMonthHandler = () => {
-    setShowMonth(true);
-  };
+  
 
   return (
     <>
@@ -56,18 +45,10 @@ const MealPlanner = () => {
           ) : (
             <CalendarContainer>
               {/* 월별/주별 핸들러 */}
-              {showMonth ? (
-                <Calendar
-                  plans={plans}
-                  showWeekHandler={showWeekHandler}
-                  showMonthHandler={showMonthHandler}
-                />
-              ) : (
-                <Weekly
-                  showWeekHandler={showWeekHandler}
-                  showMonthHandler={showMonthHandler}
-                />
-              )}
+              <Calendar
+                plans={plans}
+             
+              />
             </CalendarContainer>
           )}
         </Container>
@@ -80,6 +61,5 @@ const MealPlanner = () => {
 const CalendarContainer = styled(SectionBox)`
   width: 77%;
 `;
-
 
 export default MealPlanner;

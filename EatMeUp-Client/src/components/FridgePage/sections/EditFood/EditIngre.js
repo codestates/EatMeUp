@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteFood, editFood } from "../../../../_actions/fridgeActions";
-import { foodLife } from "../utils/convertDate";
 import axios from "axios";
 import styled from "styled-components";
 /* 스타일 컴포넌트 */
