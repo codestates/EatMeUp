@@ -672,6 +672,7 @@ const ImageArea = styled.div`
       z-index: 999;
       padding: 0 20px;
       cursor: pointer;
+      color: grey;
   }
 
   input[type="file"] {

@@ -118,6 +118,20 @@ const EditFridge = ({
     return { opacity: 1 };
   };
 
+  const calculatorLife = (life) => {
+
+    if(Number(foodLife(life)) < 0) {
+      return Math.abs(foodLife(life))
+    }
+
+    if(Number(foodLife(life)) === 0) {
+      return "day"
+    }
+
+    return foodLife(life)
+    
+  }
+
   return (
     <FridgeInnerBox>
       {foodList.map((type, typeIdx) => {
@@ -235,9 +249,9 @@ const EditFridge = ({
                       }
                     >
                       {Number(foodLife(food.life)) < 0 ? (
-                        <span className='red'>D+{Math.abs(foodLife(food.life))}</span>
+                        <span className='red'>D+{calculatorLife(food.life)}</span>
                       ) : (
-                        <span className='foodlife'>D-{foodLife(food.life)}</span>
+                        <span className='foodlife'>D-{calculatorLife(food.life)}</span>
                       )}
                     </div>
                   </FoodBox>

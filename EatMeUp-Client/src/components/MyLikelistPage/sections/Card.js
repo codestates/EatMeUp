@@ -64,7 +64,7 @@ const Card = ({ recipes }) => {
         <div className='recipe-ingre_box'>
           <div className='ingres'>
             {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span>#{food.name}</span>;
+              return <span key={idx}>#{food.name}</span>;
             })}
           </div>
         </div>

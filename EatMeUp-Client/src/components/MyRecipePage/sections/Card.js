@@ -60,9 +60,9 @@ const Card = ({ recipes }) => {
           {/* 레시피 주재료들 */}
           <div className='recipe-ingre_box'>
             <div className='ingres'>
-              <span>#돼지전지</span>
-              <span>#양파</span>
-              <span>#대파</span>
+            {recipe.foods.slice(0, 3).map((food, idx) => {
+              return <span key={idx}>#{food.name}</span>;
+            })}
             </div>
           </div>
         </div>

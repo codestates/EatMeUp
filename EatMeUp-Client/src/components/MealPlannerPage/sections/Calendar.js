@@ -233,6 +233,13 @@ const CalendarBtn = styled(MiddleBtn)`
   span {
     color: #303030;
   }
+  @media screen and (max-width: 575px) {
+    width: 65px;
+    height: 30px;
+    font-size: 12px;
+    float: right;
+    margin-right: 4px;
+  }
 
   @media screen and (max-width: 375px) {
     width: 65px;
@@ -284,6 +291,10 @@ const ThisMonth = styled.span`
   font-size: 30px;
   color: #303030;
 
+  @media screen and (max-width: 575px) {
+    font-size: 15px;
+  }
+
   @media screen and (max-width: 375px) {
     font-size: 15px;
   }
@@ -295,6 +306,7 @@ const LeftControl = styled.button`
   font-size: 30px;
   margin-right: 8px;
   cursor: pointer;
+
   @media screen and (max-width: 375px) {
     font-size: 20px;
     margin-right: 1px;
@@ -321,6 +333,13 @@ const CalendarControls = styled.div`
   justify-content: space-between;
   margin: 0 auto;
 
+  @media screen and (max-width: 575px) {
+    width: 95%;
+    height: 90px;
+    display: block;
+    margin-top: 20px;
+  }
+
   @media screen and (max-width: 375px) {
     width: 95%;
     height: 90px;
@@ -334,6 +353,11 @@ const Table = styled.table`
   border-spacing: 10px;
   margin: 0 auto;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 585px) {
+    border-spacing: 2px;
+    width: 95%;
+  }
 
   @media screen and (max-width: 375px) {
     border-spacing: 2px;
@@ -351,6 +375,12 @@ const THead = styled.td`
 
   .weekend {
     color: ${theme.colors.red};
+  }
+  @media screen and (max-width: 575px) {
+    width: 50px;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 10px;
   }
 
   @media screen and (max-width: 375px) {
@@ -385,6 +415,19 @@ const Cell = styled.td`
     top: 0;
     margin-top: 5px;
   }
+  @media screen and (max-width: 775px) {
+    width: 65px;
+    height: 126px;
+    border-radius: 5px;
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
 
   @media screen and (max-width: 375px) {
     width: 40px;
@@ -417,6 +460,20 @@ const TodayCell = styled.td`
   }
   &:hover {
     border: 1px solid ${theme.colors.lightgrey};
+  }
+  @media screen and (max-width: 775px) {
+    width: 40px;
+    height: 30px;
+    border-radius: 5px;
+
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
   }
 
   @media screen and (max-width: 375px) {
@@ -453,6 +510,22 @@ const HasPlanCell = styled.td`
     border: 2px solid ${theme.colors.yellow};
   }
 
+
+  @media screen and (max-width: 775px) {
+    width: 65px;
+    height: 126px;
+    border-radius: 5px;
+    border: 2px solid ${theme.colors.yellow};
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+
   @media screen and (max-width: 375px) {
     width: 40px;
     height: 30px;
@@ -485,7 +558,9 @@ const Img = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
-
+  @media screen and (max-width: 575px) {
+    display: none;
+  }
   @media screen and (max-width: 375px) {
     display: none;
   }
@@ -495,6 +570,11 @@ const Title = styled.div`
   margin-left: 7px;
   font-weight: 500;
   font-size: 12px;
+
+
+  @media screen and (max-width: 875px) {
+    display: none;
+  }
 
   @media screen and (max-width: 375px) {
     display: none;

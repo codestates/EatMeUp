@@ -101,7 +101,7 @@ const DetailePage = ({ match }) => {
             <ProfileContainer>
               <div className='profile_img'>
                 {posteduser.avatar === null ? (
-                  <i class='far fa-user-circle'></i>
+                  <i className='far fa-user-circle'></i>
                 ) : (
                   <img
                     src={posteduser.avatar}
@@ -152,30 +152,30 @@ const DetailePage = ({ match }) => {
 
           {getRecipe.level === "초보환영" && (
             <Level>
-              <i class='fas fa-star'></i>
+              <i className='fas fa-star'></i>
               <span className='time'>
-                <i class='far fa-clock'></i>
+                <i className='far fa-clock'></i>
                 {getRecipe.cooking_time}
               </span>
             </Level>
           )}
           {getRecipe.level === "보통" && (
             <Level>
-              <i class='fas fa-star'></i>
-              <i class='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
               <span className='time'>
-                <i class='far fa-clock'></i>
+                <i className='far fa-clock'></i>
                 {getRecipe.cooking_time}
               </span>
             </Level>
           )}
           {getRecipe.level === "어려움" && (
             <Level>
-              <i class='fas fa-star'></i>
-              <i class='fas fa-star'></i>
-              <i class='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
               <span className='time'>
-                <i class='far fa-clock'></i>
+                <i className='far fa-clock'></i>
                 {getRecipe.cooking_time}
               </span>
             </Level>

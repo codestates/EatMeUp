@@ -29,6 +29,9 @@ const AddIngre = ({ setOpenAddWindow }) => {
     setImage(e.target.files[0]);
   };
 
+
+  const today = new Date().toISOString().substring(0, 10)
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -60,10 +63,11 @@ const AddIngre = ({ setOpenAddWindow }) => {
       foodImage = img.url.split("?")[0];
     }
 
+
     const food = {
       food_image: foodImage ? foodImage : null,
       food_name: foodname,
-      life: foodlife,
+      life: foodlife ? foodlife : today,
       frez_type: 0,
     };
 
@@ -128,7 +132,7 @@ const AddIngre = ({ setOpenAddWindow }) => {
                 <span>유통기한 : </span>
                 <input
                   type='date'
-                  value={foodlife}
+                  defaultValue={today}               
                   onChange={(e) => setFoodlife(e.currentTarget.value)}
                 />
               </div>
