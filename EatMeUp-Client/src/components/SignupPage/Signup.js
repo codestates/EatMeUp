@@ -9,9 +9,6 @@ import styled, { keyframes } from "styled-components";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// 컴포넌트
-import AlertBox from "./AlertBox";
-
 // 스타일 컴포넌트
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
@@ -59,9 +56,7 @@ const Signup = ({ setShowSignup, setShowLogin }) => {
       email: data.email,
       password: data.pwd,
     };
-
     dispatch(signupRequest(signupData));
-
     history.push("/login");
   };
 
