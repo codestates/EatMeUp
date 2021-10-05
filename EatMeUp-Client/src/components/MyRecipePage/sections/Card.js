@@ -30,7 +30,7 @@ const Card = ({ recipes }) => {
         {/* 유저프로필과 삭제, 수정버튼을 감싸는 컨테이너 */}
 
         {/* 레시피메인이미지사진 영역 */}
-        <img src={recipe.main_image} alt='recipe' className='recipe-img' />
+        <Link to={`/recipe/info/${recipe.id}`}><img src={recipe.main_image} alt='recipe' className='recipe-img' /></Link>
 
         {/* figure태그의 캡션 */}
         <div>
