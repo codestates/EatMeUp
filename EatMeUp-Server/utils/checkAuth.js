@@ -38,6 +38,7 @@ const auth = async (req, res, next) => {
       res.status(401).json({
         isAuth: false,
         message: "please login",
+        error: error,
       });
     }
   }

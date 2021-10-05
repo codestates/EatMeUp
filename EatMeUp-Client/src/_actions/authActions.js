@@ -100,8 +100,6 @@ export const GoogleLoginRequest = (googleInfo) => async (dispatch) => {
       googleInfo,
       { withCredentials: true },
     );
-    console.log(data);
-
     if (data.success) {
       localStorage.setItem("auth", true);
     }

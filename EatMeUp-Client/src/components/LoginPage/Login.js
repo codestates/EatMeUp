@@ -8,7 +8,7 @@ import {
   clearErrors,
   guestLoginRequest,
   GoogleLoginRequest,
-  KakaoLoginRequest
+  KakaoLoginRequest,
 } from "../../_actions/authActions";
 
 // 소셜로그인
@@ -37,7 +37,6 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   } = useForm();
 
   useEffect(() => {
-    
     if (error) {
       swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors());
@@ -50,25 +49,42 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   };
 
   const googleSuccess = (res) => {
-    console.log(res);
+    if (!res.profileObj.email) {
+      const date = Date.now();
+      const GuestData = {
+        username: "guest",
+        email: `guest_${date}@eatmeup.me`,
+        password: `123456`,
+      };
+      return dispatch(guestLoginRequest(GuestData));
+    }
     const data = {
       id: res.googleId,
       email: res.profileObj.email,
       username: res.profileObj.name,
       avatar: res.profileObj.imageUrl,
-    }
+    };
     dispatch(GoogleLoginRequest(data));
   };
 
   const kakaoSuccess = (res) => {
+    if (!res.profile.kakao_account.email) {
+      const date = Date.now();
+      const GuestData = {
+        username: "guest",
+        email: `guest_${date}@eatmeup.me`,
+        password: `123456`,
+      };
+      return dispatch(guestLoginRequest(GuestData));
+    }
     const data = {
       id: res.profile.id,
       email: res.profile.kakao_account.email,
       username: res.profile.kakao_account.profile.nickname,
       avatar: res.profile.kakao_account.profile.profile_image_url,
-    }
-    dispatch(KakaoLoginRequest(data))
-  }
+    };
+    dispatch(KakaoLoginRequest(data));
+  };
 
   const submitGuest = () => {
     const date = Date.now();
@@ -167,13 +183,13 @@ const Login = ({ setShowLogin, setShowSignup }) => {
               responseType={"id_token"}
               render={(renderProps) => (
                 <button
-                style={{
-                  width: 50,
-                  border: "none",
-                  backgroundColor: "white",
-                  margin: 5,
-                  padding: 0,
-                  cursor: "pointer"
+                  style={{
+                    width: 50,
+                    border: "none",
+                    backgroundColor: "white",
+                    margin: 5,
+                    padding: 0,
+                    cursor: "pointer",
                   }}
                   className='google'
                   onClick={renderProps.onClick}
@@ -326,8 +342,7 @@ const SocialButton = styled(LargeBtn)`
   }
 `;
 
-const GoogleBtn = styled(GoogleLogin)`
-`;
+const GoogleBtn = styled(GoogleLogin)``;
 
 const KakaoBtn = styled(KakaoLogin)`
   background-color: white;

@@ -1,8 +1,5 @@
 const { User } = require("../models");
 require("dotenv").config();
-const env = process.env.NODE_ENV || "development";
-const config = require(__dirname + "/../config/config.js")[env];
-const jwt = require("jsonwebtoken");
 const { genAccessToken, genRefreshToken } = require("../utils/tokenGenerator");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
