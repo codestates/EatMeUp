@@ -101,9 +101,7 @@ const MyInfo = () => {
 
   const deleteHandler = (id) => {
 
-    const data = {
-      id: id
-    }
+  
     Swal.fire({
       title: "내 계정 삭제",
       text: "정보를 삭제 하시겠습니까?",
@@ -115,7 +113,7 @@ const MyInfo = () => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteMyaccount(data));
+        dispatch(deleteMyaccount(id));
         
         setTimeout(() => {
           dispatch(logoutRequest());

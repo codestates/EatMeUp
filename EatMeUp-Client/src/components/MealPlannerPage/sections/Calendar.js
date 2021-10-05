@@ -26,7 +26,7 @@ function Calendar({ plans }) {
 
 
   useEffect(() => {
-   const getDate = plans.map((plan) => {
+   const getDate = plans && plans.map((plan) => {
 
       const dates = plan.date.split("-").join("");
 
