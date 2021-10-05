@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Chip from "@mui/material/Chip";
-import Stack from "@mui/material/Stack";
 import { useSelector } from "react-redux";
 
 /* 컴포넌트 */
@@ -15,7 +13,7 @@ const ResultRecipes = () => {
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const { loading, recommandRecipes, food } = useSelector(
+  const { loading, recommandRecipes } = useSelector(
     (state) => state.recommandrecipes,
   );
 
@@ -33,18 +31,6 @@ const ResultRecipes = () => {
               <i className='fas fa-utensils'></i> 추천 레시피
             </h1>
           </TitleBox>
-
-          {/* 냉장고 재료기반 추천된 재료리스트 */}
-          {/* <SearchBox>
-            <div className='search_box'>
-              <Stack direction='row' spacing={1}>
-                <i className='fas fa-shopping-basket'></i>
-                {foods.map((item, idx) => {
-                  return <Chip label={item.name} key={idx} />;
-                })}
-              </Stack>
-            </div>
-          </SearchBox> */}
 
           {/* 카드리스트 컨테이너 */}
 

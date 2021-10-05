@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
@@ -81,7 +81,7 @@ const Card = ({ recipe }) => {
           {/* 음식 주재료 */}
           <div className='materials'>
             {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span>#{food.name}</span>;
+              return <span key={idx}>#{food.name}</span>;
             })}
           </div>
         </RecipeCard>

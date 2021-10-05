@@ -10,7 +10,7 @@ import Daily from "./Daily";
 import { MiddleBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
 
-function Calendar({ showWeekHandler, showMonthHandler, plans }) {
+function Calendar({ plans }) {
   // 달력 알고리즘 (moment.js를 이용한 달력만들기)
   const [getMoment, setMoment] = useState(moment());
   const [openDaily, setOpenDaily] = useState(false);
@@ -24,14 +24,12 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
   };
 
   const dates = [];
-  useEffect(() => {
 
     plans.forEach((plan) => {
-      return plan.date.split("-").join("");
+      const date = plan.date.split("-").join("")
+      dates.push(date);
+     
     });
-  
-
-  }, [plans]);
 
   const today = getMoment;
 
@@ -58,6 +56,7 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
                 .add(index, "day");
               for (let i = 0; i < dates.length; i++) {
                 if (days.format("YYYYMMDD") === dates[i]) {
+                 
                   return (
                     <HasPlanCell
                       key={index}
@@ -180,7 +179,7 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
           <LeftControl
             onClick={() => setMoment(getMoment.clone().subtract(1, "month"))}
           >
-            <i class='fas fa-caret-left'></i>
+            <i className='fas fa-caret-left'></i>
           </LeftControl>
           <ThisMonth>{today.format("YYYY년 MM월")}</ThisMonth>
           <RightControl
@@ -188,14 +187,11 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
               setMoment(getMoment.clone().add(1, "month"));
             }}
           >
-            <i class='fas fa-caret-right'></i>
+            <i className='fas fa-caret-right'></i>
           </RightControl>
         </div>
 
-        <div>
-          <MonthBtn onClick={showMonthHandler}>Month</MonthBtn>
-          <WeekBtn onClick={showWeekHandler}>Week</WeekBtn>
-        </div>
+       
       </CalendarControls>
 
       {/* 달력영역 */}
@@ -441,7 +437,7 @@ const TodayCell = styled.td`
 const HasPlanCell = styled.td`
   width: 100px;
   height: 120px;
-  border: 1px solid ${theme.colors.yellow};
+  border: 2px solid ${theme.colors.yellow};
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   text-align: center;

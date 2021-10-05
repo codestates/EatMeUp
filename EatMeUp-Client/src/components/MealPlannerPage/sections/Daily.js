@@ -57,7 +57,7 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
           <Date>
             {date}
             <i
-              class='far fa-trash-alt'
+              className='far fa-trash-alt'
               onClick={() => deletetHandler(plan.id)}
             ></i>
           </Date>

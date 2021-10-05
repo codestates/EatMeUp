@@ -33,7 +33,7 @@ const AllRecipes = () => {
     if (isAuthenticated) {
       dispatch(getUserinfo());
     }
-  }, [dispatch, page]);
+  }, [dispatch, page, isAuthenticated]);
 
   const mainCardHandler = (e, idx) => {
     setCurrentIdx(idx);
@@ -141,7 +141,7 @@ const AllRecipes = () => {
                           </div>
 
                           <div className='level'>
-                            <spna>/ 난이도 : </spna>
+                            <span>/ 난이도 : </span>
                             {recipeLevel(card.level)}
                           </div>
                         </div>

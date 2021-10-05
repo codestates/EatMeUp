@@ -4,8 +4,6 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteMyrecipe } from "../../../_actions/userActions";
 
-import { Recipe } from "../../StyledComponent/card";
-
 const { Swal } = window;
 
 const Card = ({ recipes }) => {

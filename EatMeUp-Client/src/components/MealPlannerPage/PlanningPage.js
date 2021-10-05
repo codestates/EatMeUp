@@ -3,7 +3,6 @@ import styled, { keyframes } from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyLikelist } from "../../_actions/userActions";
-import { getRecommandRecipes } from "../../_actions/calendarActions";
 import { allFoods } from "../../_actions/fridgeActions";
 import { createMealPlan } from "../../_actions/calendarActions";
 import axios from "axios";
@@ -157,7 +156,7 @@ const PlanningPage = () => {
                   <div className='title'>사야할 재료</div>
                   <div className='emptybox'>
                     <div>
-                      <i class='fas fa-hourglass-start'></i>서비스 준비중..
+                      <i className='fas fa-hourglass-start'></i>서비스 준비중..
                     </div>
                   </div>
                 </IngredientBox>
