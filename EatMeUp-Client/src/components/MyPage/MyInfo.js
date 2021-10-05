@@ -264,23 +264,21 @@ const MyInfoContainer = styled(SectionBox)`
   }
   .username {
     text-align: center;
-    /* margin: 20px 10px; */
+    font-weight: 500;
     font-size: 17px;
     width: 100%;
-    /* height: 50px; */
   }
   .email {
     text-align: center;
-    /* margin: 20px 24px; */
+    font-weight: 500;
     font-size: 17px;
     width: 100%;
-    /* height: 50px; */
   }
   .input_box {
     width: 100%;
     input {
-      width: 20%;
-      margin: 10px;
+      width: 40%;
+      margin: 10px 0;
     }
   }
   input {
@@ -290,8 +288,8 @@ const MyInfoContainer = styled(SectionBox)`
     color: #555;
     box-sizing: border-box;
     font-size: 18px;
-    /* height: 50px; */
-    width: 100%;
+    height: 50px;
+    width: 90%;
     text-align: center;
     box-sizing: border-box;
     font-family: "Noto Sans KR";
