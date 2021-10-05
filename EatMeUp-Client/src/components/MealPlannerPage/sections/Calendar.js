@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -9,8 +9,6 @@ import Daily from "./Daily";
 /* 스타일 컴포넌트 */
 import { MiddleBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
-
-import { mealPlan } from "../../dummydata";
 
 function Calendar({ showWeekHandler, showMonthHandler, plans }) {
   // 달력 알고리즘 (moment.js를 이용한 달력만들기)
@@ -25,11 +23,16 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
     setPlan(plan);
   };
 
-  const dates = plans.map((plan) => {
-    return plan.date.split("-").join("");
-  });
+  const dates = [];
+  useEffect(() => {
 
- 
+    plans.forEach((plan) => {
+      return plan.date.split("-").join("");
+    });
+  
+
+  }, [plans]);
+
   const today = getMoment;
 
   const firstWeek = today.clone().startOf("month").week();
@@ -234,6 +237,14 @@ const CalendarBtn = styled(MiddleBtn)`
   span {
     color: #303030;
   }
+
+  @media screen and (max-width: 375px) {
+    width: 65px;
+    height: 30px;
+    font-size: 12px;
+    float: right;
+    margin-right: 4px;
+  }
 `;
 
 const MonthBtn = styled.button`
@@ -243,6 +254,15 @@ const MonthBtn = styled.button`
   border: none;
   font-weight: bold;
   cursor: pointer;
+
+  @media screen and (max-width: 375px) {
+    width: 60px;
+    height: 30px;
+    font-size: 13px;
+    margin-left: 150px;
+    margin-top: 20px;
+    font-size: 12px;
+  }
 `;
 
 const WeekBtn = styled.button`
@@ -254,6 +274,12 @@ const WeekBtn = styled.button`
   border: 1px solid #eaeaea;
   font-weight: bold;
   cursor: pointer;
+
+  @media screen and (max-width: 375px) {
+    width: 60px;
+    height: 30px;
+    font-size: 12px;
+  }
 `;
 
 const ThisMonth = styled.span`
@@ -261,6 +287,10 @@ const ThisMonth = styled.span`
   font-weight: bold;
   font-size: 30px;
   color: #303030;
+
+  @media screen and (max-width: 375px) {
+    font-size: 15px;
+  }
 `;
 
 const LeftControl = styled.button`
@@ -269,6 +299,11 @@ const LeftControl = styled.button`
   font-size: 30px;
   margin-right: 8px;
   cursor: pointer;
+  @media screen and (max-width: 375px) {
+    font-size: 20px;
+    margin-right: 1px;
+    margin-left: 5px;
+  }
 `;
 
 const RightControl = styled.button`
@@ -277,6 +312,10 @@ const RightControl = styled.button`
   font-size: 30px;
   margin-left: 8px;
   cursor: pointer;
+  @media screen and (max-width: 375px) {
+    font-size: 20px;
+    margin-left: 1px;
+  }
 `;
 const CalendarControls = styled.div`
   width: 92%;
@@ -285,6 +324,13 @@ const CalendarControls = styled.div`
   align-items: center;
   justify-content: space-between;
   margin: 0 auto;
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    height: 90px;
+    display: block;
+    margin-top: 20px;
+  }
 `;
 
 const Table = styled.table`
@@ -292,6 +338,11 @@ const Table = styled.table`
   border-spacing: 10px;
   margin: 0 auto;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 375px) {
+    border-spacing: 2px;
+    width: 95%;
+  }
 `;
 
 const THead = styled.td`
@@ -304,6 +355,13 @@ const THead = styled.td`
 
   .weekend {
     color: ${theme.colors.red};
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 10px;
   }
 `;
 
@@ -331,6 +389,20 @@ const Cell = styled.td`
     top: 0;
     margin-top: 5px;
   }
+
+  @media screen and (max-width: 375px) {
+    width: 40px;
+    height: 50px;
+    border-radius: 5px;
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
 `;
 
 const TodayCell = styled.td`
@@ -350,6 +422,20 @@ const TodayCell = styled.td`
   &:hover {
     border: 1px solid ${theme.colors.lightgrey};
   }
+
+  @media screen and (max-width: 375px) {
+    width: 40px;
+    height: 30px;
+    border-radius: 5px;
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
 `;
 
 const HasPlanCell = styled.td`
@@ -360,7 +446,7 @@ const HasPlanCell = styled.td`
   border-radius: 20px;
   text-align: center;
   position: relative;
-
+  border-spacing: 0;
   .day {
     position: absolute;
     top: 0;
@@ -369,6 +455,21 @@ const HasPlanCell = styled.td`
   }
   &:hover {
     border: 2px solid ${theme.colors.yellow};
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 40px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid ${theme.colors.yellow};
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
   }
 `;
 
@@ -388,12 +489,20 @@ const Img = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
+
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
 `;
 
 const Title = styled.div`
   margin-left: 7px;
   font-weight: 500;
   font-size: 12px;
+
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
 `;
 
 export default Calendar;

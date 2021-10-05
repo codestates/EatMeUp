@@ -93,6 +93,14 @@ const PlanCard = styled.div`
   span {
     padding-top: 15px;
   }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    max-width: 260px;
+    margin: 5px auto;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
 `;
 
 const AddTodo = styled.div`

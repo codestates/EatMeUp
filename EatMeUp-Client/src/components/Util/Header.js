@@ -5,18 +5,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutRequest, clearErrors } from "../../_actions/authActions";
 
 import theme from "../StyledComponent/theme";
-import Login from '../LoginPage/Login'
-import Signup from '../SignupPage/Signup'
+import Login from "../LoginPage/Login";
+import Signup from "../SignupPage/Signup";
 
 const { swal } = window;
 const Header = () => {
-
   const history = useHistory();
   const dispatch = useDispatch();
   const { error, isAuthenticated } = useSelector((state) => state.auth);
 
-  const [showLogin, setShowLogin] = useState(false)
-  const [showSignup, setShowSignup] = useState(false)
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
 
   useEffect(() => {
     if (error) {
@@ -28,18 +27,18 @@ const Header = () => {
 
   const logoutHandler = (e) => {
     e.preventDefault();
-    dispatch(logoutRequest())
-    history.push('/')
+    dispatch(logoutRequest());
+    history.push("/");
   };
 
   const showLoginHandler = () => {
-    setShowLogin(true)
-  }
+    setShowLogin(true);
+  };
 
   const showSignupHandler = () => {
-    setShowLogin(false)
-    setShowSignup(true)
-  }
+    setShowLogin(false);
+    setShowSignup(true);
+  };
 
   return isAuthenticated ? (
     <EatMeUpHeader>
@@ -67,7 +66,9 @@ const Header = () => {
           <Link to='/user/mypage'>
             <div className='menu right'>마이페이지</div>
           </Link>
-          <Logout><i className="fas fa-sign-out-alt" onClick={logoutHandler}></i></Logout>
+          <Logout>
+            <i className='fas fa-sign-out-alt' onClick={logoutHandler}></i>
+          </Logout>
         </div>
       </div>
     </EatMeUpHeader>
@@ -82,21 +83,32 @@ const Header = () => {
             />
           </Link>
         </div>
-        
       </div>
       {/* 오른쪽메뉴(로그인, 회원가입, 마이페이지) */}
       <div className='right-menu'>
         <div className='menuBtns'>
           {/* <Link to='/login'> */}
-            <div className='menu right' onClick={showLoginHandler}>LOGIN</div>
+          <div className='menu right' onClick={showLoginHandler}>
+            LOGIN
+          </div>
           {/* </Link> */}
           {/* <Link to='/signup'> */}
-            <div className='menu right' onClick={showSignupHandler}>SIGNUP</div>
+          <div className='menu right' onClick={showSignupHandler}>
+            SIGNUP
+          </div>
           {/* </Link> */}
         </div>
       </div>
-      {showLogin ? <Login setShowLogin={setShowLogin} setShowSignup={setShowSignup} /> : ""}
-      {showSignup? <Signup setShowSignup={setShowSignup} setShowLogin={setShowLogin} /> : ""}
+      {showLogin ? (
+        <Login setShowLogin={setShowLogin} setShowSignup={setShowSignup} />
+      ) : (
+        ""
+      )}
+      {showSignup ? (
+        <Signup setShowSignup={setShowSignup} setShowLogin={setShowLogin} />
+      ) : (
+        ""
+      )}
     </EatMeUpHeader>
   );
 };
@@ -173,14 +185,31 @@ const EatMeUpHeader = styled.div`
     background-color: ${theme.colors.yellow};
     color: white;
   }
+
+  @media screen and (max-width: 375px) {
+    height: 16vw;
+
+    .logo {
+      width: 140px;
+      font-size: 35px;
+      text-indent: 20px;
+    }
+
+    .right-menu {
+      display: none;
+    }
+    .menu {
+      display: none;
+    }
+    
+  }
 `;
 
 const Logout = styled.button`
-
   border: none;
   font-size: 25px;
   background-color: white;
   color: grey;
-`
+`;
 
 export default Header;

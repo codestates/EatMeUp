@@ -124,6 +124,7 @@ export const getMylikelistReducer = (state = { mylikelist: [] }, action) => {
       };
     case GET_LIKELIST_FAIL:
       return {
+        ...state,
         loading: false,
         error: action.payload,
       };
@@ -136,7 +137,7 @@ export const getMylikelistReducer = (state = { mylikelist: [] }, action) => {
       return state;
   }
 };
-export const mylikelistReducer = (state = {}, action) => {
+export const mylikelistReducer = (state = { }, action) => {
   switch (action.type) {
     case ADD_TO_LIKELIST_REQUEST:
     case REMOVE_FROM_LIKELIST_REQUEST:
