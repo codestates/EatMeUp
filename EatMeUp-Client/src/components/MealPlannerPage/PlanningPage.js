@@ -3,10 +3,10 @@ import styled, { keyframes } from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyLikelist } from "../../_actions/userActions";
-import { getRecommandRecipes } from '../../_actions/calendarActions';
-import { allFoods } from '../../_actions/fridgeActions'
-import { createMealPlan } from '../../_actions/calendarActions'
-import axios from 'axios';
+import { getRecommandRecipes } from "../../_actions/calendarActions";
+import { allFoods } from "../../_actions/fridgeActions";
+import { createMealPlan } from "../../_actions/calendarActions";
+import axios from "axios";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -20,15 +20,16 @@ import { MiddleBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
-const PlanningPage = () => {
+const { Swal } = window;
 
+const PlanningPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { foods } = useSelector(state => state.allFoods)
+  const { foods } = useSelector((state) => state.allFoods);
   const { mylikelist } = useSelector((state) => state.mylikelist);
 
-  const [date, setDate] = useState("")
-  const [getRecommand, setGetRecommand] = useState([])
+  const [date, setDate] = useState("");
+  const [getRecommand, setGetRecommand] = useState([]);
   const [addToPlan, setAddToPlan] = useState({
     image: null,
     title: "",
@@ -44,39 +45,35 @@ const PlanningPage = () => {
   useEffect(() => {
     dispatch(getMyLikelist());
     dispatch(allFoods());
-    
   }, [dispatch]);
- 
-  
 
   useEffect(() => {
-
     const food = [];
-    foods.forEach(type => {
-
+    foods.forEach((type) => {
       type.items.forEach((item) => {
-        food.push({name: item.food_name})
-      })
-    })
+        food.push({ name: item.food_name });
+      });
+    });
 
     const data = {
-      food: food
-    }
-    
-   
-    axios.post(`${process.env.REACT_APP_API}/recipe/food`, data, {withCredentials: true}).then(response => {
-      
-      if(response.data) {
-        setGetRecommand(response.data.recipeInfo[0])
-      }
-     
-    })
+      food: food,
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_API}/recipe/food`, data, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data) {
+          setGetRecommand(response.data.recipeInfo[0]);
+        }
+      });
   }, [foods]);
 
   const addMealplanHandler = () => {
-
-    if(date === "") {
-      alert('날짜를 선택해 주세요.')
+    if (date === "") {
+      alert('날짜를 추가해주세요.')
+      return;
     }
 
     const plan = {
@@ -84,11 +81,23 @@ const PlanningPage = () => {
       breakfast: mealPlan[0].recipeId,
       lunch: mealPlan[1].recipeId,
       dinner: mealPlan[2].recipeId,
-    }
- 
-    dispatch(createMealPlan(plan))
-    history.push('/user/myplanner')
-  }
+    };
+
+    Swal.fire({
+      title: "Success",
+      text: "식단을 추가 하시겠습니까?",
+      icon: "success",
+      showCancleButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "추가하기",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(createMealPlan(plan));
+        history.push("/user/myplanner");
+      }
+    });
+  };
 
   return (
     <>
@@ -107,11 +116,19 @@ const PlanningPage = () => {
               </div>
               <div>
                 <ThisMonth>
-                  <input type='date' value={date} onChange={(e) => setDate(e.target.value) } />
+                  <input
+                    type='date'
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
                 </ThisMonth>
               </div>
               <div>
-                <CalendarBtn onClick={addMealplanHandler} fillColor={theme.colors.yellow} style={{ color: "white"}}>
+                <CalendarBtn
+                  onClick={addMealplanHandler}
+                  fillColor={theme.colors.yellow}
+                  style={{ color: "white" }}
+                >
                   식단 추가하기
                 </CalendarBtn>
                 <Link to='/user/myplanner'>
@@ -139,13 +156,19 @@ const PlanningPage = () => {
                 <IngredientBox>
                   <div className='title'>사야할 재료</div>
                   <div className='emptybox'>
-                    <div><i class="fas fa-hourglass-start"></i>서비스 준비중..</div>
+                    <div>
+                      <i class='fas fa-hourglass-start'></i>서비스 준비중..
+                    </div>
                   </div>
                 </IngredientBox>
 
                 {/* 아침/점심/저녁 적는 식단 */}
                 <MealPlanCardBox>
-                  <MealPlanCard addToPlan={addToPlan} mealPlan={mealPlan} setMealPlan={setMealPlan} />
+                  <MealPlanCard
+                    addToPlan={addToPlan}
+                    mealPlan={mealPlan}
+                    setMealPlan={setMealPlan}
+                  />
                 </MealPlanCardBox>
               </PlannerBox>
             </MealPlaner>
@@ -190,7 +213,6 @@ const CalendarBtn = styled(MiddleBtn)`
   font-weight: bold;
   color: #303030;
   width: 130px;
-  
 
   &:hover {
     border: 2px solid ${theme.colors.lightgrey};
@@ -227,7 +249,7 @@ const rotate = keyframes`
   to {
     transform: rotate(0deg)
   }
-`
+`;
 
 const IngredientBox = styled.div`
   width: 100%;
@@ -245,7 +267,6 @@ const IngredientBox = styled.div`
     padding-top: 10px;
   }
 
-
   .emptybox {
     display: flex;
     justify-content: center;
@@ -254,7 +275,7 @@ const IngredientBox = styled.div`
     color: grey;
   }
 
-  .fa-hourglass-start  {
+  .fa-hourglass-start {
     margin-right: 10px;
     animation: ${rotate} 2s infinite;
   }

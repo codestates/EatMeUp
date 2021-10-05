@@ -6,16 +6,14 @@ const ResultCard = ({ recipe }) => {
   const recipeLevel = (level) => {
     if (level === "초보환영") {
       return <i className='bx bxs-star' id='icon'></i>;
-    }
-    else if (level === "보통") {
+    } else if (level === "보통") {
       return (
         <>
           <i className='bx bxs-star' id='icon'></i>
           <i className='bx bxs-star' id='icon'></i>
         </>
       );
-    }
-    else if (level === "어려움") {
+    } else if (level === "어려움") {
       return (
         <>
           <i className='bx bxs-star' id='icon'></i>
@@ -23,12 +21,9 @@ const ResultCard = ({ recipe }) => {
           <i className='bx bxs-star' id='icon'></i>
         </>
       );
-    } 
-    else {
+    } else {
       return <i className='bx bxs-star' id='icon'></i>;
     }
-
-    
   };
 
   return (
@@ -39,12 +34,15 @@ const ResultCard = ({ recipe }) => {
             {/* 유저프로필 */}
             <div className='imgbox-left'>
               <div>
-                <img src={recipe.avatar ? recipe.avatar : "../food_img/favicon.png"} alt='people' />
+                <img
+                  src={
+                    recipe.avatar ? recipe.avatar : "../food_img/favicon.png"
+                  }
+                  alt='people'
+                />
               </div>
               <div>
-                <div>
-                  <span>{recipe.username === "test1" ? "eatmeup" : recipe.username}</span>
-                </div>
+                <span>eatmeup</span>
               </div>
             </div>
 
@@ -72,9 +70,8 @@ const ResultCard = ({ recipe }) => {
           {/* 음식 주재료 */}
           <div className='materials'>
             {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span>#{food.name}</span>
+              return <span>#{food.name}</span>;
             })}
-            
           </div>
         </RecipeCard>
       </Link>
@@ -91,7 +88,7 @@ const showBtn = keyframes`
   }
 `;
 
-const RecipeCard = styled.div`    
+const RecipeCard = styled.div`
   width: 100%;
   margin: 20px auto;
   background-color: #ffffff;
@@ -108,7 +105,7 @@ const RecipeCard = styled.div`
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding-top:6px;
+    padding-top: 6px;
   }
 
   .imgbox-left > div > img {
@@ -120,16 +117,14 @@ const RecipeCard = styled.div`
 
   .imgbox-left {
     display: flex;
-
+    align-items: center;
   }
 
   .imgbox-left > div {
     margin-left: 5px;
-    font-size: 14px;
+    font-size: 15px;
     object-fit: contain;
-  
     align-items: center;
-  
   }
 
   .update-time {
