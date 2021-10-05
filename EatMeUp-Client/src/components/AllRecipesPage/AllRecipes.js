@@ -317,7 +317,7 @@ const TitleBox = styled.div`
        padding: 3px 8px;
        background-color: #EAEAEA;
        border-radius: 30px;
-       margin-right:5px;ƒ
+       margin-right:5px;
       }
 
       .description_box {
@@ -420,7 +420,7 @@ const TitleBox = styled.div`
     padding: 3px 8px;
     background-color: #EAEAEA;
     border-radius: 30px;
-    margin-right:5px;ƒ
+    margin-right:5px;
   }
  }
 
