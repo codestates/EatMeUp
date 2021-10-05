@@ -40,16 +40,22 @@ const MyPage = () => {
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
 
-    setGetUser(user);
-
-    if (error) {
-      swal("Please!", "로그인이 필요합니다.", "warning");
+  
+    if(error) {
+      swal(
+        "Please!",
+        "로그인이 필요합니다.",
+        "warning",
+      );
       dispatch(clearErrors());
       history.push("/");
       return;
     }
   }, [dispatch, history, error]);
 
+  useEffect(() => {
+    setGetUser(user)
+  }, [user])
   return (
     <div>
       <Header id={2} />

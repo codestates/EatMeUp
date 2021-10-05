@@ -35,7 +35,7 @@ import { imageReducer } from "./_reducers/imageReducer";
 const persistConfig = {
   key: "root",
   storage: storage,
-  whitelist: ["auth"],
+  whitelist: ["auth", "recommandrecipes"],
 };
 
 const reducer = combineReducers({

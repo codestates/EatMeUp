@@ -45,9 +45,6 @@ const ResultCard = ({ recipe }) => {
                 <div>
                   <span>{recipe.username === "test1" ? "eatmeup" : recipe.username}</span>
                 </div>
-                <div className='update-time'>
-                    hello world!
-                </div>
               </div>
             </div>
 

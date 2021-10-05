@@ -1,6 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import React from 'react-dom'
 
+/* auth */
 import LoginPage from "./components/LoginPage/Login";
 import SignupPage from "./components/SignupPage/Signup";
 import LandingPage from "./components/LandingPage/Landing";
@@ -35,7 +37,9 @@ import MyInfo from "./components/MyPage/MyInfo";
 
 import PrivateRoute from "./components/PrivateRoute";
 
-function App(props) {
+function App() {
+
+  
   return (
     <Router>
       <div className='App'>
@@ -48,37 +52,37 @@ function App(props) {
           exact
         />
         <Route path='/recipes' exact component={AllRecipesPage} />
-        <Route
+        <PrivateRoute
           path='/recipes/result'
           exact
           component={ResultRecipesPage}
           option={true}
         />
-        <Route path='/recipe/info/:id' component={DetailPage} />
-        <Route path='/fridge' exact component={FridgePage} />
-        <Route path='/user/myrecipe' exact component={MyRecipePage} />
-        <Route
+        <PrivateRoute path='/recipe/info/:id' component={DetailPage} />
+        <PrivateRoute path='/fridge' exact component={FridgePage} />
+        <PrivateRoute path='/user/myrecipe' exact component={MyRecipePage} />
+        <PrivateRoute
           path='/user/myrecipe/create'
           component={CreateRecipePage}
         />
-        <Route
+        <PrivateRoute
           path='/user/myrecipe/edit/:id'
           exact
           component={EditRecipePage}
         />
-        <Route path='/user/likelist' exact component={MyLikelistPage} />
-        <Route
+        <PrivateRoute path='/user/likelist' exact component={MyLikelistPage} />
+        <PrivateRoute
           path='/user/myplanner'
           exact
           component={MealPlannerPage}
         />
-        <Route
+        <PrivateRoute
           path='/user/myplanner/create'
           component={PlanningPage}
           exact
         />
-        <Route path='/user/mypage' component={MyPage} exact />
-        <Route path='/user/info' component={MyInfo} exact />
+        <PrivateRoute path='/user/mypage' component={MyPage} exact />
+        <PrivateRoute path='/user/info' component={MyInfo} exact />
       </div>
     </Router>
   );

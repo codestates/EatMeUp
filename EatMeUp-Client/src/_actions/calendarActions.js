@@ -84,13 +84,19 @@ export const createMealPlan = (plan) => async (dispatch) => {
   }
 };
 
-export const deleteMealPlan = () => async (dispatch) => {
+export const deleteMealPlan = (id) => async (dispatch) => {
   try {
     dispatch({
       type: DELETE_MEALPLAN_REQUEST,
     });
 
-    const { data } = await axios.get(`${process.env.REACT_APP_API}`);
+    const { data } = await axios.delete(`${process.env.REACT_APP_API}/calendar/mealplan/${id}`, {withCredentials: true});
+
+    dispatch({
+      type: DELETE_MEALPLAN_SUCCESS,
+      payload: data
+    })
+
   } catch (error) {
     dispatch({
       type: DELETE_MEALPLAN_FAIL,

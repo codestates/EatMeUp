@@ -1,13 +1,19 @@
 import React from "react";
 import styled from "styled-components";
+import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { deleteMealPlan } from '../../../_actions/calendarActions'
+
+/* 스타일 컴포넌트 */
 import { BackGroundModal, ModalDialog } from "../styled/Style";
 import { SectionBox } from "../../StyledComponent/containers";
+
+
 const { Swal } = window;
 
 const Daily = ({ setOpenDaily, getDate, plan }) => {
   /* function area */
-
+const dispatch = useDispatch()
   const getPlan = [
     {
       id: "아침",
@@ -18,8 +24,8 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
     { id: "저녁", icon: "dinner.png", meal: plan ? plan.mealplanDinner : [] },
   ];
 
-  console.log(getPlan)
-  const deletetHandler = () => {
+ 
+  const deletetHandler = (id) => {
     setOpenDaily(true);
     Swal.fire({
       title: "Delete",
@@ -31,7 +37,7 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
       confirmButtonText: "삭제하기",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log("deleded");
+        dispatch(deleteMealPlan(id))
         setOpenDaily(false);
       }
     });
@@ -52,7 +58,7 @@ const Daily = ({ setOpenDaily, getDate, plan }) => {
         <ModalDialog onClick={closeModalHandler}>
           <Date>
             {date}
-            <i class='far fa-trash-alt' onClick={deletetHandler}></i>
+            <i class='far fa-trash-alt' onClick={() => deletetHandler(plan.id)}></i>
           </Date>
           {/* flex box */}
           <MealPlanBox>
