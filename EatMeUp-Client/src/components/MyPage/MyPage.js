@@ -40,7 +40,6 @@ const MyPage = () => {
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
 
-    setGetUser(user)
   
     if(error) {
       swal(
@@ -54,6 +53,9 @@ const MyPage = () => {
     }
   }, [dispatch, history, error]);
 
+  useEffect(() => {
+    setGetUser(user)
+  }, [user])
   return (
     <div>
       <Header id={2} />

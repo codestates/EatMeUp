@@ -66,7 +66,7 @@ const DetailePage = ({ match }) => {
     if (isDeleted) {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
-  }, [dispatch, isAdded, isDeleted]);
+  }, [dispatch, isAdded, isDeleted, isAuthenticated]);
 
   const likeBtnHandler = (id) => {
     setClicked(!clicked);

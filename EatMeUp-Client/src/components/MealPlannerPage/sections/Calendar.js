@@ -29,7 +29,7 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
     return plan.date.split("-").join("");
   });
 
-  console.log(dates);
+ 
   const today = getMoment;
 
   const firstWeek = today.clone().startOf("month").week();

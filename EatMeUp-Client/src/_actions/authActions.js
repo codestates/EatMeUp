@@ -46,7 +46,7 @@ import {
     if(data.success) {
       localStorage.setItem("auth", true)
     }
-   
+
  
      dispatch({
        type: LOGIN_SUCCESS,

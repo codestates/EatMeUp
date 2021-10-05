@@ -1,20 +1,22 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
+import { useSelector } from 'react-redux'
 
 const PrivateRoute = ({ component: Component,  ...rest  }) => {
-  const isAuth = localStorage.getItem("persist:root");
-  const { isAuthenticated } = JSON.parse(JSON.parse(isAuth).auth);
+ 
+const { isAuthenticated } = useSelector(state => state.auth)
+
   return (
    
       <Route
         {...rest}
         render={props => 
           
-         isAuthenticated ?(
+         isAuthenticated ? (
             <Component {...props} />
         ) : ( 
             <Redirect to={{
-                            pathname: '/login', 
+                            pathname: '/', 
                             state: {from: props.location}
                           }}
             />

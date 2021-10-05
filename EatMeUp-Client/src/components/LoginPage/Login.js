@@ -29,9 +29,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   } = useForm();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/");
-    }
+    
     if (error) {
       swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors());

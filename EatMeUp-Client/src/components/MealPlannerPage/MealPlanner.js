@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getMealPlans } from "../../_actions/calendarActions";
+import { DELETE_MEALPLAN_RESET } from "../../_types/calendarTypes";
 
 /* 컴포넌트 */
 import Calendar from "./sections/Calendar";
@@ -9,6 +10,7 @@ import Weekly from "./sections/Weekly";
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 import Sidebar from "../Util/Sidebar";
+import Loader from "../Util/Loader";
 
 /* 스타일 컴포넌트 */
 import { Container, SectionBox } from "../StyledComponent/containers";
@@ -16,19 +18,24 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 const MealPlanner = () => {
   const dispatch = useDispatch();
 
-  const { plans } = useSelector((state) => state.getmealplan);
+  const { loading, plans } = useSelector((state) => state.getmealplan);
+  const { isDeletetd } = useSelector((state) => state.deleteplan);
 
   /* 월별/주별 핸들러 */
   const [showMonth, setShowMonth] = useState(true);
 
   useEffect(() => {
     dispatch(getMealPlans());
-  }, [dispatch]);
+
+    if (isDeletetd) {
+      dispatch({ type: DELETE_MEALPLAN_RESET });
+    }
+  }, [dispatch, isDeletetd]);
+
   const showWeekHandler = () => {
     setShowMonth(false);
   };
 
-  console.log(plans);
   const showMonthHandler = () => {
     setShowMonth(true);
   };
@@ -42,21 +49,25 @@ const MealPlanner = () => {
           <Sidebar id={3} />
 
           {/* 콘텐츠영역 */}
-          <CalendarContainer>
-            {/* 월별/주별 핸들러 */}
-            {showMonth ? (
-              <Calendar
-                plans={plans}
-                showWeekHandler={showWeekHandler}
-                showMonthHandler={showMonthHandler}
-              />
-            ) : (
-              <Weekly
-                showWeekHandler={showWeekHandler}
-                showMonthHandler={showMonthHandler}
-              />
-            )}
-          </CalendarContainer>
+          {loading ? (
+            <Loader />
+          ) : (
+            <CalendarContainer>
+              {/* 월별/주별 핸들러 */}
+              {showMonth ? (
+                <Calendar
+                  plans={plans}
+                  showWeekHandler={showWeekHandler}
+                  showMonthHandler={showMonthHandler}
+                />
+              ) : (
+                <Weekly
+                  showWeekHandler={showWeekHandler}
+                  showMonthHandler={showMonthHandler}
+                />
+              )}
+            </CalendarContainer>
+          )}
         </Container>
       </section>
       <Footer />

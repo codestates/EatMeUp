@@ -13,14 +13,14 @@ const Header = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.auth);
+  const { error, isAuthenticated } = useSelector((state) => state.auth);
 
   const [showLogin, setShowLogin] = useState(false)
   const [showSignup, setShowSignup] = useState(false)
 
   useEffect(() => {
     if (error) {
-      swal("Please!", "로그아웃 실패, 다시 확인해주세요.", "error");
+      // swal("Please!", "로그아웃 실패, 다시 확인해주세요.", "error");
       dispatch(clearErrors());
       return;
     }
@@ -41,7 +41,7 @@ const Header = () => {
     setShowSignup(true)
   }
 
-  return localStorage.auth ? (
+  return isAuthenticated ? (
     <EatMeUpHeader>
       <div className='left-menu'>
         <div className='logo'>
