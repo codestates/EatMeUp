@@ -63,33 +63,32 @@ export const loginRequest = (userInfo) => async (dispatch) => {
 };
 
 /* 게스트로그인 요청 */
-export const guestLoginRequest = (guestInfo) =>
-  (async(dispatch) => {
-    try {
-      dispatch({ type: LOGIN_REQUEST });
+export const guestLoginRequest = (guestInfo) => async (dispatch) => {
+  try {
+    dispatch({ type: LOGIN_REQUEST });
 
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/auth/guest`,
-        guestInfo,
-        { withCredentials: true },
-      );
-      console.log(data)
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/auth/guest`,
+      guestInfo,
+      { withCredentials: true },
+    );
+    console.log(data);
 
-      if (data.success) {
-        localStorage.setItem("auth", true);
-      }
-
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: data.success,
-      });
-    } catch (error) {
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: error.response.data.message,
-      });
+    if (data.success) {
+      localStorage.setItem("auth", true);
     }
-  });
+
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: LOGIN_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
 
 /* 구글로그인 요청 */
 export const GoogleLoginRequest = (googleInfo) => async (dispatch) => {
@@ -97,11 +96,11 @@ export const GoogleLoginRequest = (googleInfo) => async (dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_API}/user/google`,
+      `${process.env.REACT_APP_API}/auth/google`,
       googleInfo,
       { withCredentials: true },
     );
-    console.log(data)
+    console.log(data);
 
     if (data.success) {
       localStorage.setItem("auth", true);
@@ -117,7 +116,7 @@ export const GoogleLoginRequest = (googleInfo) => async (dispatch) => {
       payload: error.response.data.message,
     });
   }
-}
+};
 
 /* 카카오로그인 요청 */
 export const KakaoLoginRequest = (kakaoInfo) => async (dispatch) => {
@@ -125,11 +124,11 @@ export const KakaoLoginRequest = (kakaoInfo) => async (dispatch) => {
     dispatch({ type: LOGIN_REQUEST });
 
     const { data } = await axios.post(
-      `${process.env.REACT_APP_API}/user/kakao`,
+      `${process.env.REACT_APP_API}/auth/kakao`,
       kakaoInfo,
       { withCredentials: true },
     );
-    console.log(data)
+    console.log(data);
 
     if (data.success) {
       localStorage.setItem("auth", true);
@@ -145,7 +144,7 @@ export const KakaoLoginRequest = (kakaoInfo) => async (dispatch) => {
       payload: error.response.data.message,
     });
   }
-}
+};
 
 /* 로그아웃 요청 */
 export const logoutRequest = () => async (dispatch) => {

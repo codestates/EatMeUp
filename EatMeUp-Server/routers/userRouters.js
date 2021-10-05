@@ -13,12 +13,8 @@ const { auth } = require("../utils/checkAuth");
 
 const userRouter = express.Router();
 
-userRouter
-  .route("/info")
-  .all(auth)
-  .get(getInfo)
-  .put(putInfo)
-  .delete(deleteInfo);
+userRouter.route("/info").all(auth).get(getInfo).put(putInfo);
+userRouter.delete("/info", deleteInfo);
 
 userRouter.route("/likelist").all(auth).post(addLikeRecipe).get(getLikeList);
 
