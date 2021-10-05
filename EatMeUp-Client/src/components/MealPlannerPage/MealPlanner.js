@@ -6,7 +6,6 @@ import { DELETE_MEALPLAN_RESET } from "../../_types/calendarTypes";
 
 /* 컴포넌트 */
 import Calendar from "./sections/Calendar";
-import Weekly from "./sections/Weekly";
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 import Sidebar from "../Util/Sidebar";

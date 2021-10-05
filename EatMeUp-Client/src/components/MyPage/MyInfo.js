@@ -173,7 +173,7 @@ const MyInfo = () => {
                       type='file'
                       id='userimg'
                       accept='image/*'
-                      onChange={(e) => setFile(e.target.files[0])}
+                      onChange={(e) => setFile(e.currentTarget.files[0])}
                     />
                   </div>
                 </div>

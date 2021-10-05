@@ -199,6 +199,16 @@ const TitleBox = styled.div`
   }
 
   /* 반응형 css */
+  @media screen and (max-width: 625px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    input {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+  }
   @media screen and (max-width: 375px) {
     display: flex;
     flex-direction: column;
@@ -218,6 +228,9 @@ const ThisMonth = styled.span`
   color: #303030;
 
    /* 반응형 css */
+   @media screen and (max-width: 625px) {
+    font-size: 18px;
+  }
   @media screen and (max-width: 375px) {
     font-size: 18px;
   }
@@ -235,6 +248,11 @@ const CalendarBtn = styled(MiddleBtn)`
   }
 
    /* 반응형 css */
+   @media screen and (max-width: 625px) {
+   width: 120px;
+   height: 30px;
+ 
+  }
   @media screen and (max-width: 375px) {
    width: 120px;
    height: 30px;
@@ -248,6 +266,10 @@ const MealPlaner = styled.div`
   display: flex;
 
   /* 반응형 css */
+  @media screen and (max-width: 625px) {
+    display: block;
+    margin-top: 15px;
+  }
   @media screen and (max-width: 375px) {
     display: block;
     margin-top: 15px;
@@ -263,9 +285,19 @@ const RecommandRecipesBox = styled.div`
   margin: 0px 10px 0px 20px;
 
    /* 반응형 css */
+   @media screen and (max-width: 1300px) {
+    min-width: 300px;
+  }
+  @media screen and (max-width: 625px) {
+    width: 95%;
+    max-width: 240px;
+    margin: 5px auto;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
   @media screen and (max-width: 375px) {
     width: 95%;
-    max-width: 260px;
+    max-width: 240px;
     margin: 5px auto;
     max-height: 250px;
     overflow-x: scroll;
@@ -277,6 +309,14 @@ const PlannerBox = styled.div`
   margin: 0px 20px 0px 10px;
 
    /* 반응형 css */
+
+   @media screen and (max-width: 625px) {
+    width: 95%;
+    max-width: 260px;
+    margin: 5px auto;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
   @media screen and (max-width: 375px) {
     width: 95%;
     max-width: 260px;
@@ -327,6 +367,9 @@ const IngredientBox = styled.div`
   }
 
    /* 반응형 css */
+   @media screen and (max-width: 1300px) {
+    display: none;
+  }
   @media screen and (max-width: 375px) {
     display: none;
   }
@@ -339,6 +382,14 @@ const MealPlanCardBox = styled.div`
   grid-gap: 10px;
 
    /* 반응형 css */
+   @media screen and (max-width: 1300px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 625px) {
+    display: block;
+  }
+
   @media screen and (max-width: 375px) {
     display: block;
   }

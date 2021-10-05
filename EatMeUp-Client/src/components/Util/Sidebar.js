@@ -62,6 +62,10 @@ const SideMenu = styled.div`
   a {
     text-decoration: none;
   }
+  @media screen and (max-width: 1025px) {
+    width: 65px;
+    margin: 0 5px 0 0px;
+  }
 
   @media screen and (max-width: 375px) {
     width: 65px;
