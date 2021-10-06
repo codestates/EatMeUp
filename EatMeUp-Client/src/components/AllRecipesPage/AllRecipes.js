@@ -186,7 +186,7 @@ const AllRecipes = () => {
 
           {/* 카드리스트 컨테이너 */}
           <Container>
-            {recipes.map((recipe, idx) => {
+            {recipes && recipes.map((recipe, idx) => {
               return <Card recipe={recipe} key={idx} />;
             })}
           </Container>
