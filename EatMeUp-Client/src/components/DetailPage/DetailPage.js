@@ -21,12 +21,10 @@ const { swal } = window;
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
 
-
   // selector
   const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
   const { isAuthenticated } = useSelector((state) => state.auth);
   const { user } = useSelector((state) => state.user);
-
 
   // state
   const [getRecipe, setGetRecipe] = useState("");
@@ -35,30 +33,33 @@ const DetailePage = ({ match }) => {
   const [likelist, setLikelist] = useState([]);
   const [steps, setSteps] = useState([]);
   const [foods, setFoods] = useState([]);
-  const [posteduser, setPostedUser] = useState([]);
+  const [posteduser, setPostedUser] = useState({
+    username: "guest",
+    avatar: null,
+  });
 
   useEffect(() => {
-   
     axios
       .get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {
         withCredentials: true,
       })
       .then((response) => {
         if (response.data) {
-         
           setGetRecipe(response.data.recipeInfo[0]);
           setSteps(response.data.recipeInfo[0].steps);
           setFoods(response.data.recipeInfo[0].foods);
-          setPostedUser(response.data.recipeInfo[0].user);
           setLikelist(response.data.recipeInfo[0].likeUser);
+
+          if (response.data.recipeInfo[0].user) {
+            setPostedUser(response.data.recipeInfo[0].user);
+          }
         }
       });
   }, [match.params.id]);
-
+  console.log(posteduser);
   useEffect(() => {
-
-    if(isAuthenticated) {
-      dispatch(getUserinfo())
+    if (isAuthenticated) {
+      dispatch(getUserinfo());
     }
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
@@ -68,14 +69,9 @@ const DetailePage = ({ match }) => {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
 
-    if(error) {
-      swal(
-        "Please!",
-        "로그인이 필요합니다.",
-        "warning",
-      );
-      dispatch(clearErrors())
-      
+    if (error) {
+      swal("Please!", "로그인이 필요합니다.", "warning");
+      dispatch(clearErrors());
     }
   }, [dispatch, isAdded, isDeleted, isAuthenticated, error]);
 
@@ -94,13 +90,11 @@ const DetailePage = ({ match }) => {
 
   useEffect(() => {
     likelist.forEach((like) => {
-    
       if (like.id === user.id) {
         setIsLiked(true);
       }
     });
   }, [likelist, user.id]);
-
 
   return (
     <div>
@@ -236,7 +230,9 @@ const DetailePage = ({ match }) => {
                           className='fas fa-circle fa-stack-2x'
                           style={{ color: theme.colors.lightgrey }}
                         />
-                        <strong className='fa-stack-1x'>{step.cookingNum}</strong>
+                        <strong className='fa-stack-1x'>
+                          {step.cookingNum}
+                        </strong>
                       </span>
                     </div>
                     <span className='step'>{step.recipe}</span>
@@ -284,7 +280,7 @@ const ProfileContainer = styled.div`
   width: 100%;
   height: 60px;
   position: absolute;
-  background-color: rgba(255, 255, 255, .8);
+  background-color: rgba(255, 255, 255, 0.8);
   .profile_img {
     width: 30px;
     height: 30px;
