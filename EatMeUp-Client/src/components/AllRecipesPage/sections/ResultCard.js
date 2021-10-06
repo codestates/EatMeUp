@@ -158,7 +158,7 @@ const RecipeCard = styled.div`
 
   .recipeImgbox > img {
     width: 95%;
-    height: 200px;
+    height: 220px;
     border-radius: 20px;
     object-fit: cover;
     margin: 10px 7px 0px 7px;
