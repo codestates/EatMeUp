@@ -53,8 +53,7 @@ const Card = ({ recipe }) => {
                 <div>
                   {recipe.user && (
                     <span>
-                      {recipe.user
-                        ? recipe.user.username === "test1" && "eatmeup"
+                      {recipe.user.username === "test1" ? "eatmeup"
                         : recipe.user.username}
                     </span>
                   )}
