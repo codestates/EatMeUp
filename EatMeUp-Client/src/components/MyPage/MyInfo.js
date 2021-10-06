@@ -168,13 +168,13 @@ const MyInfo = () => {
                   )}
 
                   <div className='profileImg_box'>
-                    <label htmlFor='userimg'>
+                    <label htmlFor='avatar'>
                       
                       <i className='fas fa-camera'></i>
                     </label>
                     <input
                       type='file'
-                      id='userimg'
+                      id='avatar'
                       accept='image/*'
                       onChange={(e) => setFile(e.currentTarget.files[0])}
                     />
