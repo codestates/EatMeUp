@@ -14,7 +14,6 @@ import Footer from "../Util/Footer";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
 import Loader from "../Util/Loader";
-import Card from "../MyRecipePage/sections/Card";
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";

@@ -58,7 +58,7 @@ const EditRecipePage = ({ match }) => {
           setFoods(response.data.recipeInfo[0].foods);
         }
       });
-  }, []);
+  }, [match.params.id]);
 
   const {
     register,
@@ -306,8 +306,6 @@ const EditRecipePage = ({ match }) => {
 
     setOpen(true);
     setTimeout(() => {
-      console.log(newRecipe);
-
       setOpen(false);
       dispatch(editMyrecipe(match.params.id, newRecipe));
       history.push("/user/myrecipe");
@@ -965,12 +963,12 @@ const TagContainer = styled.div`
   }
 `;
 
-const AddIngreBtn = styled.button`
-  color: white;
-  font-weight: bold;
-  font-size: 16px;
-  border-radius: 10px;
-`;
+// const AddIngreBtn = styled.button`
+//   color: white;
+//   font-weight: bold;
+//   font-size: 16px;
+//   border-radius: 10px;
+// `;
 
 /* add steps */
 

@@ -58,8 +58,11 @@ const Signup = ({ setShowSignup, setShowLogin }) => {
       email: data.email,
       password: data.pwd,
     };
+    
     dispatch(signupRequest(signupData));
-    history.push("/login");
+    history.push("/");
+    setShowSignup(false)
+    setShowLogin(true)
   };
 
   const closeLoginModal = () => {

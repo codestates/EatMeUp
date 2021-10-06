@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { addToLikelist, removeFromLikelist } from "../../_actions/userActions";
-import { getUserinfo } from "../../_actions/userActions";
+import { getUserinfo, clearErrors } from "../../_actions/userActions";
 import {
   ADD_TO_LIKELIST_RESET,
   REMOVE_FROM_LIKELIST_RESET,
@@ -17,6 +17,7 @@ import Footer from "../Util/Footer";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
+const { swal } = window;
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
 
@@ -44,7 +45,7 @@ const DetailePage = ({ match }) => {
       })
       .then((response) => {
         if (response.data) {
-          console.log(response.data.recipeInfo);
+         
           setGetRecipe(response.data.recipeInfo[0]);
           setSteps(response.data.recipeInfo[0].steps);
           setFoods(response.data.recipeInfo[0].foods);
@@ -52,7 +53,7 @@ const DetailePage = ({ match }) => {
           setLikelist(response.data.recipeInfo[0].likeUser);
         }
       });
-  }, []);
+  }, [match.params.id]);
 
   useEffect(() => {
 
@@ -66,7 +67,17 @@ const DetailePage = ({ match }) => {
     if (isDeleted) {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
-  }, [dispatch, isAdded, isDeleted, isAuthenticated]);
+
+    if(error) {
+      swal(
+        "Please!",
+        "로그인이 필요합니다.",
+        "warning",
+      );
+      dispatch(clearErrors())
+      
+    }
+  }, [dispatch, isAdded, isDeleted, isAuthenticated, error]);
 
   const likeBtnHandler = (id) => {
     setClicked(!clicked);
@@ -88,7 +99,7 @@ const DetailePage = ({ match }) => {
         setIsLiked(true);
       }
     });
-  }, [likelist]);
+  }, [likelist, user.id]);
 
 
   return (
