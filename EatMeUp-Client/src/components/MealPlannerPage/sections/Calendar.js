@@ -254,40 +254,6 @@ const CalendarBtn = styled(MiddleBtn)`
   }
 `;
 
-const MonthBtn = styled.button`
-  width: 100px;
-  height: 45px;
-  border-radius: 30px 0px 0px 30px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-
-  @media screen and (max-width: 375px) {
-    width: 60px;
-    height: 30px;
-    font-size: 13px;
-    margin-left: 150px;
-    margin-top: 20px;
-    font-size: 12px;
-  }
-`;
-
-const WeekBtn = styled.button`
-  width: 100px;
-  height: 45px;
-  border-radius: 0px 30px 30px 0px;
-  border: none;
-  background-color: white;
-  border: 1px solid #eaeaea;
-  font-weight: bold;
-  cursor: pointer;
-
-  @media screen and (max-width: 375px) {
-    width: 60px;
-    height: 30px;
-    font-size: 12px;
-  }
-`;
 
 const ThisMonth = styled.span`
   font-style: normal;

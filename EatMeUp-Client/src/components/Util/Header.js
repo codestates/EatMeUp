@@ -8,7 +8,7 @@ import theme from "../StyledComponent/theme";
 import Login from "../LoginPage/Login";
 import Signup from "../SignupPage/Signup";
 
-const { swal } = window;
+
 const Header = () => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -201,7 +201,7 @@ const EatMeUpHeader = styled.div`
     .menu {
       display: none;
     }
-    
+
   }
 `;
 

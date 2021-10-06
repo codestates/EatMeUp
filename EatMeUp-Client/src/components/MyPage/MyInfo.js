@@ -102,6 +102,12 @@ const MyInfo = () => {
   const deleteHandler = (id) => {
 
   
+    const data = {
+      id : id
+    }
+
+    console.log(data)
+
     Swal.fire({
       title: "내 계정 삭제",
       text: "정보를 삭제 하시겠습니까?",
@@ -114,11 +120,10 @@ const MyInfo = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteMyaccount(id));
-        
+        history.push("/");
         setTimeout(() => {
           dispatch(logoutRequest());
-          history.push("/");
-        }, 1000);
+        }, 500);
       }
     });
   };
@@ -163,7 +168,7 @@ const MyInfo = () => {
                   )}
 
                   <div className='profileImg_box'>
-                    <label for='userimg'>
+                    <label htmlFor='userimg'>
                       
                       <i className='fas fa-camera'></i>
                     </label>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
@@ -38,6 +38,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
 
   useEffect(() => {
     if (error) {
+      setShowLogin(false)
       swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors());
       return;
@@ -194,7 +195,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
                   className='google'
                   onClick={renderProps.onClick}
                 >
-                  <img src='../food_img/google_logo.png' width='37' />
+                  <img src='../food_img/google_logo.png' width='37' alt="google"/>
                 </button>
               )}
             />
@@ -209,7 +210,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
               useLoginForm={true}
               style={{ color: "white", fontSize: 20, margin: 5, padding: 0 }}
             >
-              <img src='../food_img/kakao.png' width='20' />
+              <img src='../food_img/kakao.png' width='20' alt="kakao" />
             </KakaoBtn>
           </LoginEnd>
         </LoginContainer>
@@ -312,35 +313,35 @@ const LoginButton = styled(LargeBtn)`
   cursor: pointer;
 `;
 
-const SocialButton = styled(LargeBtn)`
-  width: 50%;
-  height: 50px;
-  margin: 0 auto 10px auto;
-  background-color: white;
-  color: ${theme.colors.black};
-  border: 1px solid ${theme.colors.lightgrey};
-  cursor: pointer;
-  .google_logo {
-    vertical-align: top;
-    width: 22px;
-  }
-  .google_text {
-    color: ${theme.colors.black};
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 0 5px;
-  }
-  .kakao_logo {
-    vertical-align: middle;
-    height: 28px;
-  }
-  .kakao_text {
-    color: ${theme.colors.black};
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 0 5px;
-  }
-`;
+// const SocialButton = styled(LargeBtn)`
+//   width: 50%;
+//   height: 50px;
+//   margin: 0 auto 10px auto;
+//   background-color: white;
+//   color: ${theme.colors.black};
+//   border: 1px solid ${theme.colors.lightgrey};
+//   cursor: pointer;
+//   .google_logo {
+//     vertical-align: top;
+//     width: 22px;
+//   }
+//   .google_text {
+//     color: ${theme.colors.black};
+//     font-size: 18px;
+//     font-weight: 600;
+//     margin: 0 0 0 5px;
+//   }
+//   .kakao_logo {
+//     vertical-align: middle;
+//     height: 28px;
+//   }
+//   .kakao_text {
+//     color: ${theme.colors.black};
+//     font-size: 18px;
+//     font-weight: 600;
+//     margin: 0 0 0 5px;
+//   }
+// `;
 
 const GoogleBtn = styled(GoogleLogin)``;
 
@@ -385,13 +386,13 @@ const LoginEnd = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-  &:visited {
-    color: ${theme.colors.black};
-  }
-`;
+// const StyledLink = styled(Link)`
+//   text-decoration: none;
+//   font-weight: bold;
+//   cursor: pointer;
+//   &:visited {
+//     color: ${theme.colors.black};
+//   }
+// `;
 
 export default Login;

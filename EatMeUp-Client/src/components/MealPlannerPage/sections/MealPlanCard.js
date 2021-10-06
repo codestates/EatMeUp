@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import theme from "../../StyledComponent/theme";
 import styled from "styled-components";
 
 const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
@@ -102,42 +101,6 @@ const PlanCard = styled.div`
     margin: 5px auto;
     max-height: 250px;
     overflow-x: scroll;
-  }
-`;
-
-const AddTodo = styled.div`
-  width: 95%;
-  margin-top: 10px;
-  display: flex;
-  margin: 5px auto;
-  justify-content: center;
-
-  .input {
-    width: 75%;
-    height: 35px;
-    border-radius: 20px 0px 0px 20px;
-    border: 1px solid ${theme.colors.lightgrey};
-    font-size: 13px;
-  }
-
-  .input > input {
-    width: 95%;
-    height: 30px;
-    border: none;
-  }
-
-  input:focus {
-    outline: none;
-  }
-
-  .addBtn {
-    border-radius: 0px 20px 20px 0px;
-    width: 25%;
-    height: 35px;
-    font-size: 12px;
-    background-color: white;
-    border: 1px solid ${theme.colors.lightgrey};
-    color: ${theme.colors.darkgray};
   }
 `;
 

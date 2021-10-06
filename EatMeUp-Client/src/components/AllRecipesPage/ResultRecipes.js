@@ -88,35 +88,35 @@ const TitleBox = styled.div`
   margin: 0 auto;
   margin-top: 60px;
 `;
-const SearchBox = styled.div`
-  width: 90%;
-  display: flex;
-  margin: 30px auto;
-  align-items: center;
+// const SearchBox = styled.div`
+//   width: 90%;
+//   display: flex;
+//   margin: 30px auto;
+//   align-items: center;
 
-  .title {
-    font-size: 23px;
-    font-weight: 500;
-    margin-left: 30px;
-  }
+//   .title {
+//     font-size: 23px;
+//     font-weight: 500;
+//     margin-left: 30px;
+//   }
 
-  .search_box {
-    border: 2px solid #ebe9e5;
-    width: 100%;
-    height: 50px;
-    border-radius: 20px;
-    line-height: 40px;
-    align-items: center;
-    display: flex;
-  }
+//   .search_box {
+//     border: 2px solid #ebe9e5;
+//     width: 100%;
+//     height: 50px;
+//     border-radius: 20px;
+//     line-height: 40px;
+//     align-items: center;
+//     display: flex;
+//   }
 
-  .fa-shopping-basket {
-    margin-left: 15px;
-    font-size: 20px;
-    color: lightgrey;
-    margin: 6px 10px 0px 15px;
-  }
-`;
+//   .fa-shopping-basket {
+//     margin-left: 15px;
+//     font-size: 20px;
+//     color: lightgrey;
+//     margin: 6px 10px 0px 15px;
+//   }
+// `;
 
 const Container = styled.div`
   width: 80%;
