@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 const Card = ({ recipe }) => {
-
-
- 
   const recipeLevel = (level) => {
     if (level === "초보환영") {
       return <i className='bx bxs-star' id='icon'></i>;
@@ -37,22 +34,33 @@ const Card = ({ recipe }) => {
             {/* 유저프로필 */}
             <div className='imgbox-left'>
               <div>
-                <img
-                  src={
-                    recipe.user.avatar
-                      ? recipe.user.avatar
-                      : "../food_img/people.jpeg"
-                  }
-                  alt='people'
-                />
+                {recipe.user && (
+                  <img
+                    src={
+                      recipe.user.avatar
+                        ? recipe.user.avatar
+                        : "../food_img/people.jpeg"
+                    }
+                    alt='people'
+                  />
+                )}
+
+                {recipe.user === null && (
+                  <img src='../food_img/people.jpeg' alt='people' />
+                )}
               </div>
               <div className='username'>
                 <div>
-                  <span>
-                    {recipe.user.username === "test1"
-                      ? "eatmeup"
-                      : recipe.user.username}
-                  </span>
+                  {recipe.user && (
+                    <span>
+                      {recipe.user
+                        ? recipe.user.username === "test1" && "eatmeup"
+                        : recipe.user.username}
+                    </span>
+                  )}
+                  {recipe.user === null && (
+                    <span>guest</span>
+                  )}
                 </div>
               </div>
             </div>
