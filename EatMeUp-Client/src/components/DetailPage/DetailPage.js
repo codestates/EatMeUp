@@ -56,7 +56,7 @@ const DetailePage = ({ match }) => {
         }
       });
   }, [match.params.id]);
-  console.log(posteduser);
+
   useEffect(() => {
     if (isAuthenticated) {
       dispatch(getUserinfo());
