@@ -54,13 +54,9 @@ const FridgeMain = () => {
     }
 
     if (error) {
-      swal(
-        "Please!",
-        "로그인이 필요합니다.",
-        "warning",
-      );
+      swal("Please!", "로그인이 필요합니다.", "warning");
       dispatch(clearErrors());
-      history.push('/');
+      history.push("/");
       return;
     }
   }, [dispatch, isEdited, isCreated, isArranged, isDeleted, error, history]);
@@ -144,15 +140,13 @@ const FridgeMain = () => {
                     );
                   })
                 )}
-                <div className='search'>
-                  <i className='fas fa-search'></i>
-                </div>
               </Stack>
             </CheckedFoodsBox>
 
             <GotoBtnBox onClick={searchByFoodHandler}>
               레시피 보기 <i className='fas fa-play'></i>
             </GotoBtnBox>
+           
           </SearchBox>
 
           {/* 냉장고 */}
@@ -205,14 +199,17 @@ const SearchBox = styled.div`
 
   @media screen and (max-width: 975px) {
     display: block;
+    width: 90%;
   }
 
   @media screen and (max-width: 775px) {
     display: block;
+    width: 90%;
   }
 
   @media screen and (max-width: 375px) {
     display: block;
+    width: 90%;
   }
 `;
 
@@ -258,9 +255,6 @@ const CheckedFoodsBox = styled.div`
     color: #a8a7a3;
   }
 
-  .fa-search {
-    display: none;
-  }
 
   @media screen and (max-width: 975px) {
     width: 100%;
@@ -268,12 +262,6 @@ const CheckedFoodsBox = styled.div`
     margin-top: 10px;
     display: flex;
 
-    .search {
-      margin-left: 40px;
-      color: #a8a7a3;
-      line-height: 30px;
-      justify-content: flex-end;
-    }
   }
 
   @media screen and (max-width: 775px) {
@@ -287,13 +275,7 @@ const CheckedFoodsBox = styled.div`
   @media screen and (max-width: 375px) {
     width: 100%;
     border-radius: 20px;
-    margin: 10px auto;
-
-    .fa-search {
-      margin-left: 40px;
-      color: #a8a7a3;
-      line-height: 30px;
-    }
+    margin: 5px auto;
   }
 `;
 
@@ -313,11 +295,20 @@ const GotoBtnBox = styled.div`
   cursor: pointer;
 
   @media screen and (max-width: 975px) {
-    display: none;
-    
+    border-radius: 30px;
+    float: right;
+    margin: 10px 0px;
+    height: 25px;
+    line-height: 25px;
+    font-size: 14px;
   }
   @media screen and (max-width: 375px) {
-    display: none;
+    border-radius: 30px;
+    float: right;
+    margin: 5px 0px 10px 0px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
   }
 `;
 

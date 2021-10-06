@@ -401,7 +401,7 @@ const Cell = styled.td`
 
   @media screen and (max-width: 375px) {
     width: 40px;
-    height: 50px;
+    height: 80px;
     border-radius: 5px;
 
     .day {
@@ -433,7 +433,7 @@ const TodayCell = styled.td`
   }
   @media screen and (max-width: 775px) {
     width: 40px;
-    height: 30px;
+    height: 80px;
     border-radius: 5px;
 
     .day {
@@ -447,7 +447,7 @@ const TodayCell = styled.td`
 
   @media screen and (max-width: 375px) {
     width: 40px;
-    height: 30px;
+    height: 80px;
     border-radius: 5px;
 
     .day {
@@ -496,7 +496,7 @@ const HasPlanCell = styled.td`
 
   @media screen and (max-width: 375px) {
     width: 40px;
-    height: 30px;
+    height: 80px;
     border-radius: 5px;
     border: 1px solid ${theme.colors.yellow};
 

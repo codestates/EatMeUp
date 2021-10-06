@@ -96,9 +96,8 @@ const PlanCard = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-    width: 95%;
-    max-width: 260px;
     margin: 5px auto;
+    min-width: 97%;
     max-height: 250px;
     overflow-x: scroll;
   }
@@ -110,6 +109,7 @@ const Plans = styled.div`
     max-width: 430px;
     overflow-x: scroll;
   }
+ 
 `;
 
 const MealPlan = styled.div`

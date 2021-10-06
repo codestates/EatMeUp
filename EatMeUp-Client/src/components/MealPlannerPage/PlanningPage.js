@@ -296,11 +296,9 @@ const RecommandRecipesBox = styled.div`
     overflow-x: scroll;
   }
   @media screen and (max-width: 375px) {
-    width: 95%;
-    max-width: 240px;
+    min-width: 95%;
     margin: 5px auto;
     max-height: 250px;
-    overflow-x: scroll;
   }
 `;
 
@@ -318,8 +316,7 @@ const PlannerBox = styled.div`
     overflow-x: scroll;
   }
   @media screen and (max-width: 375px) {
-    width: 95%;
-    max-width: 260px;
+    max-width: 100%;
     margin: 5px auto;
     max-height: 250px;
     overflow-x: scroll;
@@ -392,6 +389,7 @@ const MealPlanCardBox = styled.div`
 
   @media screen and (max-width: 375px) {
     display: block;
+    width: 100%;
   }
 `;
 
