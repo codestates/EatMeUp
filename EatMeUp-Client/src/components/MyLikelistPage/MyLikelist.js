@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyLikelist } from "../../_actions/userActions";
 import { REMOVE_FROM_LIKELIST_RESET } from "../../_types/userTypes";
+import { clearErrors } from '../../_actions/userActions'
+import { logoutRequest } from '../../_actions/authActions'
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -12,21 +14,37 @@ import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
 
 /* 스타일 컴포넌트 */
-import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
+const { swal } = window;
 const MyLikelist = () => {
-  const dispatch = useDispatch();
-  const { mylikelist } = useSelector((state) => state.mylikelist);
-  const { isDeleted } = useSelector((state) => state.likelist);
 
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { mylikelist, error } = useSelector((state) => state.mylikelist);
+  const { isDeleted } = useSelector((state) => state.likelist);
+  
   useEffect(() => {
     dispatch(getMyLikelist());
 
     if (isDeleted) {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
-  }, [dispatch, isDeleted]);
+
+    if(error) {
+      swal(
+        "Please!",
+        "로그인이 필요합니다.",
+        "warning",
+      );
+      dispatch(clearErrors())
+      dispatch(logoutRequest()) 
+      history.push('/')
+    }
+
+
+  }, [dispatch, isDeleted, history, error]);
 
   return (
     <>
@@ -77,7 +95,8 @@ const TitleBox = styled.div`
 
   @media screen and (max-width: 375px) {
     display: block;
-    font-size: 20px;
+    font-size: 23px;
+    text-indent: 10px;
     margin: 0;
   }
 `;
@@ -111,9 +130,7 @@ const ListBox = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-    grid-template-columns: 1fr;
-    grid-gap: 0;
-    padding: 10px;
+    display: block;
   }
 `;
 

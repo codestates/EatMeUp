@@ -101,9 +101,7 @@ const MyInfo = () => {
 
   const deleteHandler = (id) => {
 
-    const data = {
-      id: id
-    }
+  
     Swal.fire({
       title: "내 계정 삭제",
       text: "정보를 삭제 하시겠습니까?",
@@ -115,7 +113,7 @@ const MyInfo = () => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteMyaccount(data));
+        dispatch(deleteMyaccount(id));
         
         setTimeout(() => {
           dispatch(logoutRequest());
@@ -161,18 +159,19 @@ const MyInfo = () => {
                       }}
                     />
                   ) : (
-                    <i class='far fa-user-circle fa-10x' id='userimg'></i>
+                    <i className='far fa-user-circle fa-10x' id='userimg'></i>
                   )}
 
                   <div className='profileImg_box'>
                     <label for='userimg'>
-                      <i class='fas fa-camera'></i>
+                      
+                      <i className='fas fa-camera'></i>
                     </label>
                     <input
                       type='file'
                       id='userimg'
                       accept='image/*'
-                      onChange={(e) => setFile(e.target.files[0])}
+                      onChange={(e) => setFile(e.currentTarget.files[0])}
                     />
                   </div>
                 </div>

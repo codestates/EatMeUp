@@ -21,7 +21,7 @@ const Footer = () => {
             <span className='contact-info'>서울특별시 강동구 성내2길 123</span>
           </div>
           <div className='company'>
-            (주) EatMeUp | 공동대표: 오동욱 강주오 이세경 오가영 
+            (주) EatMeUp | 공동대표: 오동욱 강주오 이세경 오가영
           </div>
         </div>
 
@@ -47,7 +47,7 @@ const Footer = () => {
 };
 
 const FooterBox = styled.div`
-  background: #EDEBE6;
+  background: #edebe6;
   width: 100%;
 
   font-size: 14px;
@@ -82,7 +82,7 @@ const FooterBox = styled.div`
     justify-content: center;
     width: 100%;
     height: 50px;
-    background-color: #E4E1DA;
+    background-color: #e4e1da;
   }
 
   .copyright {
@@ -129,6 +129,12 @@ const FooterBox = styled.div`
 
   .fa-github {
     font-size: 30px;
+  }
+
+  @media screen and (max-width: 375px) {
+    & > div {
+      display: block;
+    }
   }
 `;
 

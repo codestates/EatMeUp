@@ -88,6 +88,7 @@ const FridgeMain = () => {
   const handleDelete = (idx) => {
     const deleteFood = checkedFoods.filter((food, id) => {
       if (id !== idx) return food;
+      return "";
     });
     setCheckedFoods(deleteFood);
     setCurrentIdx(idx);
@@ -144,7 +145,7 @@ const FridgeMain = () => {
                   })
                 )}
                 <div className='search'>
-                  <i class='fas fa-search'></i>
+                  <i className='fas fa-search'></i>
                 </div>
               </Stack>
             </CheckedFoodsBox>

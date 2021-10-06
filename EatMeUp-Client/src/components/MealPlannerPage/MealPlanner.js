@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getMealPlans } from "../../_actions/calendarActions";
-import { DELETE_MEALPLAN_RESET } from "../../_types/calendarTypes";
+import { DELETE_MEALPLAN_RESET, NEW_MEALPLAN_RESET } from "../../_types/calendarTypes";
 
 /* 컴포넌트 */
 import Calendar from "./sections/Calendar";
-import Weekly from "./sections/Weekly";
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 import Sidebar from "../Util/Sidebar";
@@ -19,26 +18,24 @@ const MealPlanner = () => {
   const dispatch = useDispatch();
 
   const { loading, plans } = useSelector((state) => state.getmealplan);
+  const { isAdded } = useSelector((state) => state.mealplan);
   const { isDeletetd } = useSelector((state) => state.deleteplan);
-
-  /* 월별/주별 핸들러 */
-  const [showMonth, setShowMonth] = useState(true);
 
   useEffect(() => {
     dispatch(getMealPlans());
 
+    if(isAdded) {
+      dispatch({ type: NEW_MEALPLAN_RESET });
+    }
+
     if (isDeletetd) {
       dispatch({ type: DELETE_MEALPLAN_RESET });
     }
-  }, [dispatch, isDeletetd]);
 
-  const showWeekHandler = () => {
-    setShowMonth(false);
-  };
 
-  const showMonthHandler = () => {
-    setShowMonth(true);
-  };
+  }, [dispatch, isDeletetd, isAdded]);
+
+  
 
   return (
     <>
@@ -54,18 +51,10 @@ const MealPlanner = () => {
           ) : (
             <CalendarContainer>
               {/* 월별/주별 핸들러 */}
-              {showMonth ? (
-                <Calendar
-                  plans={plans}
-                  showWeekHandler={showWeekHandler}
-                  showMonthHandler={showMonthHandler}
-                />
-              ) : (
-                <Weekly
-                  showWeekHandler={showWeekHandler}
-                  showMonthHandler={showMonthHandler}
-                />
-              )}
+              <Calendar
+                plans={plans}
+             
+              />
             </CalendarContainer>
           )}
         </Container>

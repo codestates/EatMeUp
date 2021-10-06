@@ -189,7 +189,7 @@ export const deleteMyaccount = (id) => async (dispatch) => {
   try {
     dispatch({ type: DELETE_USER_REQUEST });
 
-    const { data } = await axios.delete(`${process.env.REACT_APP_API}/user/info`, id, { withCredentials: true });
+    const { data } = await axios.delete(`${process.env.REACT_APP_API}/user/info/${id}`);
 
     dispatch({
       type: DELETE_USER_SUCCESS,
