@@ -135,7 +135,8 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                 <span>음식이름 : </span>
                 <input
                   type='text'
-                  value={foodname}
+
+                  defaultValue={food_name}
                   onChange={(e) => setFoodname(e.currentTarget.value)}
                 />
               </div>
@@ -144,7 +145,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
               <div className='foodlife-box'>
                 <span>유통기한 : </span>
                 <input
-                  value={life ? life : creatAt}
+                  defaultValue={life}
                   type='date'
                   onChange={(e) => setFoodlife(e.currentTarget.value)}
                 />
