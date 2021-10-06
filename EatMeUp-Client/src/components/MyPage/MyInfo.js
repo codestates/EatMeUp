@@ -119,10 +119,10 @@ const MyInfo = () => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteMyaccount(id));
+        dispatch(logoutRequest());
         history.push("/");
         setTimeout(() => {
-          dispatch(logoutRequest());
+          dispatch(deleteMyaccount(id));
         }, 500);
       }
     });
