@@ -152,8 +152,13 @@ const SearchBox = styled.div`
 const FridgeTitle = styled.div`
   width: 15%;
   font-weight: bold;
-  font-size: 35px;
-  text-indent: 50px;
+  font-size:  30px;
+  text-indent: 80px;
+
+  @media screen and (max-width: 1500px) {
+    font-size: 25px;
+    text-indent: 50px;
+  }
 
   @media screen and (max-width: 1200px) {
     width: 15%;

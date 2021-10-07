@@ -186,6 +186,7 @@ const FridgeMain = () => {
 const SearchBox = styled.div`
   width: 70%;
   margin: 0px auto;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   position: relative;
