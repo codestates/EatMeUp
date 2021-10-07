@@ -14,7 +14,6 @@ const Landing = () => {
   const [position, setPosition] = useState(0);
 
   const onScroll = () => {
-    console.log(window.scrollY)
     setPosition(window.scrollY);
   };
 
@@ -516,7 +515,7 @@ const Landing5 = styled.div`
 
 const Landing6 = styled.div`
   width: 100vw;
-  height: 400px;
+  height: 500px;
   img {
     height: 80vh;
     position: fixed;
@@ -545,19 +544,10 @@ const Landing6 = styled.div`
 
 const Landing7 = styled.div`
   width: 100vw;
-  height: 100vh;
-  /* position: fixed; */
-  .ending {
-    /* margin: 10% 0 0 0; */
-    img {
-      height: 10vh;
-      margin: 100px 0;
-    }
-  }
+  height: 700px;
   .end {
     font-size: 35px;
-    margin: 300px 0 0px 0;
-    /* font-weight: 400; */
+    margin: 250px 0 0px 0;
   }
 `;
 
