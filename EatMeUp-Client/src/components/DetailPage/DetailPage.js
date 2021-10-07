@@ -260,6 +260,7 @@ const DetailePage = ({ match }) => {
 const RecipeContainer = styled(Container)`
   width: 100%;
   height: 100%;
+  padding: 8% 0 4% 0;
 `;
 
 const RecipeBox = styled(SectionBox)`

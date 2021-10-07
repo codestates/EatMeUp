@@ -213,9 +213,8 @@ const AllRecipes = () => {
 
 const TitleContainer = styled.div`
   width: 80%;
-  margin-top: 60px;
   margin: 0 auto;
-
+  padding: 6% 0 0 0;
   @media screen and (max-width: 1500px) {
     width: 95%;
     margin-top: 60px;

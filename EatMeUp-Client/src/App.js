@@ -44,13 +44,6 @@ function App() {
     <Router>
       <div className='App'>
         <Route path='/' exact component={LandingPage} />
-        <Route path='/login' option={false} component={LoginPage} exact />
-        <Route
-          path='/signup'
-          component={SignupPage}
-          option={false}
-          exact
-        />
         <Route path='/recipes' exact component={AllRecipesPage} />
         <PrivateRoute
           path='/recipes/result'
