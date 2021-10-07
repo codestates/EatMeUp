@@ -181,6 +181,11 @@ const PlanningPage = () => {
 
 const PlannerContainer = styled(SectionBox)`
   width: 77%;
+  min-height: 770px;
+
+  @media screen and (max-width: 1035px) {
+    width: 88%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -199,6 +204,12 @@ const TitleBox = styled.div`
   }
 
   /* 반응형 css */
+  @media screen and (max-width: 725px) {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+  }
+
   @media screen and (max-width: 625px) {
     display: flex;
     flex-direction: column;
@@ -228,6 +239,9 @@ const ThisMonth = styled.span`
   color: #303030;
 
    /* 반응형 css */
+   @media screen and (max-width: 725px) {
+    font-size: 18px;
+  }
    @media screen and (max-width: 625px) {
     font-size: 18px;
   }
@@ -248,6 +262,12 @@ const CalendarBtn = styled(MiddleBtn)`
   }
 
    /* 반응형 css */
+
+   @media screen and (max-width: 725px) {
+   width: 120px;
+   height: 30px;
+ 
+  }
    @media screen and (max-width: 625px) {
    width: 120px;
    height: 30px;
@@ -296,11 +316,9 @@ const RecommandRecipesBox = styled.div`
     overflow-x: scroll;
   }
   @media screen and (max-width: 375px) {
-    width: 95%;
-    max-width: 240px;
+    min-width: 95%;
     margin: 5px auto;
     max-height: 250px;
-    overflow-x: scroll;
   }
 `;
 
@@ -312,14 +330,13 @@ const PlannerBox = styled.div`
 
    @media screen and (max-width: 625px) {
     width: 95%;
-    max-width: 260px;
+    /* max-width: 260px; */
     margin: 5px auto;
     max-height: 250px;
     overflow-x: scroll;
   }
   @media screen and (max-width: 375px) {
-    width: 95%;
-    max-width: 260px;
+    max-width: 100%;
     margin: 5px auto;
     max-height: 250px;
     overflow-x: scroll;
@@ -388,10 +405,13 @@ const MealPlanCardBox = styled.div`
 
   @media screen and (max-width: 625px) {
     display: block;
+    width: 100%;
+
   }
 
   @media screen and (max-width: 375px) {
     display: block;
+    width: 100%;
   }
 `;
 

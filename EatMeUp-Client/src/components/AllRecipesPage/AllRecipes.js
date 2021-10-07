@@ -595,9 +595,8 @@ const Container = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-    width: 95%;
-    grid-template-columns: 1fr;
-    gap: 15px;
+    width: 88%;
+    display: block;
   }
 `;
 

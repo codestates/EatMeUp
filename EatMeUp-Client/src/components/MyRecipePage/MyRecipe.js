@@ -88,6 +88,10 @@ const MyRecipe = () => {
 const ListContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
+
+  @media screen and (max-width: 1035px) {
+    width: 88%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -101,6 +105,11 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
+
+
+  @media screen and (max-width: 575px) {
+    display: block;
+  }
 
   @media screen and (max-width: 375px) {
     display: block;
@@ -117,6 +126,17 @@ const Button = styled(LargeBtn)`
   cursor: pointer;
   span {
     margin: 8px;
+  }
+
+
+  @media screen and (max-width: 575px) {
+    display: block;
+    margin-right: 30px;
+    float: right;
+    margin-bottom: 5px;
+    a {
+      text-decoration: none;
+    }
   }
 
   @media screen and (max-width: 375px) {
@@ -156,11 +176,17 @@ const ListBox = styled.div`
   padding: 10px;
 }
 
-@media screen and (max-width: 800px) {
-  grid-template-columns: 1fr;
+@media screen and (max-width: 1034px) {
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
   padding: 10px;
 }
+
+@media screen and (max-width: 550px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
 @media screen and (max-width: 375px) {
     display: block;

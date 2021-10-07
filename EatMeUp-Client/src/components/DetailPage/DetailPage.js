@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToLikelist, removeFromLikelist } from "../../_actions/userActions";
+import { logoutRequest } from '../../_actions/authActions'
 import { getUserinfo, clearErrors } from "../../_actions/userActions";
 import {
   ADD_TO_LIKELIST_RESET,
@@ -20,11 +22,12 @@ import theme from "../StyledComponent/theme";
 const { swal } = window;
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   // selector
-  const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
+  const { isAdded, isDeleted } = useSelector((state) => state.likelist);
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { user } = useSelector((state) => state.user);
+  const { user, error } = useSelector((state) => state.user);
 
   // state
   const [getRecipe, setGetRecipe] = useState("");
@@ -53,6 +56,8 @@ const DetailePage = ({ match }) => {
           if (response.data.recipeInfo[0].user) {
             setPostedUser(response.data.recipeInfo[0].user);
           }
+        } else {
+          alert("로그인이 필요합니다.");
         }
       });
   }, [match.params.id]);
@@ -72,8 +77,10 @@ const DetailePage = ({ match }) => {
     if (error) {
       swal("Please!", "로그인이 필요합니다.", "warning");
       dispatch(clearErrors());
+      dispatch(logoutRequest())
+      history.push("/recipes");
     }
-  }, [dispatch, isAdded, isDeleted, isAuthenticated, error]);
+  }, [dispatch, isAdded, isDeleted, isAuthenticated, error, history]);
 
   const likeBtnHandler = (id) => {
     setClicked(!clicked);
@@ -89,12 +96,14 @@ const DetailePage = ({ match }) => {
   };
 
   useEffect(() => {
-    likelist.forEach((like) => {
-      if (like.id === user.id) {
-        setIsLiked(true);
-      }
-    });
-  }, [likelist, user.id]);
+    if (user) {
+      likelist.forEach((like) => {
+        if (user.id === like.id) {
+          setIsLiked(true);
+        }
+      });
+    }
+  }, [likelist, user]);
 
   return (
     <div>
@@ -259,6 +268,19 @@ const RecipeBox = styled(SectionBox)`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 568px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 375px) {
+    width: 95%;
+  }
 `;
 
 const ImgBox = styled.div`
@@ -272,6 +294,22 @@ const ImgBox = styled.div`
     border-radius: 30px;
     width: 100%;
     object-fit: cover;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+  }
+
+
+  @media screen and (max-width: 568px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 95%;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
   }
 `;
 
@@ -407,6 +445,20 @@ const StepBox = styled.div`
   }
   .step {
     margin: 4px 0;
+  }
+
+  @media screen and (max-width: 1024px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+  @media screen and (max-width: 450px) {
+    display: block;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
   }
 `;
 

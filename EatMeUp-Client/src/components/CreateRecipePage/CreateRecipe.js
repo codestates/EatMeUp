@@ -563,7 +563,7 @@ const BtnContainer = styled.div`
 `;
 
 const TitleBox = styled.div`
-  width: 85%;
+  width: 100%;
   height: 90px;
   font-weight: bold;
   font-size: 30px;
@@ -589,7 +589,7 @@ const TitleBox = styled.div`
 `;
 
 const MainDCBox = styled(SectionBox)`
-  width: 90%;
+  width: 100%;
   margin: 10px auto;
 
   .subtitle {
@@ -612,7 +612,7 @@ const MainDCBox = styled(SectionBox)`
 `;
 
 const StepsBox = styled(SectionBox)`
-  width: 90%;
+  width: 100%;
   margin: 18px auto;
 
   .subtitle {

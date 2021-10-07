@@ -107,6 +107,7 @@ const showBtn = keyframes`
 `;
 
 const RecipeCard = styled.div`
+ 
   width: 100%;
   margin: 20px auto;
   background-color: #ffffff;
@@ -208,7 +209,7 @@ const RecipeCard = styled.div`
 
   /* 호버시 버튼 올라오기 */
 
-  &:hover::after {
+  /* &:hover::after {
     content: "View Recipe";
     position: absolute;
     top: 240px;
@@ -222,6 +223,6 @@ const RecipeCard = styled.div`
     line-height: 35px;
     border-radius: 20px;
     animation: ${showBtn} 0.5s;
-  }
+  } */
 `;
 export default Card;

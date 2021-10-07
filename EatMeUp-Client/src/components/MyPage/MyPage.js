@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,6 +8,7 @@ import {
   getMyrecipes,
   clearErrors,
 } from "../../_actions/userActions";
+import { logoutRequest } from '../../_actions/authActions'
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -21,6 +22,7 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const { swal } = window;
+
 const MyPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
@@ -28,33 +30,20 @@ const MyPage = () => {
   const { mylikelist } = useSelector((state) => state.mylikelist);
   const { myrecipe } = useSelector((state) => state.myrecipes);
 
-  const [getUser, setGetUser] = useState({
-    username: "",
-    email: "",
-    avatar: null,
-  });
-
   useEffect(() => {
     dispatch(getMyLikelist());
     dispatch(getMyrecipes());
     dispatch(getUserinfo());
 
-  
-    if(error) {
-      swal(
-        "Please!",
-        "로그인이 필요합니다.",
-        "warning",
-      );
+    if (error) {
+      swal("Please!", "로그인이 필요합니다.", "warning");
       dispatch(clearErrors());
+      dispatch(logoutRequest())
       history.push("/");
       return;
     }
   }, [dispatch, history, error]);
 
-  useEffect(() => {
-    setGetUser(user)
-  }, [user])
   return (
     <div>
       <Header id={2} />
@@ -71,7 +60,7 @@ const MyPage = () => {
               <InfoConatainer>
                 <ProfileContainer>
                   <div className='img_box'>
-                    {user.avatar ? (
+                    {user && user.avatar ? (
                       <img
                         src={user.avatar}
                         alt='userimg'
@@ -85,19 +74,21 @@ const MyPage = () => {
                       <i className='far fa-user-circle' id='userimg'></i>
                     )}
                   </div>
-                  <div className='info_username'>
-                    name
-                    <div className='email'>{getUser.username}</div>
-                  </div>
-                  <div className='info_email'>
-                    email
-                    <div className='email'>{user.email}</div>
-                  </div>
-                  <div className='info3'></div>
-                  <div className='btn_container'>
-                    <Link to='/user/info'>
-                      <EditButton>내 정보 수정</EditButton>
-                    </Link>
+                  <div className='userinfo_box'>
+                    <div className='info_username'>
+                      name
+                      <div className='email'>{user && user.username}</div>
+                    </div>
+                    <div className='info_email'>
+                      email
+                      <div className='email'>{user && user.email}</div>
+                    </div>
+                    <div className='info3'></div>
+                    <div className='btn_container'>
+                      <Link to='/user/info'>
+                        <EditButton>내 정보 수정</EditButton>
+                      </Link>
+                    </div>
                   </div>
                 </ProfileContainer>
 
@@ -113,7 +104,7 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {myrecipe.map((recipe, idx) => {
+                        {myrecipe && myrecipe.map((recipe, idx) => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
@@ -138,7 +129,7 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {mylikelist.map((recipe, idx) => {
+                        {mylikelist && mylikelist.map((recipe, idx) => {
                           return (
                             <MyCard key={idx}>
                               <div className='img_container'>
@@ -165,6 +156,10 @@ const MyPage = () => {
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
+
+  @media screen and (max-width: 1035px) {
+    width: 88%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -181,12 +176,37 @@ const TitleBox = styled.div`
   .title {
     box-sizing: border-box;
   }
+  @media screen and (max-width: 375px) {
+    width: 100%;
+    line-height: 40px;
+    height: 40px;
+    font-size: 24px;
+    padding: 0px;
+    margin: 30px 0px 10px 0px;
+  }
 `;
 
 const InfoConatainer = styled.div`
   width: 100%;
   display: flex;
   margin: 30px 60px 50px 60px;
+
+  @media screen and (max-width: 1024px) {
+    display: block;
+    margin: 0;
+  }
+  @media screen and (max-width: 775px) {
+    display: block;
+    margin: 0;
+  }
+  @media screen and (max-width: 450px) {
+    display: block;
+    margin: 0;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    margin: 0;
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -248,11 +268,148 @@ const ProfileContainer = styled.div`
     width: 85%;
     margin: 15% auto;
   }
+
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+    .img_box {
+      font-size: 140px;
+      width: 50%;
+      margin: 0px;
+
+      #userimg {
+        margin: 0px auto;
+        color: ${theme.colors.lightgrey};
+      }
+    }
+
+    .userinfo_box {
+      width: 50%;
+    }
+
+    .info_username {
+      width: 100%;
+      text-align: center;
+      margin-top: 5px;
+      margin: 0;
+    }
+
+    .info_email {
+      width: 100%;
+      margin: 0;
+      text-align: center;
+      height: auto;
+    }
+
+    .email {
+      width: 100%;
+      text-align: center;
+      margin: 0;
+    }
+    .btn_container {
+      margin: 5px 0px;
+    }
+
+    .btn_container > a > button {
+      width: 85%;
+      height: 35px;
+      margin: 0px auto;
+      font-size: 14px;
+    }
+  }
+
+  }
+  @media screen and (max-width: 775px) {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+
+    .img_box {
+      font-size: 70px;
+      width: 40%;
+      height: 100px;
+      margin: 0px;
+
+      #userimg {
+        margin: 0px auto;
+        color: ${theme.colors.lightgrey};
+      }
+    }
+    .userinfo_box {
+      width: 60%;
+    }
+
+    .info_username {
+      width: 100%;
+      text-align: left;
+      margin-top: 5px;
+      margin: 0;
+    }
+
+    .info_email {
+      width: 100%;
+      margin: 0;
+      text-align: left;
+      height: auto;
+    }
+
+    .email {
+      text-align: left;
+      margin: 0;
+    }
+    .btn_container {
+      margin: 5px 0px;
+    }
+
+    .btn_container > a > button {
+      width: 85%;
+      height: 35px;
+      margin: 0px auto;
+      font-size: 14px;
+    }
+  }
 `;
 
 const RecipeContainer = styled.div`
   width: 70%;
   margin: 0px 20px 0px 10px;
+  @media screen and (max-width: 1034px) {
+    width: 95%;
+    margin: 10px auto;
+  }
+  @media screen and (max-width: 775px) {
+    width: 95%;
+    margin: 10px auto;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 95%;
+    margin: 10px auto;
+  }
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: 10px auto;
+  }
 `;
 
 const MyRecipeBox = styled.div`
@@ -262,6 +419,20 @@ const MyRecipeBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
+
+  @media screen and (max-width: 1034px) {
+    min-height: 280px;
+    margin: 5px auto;
+  }
+  @media screen and (max-width: 775px) {
+    min-height: 280px;
+  }
+  @media screen and (max-width: 450px) {
+    min-height: 280px;
+  }
+  @media screen and (max-width: 375px) {
+    min-height: 200px;
+  }
 `;
 
 const LikedRecipeBox = styled.div`
@@ -272,6 +443,19 @@ const LikedRecipeBox = styled.div`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
   /* background-color: #f90d; */
+  @media screen and (max-width: 1034px) {
+    min-height: 280px;
+    margin: 5px auto;
+  }
+  @media screen and (max-width: 775px) {
+    min-height: 280px;
+  }
+  @media screen and (max-width: 450px) {
+    min-height: 200px;
+  }
+  @media screen and (max-width: 375px) {
+    min-height: 200px;
+  }
 `;
 
 const Title = styled.div`
@@ -283,6 +467,11 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 2px;
+  @media screen and (max-width: 375px) {
+    font-size: 15px;
+    text-indent: 10px;
+    line-height: 40px;
+  }
 `;
 
 const EditButton = styled(LargeBtn)`
@@ -307,6 +496,11 @@ const AddBtn = styled(LargeBtn)`
   margin: 0 30px;
   &:active {
     background-color: ${theme.colors.lightgrey};
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 80px;
+    margin: 0 20px;
   }
 `;
 
@@ -334,6 +528,7 @@ const MyCard = styled.li`
   margin: 0 15px;
   border-radius: 30px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+
   .img_container {
     width: 110px;
     height: 110px;
@@ -350,6 +545,16 @@ const MyCard = styled.li`
     text-align: center;
     width: 100%;
     font-size: 16px;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 120px;
+    height: 160px;
+    margin: 0 5px;
+    .img_container {
+      width: 80px;
+      height: 80px;
+    }
   }
 `;
 

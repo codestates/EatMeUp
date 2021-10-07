@@ -72,6 +72,12 @@ const Loading = styled.div`
     box-shadow: 3px 0 3px #eee2 inset;
     transform: rotate(5deg);
   }
+
+  @media screen and (max-width: 375px) {
+     
+    display: none;
+
+  }
 `;
 
 export default Loader;
