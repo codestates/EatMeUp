@@ -8,7 +8,7 @@ import {
   getMyrecipes,
   clearErrors,
 } from "../../_actions/userActions";
-import { logoutRequest } from '../../_actions/authActions'
+import { logoutRequest } from "../../_actions/authActions";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -38,7 +38,7 @@ const MyPage = () => {
     if (error) {
       swal("Please!", "로그인이 필요합니다.", "warning");
       dispatch(clearErrors());
-      dispatch(logoutRequest())
+      dispatch(logoutRequest());
       history.push("/");
       return;
     }
@@ -61,15 +61,7 @@ const MyPage = () => {
                 <ProfileContainer>
                   <div className='img_box'>
                     {user && user.avatar ? (
-                      <img
-                        src={user.avatar}
-                        alt='userimg'
-                        style={{
-                          width: "190px",
-                          height: "190px",
-                          borderRadius: "50%",
-                        }}
-                      />
+                      <img src={user.avatar} alt='userimg' />
                     ) : (
                       <i className='far fa-user-circle' id='userimg'></i>
                     )}
@@ -104,16 +96,19 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {myrecipe && myrecipe.map((recipe, idx) => {
-                          return (
-                            <MyCard key={idx}>
-                              <div className='img_container'>
-                                <img src={recipe.main_image} alt='main' />
-                              </div>
-                              <div className='recipe_title'>{recipe.title}</div>
-                            </MyCard>
-                          );
-                        })}
+                        {myrecipe &&
+                          myrecipe.map((recipe, idx) => {
+                            return (
+                              <MyCard key={idx}>
+                                <div className='img_container'>
+                                  <img src={recipe.main_image} alt='main' />
+                                </div>
+                                <div className='recipe_title'>
+                                  {recipe.title}
+                                </div>
+                              </MyCard>
+                            );
+                          })}
                       </ul>
                     </CardContainer>
                   </MyRecipeBox>
@@ -129,16 +124,19 @@ const MyPage = () => {
                     </Title>
                     <CardContainer>
                       <ul>
-                        {mylikelist && mylikelist.map((recipe, idx) => {
-                          return (
-                            <MyCard key={idx}>
-                              <div className='img_container'>
-                                <img src={recipe.main_image} alt='recipe' />
-                              </div>
-                              <div className='recipe_title'>{recipe.title}</div>
-                            </MyCard>
-                          );
-                        })}
+                        {mylikelist &&
+                          mylikelist.map((recipe, idx) => {
+                            return (
+                              <MyCard key={idx}>
+                                <div className='img_container'>
+                                  <img src={recipe.main_image} alt='recipe' />
+                                </div>
+                                <div className='recipe_title'>
+                                  {recipe.title}
+                                </div>
+                              </MyCard>
+                            );
+                          })}
                       </ul>
                     </CardContainer>
                   </LikedRecipeBox>
@@ -227,6 +225,11 @@ const ProfileContainer = styled.div`
       margin: 20px auto;
       color: ${theme.colors.lightgrey};
     }
+   img {
+     width: 190px;
+     height: 190px;
+     border-radius: 50%;
+   }  
   }
   .info_username {
     text-align: center;
@@ -279,11 +282,16 @@ const ProfileContainer = styled.div`
       font-size: 140px;
       width: 50%;
       margin: 0px;
+      img {
+        width: 50%;
 
+      }
       #userimg {
         margin: 0px auto;
         color: ${theme.colors.lightgrey};
       }
+
+
     }
 
     .userinfo_box {
@@ -327,7 +335,13 @@ const ProfileContainer = styled.div`
     margin: 0 auto;
     display: flex;
     align-items: center;
-
+    .img_box {
+      width: 40%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 
   @media screen and (max-width: 450px) {
@@ -336,6 +350,13 @@ const ProfileContainer = styled.div`
     display: flex;
     align-items: center;
 
+    .img_box {
+      width: 40%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
   }
 
   @media screen and (max-width: 375px) {
@@ -349,7 +370,10 @@ const ProfileContainer = styled.div`
       width: 40%;
       height: 100px;
       margin: 0px;
-
+      img {
+       width: 100px;
+       height: 100px;
+      }
       #userimg {
         margin: 0px auto;
         color: ${theme.colors.lightgrey};
