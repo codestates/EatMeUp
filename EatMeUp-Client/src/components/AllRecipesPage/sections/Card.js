@@ -34,32 +34,22 @@ const Card = ({ recipe }) => {
             {/* 유저프로필 */}
             <div className='imgbox-left'>
               <div>
-                {recipe.user && (
-                  <img
-                    src={
-                      recipe.user.avatar
-                        ? recipe.user.avatar
-                        : "../food_img/people.jpeg"
-                    }
-                    alt='people'
-                  />
-                )}
-
-                {recipe.user === null && (
-                  <img src='../food_img/people.jpeg' alt='people' />
+                {recipe.user && recipe.user.avatar ? (
+                  <img src={recipe.user.avatar} alt='people' />
+                ) : (
+                  <img src="../food_img/favicon.png" alt='eatmeup' style={{ width: "35px", height: "35px", borderRadius: "0px"}}/>
                 )}
               </div>
               <div className='username'>
                 <div>
                   {recipe.user && (
                     <span>
-                      {recipe.user.username === "test1" ? "eatmeup"
+                      {recipe.user.username === "test1"
+                        ? "eatmeup"
                         : recipe.user.username}
                     </span>
                   )}
-                  {recipe.user === null && (
-                    <span>guest</span>
-                  )}
+                  {recipe.user === null && <span>guest</span>}
                 </div>
               </div>
             </div>
@@ -107,7 +97,6 @@ const showBtn = keyframes`
 `;
 
 const RecipeCard = styled.div`
- 
   width: 100%;
   margin: 20px auto;
   background-color: #ffffff;
@@ -128,9 +117,9 @@ const RecipeCard = styled.div`
   }
 
   .imgbox-left > div > img {
-    width: 40px;
-    height: 40px;
-    margin: 5px;
+    width: 35px;
+    height: 35px;
+    margin: 5px 5px 5px 7px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -138,6 +127,8 @@ const RecipeCard = styled.div`
   .imgbox-left {
     display: flex;
     align-items: center;
+
+    
   }
 
   .imgbox-left > div {
@@ -152,7 +143,7 @@ const RecipeCard = styled.div`
   }
 
   .username > div {
-    font-size: 16px;
+    font-size: 1rem;
     color: #404040;
   }
 
