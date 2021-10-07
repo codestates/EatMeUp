@@ -30,14 +30,29 @@ const Card = ({ recipe }) => {
     <>
       <Link to={`/recipe/info/${recipe.id}`}>
         <RecipeCard>
-          <div className='imgbox'>
-            {/* 유저프로필 */}
-            <div className='imgbox-left'>
-              <div>
+          <div className='show-user'>
+            <ShowUser>
+              <div className='userimg'>
                 {recipe.user && recipe.user.avatar ? (
-                  <img src={recipe.user.avatar} alt='people' />
+                  <img
+                    src={recipe.user.avatar}
+                    alt='people'
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                    }}
+                  />
                 ) : (
-                  <img src="../food_img/favicon.png" alt='eatmeup' style={{ width: "35px", height: "35px", borderRadius: "0px"}}/>
+                  <img
+                    src='../food_img/favicon.png'
+                    alt='eatmeup'
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                    }}
+                  />
                 )}
               </div>
               <div className='username'>
@@ -52,13 +67,7 @@ const Card = ({ recipe }) => {
                   {recipe.user === null && <span>guest</span>}
                 </div>
               </div>
-            </div>
-
-            {/* 요리난이도 */}
-            <div className='imgbox-right'>
-              <span id='level'>난이도 : </span>
-              {recipeLevel(recipe.level)}
-            </div>
+            </ShowUser>
           </div>
 
           {/* 요리사진 */}
@@ -67,20 +76,27 @@ const Card = ({ recipe }) => {
           </div>
 
           {/* 요리시간, 요리제목 */}
-          <div className='cookingtitme'>
-            <i className='far fa-clock'></i> 요리시간{" "}
-            {recipe.cooking_time.slice(0, 2)}MIN
-          </div>
-          <div className='title'>
-            <span>{recipe.title}</span>
-          </div>
+          <CardInfo>
+            <CardLeft>
+              <div className='title'>
+                <span>{recipe.title}</span>
+              </div>
 
-          {/* 음식 주재료 */}
-          <div className='materials'>
-            {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span key={idx}>#{food.name}</span>;
-            })}
-          </div>
+              {/* 음식 주재료 */}
+              <div className='materials'>
+                {recipe.foods.slice(0, 3).map((food, idx) => {
+                  return <span key={idx}>{food.name}</span>;
+                })}
+              </div>
+            </CardLeft>
+            <CardRight>
+              <div className='cookingtime'>
+                <i className='far fa-clock'></i>
+                {recipe.cooking_time.slice(0, 2)}min
+              </div>
+              <div className='imgbox-right'>{recipeLevel(recipe.level)}</div>
+            </CardRight>
+          </CardInfo>
         </RecipeCard>
       </Link>
     </>
@@ -102,93 +118,74 @@ const RecipeCard = styled.div`
   background-color: #ffffff;
   display: inline-block;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  border-radius: 30px;
   padding-bottom: 10px;
   position: relative;
   cursor: pointer;
 
-  /* 레시피 카드 상단(유저프로필, 난이도) css영역*/
-  .imgbox {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 4px;
-  }
-
-  .imgbox-left > div > img {
-    width: 35px;
-    height: 35px;
-    margin: 5px 5px 5px 7px;
-    border-radius: 50%;
+  .recipeImgbox > img {
+    width: 93%;
+    height: 220px;
+    border-radius: 30px;
     object-fit: cover;
+    margin: 11.5px 11.5px 0px 11.5px;
   }
 
-  .imgbox-left {
-    display: flex;
-    align-items: center;
+  /* 레시피카드 정보(제목, 시간, 주재료) css영역 */
 
-    
+  .show-user {
+    opacity: 0;
   }
-
-  .imgbox-left > div {
-    margin-left: 5px;
-    font-size: 14px;
-    object-fit: cover;
+  &:hover .show-user {
+    animation: ${showBtn} 0.5s forwards;
   }
+`;
 
-  .imgbox-right {
-    display: flex;
-    margin-right: 10px;
-  }
+const CardInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
-  .username > div {
-    font-size: 1rem;
-    color: #404040;
-  }
-
-  #level {
+const CardRight = styled.div`
+  margin-right: 13px;
+  .cookingtime {
     font-size: 13px;
-    margin: 0px 5px 0px 0px;
-    color: grey;
+    text-indent: 5px;
+    color: #a8a7a3;
+    margin: 10px 10px 6px 0px;
   }
 
   .iconBox {
     margin-left: 5px;
   }
 
+  .fa-clock {
+    margin-right: 5px;
+  }
+
   .bxs-star {
     color: #febd2f;
     font-size: 20px;
     text-indent: -8px;
-    margin: 0px 5px;
+    margin-right: 7px;
   }
 
-  /* 레시피카드 이미지 css영역 */
-
-  .recipeImgbox > img {
-    width: 95%;
-    height: 230px;
-    border-radius: 20px;
-    object-fit: cover;
-    margin: 0px 7px 0px 7px;
+  .imgbox-right {
+    display: flex;
+    justify-content: flex-end;
   }
+`;
 
-  /* 레시피카드 정보(제목, 시간, 주재료) css영역 */
+const CardLeft = styled.div`
   .title {
     font-size: 17px;
-    text-indent: 13px;
-  }
-
-  .cookingtitme {
-    font-size: 10px;
-    text-indent: 5px;
-    color: grey;
+    text-indent: 20px;
+    margin-top: 5px;
   }
 
   .materials {
-    font-size: 10px;
-    margin: 7px 0px 5px 10px;
+    font-size: 9px;
+    margin: 10px 0px 5px 17px;
   }
 
   .materials > span {
@@ -197,23 +194,25 @@ const RecipeCard = styled.div`
     margin-right: 5px;
     border-radius: 30px;
   }
+`;
 
-  /* 호버시 버튼 올라오기 */
+const ShowUser = styled.div`
+  position: absolute;
+  width: 93%;
+  height: 45px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 11.5px 11.5px 0px 11.5px;
+  border-radius: 30px 30px 0px 0px;
+  display: flex;
+  align-items: center;
 
-  /* &:hover::after {
-    content: "View Recipe";
-    position: absolute;
-    top: 240px;
-    left: 160px;
-    width: 130px;
-    height: 35px;
-    background-color: #febd2f;
-    color: white;
-    font-weight: 500;
-    text-align: center;
-    line-height: 35px;
-    border-radius: 20px;
-    animation: ${showBtn} 0.5s;
-  } */
+  .userimg {
+    margin-left: 20px;
+  }
+
+  .username > div {
+    font-size: 14px;
+    margin-left: 5px;
+  }
 `;
 export default Card;

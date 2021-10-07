@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-
+import { Link } from "react-router-dom";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
@@ -13,10 +15,9 @@ const ResultRecipes = () => {
   // 더보기 버튼 만들기
   // 재료 삭제 핸들러만들기
 
-  const { loading, recommandRecipes } = useSelector(
+  const { loading, food, recommandRecipes } = useSelector(
     (state) => state.recommandrecipes,
   );
-
 
   return (
     <>
@@ -26,11 +27,33 @@ const ResultRecipes = () => {
       ) : (
         <section>
           {/* 페이지 제목 */}
-          <TitleBox>
-            <h1>
-              <i className='fas fa-utensils'></i> 추천 레시피
-            </h1>
-          </TitleBox>
+
+          <SearchBox>
+            <FridgeTitle>추천 레시피</FridgeTitle>
+            <FoodBox>
+              {/* 체크된 음식 담는 영역 */}
+              <CheckedFoodsBox>
+                <Stack direction='row' spacing={1}>
+                  <i className='fas fa-shopping-basket'></i>
+                  {food && food.length === 0 ? (
+                    <span className='placeholder'>
+                      냉장고 재료를 추가해 주세요
+                    </span>
+                  ) : (
+                    food.map((food, idx) => {
+                      return <Chip key={idx} label={food.name} />;
+                    })
+                  )}
+                </Stack>
+              </CheckedFoodsBox>
+
+              <Link to='/fridge'>
+                <GotoBtnBox>
+                  냉장고 보기 <i className='fas fa-chevron-right'></i>
+                </GotoBtnBox>
+              </Link>
+            </FoodBox>
+          </SearchBox>
 
           {/* 카드리스트 컨테이너 */}
 
@@ -83,40 +106,185 @@ const NoResultBox = styled.div`
     color: #a9a7a3;
   }
 `;
-const TitleBox = styled.div`
-  width: 90%;
-  margin: 0 auto;
-  margin-top: 60px;
+
+const SearchBox = styled.div`
+  width: 88%;
+  margin: 0px auto;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-top: 50px;
+
+  @media screen and (max-width: 1500px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 1035px) {
+    display: block;
+    width: 80%;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 575px) {
+    display: block;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 450px) {
+    display: block;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 90%;
+  }
 `;
-// const SearchBox = styled.div`
-//   width: 90%;
-//   display: flex;
-//   margin: 30px auto;
-//   align-items: center;
 
-//   .title {
-//     font-size: 23px;
-//     font-weight: 500;
-//     margin-left: 30px;
-//   }
+const FridgeTitle = styled.div`
+  width: 15%;
+  font-weight: bold;
+  font-size: 35px;
+  text-indent: 50px;
 
-//   .search_box {
-//     border: 2px solid #ebe9e5;
-//     width: 100%;
-//     height: 50px;
-//     border-radius: 20px;
-//     line-height: 40px;
-//     align-items: center;
-//     display: flex;
-//   }
+  @media screen and (max-width: 1200px) {
+    width: 15%;
+    font-size: 27px;
+  }
 
-//   .fa-shopping-basket {
-//     margin-left: 15px;
-//     font-size: 20px;
-//     color: lightgrey;
-//     margin: 6px 10px 0px 15px;
-//   }
-// `;
+  @media screen and (max-width: 1035px) {
+    display: block;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 575px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 450px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
+`;
+
+const FoodBox = styled.div`
+  width: 85%;
+  display: flex;
+  align-items: center;
+
+  a { 
+    text-decoration: none;
+  }
+  @media screen and (max-width: 1035px) {
+    width: 100%;
+    margin: 8px 0px;
+  }
+`;
+
+// 클릭한 음식담는 영역
+const CheckedFoodsBox = styled.div`
+  width: 85%;
+  height: 40px;
+  border: 2px solid #ebe9e5;
+  border-radius: 30px 0px 0px 30px;
+  padding-top: 5px;
+  margin-left: 8px;
+
+  .fa-shopping-basket {
+    margin-left: 20px;
+    color: #a8a7a3;
+    line-height: 30px;
+  }
+
+  .name {
+    margin-left: 15px;
+    padding: 3px 20px;
+    background-color: #e1e0dc;
+    border-radius: 30px;
+  }
+
+  .placeholder {
+    text-indent: 10px;
+    font-size: 14px;
+    line-height: 30px;
+    color: #a8a7a3;
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 1035px) {
+    display: block;
+    width: 85%;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 90%;
+  }
+`;
+
+// 재료기반 레시피 찾기버튼
+const GotoBtnBox = styled.div`
+  width: 100%;
+  height: 32px;
+  border-radius: 0px 30px 30px 0px;
+  line-height: 33px;
+  background: white;
+  color: white;
+  font-weight: bold;
+  padding: 8px;
+  text-align: center;
+  text-decoration: none;
+  color: #303030;
+  cursor: pointer;
+  border: 1px solid #ebe9e5;
+
+  @media screen and (max-width: 1035px) {
+    display: block;
+    .fa-play {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 775px) {
+    font-size: 13px;
+
+    .fa-play {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    width: 20%;
+    .fa-play {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 20%;
+    font-size: 10px;
+  }
+
+  @media screen and (max-width: 375px) {
+  }
+`;
 
 const Container = styled.div`
   width: 80%;
