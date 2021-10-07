@@ -42,7 +42,7 @@ const ResultCard = ({ recipe }) => {
                 />
               </div>
               <div>
-                <span>eatmeup</span>
+                <span>EatMeUp</span>
               </div>
             </div>
 
@@ -109,8 +109,8 @@ const RecipeCard = styled.div`
   }
 
   .imgbox-left > div > img {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     margin: 5px;
     object-fit: contain;
   }
@@ -122,7 +122,7 @@ const RecipeCard = styled.div`
 
   .imgbox-left > div {
     margin-left: 5px;
-    font-size: 15px;
+    font-size: 1rem;
     object-fit: contain;
     align-items: center;
   }
@@ -189,7 +189,7 @@ const RecipeCard = styled.div`
   }
 
   /* 호버시 버튼 올라오기 */
-
+/* 
   &:hover::after {
     content: "View Recipe";
     position: absolute;
@@ -204,6 +204,6 @@ const RecipeCard = styled.div`
     line-height: 35px;
     border-radius: 20px;
     animation: ${showBtn} 0.5s;
-  }
+  } */
 `;
 export default ResultCard;

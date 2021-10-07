@@ -74,7 +74,7 @@ const Header = () => {
             </Hamburger>
             <div className='menuBtns'>
               <Link to='/user/mypage'>
-                <div className='menu right'>마이페이지</div>
+                <div className='menu left'>마이페이지</div>
               </Link>
               <Logout>
                 <i className='fas fa-sign-out-alt' onClick={logoutHandler}></i>
@@ -125,9 +125,15 @@ const Header = () => {
         isAuthenticated ? (
           <ResponseMenu onClick={menuHandler}>
             <div className='menu right'>홈</div>
-            <Link to="/recipes"><div className='menu right'>모든레시피</div></Link>
-            <Link to="/fridge"><div className='menu right'>마이냉장고</div></Link>
-            <Link to="/user/mypage"><div className='menu right'>마이페이지</div></Link>
+            <Link to='/recipes'>
+              <div className='menu right'>모든레시피</div>
+            </Link>
+            <Link to='/fridge'>
+              <div className='menu right'>마이냉장고</div>
+            </Link>
+            <Link to='/user/mypage'>
+              <div className='menu right'>마이페이지</div>
+            </Link>
             <div className='menu right' onClick={logoutHandler}>
               로그아웃 <i className='fas fa-sign-out-alt'></i>
             </div>
@@ -135,8 +141,12 @@ const Header = () => {
         ) : (
           <ResponseMenu onClick={menuHandler}>
             <div className='menu right'>홈</div>
-            <div className='menu right' onClick={showLoginHandler}>로그인</div>
-            <div className='menu right' onClick={showSignupHandler}>회원가입</div>
+            <div className='menu right' onClick={showLoginHandler}>
+              로그인
+            </div>
+            <div className='menu right' onClick={showSignupHandler}>
+              회원가입
+            </div>
           </ResponseMenu>
         )
       ) : (
@@ -172,9 +182,7 @@ const EatMeUpHeader = styled.div`
   }
   .menu {
     font-weight: 500;
-    width: 100px;
-    height: 35px;
-    line-height: 35px;
+  
     text-align: center;
     font-size: 17px;
     border-radius: 30px;
@@ -184,12 +192,22 @@ const EatMeUpHeader = styled.div`
   .fa-sign-out-alt {
     cursor: pointer;
   }
-  .menu:hover {
-    background-color: white;
-    color: #f4c050;
+
+  .fa-sign-out-alt:hover {
+    color: black;
   }
+
   .left {
     margin-right: 5px;
+    width: 110px;
+    height: 37px;
+    line-height: 37px;
+    border-radius: 30px;
+  }
+
+  .left:hover {
+    background-color: ${theme.colors.yellow};
+    color: white;
   }
   a {
     text-decoration: none;
@@ -201,6 +219,7 @@ const EatMeUpHeader = styled.div`
   .right {
     width: 100px;
     height: 35px;
+    line-height: 35px;
     border-radius: 30px;
     text-align: center;
     line-height: 35px;
@@ -232,7 +251,6 @@ const EatMeUpHeader = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-    
     .logo {
       width: 140px;
       font-size: 35px;

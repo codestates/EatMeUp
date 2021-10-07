@@ -112,13 +112,13 @@ const Recipes = styled.div`
     text-indent: 5px;
     margin-left: 15px;
     font-weight: 500;
+    font-size: 18px;
   }
 
   .recipe-ingre_box {
     font-size: 14px;
     display: flex;
-    
-    margin: 10px 0px 15px 10px;
+    margin: 5px 0px 15px 10px;
   }
 
   .ingre-label {
@@ -127,15 +127,14 @@ const Recipes = styled.div`
   }
 
   .ingres {
-    font-size: 11px;
+    font-size: 14px;
     margin-left: 5px;
   }
 
   .ingres > button {
     border: none;
-
-    font-size: 10px;
     padding: 3px 8px;
+    color: #404040;
     background-color: #EAEAEA;
     border-radius: 30px;
     margin-right:5px;ƒ
