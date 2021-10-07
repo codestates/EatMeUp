@@ -86,7 +86,7 @@ const NoResultBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   .box {
     width: 500px;
     height: 300px;
@@ -108,6 +108,7 @@ const NoResultBox = styled.div`
 `;
 
 const SearchBox = styled.div`
+  padding: 6% 0 0 0;
   width: 88%;
   margin: 0px auto;
   display: flex;
@@ -186,7 +187,7 @@ const FoodBox = styled.div`
   display: flex;
   align-items: center;
 
-  a { 
+  a {
     text-decoration: none;
   }
   @media screen and (max-width: 1035px) {
