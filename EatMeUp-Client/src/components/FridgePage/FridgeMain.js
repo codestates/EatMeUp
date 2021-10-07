@@ -189,8 +189,7 @@ const SearchBox = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
-  margin-top: 50px;
-
+  padding: 7% 0 0 0;
   @media screen and (max-width: 1500px) {
     width: 80%;
   }

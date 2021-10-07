@@ -4,7 +4,7 @@ export const Container = styled.div`
   width: 100%;
   /* margin: 0.5rem auto; */
   display: flex;
-  margin: 50px 0;
+  padding: 7% 0 3% 0;
 `;
 export const SectionBox = styled.div`
   background: #ffffff;

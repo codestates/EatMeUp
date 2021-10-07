@@ -1,33 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import theme from "../StyledComponent/theme";
 
 /* 스타일 컴포넌트 */
 import Footer from "../Util/Footer";
 import Header from "../Util/Header";
-import Loader from "../Util/Loader";
 import GoToTop from "./GoToTop";
 import ScrollDown from "./ScrollDown";
 
-import Login from "../LoginPage/Login";
-import Signup from "../SignupPage/Signup";
-
 const Landing = () => {
   const [position, setPosition] = useState(0);
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
-
-  const showLoginHandler = () => {
-    setShowLogin(true);
-  };
-
-  const showSignupHandler = () => {
-    setShowLogin(false);
-    setShowSignup(true);
-  };
 
   const onScroll = () => {
+    console.log(window.scrollY)
     setPosition(window.scrollY);
   };
 
@@ -58,8 +45,6 @@ const Landing = () => {
               ></i>
             )}
           </div>
-          <div></div>
-          <div></div>
         </Landing1>
         <Landing2>
           {/* scrollY = 350일때부터 서서히 나타나고 500 넘어설 때부턴, 점점 흐려지며 사라짐 */}
@@ -364,9 +349,6 @@ const Landing = () => {
             )}
             <div className='end'>지금 바로, EatMeUp 하세요!</div>
           </div>
-        <StyledButton onClick={showLogin}>시작하기</StyledButton>
-        {showLogin ? <Login setShowLogin={setShowLogin} setShowSignup={setShowSignup} /> : ""}
-        {showSignup? <Signup setShowSignup={setShowSignup} setShowLogin={setShowLogin} /> : ""}
         </Landing7>
         <ScrollDown />
         <GoToTop />
@@ -379,7 +361,6 @@ const Landing = () => {
 const LandingContainer = styled.div`
   width: 100%;
   height: 100%;
-  position: sticky;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -397,7 +378,7 @@ const Landing1 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -40%);
     font-size: 100px;
     color: ${theme.colors.yellow};
   }
@@ -415,7 +396,7 @@ const Landing2 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -45%);
     margin: 0 auto;
   }
   i {
@@ -434,11 +415,11 @@ const Landing3 = styled.div`
   height: 945px;
   background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
   .cooler_full > img {
-    height: 100vh;
+    height: 90vh;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -45%);
     margin: 0 auto;
   }
 
@@ -484,13 +465,13 @@ const Landing4 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(50%, -50%);
+    transform: translate(50%, -40%);
   }
   .description {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-140%, -50%);
+    transform: translate(-140%, -35%);
     /* margin: 10% 0; */
   }
   span {
@@ -513,13 +494,13 @@ const Landing5 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-10%, -50%);
+    transform: translate(-10%, -35%);
   }
   .description {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-150%, -50%);
+    transform: translate(-150%, -35%);
   }
   .title {
     margin: 22px 0;
@@ -541,13 +522,13 @@ const Landing6 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-20%, -50%);
+    transform: translate(-20%, -40%);
   }
   .description {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-170%, -50%);
+    transform: translate(-170%, -35%);
     /* margin: 10% 0; */
   }
   .title {
@@ -579,19 +560,5 @@ const Landing7 = styled.div`
     /* font-weight: 400; */
   }
 `;
-
-const StyledButton = styled.button`
-  /* position: fixed; */
-  z-index: 99999 !important;
-  margin: 150px 0 100px 0;
-  border-radius: 40px;
-  border: none;
-  cursor: pointer;
-  background-color: ${theme.colors.yellow};
-  color: white;
-  font-size: 30px;
-  height: 70px;
-  width: 200px;
-`
 
 export default Landing;

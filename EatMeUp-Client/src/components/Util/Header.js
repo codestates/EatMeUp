@@ -163,6 +163,10 @@ const EatMeUpHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
   .logo {
     width: 160px;
     /* font-family: Fredoka One; */
