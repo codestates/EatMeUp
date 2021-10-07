@@ -131,6 +131,22 @@ const FooterBox = styled.div`
     font-size: 30px;
   }
 
+  @media screen and (max-width: 575px) {
+
+    .names {
+      display: none;
+    }
+
+    .copyright-box{
+      display: flex;
+      align-items: center;
+    }
+
+    & > div {
+      display: block;
+    }
+  }
+
   @media screen and (max-width: 375px) {
     & > div {
       display: block;

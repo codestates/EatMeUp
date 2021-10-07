@@ -61,7 +61,7 @@ const Card = ({ recipes }) => {
           <div className='recipe-ingre_box'>
             <div className='ingres'>
             {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span key={idx}>#{food.name}</span>;
+              return <button key={idx}>#{food.name}</button>;
             })}
             </div>
           </div>
@@ -129,7 +129,7 @@ const Recipes = styled.div`
     margin-left: 5px;
   }
 
-  .ingres > span {
+  .ingres > button {
     padding: 3px 8px;
     background-color: #eaeaea;
     border-radius: 30px;
@@ -153,7 +153,12 @@ const Recipes = styled.div`
     margin: 0;
   }
 
+  @media screen and (max-width: 550px) {
+    width: 80%;
+  }
+
   @media screen and (max-width: 375px) {
+    width: 95%;
     height: 125px;
     display: flex;
     
@@ -173,7 +178,9 @@ const Recipes = styled.div`
       margin: 30px 0px 0px 0px;
     }
 
-    .ingres > span {
+    .ingres > button {
+      font-size: 10px;
+      border: none;
       padding: 3px 5px;
       background-color: #eaeaea;
       border-radius: 30px;

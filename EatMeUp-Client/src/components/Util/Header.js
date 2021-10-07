@@ -232,8 +232,7 @@ const EatMeUpHeader = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-    height: 16vw;
-    align-items: flex-start;
+    
     .logo {
       width: 140px;
       font-size: 35px;
@@ -264,6 +263,7 @@ const Hamburger = styled.button`
   @media screen and (max-width: 375px) {
     display: flex;
     margin-top: 13px;
+    font-size: 25px;
   }
 `;
 

@@ -10,6 +10,7 @@ import {
   clearErrors,
 } from "../../_actions/fridgeActions";
 import { getRecommandRecipe } from "../../_actions/recipeActions";
+import { logoutRequest } from "../../_actions/authActions";
 import {
   NEW_FOOD_RESET,
   EDIT_FOOD_RESET,
@@ -56,6 +57,7 @@ const FridgeMain = () => {
     if (error) {
       swal("Please!", "로그인이 필요합니다.", "warning");
       dispatch(clearErrors());
+      dispatch(logoutRequest());
       history.push("/");
       return;
     }
@@ -120,33 +122,33 @@ const FridgeMain = () => {
 
           <SearchBox>
             <FridgeTitle>마이냉장고</FridgeTitle>
+            <FoodBox>
+              {/* 체크된 음식 담는 영역 */}
+              <CheckedFoodsBox>
+                <Stack direction='row' spacing={1}>
+                  <i className='fas fa-shopping-basket'></i>
+                  {checkedFoods.length === 0 ? (
+                    <span className='placeholder'>
+                      냉장고 재료를 추가해 주세요
+                    </span>
+                  ) : (
+                    checkedFoods.map((food, idx) => {
+                      return (
+                        <Chip
+                          key={idx}
+                          label={food}
+                          onDelete={() => handleDelete(idx)}
+                        />
+                      );
+                    })
+                  )}
+                </Stack>
+              </CheckedFoodsBox>
 
-            {/* 체크된 음식 담는 영역 */}
-            <CheckedFoodsBox>
-              <Stack direction='row' spacing={1}>
-                <i className='fas fa-shopping-basket'></i>
-                {checkedFoods.length === 0 ? (
-                  <span className='placeholder'>
-                    냉장고 재료를 추가해 주세요
-                  </span>
-                ) : (
-                  checkedFoods.map((food, idx) => {
-                    return (
-                      <Chip
-                        key={idx}
-                        label={food}
-                        onDelete={() => handleDelete(idx)}
-                      />
-                    );
-                  })
-                )}
-              </Stack>
-            </CheckedFoodsBox>
-
-            <GotoBtnBox onClick={searchByFoodHandler}>
-              레시피 보기 <i className='fas fa-play'></i>
-            </GotoBtnBox>
-           
+              <GotoBtnBox onClick={searchByFoodHandler}>
+                레시피 보기 <i className='fas fa-play'></i>
+              </GotoBtnBox>
+            </FoodBox>
           </SearchBox>
 
           {/* 냉장고 */}
@@ -182,27 +184,36 @@ const FridgeMain = () => {
 
 // 음식담는 영역 css
 const SearchBox = styled.div`
-  width: 75%;
+  width: 70%;
   margin: 0px auto;
   display: flex;
+  justify-content: space-between;
   position: relative;
   margin-top: 50px;
 
   @media screen and (max-width: 1500px) {
     width: 80%;
-    font-size: 17px;
   }
   @media screen and (max-width: 1200px) {
     width: 80%;
-    font-size: 17px;
   }
 
-  @media screen and (max-width: 975px) {
+  @media screen and (max-width: 1035px) {
+    display: block;
+    width: 80%;
+  }
+
+  @media screen and (max-width: 775px) {
     display: block;
     width: 90%;
   }
 
-  @media screen and (max-width: 775px) {
+  @media screen and (max-width: 575px) {
+    display: block;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 450px) {
     display: block;
     width: 90%;
   }
@@ -214,26 +225,57 @@ const SearchBox = styled.div`
 `;
 
 const FridgeTitle = styled.div`
-  font-size: 30px;
+  width: 15%;
   font-weight: bold;
+  font-size: 35px;
+  text-indent: 10px;
 
-  @media screen and (max-width: 975px) {
+  @media screen and (max-width: 1200px) {
+    width: 15%;
+    font-size: 27px;
+  }
+
+  @media screen and (max-width: 1035px) {
     display: block;
+    width: 100%;
   }
 
   @media screen and (max-width: 775px) {
     display: block;
   }
+
+  @media screen and (max-width: 575px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 450px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
+`;
+
+const FoodBox = styled.div`
+  width: 85%;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 1035px) {
+    width: 100%;
+    margin: 8px 0px;
+  }
 `;
 
 // 클릭한 음식담는 영역
 const CheckedFoodsBox = styled.div`
-  width: 70%;
+  width: 85%;
   height: 40px;
   border: 2px solid #ebe9e5;
   border-radius: 30px 0px 0px 30px;
-  margin-left: 10px;
   padding-top: 5px;
+  margin-left: 5px;
 
   .fa-shopping-basket {
     margin-left: 20px;
@@ -255,33 +297,24 @@ const CheckedFoodsBox = styled.div`
     color: #a8a7a3;
   }
 
-
-  @media screen and (max-width: 975px) {
-    width: 100%;
-    border-radius: 20px;
-    margin-top: 10px;
-    display: flex;
-
+  @media screen and (max-width: 1200px) {
+    width: 80%;
   }
 
-  @media screen and (max-width: 775px) {
+  @media screen and (max-width: 1035px) {
     display: block;
+    width: 85%;
   }
 
   @media screen and (max-width: 375px) {
     display: block;
-  }
-
-  @media screen and (max-width: 375px) {
-    width: 100%;
-    border-radius: 20px;
-    margin: 5px auto;
+    width: 90%;
   }
 `;
 
 // 재료기반 레시피 찾기버튼
 const GotoBtnBox = styled.div`
-  width: 120px;
+  width: 13%;
   height: 33px;
   border-radius: 0px 30px 30px 0px;
   line-height: 33px;
@@ -294,21 +327,36 @@ const GotoBtnBox = styled.div`
   color: #303030;
   cursor: pointer;
 
-  @media screen and (max-width: 975px) {
-    border-radius: 30px;
-    float: right;
-    margin: 10px 0px;
-    height: 25px;
-    line-height: 25px;
-    font-size: 14px;
+  @media screen and (max-width: 1035px) {
+    display: block;
+    .fa-play {
+      display: none;
+    }
   }
+
+  @media screen and (max-width: 775px) {
+    font-size: 13px;
+
+    .fa-play {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    width: 20%;
+    .fa-play {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 20%;
+    font-size: 10px;
+  }
+
   @media screen and (max-width: 375px) {
-    border-radius: 30px;
-    float: right;
-    margin: 5px 0px 10px 0px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 14px;
+
+
   }
 `;
 

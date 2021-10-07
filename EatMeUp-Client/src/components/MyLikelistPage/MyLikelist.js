@@ -79,6 +79,9 @@ const ListContainer = styled(SectionBox)`
   @media screen and (max-width: 1500px){
     width: 100%;
   } */
+  @media screen and (max-width: 1035px) {
+    width: 88%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -118,15 +121,21 @@ const ListBox = styled.div`
   }
 
   @media screen and (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 1034px) {
     grid-template-columns: 1fr 1fr;
     gap: 15px;
     padding: 10px;
   }
 
-  @media screen and (max-width: 800px) {
-    grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 10px;
+  @media screen and (max-width: 550px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   @media screen and (max-width: 375px) {

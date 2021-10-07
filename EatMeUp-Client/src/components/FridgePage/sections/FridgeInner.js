@@ -423,7 +423,7 @@ const FridgeButton = styled(SmallBtn)`
 
 const FridgeInnerBox = styled.div`
   width: 100%;
-  min-height: 450px;
+  min-height: 650px;
   margin: 0 auto;
   display: flex;
 
