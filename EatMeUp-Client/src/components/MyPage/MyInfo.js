@@ -326,10 +326,21 @@ const MyInfoContainer = styled(SectionBox)`
     margin: 0 auto;
   }
   @media screen and (max-width: 575px) {
-    
+    .info_box {
+      max-width: 260px;
+      margin: 50px auto;
+    }
+
+    .info_container {
+      width: 100%;
+      height: 445px;
+    }
     .btn_container {
-      width: 80%;
+      width: 90%;
       margin: 0 auto;
+
+      display: flex;
+      justify-content: center;
     }
     
   }
@@ -359,11 +370,11 @@ const EditButton = styled(LargeBtn)`
   font-family: "Noto Sans KR";
   cursor: pointer;
   @media screen and (max-width: 575px) {
-    width: 130px;
+    width: 120px;
     height: 45px;
   }
   @media screen and (max-width: 375px) {
-    width: 130px;
+    width: 120px;
     height: 45px;
     margin: 0 6px;
   }
@@ -381,11 +392,11 @@ const DeleteButton = styled(LargeBtn)`
   font-family: "Noto Sans KR";
   cursor: pointer;
   @media screen and (max-width: 575px) {
-    width: 130px;
+    width: 120px;
     height: 45px;
   }
   @media screen and (max-width: 375px) {
-    width: 130px;
+    width: 120px;
     height: 45px;
     margin: 0 6px;
   }

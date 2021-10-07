@@ -226,9 +226,9 @@ const ProfileContainer = styled.div`
       color: ${theme.colors.lightgrey};
     }
    img {
-     width: "190px",
-     height: "190px",
-     border-radius: "50%",
+     width: 190px;
+     height: 190px;
+     border-radius: 50%;
    }  
   }
   .info_username {
