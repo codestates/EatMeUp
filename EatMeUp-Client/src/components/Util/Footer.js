@@ -79,16 +79,16 @@ const FooterBox = styled.div`
   }
 
   .copyright-box {
-    justify-content: center;
+    /* justify-content: center; */
     width: 100%;
     height: 50px;
     background-color: #e4e1da;
   }
 
   .copyright {
-    font-weight: 500;
-    text-align: center;
-
+    font-weight: 400;
+    /* text-align: center; */
+    margin: 0 auto;
     i {
       margin: 3px;
     }
