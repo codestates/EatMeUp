@@ -60,7 +60,10 @@ const ModalDialog = styled.div`
   .title {
     text-align: center;
   }
-
+  @media screen and (max-width: 575px) {
+    width: 90%;
+    height: fit-content;
+  }
   @media screen and (max-width: 375px) {
     width: 90%;
   }

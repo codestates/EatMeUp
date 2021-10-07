@@ -121,6 +121,10 @@ const Date = styled.div`
     font-size: 22px;
     cursor: pointer;
   }
+  @media screen and (max-width: 575px) {
+    font-size: 20px;
+    margin-top: 20px;
+  }
   @media screen and (max-width: 375px) {
     font-size: 20px;
     margin-top: 20px;
@@ -131,9 +135,11 @@ const MealPlanBox = styled.div`
   width: 90%;
   margin: 10px auto;
   display: flex;
+  @media screen and (max-width: 575px) {
+    display: block;
+  }
   @media screen and (max-width: 375px) {
     display: block;
-
   }
 `;
 
@@ -143,6 +149,10 @@ const MealPlanCard = styled(SectionBox)`
   margin: 10px auto;
   text-align: center;
   line-height: 10px;
+  @media screen and (max-width: 575px) {
+    width: 95%;
+    max-height: 200px;
+  }
   @media screen and (max-width: 375px) {
     width: 95%;
     max-height: 140px;
@@ -154,6 +164,9 @@ const TitleBox = styled.div`
   align-items: center;
   justify-content: center;
   margin: 20px 0px;
+  @media screen and (max-width: 575px) {
+    margin: 10px 0px;
+  }
   @media screen and (max-width: 375px) {
     margin: 10px 0px;
   }
@@ -170,7 +183,9 @@ const Img = styled.div`
     border-radius: 50%;
     object-fit: contain;
   }
-
+  @media screen and (max-width: 575px) {
+    margin: 10px 0px 0px 0px;
+  }
   @media screen and (max-width: 375px) {
     margin: 10px 0px 0px 0px;
   }
@@ -185,14 +200,17 @@ const Title = styled.div`
   div > img {
     margin-right: 5px;
   }
- 
 `;
 const PlansBox = styled.div`
   width: 100%;
   height: 300px;
   overflow-y: auto;
-  @media screen and (max-width: 375px) {
 
+  @media screen and (max-width: 575px) {
+    display: flex;
+    overflow-x: scroll;
+  }
+  @media screen and (max-width: 375px) {
     display: flex;
     overflow-x: scroll;
   }
@@ -212,6 +230,22 @@ const PlanCard = styled.div`
   &:hover .fa-sign-out-alt {
     opacity: 1;
   }
+  @media screen and (max-width: 575px) {
+    background: #ffffff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    border: none;
+    max-width: 80px;
+    height: 120px;
+    display: flex;
+    margin: 5px;
+    flex-direction: column;
+    justify-content: center;
+
+    .fa-sign-out-alt {
+      margin-top: 5px;
+    }
+  }
   @media screen and (max-width: 375px) {
     max-width: 70px;
     height: 80px;
@@ -224,6 +258,10 @@ const PlanCard = styled.div`
 `;
 const SubTitle = styled.div`
   font-size: 13px;
+  @media screen and (max-width: 575px) {
+    margin-top: 10px;
+    font-size: 11px;
+  }
   @media screen and (max-width: 375px) {
     margin-top: 10px;
     font-size: 11px;

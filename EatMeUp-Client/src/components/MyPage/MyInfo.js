@@ -325,6 +325,14 @@ const MyInfoContainer = styled(SectionBox)`
     width: 400px;
     margin: 0 auto;
   }
+  @media screen and (max-width: 575px) {
+    
+    .btn_container {
+      width: 80%;
+      margin: 0 auto;
+    }
+    
+  }
 
   @media screen and (max-width: 375px) {
     .info_box {
@@ -336,6 +344,7 @@ const MyInfoContainer = styled(SectionBox)`
       width: 100%;
       height: 445px;
     }
+    
   }
 `;
 
@@ -349,6 +358,10 @@ const EditButton = styled(LargeBtn)`
   font-weight: 500;
   font-family: "Noto Sans KR";
   cursor: pointer;
+  @media screen and (max-width: 575px) {
+    width: 130px;
+    height: 45px;
+  }
   @media screen and (max-width: 375px) {
     width: 130px;
     height: 45px;
@@ -367,6 +380,10 @@ const DeleteButton = styled(LargeBtn)`
   font-weight: 500;
   font-family: "Noto Sans KR";
   cursor: pointer;
+  @media screen and (max-width: 575px) {
+    width: 130px;
+    height: 45px;
+  }
   @media screen and (max-width: 375px) {
     width: 130px;
     height: 45px;
