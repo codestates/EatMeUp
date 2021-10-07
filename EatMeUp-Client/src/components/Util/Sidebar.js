@@ -40,13 +40,10 @@ const Sidebar = ({ id }) => {
                 }
                 color={currentId === idx ? "white" : theme.colors.black}
               >
-                <div className="point">
-                  <i className={item.icon} id="icon"></i>
+                <div className='point'>
+                  <i className={item.icon} id='icon'></i>
                 </div>
-                <div className="menu">
-                  {item.menu}
-                </div>
-                
+                <div className='menu'>{item.menu}</div>
               </MenuBtn>
             </Link>
           );
@@ -65,13 +62,16 @@ const SideMenu = styled.div`
   a {
     text-decoration: none;
   }
-
-  @media screen and (max-width: 375px){
+  @media screen and (max-width: 1035px) {
     width: 65px;
-    margin: 0 2vw 0 1vw;
-   
+    margin: 0 5px 0 0px;
   }
-`
+
+  @media screen and (max-width: 375px) {
+    width: 65px;
+    margin: 0 5px 0 0px;
+  }
+`;
 
 const MenuBtn = styled(XSmallBtn)`
   width: 170px;
@@ -92,7 +92,7 @@ const MenuBtn = styled(XSmallBtn)`
   .point {
     width: 30px;
     height: 30px;
-    border-radius: 100%;
+    border-radius: 50%;
     background-color: white;
     text-align: center;
     margin-left: 5px;
@@ -109,15 +109,57 @@ const MenuBtn = styled(XSmallBtn)`
     line-height: 8px;
   }
 
-
-  @media screen and (max-width: 375px){
+  @media screen and (max-width: 1035px) {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+    display: flex;
+    margin: 0px 0xp 8px 0px;
+    justify-content: center;
 
-    
 
-    
+    .menu {
+      display: none;
+    }
+
+    .point {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      margin: 0;
+      i {
+        margin: 8px 3px;
+        color: black;
+        font-size: 15px;
+      }
+    }
+  }
+
+
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    margin: 0px 0xp 8px 0px;
+    justify-content: center;
+
+
+    .menu {
+      display: none;
+    }
+
+    .point {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      margin: 0;
+      i {
+        margin: 8px 3px;
+        color: black;
+        font-size: 15px;
+      }
+    }
   }
 `;
 

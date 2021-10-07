@@ -1,11 +1,7 @@
 import React, { useEffect } from "react";
-import theme from "../../StyledComponent/theme";
 import styled from "styled-components";
 
 const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
-  
- 
-
   useEffect(() => {
     const arr = mealPlan.map((plan, idx) => {
       if (addToPlan.mealId === plan.id) {
@@ -13,7 +9,7 @@ const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
           id: plan.id,
           meal: plan.meal,
           plan: [...plan.plan, addToPlan],
-          recipeId: [...plan.recipeId, addToPlan.recipeId]
+          recipeId: [...plan.recipeId, addToPlan.recipeId],
         };
       }
 
@@ -24,29 +20,26 @@ const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
   }, [addToPlan]);
 
   const deleteHandler = (planIdx, itemIdx) => {
-    console.log(planIdx, itemIdx)
-    const deleted = mealPlan.map(plan => {
-
-      if(plan.id === planIdx) {
+    console.log(planIdx, itemIdx);
+    const deleted = mealPlan.map((plan) => {
+      if (plan.id === planIdx) {
         const itemDeleted = plan.plan.filter((item, idx) => {
-          if(idx !== itemIdx) {
-            return item
-          } 
+          if (idx !== itemIdx) {
+            return item;
+          }
           return "";
-        })
+        });
         return {
           id: planIdx,
           meal: plan.meal,
-          plan: itemDeleted
+          plan: itemDeleted,
+        };
       }
-    }
-      return plan
+      return plan;
+    });
+    setMealPlan(deleted);
+  };
 
-    })
-    setMealPlan(deleted)
-  }
-
-  
   return (
     <>
       {mealPlan.map((plan, planIdx) => {
@@ -67,7 +60,10 @@ const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
                       <div className='menuname'>{item.title}</div>
                     </div>
                     <div>
-                      <i className='far fa-times-circle' onClick={() => deleteHandler(planIdx, itemIdx)}></i>
+                      <i
+                        className='far fa-times-circle'
+                        onClick={() => deleteHandler(planIdx, itemIdx)}
+                      ></i>
                     </div>
                   </MealPlan>
                 );
@@ -93,42 +89,33 @@ const PlanCard = styled.div`
   span {
     padding-top: 15px;
   }
+  @media screen and (max-width: 1300px) {
+    width: 95%;
+    min-height: 200px;
+    min-width:80%;
+    max-width: 80%;
+    overflow-x: scroll;
+  }
+  @media screen and (max-width: 657px) {
+    margin: 5px auto;
+    min-width: 97%;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
+  @media screen and (max-width: 375px) {
+    margin: 5px auto;
+    min-width: 97%;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
 `;
 
-const AddTodo = styled.div`
-  width: 95%;
-  margin-top: 10px;
-  display: flex;
-  margin: 5px auto;
-  justify-content: center;
-
-  .input {
-    width: 75%;
-    height: 35px;
-    border-radius: 20px 0px 0px 20px;
-    border: 1px solid ${theme.colors.lightgrey};
-    font-size: 13px;
+const Plans = styled.div`
+  @media screen and (max-width: 1300px) {
+    display: flex;
+    overflow-x: scroll;
   }
-
-  .input > input {
-    width: 95%;
-    height: 30px;
-    border: none;
-  }
-
-  input:focus {
-    outline: none;
-  }
-
-  .addBtn {
-    border-radius: 0px 20px 20px 0px;
-    width: 25%;
-    height: 35px;
-    font-size: 12px;
-    background-color: white;
-    border: 1px solid ${theme.colors.lightgrey};
-    color: ${theme.colors.darkgray};
-  }
+ 
 `;
 
 const MealPlan = styled.div`
@@ -168,8 +155,39 @@ const MealPlan = styled.div`
     font-size: 16px;
     cursor: pointer;
   }
-`;
+  @media screen and (max-width: 1300px) {
+    display: block;
+    min-width: 100px;
 
-const Plans = styled.div``;
+    max-width: 100px;
+    min-height: 150px;
+    margin: 6px 5px;
+    background: #ffffff;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+
+    div {
+      display: block;
+    }
+
+    .planmeal-img > img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+    .planmeal-img {
+      margin: 20px 0px 0px 0px;
+    }
+
+    .menuname {
+      margin: 10px 0px 0px 0px;
+      line-height: 10px;
+    }
+
+    .fa-times-circle {
+      margin: 20px 0px 0px 0px;
+    }
+  }
+`;
 
 export default MealPlanCard;

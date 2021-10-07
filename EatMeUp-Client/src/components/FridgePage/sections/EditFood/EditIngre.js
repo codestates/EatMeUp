@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { deleteFood, editFood } from "../../../../_actions/fridgeActions";
-import { foodLife } from "../utils/convertDate";
 import axios from "axios";
 import styled from "styled-components";
 /* 스타일 컴포넌트 */
@@ -18,11 +17,11 @@ import theme from "../../../StyledComponent/theme";
 const EditIngre = ({ setOpenEditWindow, food }) => {
   const dispatch = useDispatch();
 
-  const { id, food_name, food_image, food_life, createdAt, frez_type } = food;
+  const { id, food_name, food_image, life, createdAt, frez_type } = food;
   const creatAt = createdAt.slice(0, 10);
 
   const [foodname, setFoodname] = useState(food_name);
-  const [life, setlife] = useState("");
+  const [foodlife, setFoodlife] = useState("");
   const [image, setImage] = useState(null);
 
   const closeEditModal = (e) => {
@@ -69,7 +68,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
     const food = {
       food_name: foodname ? foodname : food_name,
       frez_type: frez_type,
-      life: life ? life : food_life,
+      life: foodlife ? foodlife : life,
       food_image: foodImage ? foodImage : food_image,
     };
 
@@ -136,7 +135,8 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                 <span>음식이름 : </span>
                 <input
                   type='text'
-                  value={foodname}
+
+                  defaultValue={food_name}
                   onChange={(e) => setFoodname(e.currentTarget.value)}
                 />
               </div>
@@ -145,9 +145,9 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
               <div className='foodlife-box'>
                 <span>유통기한 : </span>
                 <input
-                  value={life ? life : creatAt}
+                  defaultValue={life}
                   type='date'
-                  onChange={(e) => setlife(e.currentTarget.value)}
+                  onChange={(e) => setFoodlife(e.currentTarget.value)}
                 />
               </div>
             </FoodInfoBox>

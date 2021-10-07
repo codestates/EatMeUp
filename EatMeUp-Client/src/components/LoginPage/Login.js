@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import styled, { keyframes } from "styled-components";
@@ -8,7 +8,7 @@ import {
   clearErrors,
   guestLoginRequest,
   GoogleLoginRequest,
-  KakaoLoginRequest
+  KakaoLoginRequest,
 } from "../../_actions/authActions";
 
 // 소셜로그인
@@ -26,7 +26,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   // console.log(process.env.REACT_APP_GOOGLE_API_KEY)
   const history = useHistory();
   const dispatch = useDispatch();
-  const { loading, isAuthenticated, error } = useSelector(
+  const { isAuthenticated, error } = useSelector(
     (state) => state.auth,
   );
 
@@ -37,10 +37,8 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   } = useForm();
 
   useEffect(() => {
-    if (isAuthenticated) {
-      history.push("/");
-    }
     if (error) {
+      setShowLogin(false)
       swal("Please!", "로그인 정보를 다시 확인해주세요.", "error");
       dispatch(clearErrors());
       return;
@@ -52,25 +50,42 @@ const Login = ({ setShowLogin, setShowSignup }) => {
   };
 
   const googleSuccess = (res) => {
-    console.log(res);
+    if (!res.profileObj.email) {
+      const date = Date.now();
+      const GuestData = {
+        username: "guest",
+        email: `guest_${date}@eatmeup.me`,
+        password: `123456`,
+      };
+      return dispatch(guestLoginRequest(GuestData));
+    }
     const data = {
       id: res.googleId,
       email: res.profileObj.email,
       username: res.profileObj.name,
       avatar: res.profileObj.imageUrl,
-    }
+    };
     dispatch(GoogleLoginRequest(data));
   };
 
   const kakaoSuccess = (res) => {
+    if (!res.profile.kakao_account.email) {
+      const date = Date.now();
+      const GuestData = {
+        username: "guest",
+        email: `guest_${date}@eatmeup.me`,
+        password: `123456`,
+      };
+      return dispatch(guestLoginRequest(GuestData));
+    }
     const data = {
       id: res.profile.id,
       email: res.profile.kakao_account.email,
       username: res.profile.kakao_account.profile.nickname,
       avatar: res.profile.kakao_account.profile.profile_image_url,
-    }
-    dispatch(KakaoLoginRequest(data))
-  }
+    };
+    dispatch(KakaoLoginRequest(data));
+  };
 
   const submitGuest = () => {
     const date = Date.now();
@@ -169,18 +184,18 @@ const Login = ({ setShowLogin, setShowSignup }) => {
               responseType={"id_token"}
               render={(renderProps) => (
                 <button
-                style={{
-                  width: 50,
-                  border: "none",
-                  backgroundColor: "white",
-                  margin: 5,
-                  padding: 0,
-                  cursor: "pointer"
+                  style={{
+                    width: 50,
+                    border: "none",
+                    backgroundColor: "white",
+                    margin: 5,
+                    padding: 0,
+                    cursor: "pointer",
                   }}
                   className='google'
                   onClick={renderProps.onClick}
                 >
-                  <img src='../food_img/google_logo.png' width='37' />
+                  <img src='../food_img/google_logo.png' width='37' alt="google"/>
                 </button>
               )}
             />
@@ -195,7 +210,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
               useLoginForm={true}
               style={{ color: "white", fontSize: 20, margin: 5, padding: 0 }}
             >
-              <img src='../food_img/kakao.png' width='20' />
+              <img src='../food_img/kakao.png' width='20' alt="kakao" />
             </KakaoBtn>
           </LoginEnd>
         </LoginContainer>
@@ -298,38 +313,37 @@ const LoginButton = styled(LargeBtn)`
   cursor: pointer;
 `;
 
-const SocialButton = styled(LargeBtn)`
-  width: 50%;
-  height: 50px;
-  margin: 0 auto 10px auto;
-  background-color: white;
-  color: ${theme.colors.black};
-  border: 1px solid ${theme.colors.lightgrey};
-  cursor: pointer;
-  .google_logo {
-    vertical-align: top;
-    width: 22px;
-  }
-  .google_text {
-    color: ${theme.colors.black};
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 0 5px;
-  }
-  .kakao_logo {
-    vertical-align: middle;
-    height: 28px;
-  }
-  .kakao_text {
-    color: ${theme.colors.black};
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0 0 0 5px;
-  }
-`;
+// const SocialButton = styled(LargeBtn)`
+//   width: 50%;
+//   height: 50px;
+//   margin: 0 auto 10px auto;
+//   background-color: white;
+//   color: ${theme.colors.black};
+//   border: 1px solid ${theme.colors.lightgrey};
+//   cursor: pointer;
+//   .google_logo {
+//     vertical-align: top;
+//     width: 22px;
+//   }
+//   .google_text {
+//     color: ${theme.colors.black};
+//     font-size: 18px;
+//     font-weight: 600;
+//     margin: 0 0 0 5px;
+//   }
+//   .kakao_logo {
+//     vertical-align: middle;
+//     height: 28px;
+//   }
+//   .kakao_text {
+//     color: ${theme.colors.black};
+//     font-size: 18px;
+//     font-weight: 600;
+//     margin: 0 0 0 5px;
+//   }
+// `;
 
-const GoogleBtn = styled(GoogleLogin)`
-`;
+const GoogleBtn = styled(GoogleLogin)``;
 
 const KakaoBtn = styled(KakaoLogin)`
   background-color: white;
@@ -372,13 +386,13 @@ const LoginEnd = styled.div`
   }
 `;
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-weight: bold;
-  cursor: pointer;
-  &:visited {
-    color: ${theme.colors.black};
-  }
-`;
+// const StyledLink = styled(Link)`
+//   text-decoration: none;
+//   font-weight: bold;
+//   cursor: pointer;
+//   &:visited {
+//     color: ${theme.colors.black};
+//   }
+// `;
 
 export default Login;

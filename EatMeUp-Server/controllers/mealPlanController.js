@@ -117,12 +117,9 @@ const deleteMealPlan = async (req, res) => {
   }
 };
 
-const modMealPlan = async (req, res) => {};
-
 module.exports = {
   getMealInfo,
   addMealPlan,
   deleteMealPlan,
-  modMealPlan,
   getOneDayInfo,
 };

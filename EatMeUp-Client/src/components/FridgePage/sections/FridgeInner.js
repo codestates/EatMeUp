@@ -135,6 +135,20 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
     return `${Y}.${M}.${D}`;
   };
 
+  const calculatorLife = (life) => {
+
+    if(Number(foodLife(life)) < 0) {
+      return Math.abs(foodLife(life))
+    }
+
+    if(Number(foodLife(life)) === 0) {
+      return "day"
+    }
+
+    return foodLife(life)
+    
+  }
+
   return (
     <div>
       {/* 재료추가시 보여주는 메세지 */}
@@ -234,10 +248,10 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                           <div className='foodlife_box'>
                             {Number(foodLife(food.life)) < 0 ? (
                               <span className='red'>
-                                D+{Math.abs(foodLife(food.life))}
+                                D+{calculatorLife(food.life)}
                               </span>
                             ) : (
-                              <span className='foodlife'>D-{foodLife(food.life)}</span>
+                              <span className='foodlife'>D-{calculatorLife(food.life)}</span>
                             )}
                           </div>
                         </FoodBox>
@@ -409,7 +423,7 @@ const FridgeButton = styled(SmallBtn)`
 
 const FridgeInnerBox = styled.div`
   width: 100%;
-  min-height: 450px;
+  min-height: 650px;
   margin: 0 auto;
   display: flex;
 

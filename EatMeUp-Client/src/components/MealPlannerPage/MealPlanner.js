@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { getMealPlans } from "../../_actions/calendarActions";
+import {
+  DELETE_MEALPLAN_RESET,
+  NEW_MEALPLAN_RESET,
+} from "../../_types/calendarTypes";
 
 /* 컴포넌트 */
 import Calendar from "./sections/Calendar";
-import Weekly from "./sections/Weekly";
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 import Sidebar from "../Util/Sidebar";
+import Loader from "../Util/Loader";
 
 /* 스타일 컴포넌트 */
 import { Container, SectionBox } from "../StyledComponent/containers";
@@ -16,22 +20,21 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 const MealPlanner = () => {
   const dispatch = useDispatch();
 
-  const { plans } = useSelector((state) => state.getmealplan);
-
-  /* 월별/주별 핸들러 */
-  const [showMonth, setShowMonth] = useState(true);
+  const { loading, plans } = useSelector((state) => state.getmealplan);
+  const { isAdded } = useSelector((state) => state.mealplan);
+  const { isDeletetd } = useSelector((state) => state.deleteplan);
 
   useEffect(() => {
     dispatch(getMealPlans());
-  }, [dispatch]);
-  const showWeekHandler = () => {
-    setShowMonth(false);
-  };
 
-  console.log(plans);
-  const showMonthHandler = () => {
-    setShowMonth(true);
-  };
+    if (isAdded) {
+      dispatch({ type: NEW_MEALPLAN_RESET });
+    }
+
+    if (isDeletetd) {
+      dispatch({ type: DELETE_MEALPLAN_RESET });
+    }
+  }, [dispatch, isDeletetd, isAdded]);
 
   return (
     <>
@@ -42,21 +45,17 @@ const MealPlanner = () => {
           <Sidebar id={3} />
 
           {/* 콘텐츠영역 */}
-          <CalendarContainer>
-            {/* 월별/주별 핸들러 */}
-            {showMonth ? (
-              <Calendar
-                plans={plans}
-                showWeekHandler={showWeekHandler}
-                showMonthHandler={showMonthHandler}
-              />
-            ) : (
-              <Weekly
-                showWeekHandler={showWeekHandler}
-                showMonthHandler={showMonthHandler}
-              />
-            )}
-          </CalendarContainer>
+          {loading ? (
+            <Loader />
+          ) : (
+            <CalendarContainer>
+              <TitleBox>
+              <div className='title'>Meal Planner</div>
+            </TitleBox>
+              {/* 월별/주별 핸들러 */}
+              <Calendar plans={plans} />
+            </CalendarContainer>
+          )}
         </Container>
       </section>
       <Footer />
@@ -66,6 +65,37 @@ const MealPlanner = () => {
 
 const CalendarContainer = styled(SectionBox)`
   width: 77%;
+  min-height: 720px;
+
+  
+
+  @media screen and (max-width: 1035px) {
+    width: 88%;
+   
+  }
+
+  @media screen and (max-width: 375px) {
+    
+  }
+`;
+
+const TitleBox = styled.div`
+  width: 100%;
+  height: 90px;
+  font-weight: bold;
+  font-size: 30px;
+  text-indent: 30px;
+  line-height: 90px;
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 20px 10px 20px;
+  padding: 10px;
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    font-size: 23px;
+    text-indent: 10px;
+  }
 `;
 
 export default MealPlanner;

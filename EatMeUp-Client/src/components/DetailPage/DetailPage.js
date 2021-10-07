@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToLikelist, removeFromLikelist } from "../../_actions/userActions";
-import { getUserinfo } from "../../_actions/userActions";
+import { logoutRequest } from '../../_actions/authActions'
+import { getUserinfo, clearErrors } from "../../_actions/userActions";
 import {
   ADD_TO_LIKELIST_RESET,
   REMOVE_FROM_LIKELIST_RESET,
@@ -17,15 +19,15 @@ import Footer from "../Util/Footer";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
+const { swal } = window;
 const DetailePage = ({ match }) => {
   const dispatch = useDispatch();
-
+  const history = useHistory();
 
   // selector
-  const { isAdded, isDeleted, error } = useSelector((state) => state.likelist);
+  const { isAdded, isDeleted } = useSelector((state) => state.likelist);
   const { isAuthenticated } = useSelector((state) => state.auth);
-  const { user } = useSelector((state) => state.user);
-
+  const { user, error } = useSelector((state) => state.user);
 
   // state
   const [getRecipe, setGetRecipe] = useState("");
@@ -34,30 +36,35 @@ const DetailePage = ({ match }) => {
   const [likelist, setLikelist] = useState([]);
   const [steps, setSteps] = useState([]);
   const [foods, setFoods] = useState([]);
-  const [posteduser, setPostedUser] = useState([]);
+  const [posteduser, setPostedUser] = useState({
+    username: "guest",
+    avatar: null,
+  });
 
   useEffect(() => {
-   
     axios
       .get(`${process.env.REACT_APP_API}/recipe/info/${match.params.id}`, {
         withCredentials: true,
       })
       .then((response) => {
         if (response.data) {
-          console.log(response.data.recipeInfo);
           setGetRecipe(response.data.recipeInfo[0]);
           setSteps(response.data.recipeInfo[0].steps);
           setFoods(response.data.recipeInfo[0].foods);
-          setPostedUser(response.data.recipeInfo[0].user);
           setLikelist(response.data.recipeInfo[0].likeUser);
+
+          if (response.data.recipeInfo[0].user) {
+            setPostedUser(response.data.recipeInfo[0].user);
+          }
+        } else {
+          alert("로그인이 필요합니다.");
         }
       });
-  }, []);
+  }, [match.params.id]);
 
   useEffect(() => {
-
-    if(isAuthenticated) {
-      dispatch(getUserinfo())
+    if (isAuthenticated) {
+      dispatch(getUserinfo());
     }
     if (isAdded) {
       dispatch({ type: ADD_TO_LIKELIST_RESET });
@@ -66,7 +73,14 @@ const DetailePage = ({ match }) => {
     if (isDeleted) {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
-  }, [dispatch, isAdded, isDeleted]);
+
+    if (error) {
+      swal("Please!", "로그인이 필요합니다.", "warning");
+      dispatch(clearErrors());
+      dispatch(logoutRequest())
+      history.push("/recipes");
+    }
+  }, [dispatch, isAdded, isDeleted, isAuthenticated, error, history]);
 
   const likeBtnHandler = (id) => {
     setClicked(!clicked);
@@ -82,14 +96,14 @@ const DetailePage = ({ match }) => {
   };
 
   useEffect(() => {
-    likelist.forEach((like) => {
-    
-      if (like.id === user.id) {
-        setIsLiked(true);
-      }
-    });
-  }, [likelist]);
-
+    if (user) {
+      likelist.forEach((like) => {
+        if (user.id === like.id) {
+          setIsLiked(true);
+        }
+      });
+    }
+  }, [likelist, user]);
 
   return (
     <div>
@@ -101,7 +115,7 @@ const DetailePage = ({ match }) => {
             <ProfileContainer>
               <div className='profile_img'>
                 {posteduser.avatar === null ? (
-                  <i class='far fa-user-circle'></i>
+                  <i className='far fa-user-circle'></i>
                 ) : (
                   <img
                     src={posteduser.avatar}
@@ -152,30 +166,30 @@ const DetailePage = ({ match }) => {
 
           {getRecipe.level === "초보환영" && (
             <Level>
-              <i class='fas fa-star'></i>
+              <i className='fas fa-star'></i>
               <span className='time'>
-                <i class='far fa-clock'></i>
+                <i className='far fa-clock'></i>
                 {getRecipe.cooking_time}
               </span>
             </Level>
           )}
           {getRecipe.level === "보통" && (
             <Level>
-              <i class='fas fa-star'></i>
-              <i class='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
               <span className='time'>
-                <i class='far fa-clock'></i>
+                <i className='far fa-clock'></i>
                 {getRecipe.cooking_time}
               </span>
             </Level>
           )}
           {getRecipe.level === "어려움" && (
             <Level>
-              <i class='fas fa-star'></i>
-              <i class='fas fa-star'></i>
-              <i class='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
+              <i className='fas fa-star'></i>
               <span className='time'>
-                <i class='far fa-clock'></i>
+                <i className='far fa-clock'></i>
                 {getRecipe.cooking_time}
               </span>
             </Level>
@@ -220,12 +234,14 @@ const DetailePage = ({ match }) => {
                   </div>
                   <div className='steps'>
                     <div className='stepNo'>
-                      <span class='fa-stack'>
+                      <span className='fa-stack'>
                         <i
-                          class='fas fa-circle fa-stack-2x'
+                          className='fas fa-circle fa-stack-2x'
                           style={{ color: theme.colors.lightgrey }}
                         />
-                        <strong class='fa-stack-1x'>{step.cookingNum}</strong>
+                        <strong className='fa-stack-1x'>
+                          {step.cookingNum}
+                        </strong>
                       </span>
                     </div>
                     <span className='step'>{step.recipe}</span>
@@ -252,6 +268,19 @@ const RecipeBox = styled(SectionBox)`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 768px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 568px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 375px) {
+    width: 95%;
+  }
 `;
 
 const ImgBox = styled.div`
@@ -266,6 +295,22 @@ const ImgBox = styled.div`
     width: 100%;
     object-fit: cover;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+  }
+
+
+  @media screen and (max-width: 568px) {
+    width: 95%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 95%;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+  }
 `;
 
 const ProfileContainer = styled.div`
@@ -273,7 +318,7 @@ const ProfileContainer = styled.div`
   width: 100%;
   height: 60px;
   position: absolute;
-  background-color: rgba(255, 255, 255, .8);
+  background-color: rgba(255, 255, 255, 0.8);
   .profile_img {
     width: 30px;
     height: 30px;
@@ -400,6 +445,20 @@ const StepBox = styled.div`
   }
   .step {
     margin: 4px 0;
+  }
+
+  @media screen and (max-width: 1024px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
+  @media screen and (max-width: 450px) {
+    display: block;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
   }
 `;
 

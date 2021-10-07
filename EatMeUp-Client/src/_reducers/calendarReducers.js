@@ -12,7 +12,6 @@ import {
   DELETE_MEALPLAN_FAIL,
   GET_RECOMMAND_REQUEST,
   GET_RECOMMAND_SUCCESS,
-  GET_RECOMMAND_RESET,
   GET_RECOMMAND_FAIL,
   CLEAR_ERRORS,
 } from "../_types/calendarTypes";
@@ -56,6 +55,7 @@ export const getRecommandReducer = (state = { recommandedRecipe: [] }, action) =
         loading: false,
         recommandedRecipe: action.payload
       }
+    
     case GET_RECOMMAND_FAIL:
       return {
         loading: false,
@@ -81,7 +81,13 @@ export const newMealPlanReducer = (state = {}, action) => {
     case NEW_MEALPLAN_SUCCESS:
       return {
         loading: false,
-        isAdded: action.payload
+        success: action.payload,
+        isAdded: true
+      }
+    case NEW_MEALPLAN_RESET:
+      return {
+        loading: false,
+        isAdded: false
       }
     case NEW_MEALPLAN_FAIL:
       return {
@@ -100,6 +106,32 @@ export const newMealPlanReducer = (state = {}, action) => {
 
 export const deleteMealPlanReducer = (state = {}, action) => {
   switch (action.type) {
+    case DELETE_MEALPLAN_REQUEST:
+      return {
+        ...state,
+        loading: true
+      }
+    case DELETE_MEALPLAN_SUCCESS:
+      return {
+        loading: false,
+        isDeletetd: true,
+        success: action.payload,
+      }
+    case DELETE_MEALPLAN_FAIL:
+      return {
+        loading: false,
+        error: action.payload
+      }
+    case DELETE_MEALPLAN_RESET:
+      return {
+        loading: false,
+        isDeletetd: false
+      }
+    case CLEAR_ERRORS:
+      return {
+        loading: false,
+        error: null
+      }
     default:
       return state;
   }

@@ -1,11 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
 const Card = ({ recipe }) => {
-
-
- 
   const recipeLevel = (level) => {
     if (level === "초보환영") {
       return <i className='bx bxs-star' id='icon'></i>;
@@ -37,22 +34,22 @@ const Card = ({ recipe }) => {
             {/* 유저프로필 */}
             <div className='imgbox-left'>
               <div>
-                <img
-                  src={
-                    recipe.user.avatar
-                      ? recipe.user.avatar
-                      : "../food_img/people.jpeg"
-                  }
-                  alt='people'
-                />
+                {recipe.user && recipe.user.avatar ? (
+                  <img src={recipe.user.avatar} alt='people' />
+                ) : (
+                  <img src="../food_img/favicon.png" alt='eatmeup' style={{ width: "35px", height: "35px", borderRadius: "0px"}}/>
+                )}
               </div>
               <div className='username'>
                 <div>
-                  <span>
-                    {recipe.user.username === "test1"
-                      ? "eatmeup"
-                      : recipe.user.username}
-                  </span>
+                  {recipe.user && (
+                    <span>
+                      {recipe.user.username === "test1"
+                        ? "eatmeup"
+                        : recipe.user.username}
+                    </span>
+                  )}
+                  {recipe.user === null && <span>guest</span>}
                 </div>
               </div>
             </div>
@@ -81,7 +78,7 @@ const Card = ({ recipe }) => {
           {/* 음식 주재료 */}
           <div className='materials'>
             {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <span>#{food.name}</span>;
+              return <span key={idx}>#{food.name}</span>;
             })}
           </div>
         </RecipeCard>
@@ -120,9 +117,9 @@ const RecipeCard = styled.div`
   }
 
   .imgbox-left > div > img {
-    width: 40px;
-    height: 40px;
-    margin: 5px;
+    width: 35px;
+    height: 35px;
+    margin: 5px 5px 5px 7px;
     border-radius: 50%;
     object-fit: cover;
   }
@@ -130,6 +127,8 @@ const RecipeCard = styled.div`
   .imgbox-left {
     display: flex;
     align-items: center;
+
+    
   }
 
   .imgbox-left > div {
@@ -144,7 +143,7 @@ const RecipeCard = styled.div`
   }
 
   .username > div {
-    font-size: 16px;
+    font-size: 1rem;
     color: #404040;
   }
 
@@ -201,7 +200,7 @@ const RecipeCard = styled.div`
 
   /* 호버시 버튼 올라오기 */
 
-  &:hover::after {
+  /* &:hover::after {
     content: "View Recipe";
     position: absolute;
     top: 240px;
@@ -215,6 +214,6 @@ const RecipeCard = styled.div`
     line-height: 35px;
     border-radius: 20px;
     animation: ${showBtn} 0.5s;
-  }
+  } */
 `;
 export default Card;

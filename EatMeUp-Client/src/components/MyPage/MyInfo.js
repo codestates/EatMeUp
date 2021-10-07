@@ -100,10 +100,12 @@ const MyInfo = () => {
   };
 
   const deleteHandler = (id) => {
-
     const data = {
-      id: id
-    }
+      id: id,
+    };
+
+    console.log(data);
+
     Swal.fire({
       title: "내 계정 삭제",
       text: "정보를 삭제 하시겠습니까?",
@@ -115,12 +117,11 @@ const MyInfo = () => {
       cancelButtonText: "취소",
     }).then((result) => {
       if (result.isConfirmed) {
-        dispatch(deleteMyaccount(data));
-        
+        dispatch(logoutRequest());
+        history.push("/");
         setTimeout(() => {
-          dispatch(logoutRequest());
-          history.push("/");
-        }, 1000);
+          dispatch(deleteMyaccount(id));
+        }, 500);
       }
     });
   };
@@ -161,18 +162,18 @@ const MyInfo = () => {
                       }}
                     />
                   ) : (
-                    <i class='far fa-user-circle fa-10x' id='userimg'></i>
+                    <i className='far fa-user-circle fa-10x' id='userimg'></i>
                   )}
 
                   <div className='profileImg_box'>
-                    <label for='userimg'>
-                      <i class='fas fa-camera'></i>
+                    <label htmlFor='avatar'>
+                      <i className='fas fa-camera'></i>
                     </label>
                     <input
                       type='file'
-                      id='userimg'
+                      id='avatar'
                       accept='image/*'
-                      onChange={(e) => setFile(e.target.files[0])}
+                      onChange={(e) => setFile(e.currentTarget.files[0])}
                     />
                   </div>
                 </div>
@@ -190,13 +191,17 @@ const MyInfo = () => {
                   </div>
                   <div className='email'>
                     email
-                    <div className='email_box'><input placeholder={user.email} disabled /></div>
+                    <div className='email_box'>
+                      <input placeholder={user.email} disabled />
+                    </div>
                   </div>
                 </div>
               </div>
               <div className='btn_container'>
                 <EditButton onClick={userEditHandler}>수정 완료</EditButton>
-                <DeleteButton onClick={() => deleteHandler(user.id)}>계정 삭제</DeleteButton>
+                <DeleteButton onClick={() => deleteHandler(user.id)}>
+                  계정 삭제
+                </DeleteButton>
               </div>
             </MyInfoContainer>
           )}
@@ -218,6 +223,12 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
+
+  @media screen and (max-width: 375px) {
+    font-size: 25px;
+    text-indent: 10px;
+    margin: 5px 20px 10px 0px;
+  }
 `;
 
 const MyInfoContainer = styled(SectionBox)`
@@ -314,6 +325,38 @@ const MyInfoContainer = styled(SectionBox)`
     width: 400px;
     margin: 0 auto;
   }
+  @media screen and (max-width: 575px) {
+    .info_box {
+      max-width: 260px;
+      margin: 50px auto;
+    }
+
+    .info_container {
+      width: 100%;
+      height: 445px;
+    }
+    .btn_container {
+      width: 90%;
+      margin: 0 auto;
+
+      display: flex;
+      justify-content: center;
+    }
+    
+  }
+
+  @media screen and (max-width: 375px) {
+    .info_box {
+      max-width: 260px;
+      margin: 50px auto;
+    }
+
+    .info_container {
+      width: 100%;
+      height: 445px;
+    }
+    
+  }
 `;
 
 const EditButton = styled(LargeBtn)`
@@ -326,6 +369,15 @@ const EditButton = styled(LargeBtn)`
   font-weight: 500;
   font-family: "Noto Sans KR";
   cursor: pointer;
+  @media screen and (max-width: 575px) {
+    width: 120px;
+    height: 45px;
+  }
+  @media screen and (max-width: 375px) {
+    width: 120px;
+    height: 45px;
+    margin: 0 6px;
+  }
 `;
 
 const DeleteButton = styled(LargeBtn)`
@@ -339,6 +391,15 @@ const DeleteButton = styled(LargeBtn)`
   font-weight: 500;
   font-family: "Noto Sans KR";
   cursor: pointer;
+  @media screen and (max-width: 575px) {
+    width: 120px;
+    height: 45px;
+  }
+  @media screen and (max-width: 375px) {
+    width: 120px;
+    height: 45px;
+    margin: 0 6px;
+  }
 `;
 
 export default MyInfo;

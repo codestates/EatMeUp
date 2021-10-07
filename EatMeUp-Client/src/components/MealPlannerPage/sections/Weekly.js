@@ -8,11 +8,19 @@ import { MiddleBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
 import styled from "styled-components";
 
-
-const Weekly = ({ showWeekHandler, showMonthHandler }) => {
+const Weekly = ({ showWeekHandler, showMonthHandler, plans }) => {
   const [getMoment, setMoment] = useState(moment());
   const today = getMoment;
   const thisWeek = today.clone().startOf("week").week();
+
+  const dates = [];
+
+  plans.forEach((plan) => {
+    const date = "0" + plan.date.split("-").join("");
+    dates.push(date);
+  });
+
+  console.log(dates)
 
   const calendarArr = () => {
     let result = [];
@@ -27,52 +35,71 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
             .week(thisWeek)
             .startOf("week")
             .add(i, "day");
+          for (let i = 0; i < dates.length; i++) {
 
+            console.log(thisweekDays.format("YYYYYMMDD"))
+            if (thisweekDays.format("YYYYMMDD") === dates[i]) {
+              console.log("true")
+              return (
+                <WeekCell key={i}>
+                  <span>{thisweekDays.format("D")}</span>
+                  <div className='_week'>
+                    <MealCell>
+                      <span>아침</span>
+                      {plans[i].mealplanBreakfast.map((plan, idx) => {
+                        return <div key={idx}>{plan.title}</div>;
+                      })}
+                    </MealCell>
+                    <MealCell>
+                      <span>점심</span>
+                      {plans[i].mealplanLunch.map((plan, idx) => {
+                        return <div key={idx}>{plan.title}</div>;
+                      })}
+                    </MealCell>
+                    <MealCell>
+                      <span>저녁</span>
+                      {plans[i].mealplanDinner.map((plan, idx) => {
+                        return <div key={idx}>{plan.title}</div>;
+                      })}
+                    </MealCell>
+                  </div>
+                </WeekCell>
+              );
+            }
+          }
           // 달력에서 투데이날짜를 표시
           if (moment().format("YYYYMMDD") === thisweekDays.format("YYYYMMDD")) {
             return (
               <WeekCell key={i}>
-                
-                  <span>{thisweekDays.format("D")}</span>
-                  <div className='_week'>
-                    <MealCell >
-                      <span>아침</span>
-                      <div>꽃게된장국</div>
-                      <div>치킨까스*허니소스</div>
-                      <div>꽈리고추액젓무침</div>
-                      <div>우채청포묵무침</div>
-                    </MealCell>
-                    <MealCell >
-                      <span>점심</span>
-                      <div>꽃게된장국</div>
-                      <div>치킨까스*허니소스</div>
-                      <div>꽈리고추액젓무침</div>
-                      <div>우채청포묵무침</div>
-                      <div>꽃게된장국</div>
-                    </MealCell>
-                    <MealCell >
-                      <span>저녁</span>
-                      <div>꽃게된장국</div>
-                      <div>우채청포묵무침</div>
-                      <div>꽈리고추액젓무침</div>
-                      <div>치킨까스*허니소스</div>
-                      <div>꽃게된장국</div>
-                    </MealCell>
-                  </div>
-              
+                <span>{thisweekDays.format("D")}</span>
+                <div className='_week'>
+                  <MealCell>
+                    <span>아침</span>
+                  </MealCell>
+                  <MealCell>
+                    <span>점심</span>
+                  </MealCell>
+                  <MealCell>
+                    <span>저녁</span>
+                  </MealCell>
+                </div>
               </WeekCell>
             );
           } else {
             return (
               <WeekCell key={i}>
-               
-                  <span>{thisweekDays.format("D")}</span>
-                  <div className='_week'>
-                    <MealCell ><span>아침</span></MealCell>
-                    <MealCell ><span>점심</span></MealCell>
-                    <MealCell ><span>저녁</span></MealCell>
-                  </div>
-            
+                <span>{thisweekDays.format("D")}</span>
+                <div className='_week'>
+                  <MealCell>
+                    <span>아침</span>
+                  </MealCell>
+                  <MealCell>
+                    <span>점심</span>
+                  </MealCell>
+                  <MealCell>
+                    <span>저녁</span>
+                  </MealCell>
+                </div>
               </WeekCell>
             );
           }
@@ -106,7 +133,7 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
             id='left'
             onClick={() => setMoment(getMoment.clone().subtract(1, "week"))}
           >
-            <i class='fas fa-caret-left'></i>
+            <i className='fas fa-caret-left'></i>
           </LeftControl>
           <ThisMonth id='date'>{today.format("YYYY년 MM월")}</ThisMonth>
           <RightControl
@@ -115,7 +142,7 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
               setMoment(getMoment.clone().add(1, "week"));
             }}
           >
-            <i class='fas fa-caret-right'></i>
+            <i className='fas fa-caret-right'></i>
           </RightControl>
         </div>
         <div>
@@ -140,7 +167,9 @@ const Weekly = ({ showWeekHandler, showMonthHandler }) => {
               <THead>SAT</THead>
             </tr>
           </thead>
-          <Tbody>{calendarArr()}</Tbody>
+          <Tbody>
+            <tr>{calendarArr()}</tr>
+          </Tbody>
         </Table>
       </div>
     </>
@@ -210,7 +239,7 @@ const CalendarControls = styled.div`
 `;
 
 const Table = styled.table`
-   width: 93%;
+  width: 93%;
   border-spacing: 10px;
   margin: 0 auto;
   margin-bottom: 10px;
@@ -258,7 +287,5 @@ const MealCell = styled.div`
     margin-top: 4px;
   }
 `;
-
-
 
 export default Weekly;

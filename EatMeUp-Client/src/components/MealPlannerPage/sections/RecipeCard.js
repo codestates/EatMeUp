@@ -219,6 +219,12 @@ const ButtonArea = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: center;
+  
+
+
+  @media screen and (max-width: 375px){
+  
+  }
 `;
 
 const RecipesArea = styled.div`
@@ -227,6 +233,8 @@ const RecipesArea = styled.div`
   margin-top: 5px;
   overflow-y: auto;
 `;
+
+
 const ShowRecommands = styled.button`
   width: 45%;
   height: 40px;

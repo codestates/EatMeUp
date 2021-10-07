@@ -60,23 +60,15 @@ const ModalDialog = styled.div`
   .title {
     text-align: center;
   }
-`;
-
-const DropzoneArea = styled.div`
-  width: 150px;
-  height: 150px;
-  background-color: #eaeaea;
-  border-radius: 50%;
-  margin: 0 auto;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  .bxs-camera-plus {
-    font-size: 30px;
-    color: grey;
+  @media screen and (max-width: 575px) {
+    width: 90%;
+    height: fit-content;
+  }
+  @media screen and (max-width: 375px) {
+    width: 90%;
   }
 `;
+
 
 const FoodInfoBox = styled.div`
   width: 70%;
@@ -115,7 +107,6 @@ const AddToRefriBtn = styled.div`
 export {
   BackGroundModal,
   ModalDialog,
-  DropzoneArea,
   FoodInfoBox,
   AddToRefriBtn,
 };

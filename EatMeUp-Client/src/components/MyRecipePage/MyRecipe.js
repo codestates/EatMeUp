@@ -1,28 +1,32 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getMyrecipes } from '../../_actions/userActions'
 import { DELETE_MYRECIPE_RESET } from '../../_types/userTypes';
+import { clearErrors } from '../../_actions/userActions';
+import { logoutRequest } from '../../_actions/authActions'
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
 import Card from "./sections/Card";
 import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
-import EmptyState from "./sections/EmptyState";
+
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
+const { swal } = window;
 const MyRecipe = () => {
 
-  const { myrecipe } = useSelector(state => state.myrecipes);
+  const { myrecipe, error } = useSelector(state => state.myrecipes);
   const { isDeleted } = useSelector(state => state.myrecipe)
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     
@@ -31,8 +35,19 @@ const MyRecipe = () => {
     if(isDeleted) {
       dispatch({ type: DELETE_MYRECIPE_RESET })
     }
+
+    if(error) {
+      swal(
+        "Please!",
+        "로그인이 필요합니다.",
+        "warning",
+      );
+      dispatch(clearErrors())
+      dispatch(logoutRequest()) 
+      history.push('/')
+    }
     
-  }, [dispatch, isDeleted])
+  }, [dispatch, isDeleted, error, history])
 
   return (
     <>
@@ -73,6 +88,10 @@ const MyRecipe = () => {
 const ListContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
+
+  @media screen and (max-width: 1035px) {
+    width: 88%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -87,9 +106,15 @@ const TitleBox = styled.div`
   margin: 5px 20px 10px 20px;
   padding: 10px;
 
+
+  @media screen and (max-width: 575px) {
+    display: block;
+  }
+
   @media screen and (max-width: 375px) {
     display: block;
     font-size: 25px;
+    text-indent: 10px;
     margin: 0;
   }
 `;
@@ -103,14 +128,25 @@ const Button = styled(LargeBtn)`
     margin: 8px;
   }
 
+
+  @media screen and (max-width: 575px) {
+    display: block;
+    margin-right: 30px;
+    float: right;
+    margin-bottom: 5px;
+    a {
+      text-decoration: none;
+    }
+  }
+
   @media screen and (max-width: 375px) {
     display: block;
-    margin-right: 45px;
+    margin-right: 30px;
     font-size: 13px;
     width: 120px;
     height: 35px;
     float: right;
-
+    margin-bottom: 5px;
     a {
       text-decoration: none;
     }
@@ -140,14 +176,21 @@ const ListBox = styled.div`
   padding: 10px;
 }
 
-@media screen and (max-width: 800px) {
-  grid-template-columns: 1fr;
+@media screen and (max-width: 1034px) {
+  grid-template-columns: 1fr 1fr;
   gap: 15px;
   padding: 10px;
 }
 
+@media screen and (max-width: 550px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
 @media screen and (max-width: 375px) {
-    margin-top: 40px;
+    display: block;
+   
   }
 `;
 

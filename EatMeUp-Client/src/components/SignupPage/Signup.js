@@ -11,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 // 스타일 컴포넌트
 import { LargeBtn } from "../StyledComponent/buttons";
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
 const { swal } = window;
@@ -20,8 +20,10 @@ const Signup = ({ setShowSignup, setShowLogin }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { success, loading, error } = useSelector((state) => state.auth);
+  const { success,  error } = useSelector((state) => state.auth);
   const [alert, setAlert] = useState(false);
+
+
   const Timer = setTimeout(() => {
     setAlert(false);
   }, 2000);
@@ -56,8 +58,11 @@ const Signup = ({ setShowSignup, setShowLogin }) => {
       email: data.email,
       password: data.pwd,
     };
+    
     dispatch(signupRequest(signupData));
-    history.push("/login");
+    history.push("/");
+    setShowSignup(false)
+    setShowLogin(true)
   };
 
   const closeLoginModal = () => {

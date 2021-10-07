@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -10,14 +10,13 @@ import Daily from "./Daily";
 import { MiddleBtn } from "../../StyledComponent/buttons";
 import theme from "../../StyledComponent/theme";
 
-import { mealPlan } from "../../dummydata";
-
-function Calendar({ showWeekHandler, showMonthHandler, plans }) {
+function Calendar({ plans }) {
   // 달력 알고리즘 (moment.js를 이용한 달력만들기)
   const [getMoment, setMoment] = useState(moment());
   const [openDaily, setOpenDaily] = useState(false);
   const [getDate, setGetDate] = useState("");
   const [plan, setPlan] = useState("");
+  const [date, setDate] = useState([]);
 
   const openModalHandler = (date, plan) => {
     setOpenDaily(true);
@@ -25,11 +24,20 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
     setPlan(plan);
   };
 
-  const dates = plans.map((plan) => {
-    return plan.date.split("-").join("");
-  });
 
-  console.log(dates);
+  useEffect(() => {
+   const getDate = plans && plans.map((plan) => {
+
+      const dates = plan.date.split("-").join("");
+
+      return dates
+     
+    });
+
+    setDate(getDate)
+
+  }, [plans]);
+
   const today = getMoment;
 
   const firstWeek = today.clone().startOf("month").week();
@@ -53,8 +61,8 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
                 .week(week)
                 .startOf("week")
                 .add(index, "day");
-              for (let i = 0; i < dates.length; i++) {
-                if (days.format("YYYYMMDD") === dates[i]) {
+              for (let i = 0; i < date.length; i++) {
+                if (days.format("YYYYMMDD") === date[i]) {
                   return (
                     <HasPlanCell
                       key={index}
@@ -177,7 +185,7 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
           <LeftControl
             onClick={() => setMoment(getMoment.clone().subtract(1, "month"))}
           >
-            <i class='fas fa-caret-left'></i>
+            <i className='fas fa-caret-left'></i>
           </LeftControl>
           <ThisMonth>{today.format("YYYY년 MM월")}</ThisMonth>
           <RightControl
@@ -185,13 +193,8 @@ function Calendar({ showWeekHandler, showMonthHandler, plans }) {
               setMoment(getMoment.clone().add(1, "month"));
             }}
           >
-            <i class='fas fa-caret-right'></i>
+            <i className='fas fa-caret-right'></i>
           </RightControl>
-        </div>
-
-        <div>
-          <MonthBtn onClick={showMonthHandler}>Month</MonthBtn>
-          <WeekBtn onClick={showWeekHandler}>Week</WeekBtn>
         </div>
       </CalendarControls>
 
@@ -234,33 +237,41 @@ const CalendarBtn = styled(MiddleBtn)`
   span {
     color: #303030;
   }
+  @media screen and (max-width: 550px) {
+    width: 65px;
+    height: 34px;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 65px;
+    height: 30px;
+    font-size: 13px;
+    margin-top: 20px;
+    margin-right: 4px;
+    float: right;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 65px;
+    height: 30px;
+    font-size: 12px;
+    float: right;
+    margin-right: 4px;
+   
+  }
 `;
 
-const MonthBtn = styled.button`
-  width: 100px;
-  height: 45px;
-  border-radius: 30px 0px 0px 30px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-`;
-
-const WeekBtn = styled.button`
-  width: 100px;
-  height: 45px;
-  border-radius: 0px 30px 30px 0px;
-  border: none;
-  background-color: white;
-  border: 1px solid #eaeaea;
-  font-weight: bold;
-  cursor: pointer;
-`;
 
 const ThisMonth = styled.span`
   font-style: normal;
   font-weight: bold;
   font-size: 30px;
   color: #303030;
+
+
+  @media screen and (max-width: 550px) {
+    font-size: 24px;
+  }
 `;
 
 const LeftControl = styled.button`
@@ -269,6 +280,12 @@ const LeftControl = styled.button`
   font-size: 30px;
   margin-right: 8px;
   cursor: pointer;
+
+  @media screen and (max-width: 375px) {
+    font-size: 20px;
+    margin-right: 1px;
+    margin-left: 5px;
+  }
 `;
 
 const RightControl = styled.button`
@@ -277,14 +294,28 @@ const RightControl = styled.button`
   font-size: 30px;
   margin-left: 8px;
   cursor: pointer;
+  @media screen and (max-width: 375px) {
+    font-size: 20px;
+    margin-left: 1px;
+  }
 `;
 const CalendarControls = styled.div`
   width: 92%;
-  height: 150px;
+
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 0 auto;
+  margin: 10px auto;
+
+  @media screen and (max-width: 450px) {
+    width: 95%;
+    height: 55px;
+    flex-direction: column-reverse;
+
+  }
+
+
 `;
 
 const Table = styled.table`
@@ -292,6 +323,16 @@ const Table = styled.table`
   border-spacing: 10px;
   margin: 0 auto;
   margin-bottom: 10px;
+
+  @media screen and (max-width: 450px) {
+    border-spacing: 2px;
+    width: 95%;
+  }
+
+  @media screen and (max-width: 375px) {
+    border-spacing: 2px;
+    width: 95%;
+  }
 `;
 
 const THead = styled.td`
@@ -304,6 +345,19 @@ const THead = styled.td`
 
   .weekend {
     color: ${theme.colors.red};
+  }
+  @media screen and (max-width: 450px) {
+    width: 50px;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 10px;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 10px;
   }
 `;
 
@@ -331,6 +385,33 @@ const Cell = styled.td`
     top: 0;
     margin-top: 5px;
   }
+  @media screen and (max-width: 775px) {
+    width: 65px;
+    height: 126px;
+    border-radius: 5px;
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 40px;
+    height: 100px;
+    border-radius: 5px;
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
 `;
 
 const TodayCell = styled.td`
@@ -350,17 +431,44 @@ const TodayCell = styled.td`
   &:hover {
     border: 1px solid ${theme.colors.lightgrey};
   }
+  @media screen and (max-width: 775px) {
+    width: 40px;
+    height: 80px;
+    border-radius: 5px;
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 40px;
+    height: 100px;
+    border-radius: 5px;
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
+  }
 `;
 
 const HasPlanCell = styled.td`
   width: 100px;
   height: 120px;
-  border: 1px solid ${theme.colors.yellow};
+  border: 2px solid ${theme.colors.yellow};
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   text-align: center;
   position: relative;
-
+  border-spacing: 0;
   .day {
     position: absolute;
     top: 0;
@@ -369,6 +477,36 @@ const HasPlanCell = styled.td`
   }
   &:hover {
     border: 2px solid ${theme.colors.yellow};
+  }
+
+  @media screen and (max-width: 775px) {
+    width: 65px;
+    height: 126px;
+    border-radius: 5px;
+    border: 2px solid ${theme.colors.yellow};
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 40px;
+    height: 100px;
+    border-radius: 5px;
+    border: 1px solid ${theme.colors.yellow};
+
+    .day {
+      position: absolute;
+      top: 0;
+      left: 8px;
+      font-size: 10px;
+      font-weight: 500;
+    }
   }
 `;
 
@@ -388,12 +526,30 @@ const Img = styled.div`
     border-radius: 50%;
     object-fit: cover;
   }
+  @media screen and (max-width: 575px) {
+    width: 8px;
+    height: 8px;
+    margin: 3px;
+  }
+  @media screen and (max-width: 375px) {
+    width: 8px;
+    height: 8px;
+    margin: 3px;
+  }
 `;
 
 const Title = styled.div`
   margin-left: 7px;
   font-weight: 500;
   font-size: 12px;
+
+  @media screen and (max-width: 875px) {
+    display: none;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
 `;
 
 export default Calendar;
