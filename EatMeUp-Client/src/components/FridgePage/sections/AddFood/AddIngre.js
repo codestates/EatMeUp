@@ -90,8 +90,8 @@ const AddIngre = ({ setOpenAddWindow }) => {
                   <img
                     src={URL.createObjectURL(image)}
                     style={{
-                      width: "150px",
-                      height: "150px",
+                      width: "120px",
+                      height: "120px",
                       borderRadius: "50%",
                     }}
                     alt='foodimg'
@@ -99,13 +99,21 @@ const AddIngre = ({ setOpenAddWindow }) => {
                 </div>
               ) : (
                 <div>
-                  <i className='bx bxs-camera-plus'></i>
+                  <img
+                    src="../food_img/octopus.png"
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                    }}
+                    alt='foodimg'
+                  />
                 </div>
               )}
             </DropzoneArea>
             <InputBox>
               <label htmlFor='foodimg'>
-                <i className='fas fa-upload'></i> 이미지 업로드
+              <i className='bx bxs-camera-plus'></i>
               </label>
               <input
                 type='file'
@@ -118,19 +126,19 @@ const AddIngre = ({ setOpenAddWindow }) => {
             <FoodInfoBox>
               {/* 음식이름입력창 */}
               <div className='foodname-box'>
-                <span>음식이름 : </span>
                 <input
                   value={foodname}
                   onChange={(e) => setFoodname(e.currentTarget.value)}
                   type='text'
-                  placeholder='음식이름을 입력해주세요.'
+                  placeholder='음식이름'
                 />
               </div>
 
               {/* 유통기한 입력창 */}
               <div className='foodlife-box'>
-                <span>유통기한 : </span>
+                <label for="life">유통기한</label>
                 <input
+                  id="life"
                   type='date'
                   defaultValue={today}               
                   onChange={(e) => setFoodlife(e.currentTarget.value)}
@@ -142,7 +150,6 @@ const AddIngre = ({ setOpenAddWindow }) => {
                 fillColor='#FEBD2F'
                 width='200px'
                 height='35px'
-                color='white'
                 onClick={submitHandler}
               >
                 추가하기
@@ -156,21 +163,21 @@ const AddIngre = ({ setOpenAddWindow }) => {
 };
 
 const InputBox = styled.div`
-  margin: 15px 0px;
-  width: 100%;
+  
   display: flex;
   justify-content: center;
 
   label {
+    position: absolute;
+    top: 145px;
+    left: 205px;
     padding: 0.3em 0.5em;
     border-radius: 10px;
     height: 27px;
-    border: 1px solid lightgrey;
     cursor: pointer;
-    background-color: #f8f8f8;
-    font-size: 14px;
+    font-size: 30px;
     line-height: 27px;
-    color: grey;
+    color: lightgrey;
   }
 
   input[type="file"] {

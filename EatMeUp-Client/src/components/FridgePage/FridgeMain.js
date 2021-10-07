@@ -146,7 +146,7 @@ const FridgeMain = () => {
               </CheckedFoodsBox>
 
               <GotoBtnBox onClick={searchByFoodHandler}>
-                레시피 보기 <i className='fas fa-play'></i>
+                레시피 보기 <i className="fas fa-chevron-right"></i>
               </GotoBtnBox>
             </FoodBox>
           </SearchBox>
@@ -192,7 +192,7 @@ const SearchBox = styled.div`
   margin-top: 50px;
 
   @media screen and (max-width: 1500px) {
-    width: 80%;
+    width: 90%;
   }
   @media screen and (max-width: 1200px) {
     width: 80%;
@@ -275,7 +275,7 @@ const CheckedFoodsBox = styled.div`
   border: 2px solid #ebe9e5;
   border-radius: 30px 0px 0px 30px;
   padding-top: 5px;
-  margin-left: 5px;
+  margin-left: 8px;
 
   .fa-shopping-basket {
     margin-left: 20px;
@@ -315,7 +315,7 @@ const CheckedFoodsBox = styled.div`
 // 재료기반 레시피 찾기버튼
 const GotoBtnBox = styled.div`
   width: 13%;
-  height: 33px;
+  height: 32px;
   border-radius: 0px 30px 30px 0px;
   line-height: 33px;
   background: white;
@@ -326,6 +326,7 @@ const GotoBtnBox = styled.div`
   text-decoration: none;
   color: #303030;
   cursor: pointer;
+  border: 1px solid #ebe9e5;
 
   @media screen and (max-width: 1035px) {
     display: block;

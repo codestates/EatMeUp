@@ -28,7 +28,8 @@ const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
     <FridgeBtnBox>
       <FridgeBtns>
         <FridgeButton
-          fillColor={showEditBtn ? theme.colors.lightgrey : "#F4C050"}
+          fillColor={showEditBtn ? theme.colors.lightgrey : theme.colors.yellow}
+          color="white"
           onClick={openAddWindowHandler}
         >
           음식 추가
