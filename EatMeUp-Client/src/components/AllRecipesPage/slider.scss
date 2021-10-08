@@ -16,8 +16,8 @@
     border-radius: 30px;
   }
   @media screen and (max-width: 992px) {
-    max-width: 680px;
-    height: 400px;
+    width: 90%;
+    height: 300px;
   }
 
   @media screen and (max-width: 768px) {
@@ -89,9 +89,13 @@
       border-radius: 30px;
       transition: all 0.3s;
     }
+   
 
     @media screen and (max-width: 992px) {
       // width: 45%;
+      width: 280px;
+    flex-shrink: 0;
+    height: 300px;
     }
     @media screen and (max-width: 768px) {
       transform: translateY(-50%);
@@ -179,6 +183,11 @@
       border-radius: 30px;
       margin-right: 5px;
       margin-top: 5px;
+    }
+
+    @media screen and (max-width: 1500px) {
+      width: 80%;
+      border-radius: 30px;
     }
   }
 

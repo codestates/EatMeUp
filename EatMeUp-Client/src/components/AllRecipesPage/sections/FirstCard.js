@@ -148,6 +148,10 @@ const RecipeCard = styled.div`
   &:hover .show-user {
     animation: ${showBtn} 0.5s forwards;
   }
+
+  @media screen and (max-width: 1500px) {
+    display: none;
+    }
 `;
 
 const CardInfo = styled.div`

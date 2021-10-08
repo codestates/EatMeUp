@@ -157,6 +157,7 @@ const MyInfoContainer = styled(SectionBox)`
 
   @media screen and (max-width: 1035px) {
     width: 88%;
+    margin: 7% 0 1% 0;
   }
 `;
 
@@ -418,6 +419,7 @@ const RecipeContainer = styled.div`
   width: 70%;
   margin: 0px 20px 0px 10px;
   @media screen and (max-width: 1034px) {
+  
     width: 95%;
     margin: 10px auto;
   }

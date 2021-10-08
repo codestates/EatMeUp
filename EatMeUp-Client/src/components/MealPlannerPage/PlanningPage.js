@@ -193,6 +193,7 @@ const PlannerContainer = styled(SectionBox)`
 
   @media screen and (max-width: 1035px) {
     width: 88%;
+    margin: 7% 0 1% 0;
   }
 `;
 
@@ -321,10 +322,10 @@ const RecommandRecipesBox = styled.div`
   }
   @media screen and (max-width: 625px) {
     width: 95%;
-    max-width: 240px;
+    max-width: 300px;
     margin: 5px auto;
-    max-height: 250px;
-    overflow-x: scroll;
+    max-height: 350px;
+  
   }
   @media screen and (max-width: 375px) {
     min-width: 95%;

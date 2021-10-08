@@ -144,6 +144,7 @@ const TitleContainer = styled.div`
   @media screen and (max-width: 1500px) {
     padding: 10% 0 1% 0;
     margin-top: 60px;
+    width: 90%;
     margin: 0 auto;
 
     #octopus {
