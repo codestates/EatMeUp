@@ -78,7 +78,7 @@ const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
 
 const PlanCard = styled.div`
   text-align: center;
-  min-height: 400px;
+  height: 430px;;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;

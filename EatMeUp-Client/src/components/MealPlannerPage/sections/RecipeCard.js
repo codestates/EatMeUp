@@ -229,7 +229,7 @@ const ButtonArea = styled.div`
 
 const RecipesArea = styled.div`
   width: 100%;
-  height: 495px;
+  height: 90%;
   margin-top: 5px;
   overflow-y: auto;
 `;

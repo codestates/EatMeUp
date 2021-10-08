@@ -1,14 +1,14 @@
 
 
 .blog-slider {
-  width: 70%;
+  width: 740px;
   position: relative;
   background: #fff;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   padding: 25px;
-  margin: auto;
   border-radius: 30px;
-  height: 300px;
+  height: 280px;
+  margin-right: 10px;
   transition: all 0.3s;
 
   @media screen and (max-width: 1500px) {
@@ -62,9 +62,9 @@
 
   &__img {
     // width: 40%;
-    width: 350px;
+    width: 320px;
     flex-shrink: 0;
-    height: 320px;
+    height: 300px;
     border-radius: 30px;
     transform: translateX(-10px);
     overflow: hidden;
