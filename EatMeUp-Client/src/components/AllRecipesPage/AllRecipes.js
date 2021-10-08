@@ -192,6 +192,10 @@ const MainContainer = styled.div`
   justify-content: center;
   width: 80%;
   margin: 0 auto;
+
+  @media screen and (max-width: 900px) {
+    width: 95%;
+  }
 `;
 const Container = styled.div`
   width: 80%;
@@ -243,7 +247,8 @@ const Container = styled.div`
   }
 
   @media screen and (max-width: 550px) {
-    width: 95%;
+    
+    width: 70%;
     grid-template-columns: 1fr;
     gap: 15px;
   }
