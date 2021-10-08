@@ -423,7 +423,7 @@ const Material = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  margin-left: 10px;
+  margin-left: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;

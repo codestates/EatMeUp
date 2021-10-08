@@ -28,7 +28,6 @@ const FirstCard = ({ recipe }) => {
 
 
 
-  console.log(recipe)
 
   return (
     <div>
@@ -188,7 +187,7 @@ const CardRight = styled.div`
 
 const CardLeft = styled.div`
   .title {
-    font-size: 20px;
+    font-size: 18px;
     text-indent: 20px;
     margin-top: 5px;
     font-weight: 500;

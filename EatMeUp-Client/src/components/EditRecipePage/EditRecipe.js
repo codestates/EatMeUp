@@ -51,7 +51,7 @@ const EditRecipePage = ({ match }) => {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data);
+        
         if (response.data) {
           setMyrecipe(response.data.recipeInfo[0]);
           setSteps(response.data.recipeInfo[0].steps);
