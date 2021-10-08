@@ -151,7 +151,6 @@ const Header = () => {
       ) : (
         ""
       )}
-      )
     </>
   );
 };
@@ -313,8 +312,8 @@ const ResponseMenu = styled.div`
     background-color: white;
     width: 100%;
 
-    transition: all 0.2s;
-    animation: ${showM} 0.2s forwards;
+    transition: all 0.5s;
+    animation: ${showM} 0.5s forwards;
     opacity: 1;
 
     display: flex;
