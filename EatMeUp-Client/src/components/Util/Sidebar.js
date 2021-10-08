@@ -90,16 +90,17 @@ const MenuBtn = styled(XSmallBtn)`
   }
 
   .point {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: white;
     text-align: center;
-    margin-left: 5px;
+    margin-left: 3px;
+
     i {
-      margin: 8px;
+      margin: 9px 7px 9px 7px;
       color: black;
-      font-size: 14px;
+      font-size: 17px;
     }
   }
 

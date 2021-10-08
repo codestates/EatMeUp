@@ -186,16 +186,19 @@ const FridgeMain = () => {
 const SearchBox = styled.div`
   width: 70%;
   margin: 0px auto;
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   position: relative;
   padding: 7% 0 0 0;
-  @media screen and (max-width: 1500px) {
-    width: 90%;
-  }
-  @media screen and (max-width: 1200px) {
+
+
+
+  @media screen and (max-width:1500px) {
+    padding: 9% 0 0 0;
     width: 80%;
   }
+ 
 
   @media screen and (max-width: 1035px) {
     display: block;
@@ -365,9 +368,9 @@ const ContentBox = styled.div`
   width: 70%;
   margin: 2rem auto;
 
-  @media screen and (max-width: 1500px) {
-    width: 90%;
-  }
+ @media screen and (max-width: 1500px) {
+   width: 80%;
+ }
 
   @media screen and (max-width: 375px) {
     margin: 5px auto;

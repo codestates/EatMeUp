@@ -86,7 +86,7 @@ const NoResultBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   .box {
     width: 500px;
     height: 300px;
@@ -108,6 +108,7 @@ const NoResultBox = styled.div`
 `;
 
 const SearchBox = styled.div`
+  padding: 6% 0 0 0;
   width: 88%;
   margin: 0px auto;
   display: flex;
@@ -151,8 +152,13 @@ const SearchBox = styled.div`
 const FridgeTitle = styled.div`
   width: 15%;
   font-weight: bold;
-  font-size: 35px;
-  text-indent: 50px;
+  font-size:  30px;
+  text-indent: 80px;
+
+  @media screen and (max-width: 1500px) {
+    font-size: 25px;
+    text-indent: 50px;
+  }
 
   @media screen and (max-width: 1200px) {
     width: 15%;
@@ -186,7 +192,7 @@ const FoodBox = styled.div`
   display: flex;
   align-items: center;
 
-  a { 
+  a {
     text-decoration: none;
   }
   @media screen and (max-width: 1035px) {
