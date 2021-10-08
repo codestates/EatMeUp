@@ -12,7 +12,8 @@ import Card from "./sections/Card";
 import Footer from "../Util/Footer";
 import Loader from "../Util/Loader";
 import Slider from "./Slider";
-import FirstCard from "./sections/FirstCard";
+
+const { swal } = window;
 
 const AllRecipes = () => {
   // Todo
@@ -23,9 +24,16 @@ const AllRecipes = () => {
   );
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [page, setPage] = useState(1);
-  const [recipe, setRecipe] = useState(recipes[0]);
   const count = Math.ceil(recipeCount / 12);
 
+  useEffect(() => {
+    swal(
+      "Please",
+      "혹시 레시피 이미지가 안보이시나요? \n 사이트설정에서 안전하지않은 컨텐츠 허용을 해주세요 😃",
+      "success",
+    );
+  }, []);
+  
   useEffect(() => {
     const getPage = {
       page: page,
@@ -62,10 +70,6 @@ const AllRecipes = () => {
           </TitleContainer>
           <MainContainer>
             <Slider />
-            {/* {recipes &&
-              recipes.slice(0, 2).map((recipe, idx) => {
-                return <FirstCard recipe={recipe} key={idx} />;
-              })} */}
           </MainContainer>
 
           <SearchBox>
@@ -124,7 +128,7 @@ const TitleContainer = styled.div`
     position: absolute;
     z-index: 9999;
     top: 100px;
-    margin-left:50px;
+    margin-left: 50px;
   }
 
   .todays-pick {
@@ -172,8 +176,6 @@ const SearchBox = styled.div`
   .fa-concierge-bell {
     color: #a9a7a3;
   }
-
-
 `;
 
 const MainContainer = styled.div`

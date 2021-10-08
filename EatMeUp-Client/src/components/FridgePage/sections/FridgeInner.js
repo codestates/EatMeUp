@@ -202,7 +202,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                         <FoodBox
                           key={foodIdx}
                           onClick={handleClick({
-                            vertical: "top",
+                            vertical: "bottom",
                             horizontal: "center",
                             food: food,
                           })}
@@ -299,7 +299,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                         <FoodBox
                           key={foodIdx}
                           onClick={handleClick({
-                            vertical: "top",
+                            vertical: "bottom",
                             horizontal: "center",
                             food: food,
                           })}
