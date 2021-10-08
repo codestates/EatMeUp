@@ -168,7 +168,7 @@ function Calendar({ plans }) {
         <div>
           <Link to='/user/myplanner/create'>
             <CalendarBtn fillColor={theme.colors.lightgrey}>
-              <span>식단짜기</span>
+              <span>식단 만들기</span>
             </CalendarBtn>
           </Link>
           <CalendarBtn

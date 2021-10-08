@@ -113,7 +113,7 @@ const PlanningPage = () => {
             {/* 타이틀/날짜핸들러/달력보러가기버튼 영역 */}
             <TitleBox>
               <div>
-                <ThisMonth>식단짜기</ThisMonth>
+                <ThisMonth>식단 만들기</ThisMonth>
               </div>
               <div>
                 <ThisMonth>
@@ -159,9 +159,9 @@ const PlanningPage = () => {
                   <div className='emptybox'>
                     <Material>
                       <div className='food-img'>
-                        <img src='../../food_img/banana.jpeg' alt='food' />
+                        <img src='../../food_img/octopus.png' alt='food' />
                       </div>
-                      <div className='food-name'>당근</div>
+                      <div className='food-name'>문어</div>
                     </Material>
                     <div className="empty">
                       <i className='fas fa-hourglass-start'></i>서비스 준비중..

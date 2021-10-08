@@ -99,7 +99,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
 
   /* 위험버튼 핸들러 */
   const redFoodHandler = (idx) => {
-    console.log(typeof idx);
+   
     const redFood = foods.map((food) => {
       if (String(idx) === food.type) {
         const filtereditem = food.items.filter((item) => {
