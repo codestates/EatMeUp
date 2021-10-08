@@ -547,6 +547,7 @@ const Landing7 = styled.div`
   height: 700px;
   .end {
     font-size: 35px;
+    font-weight: 500;
     margin: 250px 0 0px 0;
   }
 `;
