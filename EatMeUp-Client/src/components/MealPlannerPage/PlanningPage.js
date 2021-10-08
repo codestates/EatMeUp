@@ -200,7 +200,7 @@ const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
+  width: 90%;
   height: 100px;
   margin: 0 auto;
   input {
@@ -291,7 +291,8 @@ const CalendarBtn = styled(MiddleBtn)`
 `;
 
 const MealPlaner = styled.div`
-  width: 100%;
+  width: 95%;
+  margin: auto;
   margin-bottom: 20px;
   display: flex;
 
@@ -312,7 +313,7 @@ const RecommandRecipesBox = styled.div`
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
   height: 650px;
-  margin: 0px 10px 0px 20px;
+  margin: 0px 15px 0px 20px;
 
   /* 반응형 css */
   @media screen and (max-width: 1300px) {
@@ -333,7 +334,7 @@ const RecommandRecipesBox = styled.div`
 `;
 
 const PlannerBox = styled.div`
-  width: 70%;
+  width: 65%;
   margin: 0px 20px 0px 10px;
 
   /* 반응형 css */
@@ -368,13 +369,13 @@ const IngredientBox = styled.div`
   width: 100%;
   height: 200px;
   margin: 0 auto;
+  margin-bottom: 10px;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
   position: relative;
 
   .title {
-    margin-top: 10px;
     text-indent: 20px;
     font-size: 20px;
     font-weight: 500;
