@@ -14,6 +14,8 @@ import Loader from "../Util/Loader";
 import Slider from "./Slider";
 import FirstCard from "./sections/FirstCard";
 
+const { swal } = window;
+
 const AllRecipes = () => {
   // Todo
 
@@ -23,10 +25,12 @@ const AllRecipes = () => {
   );
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [page, setPage] = useState(1);
-  const [recipe, setRecipe] = useState(recipes[0]);
   const count = Math.ceil(recipeCount / 12);
 
   useEffect(() => {
+
+    swal("Please", 
+    "혹시 레시피 이미지가 안보이시나요? \n 사이트설정에서 안전하지않은 컨텐츠 허용을 해주세요 😃", "success");
     const getPage = {
       page: page,
     };
