@@ -59,14 +59,6 @@ const AllRecipes = () => {
         <section>
           {/* 페이지 제목 */}
           <TitleContainer>
-            <div>
-              <img
-                src='../food_img/octopus.png'
-                alt='문어'
-                id='octopus'
-                style={{ width: "120px" }}
-              />
-            </div>
             <div className='todays-pick'>오늘의 레시피</div>
           </TitleContainer>
           <MainContainer>
@@ -129,34 +121,22 @@ const TitleContainer = styled.div`
   align-items: center;
   position: relative;
 
-  #octopus {
-    position: absolute;
-    z-index: 9999;
-    top: 100px;
-    margin-left: 50px;
-  }
 
   .todays-pick {
     font-size: 30px;
     font-weight: bold;
-    margin-left: 170px;
+  
   }
   @media screen and (max-width: 1500px) {
     padding: 10% 0 1% 0;
     margin-top: 60px;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
-
-    #octopus {
-      position: absolute;
-      z-index: 9999;
-      left: -80px;
-    }
 
     .todays-pick {
       font-size: 30px;
       font-weight: bold;
-      margin-left: 50px;
+   
     }
   }
 `;
@@ -192,6 +172,10 @@ const MainContainer = styled.div`
   justify-content: center;
   width: 80%;
   margin: 0 auto;
+
+  @media screen and (max-width: 900px) {
+    width: 95%;
+  }
 `;
 const Container = styled.div`
   width: 80%;
@@ -243,7 +227,7 @@ const Container = styled.div`
   }
 
   @media screen and (max-width: 550px) {
-    width: 95%;
+    width: 70%;
     grid-template-columns: 1fr;
     gap: 15px;
   }

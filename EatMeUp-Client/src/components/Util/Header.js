@@ -120,11 +120,10 @@ const Header = () => {
           )}
         </EatMeUpHeader>
       )}
-
-     
-        {showMenu ? isAuthenticated ? (
+      {showMenu ? (
+        isAuthenticated ? (
           <ResponseMenu onClick={menuHandler}>
-            <div className='menu right'>홈</div>
+            <div className='menu right top'>홈</div>
             <Link to='/recipes'>
               <div className='menu right'>모든레시피</div>
             </Link>
@@ -140,7 +139,7 @@ const Header = () => {
           </ResponseMenu>
         ) : (
           <ResponseMenu onClick={menuHandler}>
-            <div className='menu right'>홈</div>
+            <div className='menu right top'>홈</div>
             <div className='menu right' onClick={showLoginHandler}>
               로그인
             </div>
@@ -148,7 +147,10 @@ const Header = () => {
               회원가입
             </div>
           </ResponseMenu>
-        ) : ""}
+        )
+      ) : (
+        ""
+      )}
       )
     </>
   );
@@ -184,7 +186,7 @@ const EatMeUpHeader = styled.div`
   }
   .menu {
     font-weight: 500;
-  
+
     text-align: center;
     font-size: 17px;
     border-radius: 30px;
@@ -297,30 +299,28 @@ const Logout = styled.button`
 const showM = keyframes`
 
   from {
-    transform: translateX(200px);
+    transform: translateY(-200px);
     opacity: 0;
   }
   to {
-    transform: translateX(0px)
+    transform: translateY(0px)
     opacity: 1;
   }
 `;
 const ResponseMenu = styled.div`
   display: none;
   @media screen and (max-width: 875px) {
-    padding: 13% 0 0 0;
     background-color: white;
-    width: 200px;
-    position: absolute;
-    z-index: 9999;
-    right:0;
-    min-height: 100%;
+    width: 100%;
+
+    transition: all 0.2s;
+    animation: ${showM} 0.2s forwards;
+    opacity: 1;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: all 0.4s;
-    animation: ${showM} 1s forwards;
-    opacity: 1;
+
     a {
       color: #404040;
       text-decoration: none;
@@ -329,6 +329,10 @@ const ResponseMenu = styled.div`
       margin: 15px 0px 7.5px 0px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .top {
+      margin-top: 100px;
     }
   }
 `;
