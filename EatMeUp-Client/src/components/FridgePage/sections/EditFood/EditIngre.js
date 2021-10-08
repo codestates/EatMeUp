@@ -155,7 +155,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
             </FoodInfoBox>
             <AddToRefriBtn>
               <Button
-                width='130px'
+                width='120px'
                 height='35px'
                 fillColor={theme.colors.yellow}
                 onClick={deleteHandler}
@@ -163,7 +163,7 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                 삭제하기
               </Button>
               <Button
-                width='130px'
+                width='120px'
                 height='35px'
                 fillColor='white'
                 style={{ border: "1px solid #eaeaea"}}

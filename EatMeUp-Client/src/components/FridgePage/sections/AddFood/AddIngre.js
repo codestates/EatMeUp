@@ -130,7 +130,7 @@ const AddIngre = ({ setOpenAddWindow }) => {
                   value={foodname}
                   onChange={(e) => setFoodname(e.currentTarget.value)}
                   type='text'
-                  placeholder='음식이름'
+                  placeholder='재료명'
                 />
               </div>
 
@@ -147,8 +147,8 @@ const AddIngre = ({ setOpenAddWindow }) => {
             </FoodInfoBox>
             <AddToRefriBtn>
               <Button
-                fillColor='#FEBD2F'
-                width='200px'
+                fillColor='#eaeaea'
+                width='150px'
                 height='35px'
                 onClick={submitHandler}
               >

@@ -98,9 +98,9 @@ const MenuBtn = styled(XSmallBtn)`
     margin-left: 3px;
 
     i {
-      margin: 8px 7px 9px 7px;
+      margin: 9px 7px 9px 7px;
       color: black;
-      font-size: 20px;
+      font-size: 17px;
     }
   }
 
