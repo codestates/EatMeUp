@@ -32,7 +32,7 @@ const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
           color="white"
           onClick={openAddWindowHandler}
         >
-          음식 추가
+          재료 추가
         </FridgeButton>
       </FridgeBtns>
       <FridgeBtns>
@@ -40,7 +40,7 @@ const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
           fillColor="#ffffff"
           onClick={showEditBtnHandler}
         >
-          {showEditBtn ? "수정 완료" : "음식 수정"}
+          {showEditBtn ? "수정 완료" : "재료 수정"}
         </FridgeButton>
       </FridgeBtns>
 
