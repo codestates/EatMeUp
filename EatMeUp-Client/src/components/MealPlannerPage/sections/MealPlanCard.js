@@ -78,7 +78,7 @@ const MealPlanCard = ({ addToPlan, mealPlan, setMealPlan }) => {
 
 const PlanCard = styled.div`
   text-align: center;
-  min-height: 400px;
+  height: 430px;;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
@@ -91,7 +91,7 @@ const PlanCard = styled.div`
   }
   @media screen and (max-width: 1300px) {
     width: 95%;
-    min-height: 200px;
+    height: 200px;
     min-width:80%;
     max-width: 80%;
     overflow-x: scroll;
@@ -99,13 +99,13 @@ const PlanCard = styled.div`
   @media screen and (max-width: 657px) {
     margin: 5px auto;
     min-width: 97%;
-    max-height: 250px;
+    max-height: 200px;
     overflow-x: scroll;
   }
   @media screen and (max-width: 375px) {
     margin: 5px auto;
     min-width: 97%;
-    max-height: 250px;
+    max-height: 200px;
     overflow-x: scroll;
   }
 `;

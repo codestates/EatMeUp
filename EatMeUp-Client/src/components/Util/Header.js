@@ -120,11 +120,10 @@ const Header = () => {
           )}
         </EatMeUpHeader>
       )}
-
       {showMenu ? (
         isAuthenticated ? (
           <ResponseMenu onClick={menuHandler}>
-            <div className='menu right'>홈</div>
+            <div className='menu right top'>홈</div>
             <Link to='/recipes'>
               <div className='menu right'>모든레시피</div>
             </Link>
@@ -140,7 +139,7 @@ const Header = () => {
           </ResponseMenu>
         ) : (
           <ResponseMenu onClick={menuHandler}>
-            <div className='menu right'>홈</div>
+            <div className='menu right top'>홈</div>
             <div className='menu right' onClick={showLoginHandler}>
               로그인
             </div>
@@ -167,9 +166,9 @@ const EatMeUpHeader = styled.div`
   top: 0;
   left: 0;
   z-index: 99999;
+
   .logo {
     width: 160px;
-    /* font-family: Fredoka One; */
     font-size: 35px;
     text-indent: 30px;
   }
@@ -186,7 +185,7 @@ const EatMeUpHeader = styled.div`
   }
   .menu {
     font-weight: 500;
-  
+
     text-align: center;
     font-size: 17px;
     border-radius: 30px;
@@ -299,7 +298,7 @@ const Logout = styled.button`
 const showM = keyframes`
 
   from {
-    transform: translateY(-30px);
+    transform: translateY(-200px);
     opacity: 0;
   }
   to {
@@ -312,13 +311,15 @@ const ResponseMenu = styled.div`
   @media screen and (max-width: 875px) {
     background-color: white;
     width: 100%;
-    min-height: 150px;
+
+    transition: all 0.5s;
+    animation: ${showM} 0.5s forwards;
+    opacity: 1;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: all 0.4s;
-    animation: ${showM} 1s forwards;
-    opacity: 1;
+
     a {
       color: #404040;
       text-decoration: none;
@@ -327,6 +328,10 @@ const ResponseMenu = styled.div`
       margin: 15px 0px 7.5px 0px;
       font-weight: bold;
       cursor: pointer;
+    }
+
+    .top {
+      margin-top: 100px;
     }
   }
 `;

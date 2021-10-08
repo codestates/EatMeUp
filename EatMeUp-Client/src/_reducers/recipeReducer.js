@@ -51,7 +51,7 @@ export const recommandRecipeReducer = (state = { recipes: [] }, action) => {
       return {
         loading: false,
         recommandRecipes: action.payload.data,
-        food: action.payload.food,
+        food: action.payload.food.food,
       };
     case GET_RECOMMAND_FAIL:
       return {

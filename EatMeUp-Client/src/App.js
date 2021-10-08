@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import React from 'react-dom'
 
 /* auth */
-import LoginPage from "./components/LoginPage/Login";
-import SignupPage from "./components/SignupPage/Signup";
 import LandingPage from "./components/LandingPage/Landing";
 
 /* 모든 레시피 메인페이지 */

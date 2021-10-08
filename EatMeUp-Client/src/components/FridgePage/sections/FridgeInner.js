@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import Snackbar from "@mui/material/Snackbar";
-import { foodLife } from './utils/convertDate'
+import { foodLife } from "./utils/convertDate";
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";
@@ -81,7 +81,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
           if (foodLife(item.life) < 30 && foodLife(item.life) > 7) {
             return item;
           }
-          return ""
+          return "";
         });
         return {
           type: idx,
@@ -136,18 +136,16 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
   };
 
   const calculatorLife = (life) => {
-
-    if(Number(foodLife(life)) < 0) {
-      return Math.abs(foodLife(life))
+    if (Number(foodLife(life)) < 0) {
+      return Math.abs(foodLife(life));
     }
 
-    if(Number(foodLife(life)) === 0) {
-      return "day"
+    if (Number(foodLife(life)) === 0) {
+      return "day";
     }
 
-    return foodLife(life)
-    
-  }
+    return foodLife(life);
+  };
 
   return (
     <div>
@@ -204,7 +202,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                         <FoodBox
                           key={foodIdx}
                           onClick={handleClick({
-                            vertical: "top",
+                            vertical: "bottom",
                             horizontal: "center",
                             food: food,
                           })}
@@ -223,7 +221,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                                 src={
                                   food.food_image
                                     ? food.food_image
-                                    : "https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg"
+                                    : "../food_img/octopus.png"
                                 }
                                 alt='food'
                                 className='food_img'
@@ -247,11 +245,13 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                           {/* 유통기한 디데이표시 */}
                           <div className='foodlife_box'>
                             {Number(foodLife(food.life)) < 0 ? (
-                              <span className='red'>
+                              <span className='foodlife'>
                                 D+{calculatorLife(food.life)}
                               </span>
                             ) : (
-                              <span className='foodlife'>D-{calculatorLife(food.life)}</span>
+                              <span className='foodlife'>
+                                D-{calculatorLife(food.life)}
+                              </span>
                             )}
                           </div>
                         </FoodBox>
@@ -299,7 +299,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                         <FoodBox
                           key={foodIdx}
                           onClick={handleClick({
-                            vertical: "top",
+                            vertical: "bottom",
                             horizontal: "center",
                             food: food,
                           })}
@@ -318,7 +318,7 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                                 src={
                                   food.food_image
                                     ? food.food_image
-                                    : "https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg"
+                                    : "../food_img/octopus.png"
                                 }
                                 alt='food'
                                 className='food_img'
@@ -342,11 +342,13 @@ const FridgeInner = ({ foods, checkedFoods, setCheckedFoods }) => {
                           {/* 유통기한 디데이표시 */}
                           <div className='foodlife_box'>
                             {Number(foodLife(food.life)) < 0 ? (
-                              <span className='red'>
+                              <span className='foodlife'>
                                 D+{Math.abs(foodLife(food.life))}
                               </span>
                             ) : (
-                              <span className='foodlife'>D-{foodLife(food.life)}</span>
+                              <span className='foodlife'>
+                                D-{foodLife(food.life)}
+                              </span>
                             )}
                           </div>
                         </FoodBox>
@@ -382,13 +384,12 @@ const FridgeHeader = styled.div`
     }
   }
 
-
   @media screen and (max-width: 1227px) {
     width: 95%;
     margin: 10px;
 
     .type {
-     font-size: 20px;;
+      font-size: 20px;
     }
   }
 
@@ -397,7 +398,7 @@ const FridgeHeader = styled.div`
     margin: 10px;
 
     .type {
-     font-size: 17px;;
+      font-size: 17px;
     }
   }
 `;
@@ -431,7 +432,6 @@ const FridgeInnerBox = styled.div`
     width: 100%;
   }
 
-
   @media screen and (max-width: 1227px) {
     display: block;
     width: 100%;
@@ -443,17 +443,16 @@ const FridgeInnerBox = styled.div`
 `;
 
 const FoodContainer = styled.div`
-  width: calc(100%/3);
+  width: calc(100% / 3);
   min-height: 500px;
   border-radius: 20px;
   margin: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
 
-
   @media screen and (max-width: 1227px) {
     display: flex;
-    width: 90%;
+    width: 100%;
     flex-direction: column;
     margin: 5px auto;
     min-height: 250px;
@@ -523,7 +522,6 @@ width: 88%;
     object-fit: contain;
     border-radius: 50%;
     margin-left: 12px;
-    border: 1px solid ${theme.colors.lightgrey};
   }
 
   .name_box {
@@ -532,6 +530,7 @@ width: 88%;
 
   .date {
     font-size: 12px;
+    color: #a8a7a3;
   }
 
   .foodlife_box {
@@ -548,13 +547,7 @@ width: 88%;
     background-color: #eaeaea;
   }
 
-  .red {
-    padding: 8px 15px;
-    border-radius: 30px;
-    font-size: 15px;
-    background-color: #fe8f8f;
-    color: white;
-  }
+  
 }
 
 @media screen and (max-width: 1500px) {
@@ -595,7 +588,6 @@ width: 88%;
     object-fit: contain;
     border-radius: 50%;
     margin-left: 12px;
-    border: 1px solid ${theme.colors.lightgrey};
   }
 
   .name_box {
@@ -691,7 +683,7 @@ width: 88%;
       margin-top: 10px;
       object-fit: contain;
       border-radius: 50%;
-      border: 1px solid ${theme.colors.lightgrey};
+   
     }
 
     .name_box {

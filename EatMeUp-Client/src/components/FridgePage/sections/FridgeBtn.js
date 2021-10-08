@@ -28,10 +28,11 @@ const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
     <FridgeBtnBox>
       <FridgeBtns>
         <FridgeButton
-          fillColor={showEditBtn ? theme.colors.lightgrey : "#F4C050"}
+          fillColor={showEditBtn ? theme.colors.lightgrey : theme.colors.yellow}
+          color="white"
           onClick={openAddWindowHandler}
         >
-          음식 추가
+          재료 추가
         </FridgeButton>
       </FridgeBtns>
       <FridgeBtns>
@@ -39,7 +40,7 @@ const FridgeBtn = ({ showEditBtnHandler, showEditBtn }) => {
           fillColor="#ffffff"
           onClick={showEditBtnHandler}
         >
-          {showEditBtn ? "수정 완료" : "음식 수정"}
+          {showEditBtn ? "수정 완료" : "재료 수정"}
         </FridgeButton>
       </FridgeBtns>
 

@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
-const Card = ({ recipe }) => {
+const FirstCard = ({ recipe }) => {
   const recipeLevel = (level) => {
     if (level === "초보환영") {
       return <i className='bx bxs-star' id='icon'></i>;
@@ -26,9 +26,12 @@ const Card = ({ recipe }) => {
     }
   };
 
+
+
+
   return (
-    <>
-      <Link to={`/recipe/info/${recipe.id}`}>
+    <div>
+      <StyledLink to={`/recipe/info/${recipe.id}`}>
         <RecipeCard>
           <div className='show-user'>
             <ShowUser>
@@ -38,8 +41,8 @@ const Card = ({ recipe }) => {
                     src={recipe.user.avatar}
                     alt='people'
                     style={{
-                      width: "30px",
-                      height: "30px",
+                      width: "35px",
+                      height: "35px",
                       borderRadius: "50%",
                     }}
                   />
@@ -48,8 +51,8 @@ const Card = ({ recipe }) => {
                     src='../food_img/favicon.png'
                     alt='eatmeup'
                     style={{
-                      width: "30px",
-                      height: "30px",
+                      width: "35px",
+                      height: "35px",
                       borderRadius: "50%",
                     }}
                   />
@@ -98,10 +101,15 @@ const Card = ({ recipe }) => {
             </CardRight>
           </CardInfo>
         </RecipeCard>
-      </Link>
-    </>
+      </StyledLink>
+    </div>
   );
 };
+
+const StyledLink = styled.a`
+  text-decoration: none;
+  color: #404040;
+`
 
 const showBtn = keyframes`
   from{
@@ -113,19 +121,20 @@ const showBtn = keyframes`
 `;
 
 const RecipeCard = styled.div`
-  width: 100%;
-  margin: 20px auto;
+  width: 340px;
+  margin-right: 10px;
+  height: 330px;
   background-color: #ffffff;
-  display: inline-block;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
-  padding-bottom: 10px;
   position: relative;
   cursor: pointer;
 
+
+
   .recipeImgbox > img {
     width: 93%;
-    height: 220px;
+    height: 240px;
     border-radius: 30px;
     object-fit: cover;
     margin: 11.5px 11.5px 0px 11.5px;
@@ -139,6 +148,10 @@ const RecipeCard = styled.div`
   &:hover .show-user {
     animation: ${showBtn} 0.5s forwards;
   }
+
+  @media screen and (max-width: 1500px) {
+    display: none;
+    }
 `;
 
 const CardInfo = styled.div`
@@ -149,7 +162,7 @@ const CardInfo = styled.div`
 const CardRight = styled.div`
   margin-right: 13px;
   .cookingtime {
-    font-size: 13px;
+    font-size: 14px;
     text-indent: 5px;
     color: #a8a7a3;
     margin: 10px 10px 6px 0px;
@@ -165,7 +178,7 @@ const CardRight = styled.div`
 
   .bxs-star {
     color: #febd2f;
-    font-size: 20px;
+    font-size: 25px;
     text-indent: -8px;
     margin-right: 7px;
   }
@@ -178,14 +191,14 @@ const CardRight = styled.div`
 
 const CardLeft = styled.div`
   .title {
-    font-size: 17px;
+    font-size: 18px;
     text-indent: 20px;
     margin-top: 5px;
-     font-weight: 500;
+    font-weight: 500;
   }
 
   .materials {
-    font-size: 11px;
+    font-size: 13px;
     margin: 10px 0px 5px 17px;
   }
 
@@ -200,7 +213,7 @@ const CardLeft = styled.div`
 const ShowUser = styled.div`
   position: absolute;
   width: 93%;
-  height: 45px;
+  height: 50px;
   background-color: rgba(255, 255, 255, 0.8);
   margin: 11.5px 11.5px 0px 11.5px;
   border-radius: 30px 30px 0px 0px;
@@ -216,4 +229,5 @@ const ShowUser = styled.div`
     margin-left: 5px;
   }
 `;
-export default Card;
+
+export default FirstCard;

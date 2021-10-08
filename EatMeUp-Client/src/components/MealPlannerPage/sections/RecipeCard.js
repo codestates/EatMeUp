@@ -4,7 +4,7 @@ import Popover from "@mui/material/Popover";
 
 import theme from "../../StyledComponent/theme";
 
-const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
+const RecipeCards = ({ mylikelist, setAddToPlan, getRecommand }) => {
   const meal = ["아침추가", "점심추가", "저녁추가"];
 
   const [addToMealPlan, setAddToMealPlan] = useState({
@@ -17,7 +17,7 @@ const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
 
   const handleClick = (event, recipeId, image, title) => {
     setAnchorEl(event.currentTarget);
-    
+
     setAddToMealPlan({
       recipeId: recipeId,
       image: image,
@@ -119,12 +119,11 @@ const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
           좋아요 리스트
         </ShowLikelist>
       </ButtonArea>
-        
+
       {/* 추천된레시피를 보여주는 영역 */}
       <RecipesArea>
-      {currentId === 1
+        {currentId === 1
           ? getRecommand.map((recipe, idx) => {
-              
               return (
                 <RecipeCard key={idx}>
                   {/* 요리사진 */}
@@ -149,7 +148,12 @@ const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
                         <i
                           className='bx bx-plus-circle'
                           onClick={(e) =>
-                            handleClick(e, recipe.id, recipe.main_image, recipe.title)
+                            handleClick(
+                              e,
+                              recipe.id,
+                              recipe.main_image,
+                              recipe.title,
+                            )
                           }
                         ></i>
                       </div>
@@ -157,7 +161,7 @@ const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
                     <div className='DCbox-lower'>
                       <div>주재료</div>
                       <div className='tags'>
-                        {recipe.foods.slice(0,3).map((food, idx) => {
+                        {recipe.foods.slice(0, 3).map((food, idx) => {
                           return <span key={idx}>{food.name}</span>;
                         })}
                       </div>
@@ -166,7 +170,7 @@ const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
                 </RecipeCard>
               );
             })
-           : mylikelist.map((recipe, idx) => {
+          : mylikelist.map((recipe, idx) => {
               return (
                 <RecipeCard key={idx}>
                   {/* 요리사진 */}
@@ -191,7 +195,12 @@ const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
                         <i
                           className='bx bx-plus-circle'
                           onClick={(e) =>
-                            handleClick(e, recipe.id, recipe.main_image, recipe.title)
+                            handleClick(
+                              e,
+                              recipe.id,
+                              recipe.main_image,
+                              recipe.title,
+                            )
                           }
                         ></i>
                       </div>
@@ -209,7 +218,6 @@ const RecipeCards = ({ mylikelist,  setAddToPlan, getRecommand }) => {
               );
             })}
       </RecipesArea>
-      
     </>
   );
 };
@@ -219,21 +227,25 @@ const ButtonArea = styled.div`
   margin-top: 10px;
   display: flex;
   justify-content: center;
-  
+  @media screen and (max-width: 675px) {
+    margin-top: 20px;
+  }
 
-
-  @media screen and (max-width: 375px){
-  
+  @media screen and (max-width: 375px) {
   }
 `;
 
 const RecipesArea = styled.div`
   width: 100%;
-  height: 495px;
+  height: 90%;
   margin-top: 5px;
   overflow-y: auto;
+  @media screen and (max-width: 675px) {
+    max-height: 350px;
+  }
+  @media screen and (max-width: 375px) {
+  }
 `;
-
 
 const ShowRecommands = styled.button`
   width: 45%;

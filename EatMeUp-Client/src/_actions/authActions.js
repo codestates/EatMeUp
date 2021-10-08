@@ -72,7 +72,7 @@ export const guestLoginRequest = (guestInfo) => async (dispatch) => {
       guestInfo,
       { withCredentials: true },
     );
-    console.log(data);
+
 
     if (data.success) {
       localStorage.setItem("auth", true);
@@ -126,7 +126,7 @@ export const KakaoLoginRequest = (kakaoInfo) => async (dispatch) => {
       kakaoInfo,
       { withCredentials: true },
     );
-    console.log(data);
+ 
 
     if (data.success) {
       localStorage.setItem("auth", true);

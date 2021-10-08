@@ -39,7 +39,7 @@ const Card = ({ recipes }) => {
           <div className='recipe-info_box'>
             {/* 요리시간 */}
             <div className='time'>
-              <i className='far fa-clock'></i> 요리시간 20min
+              <i className='far fa-clock'></i> 20min
             </div>
 
             {/* 삭제버튼과 수정버튼 영역 */}
@@ -63,7 +63,7 @@ const Card = ({ recipes }) => {
           <div className='recipe-ingre_box'>
             <div className='ingres'>
               {recipe.foods.slice(0, 3).map((food, idx) => {
-                return <button key={idx}>#{food.name}</button>;
+                return <button key={idx}>{food.name}</button>;
               })}
             </div>
           </div>
@@ -77,37 +77,32 @@ const Recipes = styled.div`
   border: 1px solid #e6e8e6;
 
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
+  border-radius: 30px;
   display: inline-block;
   background-color: #ffffff;
   width: 95%;
-  height: 315px;
+  height: 308px;
   margin: 0;
-  margin-bottom: 30px;
+ 
 
   img {
-    width: 95%;
+    width: 93%;
     height: 200px;
-    border-radius: 20px;
+    border-radius: 30px;
     object-fit: cover;
-    margin: 10px 7px 0px 7px;
+    margin: 11.5px 11.5px 0px 11.5px;
   }
 
   .recipe-info_box {
     display: flex;
-    font-size: 12px;
+    font-size: 13px;
     color: #a9a7a3;
-    padding: 5px;
-    margin-left: 10px;
+    margin-left: 20px;
     width: 100%;
     justify-content: space-between;
   }
 
-  .fa-clock {
-    color: gray;
-    font-size: 12px;
-  }
-
+ 
   .title_box {
     text-indent: 5px;
     margin-left: 15px;
@@ -118,7 +113,7 @@ const Recipes = styled.div`
   .recipe-ingre_box {
     font-size: 14px;
     display: flex;
-    margin: 5px 0px 15px 10px;
+    margin: 5px 0px 5px 10px;
   }
 
   .ingre-label {
@@ -127,6 +122,7 @@ const Recipes = styled.div`
   }
 
   .ingres {
+    margin-left: 5px;
     margin-left: 5px;
   }
 
@@ -152,8 +148,8 @@ const Recipes = styled.div`
   }
 
   .fa-clock {
-    font-size: 12px;
-    margin: 0;
+    font-size: 13px;
+    margin-right: 5px;
   }
 
   @media screen and (max-width: 550px) {

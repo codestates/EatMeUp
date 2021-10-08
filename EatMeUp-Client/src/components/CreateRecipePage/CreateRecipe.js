@@ -319,7 +319,8 @@ const CreateRecipe = () => {
                 <DescriptionBox>
                   <DCBox>
                     {/* 레시피 제목 입력창 */}
-                    <div>
+                    <div className='title'>
+                      <label>Title</label>
                       <input
                         {...register("title", {
                           required: "레시피 제목을 입력해 주세요.",
@@ -331,7 +332,8 @@ const CreateRecipe = () => {
                     </div>
 
                     {/* 레시피 설명 입력창 */}
-                    <div>
+                    <div className='description'>
+                      <label>Description</label>
                       <textarea
                         {...register("description", {
                           required: "레시피에 대한 설명을 입력해 주세요",
@@ -352,9 +354,7 @@ const CreateRecipe = () => {
                       {mainImage ? (
                         <img src={URL.createObjectURL(mainImage)} alt='main' />
                       ) : (
-                        <div>
-                          요리 단계별 이미지를 업로드 해보세요.
-                        </div>
+                        <div>음식 사진을 업로드 해보세요.</div>
                       )}
                     </ImageBox>
                     <div className='input'>
@@ -591,6 +591,7 @@ const TitleBox = styled.div`
 const MainDCBox = styled(SectionBox)`
   width: 100%;
   margin: 10px auto;
+  padding: 10px 0px;
 
   .subtitle {
     text-indent: 20px;
@@ -604,7 +605,6 @@ const MainDCBox = styled(SectionBox)`
   }
   @media screen and (max-width: 775px) {
     display: block;
-  
   }
   @media screen and (max-width: 375px) {
     display: block;
@@ -641,12 +641,11 @@ const AddBtn = styled(LargeBtn)`
 
 /* description title box css */
 const DescriptionBox = styled.div`
-  width: 100%;
-  min-height: 400px;
-  margin: 0 auto;
-  margin-bottom: 8px;
+  width: 80%;
+  border: 2px dashed lightgrey;
+  margin: auto;
+  margin-bottom: 20px;
   display: flex;
-  justify-content: center;
 
   @media screen and (max-width: 775px) {
     display: flex;
@@ -660,19 +659,19 @@ const DescriptionBox = styled.div`
 `;
 
 const ImageArea = styled.div`
-  width: 45%;
+  width: 40%;
   position: relative;
-
+  margin: 0px 20px 10px 0px;
   label {
     cursor: pointer;
-      position: absolute;
-      top: 10px;
-      left: 0px;
-      font-size: 45px;
-      z-index: 999;
-      padding: 0 20px;
-      cursor: pointer;
-      color: grey;
+    position: absolute;
+    top: 20px;
+    left: 0px;
+    font-size: 45px;
+    z-index: 999;
+    padding: 0 20px;
+    cursor: pointer;
+    color: grey;
   }
 
   input[type="file"] {
@@ -692,8 +691,6 @@ const ImageArea = styled.div`
 
   .input {
     width: 100%;
-    margin-left: 14px;
-    margin-top: 37px;
   }
   @media screen and (max-width: 775px) {
     width: 95%;
@@ -751,12 +748,11 @@ const ImageArea = styled.div`
     div {
       margin: 0;
     }
-
   }
 `;
 const ImageBox = styled.div`
   width: 100%;
-  height: 70%;
+  height: 92%;
   border: 2px solid lightgrey;
   border-radius: 10px;
   display: flex;
@@ -768,12 +764,10 @@ const ImageBox = styled.div`
 
   img {
     width: 100%;
-    height: 300px;
     object-fit: cover;
     border-radius: 10px;
   }
   @media screen and (max-width: 775px) {
-    
     margin-left: 6px;
     height: 230px;
     img {
@@ -798,7 +792,7 @@ const ImageBox = styled.div`
 `;
 
 const DCBox = styled.div`
-  width: 50%;
+  width: 70%;
   height: 90%;
 
   display: flex;
@@ -806,12 +800,17 @@ const DCBox = styled.div`
   align-items: center;
   justify-content: center;
 
+  .description {
+    margin: 10px 0px;
+  }
+  label {
+    font-weight: bold;
+  }
   div {
     width: 90%;
   }
 
   input {
-    margin-top: 15px;
     width: 100%;
     height: 40px;
     border-radius: 10px;
@@ -822,7 +821,6 @@ const DCBox = styled.div`
   textarea {
     width: 100%;
     min-height: 220px;
-    margin-top: 10px;
     border-radius: 10px;
     border: 2px solid lightgrey;
     text-indent: 5px;
@@ -863,7 +861,7 @@ const DCBox = styled.div`
 
 /* cooking info */
 const CookInfomation = styled.div`
-  width: 90%;
+  width: 80%;
   display: flex;
   margin: 10px auto;
 
@@ -900,7 +898,7 @@ const Selector = styled.select`
 
 /* add ingredient */
 const AddIngredientBox = styled.div`
-  width: 90%;
+  width: 80%;
   min-height: 150px;
   margin: 10px auto;
   .cookinfo {
@@ -924,7 +922,7 @@ const AddIngredientBox = styled.div`
 `;
 
 const FlexContainer = styled.div`
-  width: 90%;
+  width: 80%;
   height: auto;
   display: flex;
   justify-content: flex-start;
@@ -988,7 +986,7 @@ const AddRecipeArea = styled.div`
 `;
 
 const AddRecipeBox = styled.div`
-  width: 95%;
+  width: 80%;
   margin: 0 auto;
   margin-top: 15px;
 
@@ -1000,7 +998,7 @@ const AddRecipeBox = styled.div`
   }
 
   .cook-recipe_box {
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
     border: 2px dashed lightgrey;
     min-height: 230px;
@@ -1008,7 +1006,7 @@ const AddRecipeBox = styled.div`
   }
 
   .recipeImg_box {
-    width: 50%;
+    width: 30%;
     height: 250px;
     border: 2px solid lightgrey;
     margin: 10px;

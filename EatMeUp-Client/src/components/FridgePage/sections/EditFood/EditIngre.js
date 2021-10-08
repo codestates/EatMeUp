@@ -17,10 +17,9 @@ import theme from "../../../StyledComponent/theme";
 const EditIngre = ({ setOpenEditWindow, food }) => {
   const dispatch = useDispatch();
 
-  const { id, food_name, food_image, life, createdAt, frez_type } = food;
-  const creatAt = createdAt.slice(0, 10);
-
-  const [foodname, setFoodname] = useState(food_name);
+  const { id, food_name, food_image, life, frez_type } = food;
+  
+  const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
   const [image, setImage] = useState(null);
 
@@ -64,7 +63,6 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
       foodImage = img.url.split("?")[0];
     }
 
-  
     const food = {
       food_name: foodname ? foodname : food_name,
       frez_type: frez_type,
@@ -96,8 +94,8 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                   src={URL.createObjectURL(image)}
                   alt='foodImg'
                   style={{
-                    width: "150px",
-                    height: "150px",
+                    width: "120px",
+                    height: "120px",
                     borderRadius: "50%",
                   }}
                 />
@@ -106,20 +104,26 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
                   src={food_image}
                   alt='foodImg'
                   style={{
-                    width: "150px",
-                    height: "150px",
+                    width: "120px",
+                    height: "120px",
                     borderRadius: "50%",
                   }}
                 />
               ) : (
-                <div>
-                  <i className='bx bxs-camera-plus'></i>
-                </div>
+                <img
+                src="../food_img/octopus.png"
+                alt='foodImg'
+                style={{
+                  width: "120px",
+                  height: "120px",
+                  borderRadius: "50%",
+                }}
+              />
               )}
             </DropzoneArea>
             <InputBox>
               <label htmlFor='foodimg'>
-                <i className='fas fa-upload'></i> 이미지 업로드
+                <i className='bx bxs-camera-plus'></i>
               </label>
               <input
                 type='file'
@@ -132,18 +136,16 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
             <FoodInfoBox>
               {/* 음식이름 입력창 */}
               <div className='foodname-box'>
-                <span>음식이름 : </span>
                 <input
                   type='text'
-
                   defaultValue={food_name}
-                  onChange={(e) => setFoodname(e.currentTarget.value)}
+                  onChange={(e) => setFoodname(e.target.value)}
                 />
               </div>
 
               {/* 유통기한 입력창 */}
               <div className='foodlife-box'>
-                <span>유통기한 : </span>
+                <label>유통기한 : </label>
                 <input
                   defaultValue={life}
                   type='date'
@@ -153,18 +155,18 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
             </FoodInfoBox>
             <AddToRefriBtn>
               <Button
-                width='130px'
+                width='120px'
                 height='35px'
                 fillColor={theme.colors.yellow}
-                color='white'
                 onClick={deleteHandler}
               >
                 삭제하기
               </Button>
               <Button
-                width='130px'
+                width='120px'
                 height='35px'
-                fillColor='lightgrey'
+                fillColor='white'
+                style={{ border: "1px solid #eaeaea"}}
                 onClick={submitHandler}
               >
                 수정하기
@@ -178,20 +180,19 @@ const EditIngre = ({ setOpenEditWindow, food }) => {
 };
 
 const InputBox = styled.div`
-  margin: 15px 0px;
-  width: 100%;
   display: flex;
   justify-content: center;
   label {
+    position: absolute;
+    top: 145px;
+    left: 205px;
     padding: 0.3em 0.5em;
     border-radius: 10px;
     height: 27px;
-    border: 1px solid lightgrey;
     cursor: pointer;
-    background-color: #f8f8f8;
-    font-size: 14px;
+    font-size: 30px;
     line-height: 27px;
-    color: grey;
+    color: lightgrey;
   }
 
   input[type="file"] {

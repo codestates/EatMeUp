@@ -203,7 +203,7 @@ const EditFridge = ({
                         src={
                           food.food_image
                             ? food.food_image
-                            : "https://i.pinimg.com/564x/a3/0e/52/a30e52be190e852a878670983753c066.jpg"
+                            : "../food_img/octopus.png"
                         }
                         alt='food'
                         draggable={false}
@@ -249,7 +249,7 @@ const EditFridge = ({
                       }
                     >
                       {Number(foodLife(food.life)) < 0 ? (
-                        <span className='red'>D+{calculatorLife(food.life)}</span>
+                        <span className='foodlife'>D+{calculatorLife(food.life)}</span>
                       ) : (
                         <span className='foodlife'>D-{calculatorLife(food.life)}</span>
                       )}
@@ -482,13 +482,6 @@ width: 88%;
     border-radius: 30px;
   }
 
-  .red {
-    padding: 8px 15px;
-    border-radius: 30px;
-    font-size: 15px;
-    background-color: #fe8f8f;
-    color: white;
-  }
 }
 
 @media screen and (max-width: 1500px) {
