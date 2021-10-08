@@ -81,7 +81,7 @@ const Recipes = styled.div`
   display: inline-block;
   background-color: #ffffff;
   width: 95%;
-  height: 315px;
+  height: 308px;
   margin: 0;
  
 

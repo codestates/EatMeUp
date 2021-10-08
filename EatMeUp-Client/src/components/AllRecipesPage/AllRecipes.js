@@ -12,6 +12,7 @@ import Card from "./sections/Card";
 import Footer from "../Util/Footer";
 import Loader from "../Util/Loader";
 import Slider from "./Slider";
+import FirstCard from "./sections/FirstCard";
 
 const { swal } = window;
 
@@ -26,14 +27,14 @@ const AllRecipes = () => {
   const [page, setPage] = useState(1);
   const count = Math.ceil(recipeCount / 12);
 
-  useEffect(() => {
-    swal(
-      "Please",
-      "혹시 레시피 이미지가 안보이시나요? \n 사이트설정에서 안전하지않은 컨텐츠 허용을 해주세요 😃",
-      "success",
-    );
-  }, []);
-  
+  // useEffect(() => {
+  //   swal(
+  //     "Please",
+  //     "혹시 레시피 이미지가 안보이시나요? \n 사이트설정에서 안전하지않은 컨텐츠 허용을 해주세요 😃",
+  //     "success",
+  //   );
+  // }, []);
+
   useEffect(() => {
     const getPage = {
       page: page,
@@ -70,10 +71,14 @@ const AllRecipes = () => {
           </TitleContainer>
           <MainContainer>
             <Slider />
+            {recipes &&
+              recipes.slice(0, 2).map((recipe, idx) => {
+                return <FirstCard recipe={recipe} key={idx} />;
+              })}
           </MainContainer>
 
           <SearchBox>
-            <div>
+            <div className='level-box'>
               <i className='fas fa-concierge-bell'></i>
               <span className='level'>난이도 :</span>
               <span>초보환영 </span>
@@ -160,6 +165,9 @@ const SearchBox = styled.div`
   margin: 5px auto;
   align-items: center;
 
+  .level-box {
+    margin-top: 15px;
+  }
   .bxs-star {
     color: #febd2f;
     font-size: 17px;
@@ -181,7 +189,7 @@ const SearchBox = styled.div`
 const MainContainer = styled.div`
   display: flex;
   justify-content: center;
-  width: 95%;
+  width: 80%;
   margin: 0 auto;
 `;
 const Container = styled.div`
@@ -246,7 +254,9 @@ const Container = styled.div`
 `;
 
 const PaginationBox = styled.div`
-  margin: 15px 30px;
+  width: 80%;
+
+  margin: 15px auto;
   display: flex;
   justify-content: flex-end;
   div {

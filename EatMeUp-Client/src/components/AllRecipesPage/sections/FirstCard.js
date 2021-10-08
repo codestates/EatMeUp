@@ -28,7 +28,6 @@ const FirstCard = ({ recipe }) => {
 
 
 
-  console.log(recipe)
 
   return (
     <div>
@@ -122,8 +121,9 @@ const showBtn = keyframes`
 `;
 
 const RecipeCard = styled.div`
-  width: 320px;
-  height: 350px;
+  width: 340px;
+  margin-right: 10px;
+  height: 330px;
   background-color: #ffffff;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 30px;
@@ -134,7 +134,7 @@ const RecipeCard = styled.div`
 
   .recipeImgbox > img {
     width: 93%;
-    height: 250px;
+    height: 240px;
     border-radius: 30px;
     object-fit: cover;
     margin: 11.5px 11.5px 0px 11.5px;
@@ -187,7 +187,7 @@ const CardRight = styled.div`
 
 const CardLeft = styled.div`
   .title {
-    font-size: 20px;
+    font-size: 18px;
     text-indent: 20px;
     margin-top: 5px;
     font-weight: 500;

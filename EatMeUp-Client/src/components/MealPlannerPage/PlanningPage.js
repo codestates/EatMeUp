@@ -69,6 +69,8 @@ const PlanningPage = () => {
       });
   }, [foods]);
 
+  const today = new Date().toISOString().substring(0, 10)
+
   const addMealplanHandler = () => {
     if (date === "") {
       alert("날짜를 추가해주세요.");
@@ -117,7 +119,7 @@ const PlanningPage = () => {
                 <ThisMonth>
                   <input
                     type='date'
-                    value={date}
+                    defaultValue={today}
                     onChange={(e) => setDate(e.target.value)}
                   />
                 </ThisMonth>
@@ -155,7 +157,13 @@ const PlanningPage = () => {
                 <IngredientBox>
                   <div className='title'>사야할 재료</div>
                   <div className='emptybox'>
-                    <div>
+                    <Material>
+                      <div className='food-img'>
+                        <img src='../../food_img/banana.jpeg' alt='food' />
+                      </div>
+                      <div className='food-name'>당근</div>
+                    </Material>
+                    <div className="empty">
                       <i className='fas fa-hourglass-start'></i>서비스 준비중..
                     </div>
                   </div>
@@ -238,11 +246,16 @@ const ThisMonth = styled.span`
   font-size: 30px;
   color: #303030;
 
-   /* 반응형 css */
-   @media screen and (max-width: 725px) {
+  input {
+    width: 100%;
+    font-size: 30px;
+    font-family: "Noto Sans KR", sans-serif;
+  }
+  /* 반응형 css */
+  @media screen and (max-width: 725px) {
     font-size: 18px;
   }
-   @media screen and (max-width: 625px) {
+  @media screen and (max-width: 625px) {
     font-size: 18px;
   }
   @media screen and (max-width: 375px) {
@@ -261,22 +274,19 @@ const CalendarBtn = styled(MiddleBtn)`
     border: 2px solid ${theme.colors.lightgrey};
   }
 
-   /* 반응형 css */
+  /* 반응형 css */
 
-   @media screen and (max-width: 725px) {
-   width: 120px;
-   height: 30px;
- 
+  @media screen and (max-width: 725px) {
+    width: 120px;
+    height: 30px;
   }
-   @media screen and (max-width: 625px) {
-   width: 120px;
-   height: 30px;
- 
+  @media screen and (max-width: 625px) {
+    width: 120px;
+    height: 30px;
   }
   @media screen and (max-width: 375px) {
-   width: 120px;
-   height: 30px;
- 
+    width: 120px;
+    height: 30px;
   }
 `;
 
@@ -301,11 +311,11 @@ const RecommandRecipesBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  height: 560px;
+  height: 650px;
   margin: 0px 10px 0px 20px;
 
-   /* 반응형 css */
-   @media screen and (max-width: 1300px) {
+  /* 반응형 css */
+  @media screen and (max-width: 1300px) {
     min-width: 300px;
   }
   @media screen and (max-width: 625px) {
@@ -326,9 +336,9 @@ const PlannerBox = styled.div`
   width: 70%;
   margin: 0px 20px 0px 10px;
 
-   /* 반응형 css */
+  /* 반응형 css */
 
-   @media screen and (max-width: 625px) {
+  @media screen and (max-width: 625px) {
     width: 95%;
     /* max-width: 260px; */
     margin: 5px auto;
@@ -356,15 +366,16 @@ const rotate = keyframes`
 
 const IngredientBox = styled.div`
   width: 100%;
-  height: 150px;
+  height: 200px;
   margin: 0 auto;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
+  position: relative;
 
   .title {
     margin-top: 10px;
-    text-indent: 15px;
+    text-indent: 20px;
     font-size: 20px;
     font-weight: 500;
     padding-top: 10px;
@@ -372,7 +383,6 @@ const IngredientBox = styled.div`
 
   .emptybox {
     display: flex;
-    justify-content: center;
     margin-top: 20px;
     font-size: 20px;
     color: grey;
@@ -383,12 +393,53 @@ const IngredientBox = styled.div`
     animation: ${rotate} 2s infinite;
   }
 
-   /* 반응형 css */
-   @media screen and (max-width: 1300px) {
+  .empty {
+    margin: 10px auto;
+    color: grey;
+    z-index: 10;
+  }
+
+  /* &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+  } */
+
+  /* 반응형 css */
+  @media screen and (max-width: 1300px) {
     display: none;
   }
   @media screen and (max-width: 375px) {
     display: none;
+  }
+`;
+
+const Material = styled.div`
+  width: 100px;
+  height: 130px;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .food-img {
+    margin-top: 15px;
+    img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+    }
+  }
+
+  .food-name {
+    font-size: 16px;
+    font-weight: 500;
   }
 `;
 
@@ -398,15 +449,14 @@ const MealPlanCardBox = styled.div`
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
 
-   /* 반응형 css */
-   @media screen and (max-width: 1300px) {
+  /* 반응형 css */
+  @media screen and (max-width: 1300px) {
     display: block;
   }
 
   @media screen and (max-width: 625px) {
     display: block;
     width: 100%;
-
   }
 
   @media screen and (max-width: 375px) {
