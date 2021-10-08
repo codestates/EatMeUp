@@ -234,6 +234,7 @@ const TitleBox = styled.div`
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
+  margin: 7% 0 1% 0;
   .info_container {
     width: 100%;
     height: 485px;

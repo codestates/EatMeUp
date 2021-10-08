@@ -121,8 +121,8 @@ const Header = () => {
         </EatMeUpHeader>
       )}
 
-      {showMenu ? (
-        isAuthenticated ? (
+     
+        {showMenu ? isAuthenticated ? (
           <ResponseMenu onClick={menuHandler}>
             <div className='menu right'>홈</div>
             <Link to='/recipes'>
@@ -148,10 +148,8 @@ const Header = () => {
               회원가입
             </div>
           </ResponseMenu>
-        )
-      ) : (
-        ""
-      )}
+        ) : ""}
+      )
     </>
   );
 };
@@ -167,9 +165,9 @@ const EatMeUpHeader = styled.div`
   top: 0;
   left: 0;
   z-index: 99999;
+
   .logo {
     width: 160px;
-    /* font-family: Fredoka One; */
     font-size: 35px;
     text-indent: 30px;
   }
@@ -299,20 +297,24 @@ const Logout = styled.button`
 const showM = keyframes`
 
   from {
-    transform: translateY(-30px);
+    transform: translateX(200px);
     opacity: 0;
   }
   to {
-    transform: translateY(0px)
+    transform: translateX(0px)
     opacity: 1;
   }
 `;
 const ResponseMenu = styled.div`
   display: none;
   @media screen and (max-width: 875px) {
+    padding: 13% 0 0 0;
     background-color: white;
-    width: 100%;
-    min-height: 150px;
+    width: 200px;
+    position: absolute;
+    z-index: 9999;
+    right:0;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

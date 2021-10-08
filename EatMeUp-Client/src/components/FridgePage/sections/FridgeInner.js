@@ -452,7 +452,7 @@ const FoodContainer = styled.div`
 
   @media screen and (max-width: 1227px) {
     display: flex;
-    width: 90%;
+    width: 100%;
     flex-direction: column;
     margin: 5px auto;
     min-height: 250px;

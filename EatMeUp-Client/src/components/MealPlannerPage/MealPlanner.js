@@ -71,6 +71,7 @@ const CalendarContainer = styled(SectionBox)`
 
   @media screen and (max-width: 1035px) {
     width: 88%;
+    margin: 7% 0 1% 0;
    
   }
 
