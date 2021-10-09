@@ -383,9 +383,14 @@ const Level = styled.div`
 const DescriptionBox = styled.div`
   color: #6f6f6f;
   margin: 5px auto;
+  box-sizing: border-box;
+  max-width: 80%;
   .description {
     border-bottom: 2px solid ${theme.colors.lightgrey};
+    box-sizing: border-box;
+    width: 100%;
     padding: 10px 5px;
+    text-align: center;
   }
 `;
 
