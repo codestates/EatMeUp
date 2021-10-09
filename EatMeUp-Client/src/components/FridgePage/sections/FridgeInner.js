@@ -462,7 +462,7 @@ const FoodContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 350px;
-    margin: 5px;
+    margin: 5px auto;
     min-height: 250px;
   }
 `;

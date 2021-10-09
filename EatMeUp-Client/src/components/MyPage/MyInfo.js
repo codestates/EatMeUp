@@ -234,7 +234,7 @@ const TitleBox = styled.div`
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
-  margin: 7% 0 1% 0;
+
   .info_container {
     width: 100%;
     height: 485px;
@@ -327,6 +327,8 @@ const MyInfoContainer = styled(SectionBox)`
     margin: 0 auto;
   }
   @media screen and (max-width: 575px) {
+
+    margin: 7% 0 1% 0;
     .info_box {
       max-width: 260px;
       margin: 50px auto;
@@ -347,6 +349,12 @@ const MyInfoContainer = styled(SectionBox)`
   }
 
   @media screen and (max-width: 375px) {
+
+
+    width: 95%;
+    margin: auto;
+    margin: 70px 7px;
+
     .info_box {
       max-width: 260px;
       margin: 50px auto;

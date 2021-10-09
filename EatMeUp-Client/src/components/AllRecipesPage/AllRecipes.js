@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import Snackbar from "@mui/material/Snackbar";
 import { useDispatch, useSelector } from "react-redux";
 import { allRecipes } from "../../_actions/recipeActions";
 import { getUserinfo } from "../../_actions/userActions";
-import MuiAlert from "@mui/material/Alert";
+import Alert from "@mui/material/Alert";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -16,11 +15,6 @@ import Loader from "../Util/Loader";
 import Slider from "./Slider";
 import FirstCard from "./sections/FirstCard";
 
-const { swal } = window;
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant='filled' {...props} />;
-});
 
 const AllRecipes = () => {
   // Todo
@@ -33,36 +27,7 @@ const AllRecipes = () => {
   const [page, setPage] = useState(1);
   const count = Math.ceil(recipeCount / 12);
 
-  const [state, setState] = useState({
-    open: false,
-    vertical: "bottom",
-    horizontal: "center",
-  });
-
-  const { vertical, horizontal, open } = state;
-
-  const handleClick = (newState) => () => {
-    /* 이미 추가된 재료인지 파악하기 위한 조건문  */
-
-    setTimeout(() => {
-      setState({ ...state, open: false });
-    }, 2000);
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      <Alert severity='success'>This is a success alert — check it out!</Alert>;
-    }, 2000);
-    //   <Snackbar>
-    //      <Alert severity="success">This is a success alert — check it out!</Alert>
-    //     {/* 이미추가된 재료를 판별하여 다르게 메세지를 보여줌 */}
-    //     {/* {alreadyHas ? (
-    //   <Alert severity='warning'>이미 추가된 재료 입니다.</Alert>
-    // ) : (
-    //   <Alert severity='success'> 재료가 추가되었습니다.</Alert>
-    // )} */}
-    //   </Snackbar>
-  }, []);
+  
 
   useEffect(() => {
     const getPage = {
@@ -97,14 +62,14 @@ const AllRecipes = () => {
           <MainContainer>
             <Slider />
             {recipes &&
-              recipes.slice(0, 2).map((recipe, idx) => {
+              recipes.slice(5, 7).map((recipe, idx) => {
                 return <FirstCard recipe={recipe} key={idx} />;
               })}
           </MainContainer>
           <Stack sx={{ width: "80%", margin: "10px auto", backgroundColor: "white" }} spacing={2}>
             
             <Alert variant="outlined" severity="error">공지사항 👉 레시피 사진이 안 나올시에 
-            <button onClick={() => window.open('https://google.com')} style={{ color: "#531f21" , border: "none", background: "none", fontWeight: "bold", cursor: "pointer"}}>여기를 클릭해 주세요</button> </Alert>
+            <button onClick={() => window.open('https://crawling-healer-570.notion.site/HTTP-07d3f56af26e4d6baf7fd4e16e77c3d7')} style={{ color: "#531f21" , border: "none", background: "none", fontWeight: "bold", cursor: "pointer"}}>여기를 클릭해 주세요</button> </Alert>
             
           </Stack>
           <SearchBox>
@@ -171,6 +136,14 @@ const TitleContainer = styled.div`
     .todays-pick {
       font-size: 30px;
       font-weight: bold;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+   
+
+    .todays-pick {
+      opacity: 0;
     }
   }
 `;

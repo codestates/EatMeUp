@@ -69,7 +69,7 @@ const PlanningPage = () => {
       });
   }, [foods]);
 
-  const today = new Date().toISOString().substring(0, 10)
+  const today = new Date().toISOString().substring(0, 10);
 
   const addMealplanHandler = () => {
     if (date === "") {
@@ -163,7 +163,7 @@ const PlanningPage = () => {
                       </div>
                       <div className='food-name'>문어</div>
                     </Material>
-                    <div className="empty">
+                    <div className='empty'>
                       <i className='fas fa-hourglass-start'></i>서비스 준비중..
                     </div>
                   </div>
@@ -194,6 +194,12 @@ const PlannerContainer = styled(SectionBox)`
   @media screen and (max-width: 1035px) {
     width: 88%;
     margin: 7% 0 1% 0;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+    margin: 70px 7px;
   }
 `;
 
@@ -232,7 +238,10 @@ const TitleBox = styled.div`
   @media screen and (max-width: 375px) {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     margin-top: 10px;
+    margin-left: 20px;
 
     input {
       font-size: 15px;
@@ -325,12 +334,11 @@ const RecommandRecipesBox = styled.div`
     max-width: 300px;
     margin: 5px auto;
     max-height: 350px;
-  
   }
   @media screen and (max-width: 375px) {
     min-width: 95%;
     margin: 5px auto;
-    max-height: 250px;
+    overflow: hidden;
   }
 `;
 

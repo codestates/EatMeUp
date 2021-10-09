@@ -147,6 +147,7 @@ const FridgeMain = () => {
 
               <GotoBtnBox onClick={searchByFoodHandler}>
                 레시피 보기 <i className="fas fa-chevron-right"></i>
+               
               </GotoBtnBox>
             </FoodBox>
           </SearchBox>
@@ -248,14 +249,17 @@ const FridgeTitle = styled.div`
 
   @media screen and (max-width: 575px) {
     display: block;
+    opacity: 0;
   }
 
   @media screen and (max-width: 450px) {
     display: block;
+    opacity: 0;
   }
 
   @media screen and (max-width: 375px) {
-    display: block;
+   
+    opacity: 0;
   }
 `;
 
@@ -311,6 +315,7 @@ const CheckedFoodsBox = styled.div`
   @media screen and (max-width: 375px) {
     display: block;
     width: 90%;
+    overflow-x: scroll;
   }
 `;
 
@@ -332,24 +337,17 @@ const GotoBtnBox = styled.div`
 
   @media screen and (max-width: 1035px) {
     display: block;
-    .fa-play {
-      display: none;
-    }
+    
   }
 
   @media screen and (max-width: 775px) {
     font-size: 13px;
 
-    .fa-play {
-      display: none;
-    }
   }
 
   @media screen and (max-width: 575px) {
     width: 20%;
-    .fa-play {
-      display: none;
-    }
+   
   }
 
   @media screen and (max-width: 450px) {
@@ -358,8 +356,17 @@ const GotoBtnBox = styled.div`
   }
 
   @media screen and (max-width: 375px) {
+    background: none;
+    border-top: 2px solid #ebe9e5;
+    border-right: 2px solid #ebe9e5;
+    border-bottom: 2px solid #ebe9e5;
+    border-left: none;
+    height: 30px;
+    color:grey;
+    .fa-chevron-right {
+      display: none;
 
-
+    }
   }
 `;
 
@@ -375,6 +382,7 @@ const ContentBox = styled.div`
   @media screen and (max-width: 375px) {
     margin: 5px auto;
     width: 95%;
+    
   }
 `;
 

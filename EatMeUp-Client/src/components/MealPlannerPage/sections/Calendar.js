@@ -252,7 +252,7 @@ const CalendarBtn = styled(MiddleBtn)`
   }
 
   @media screen and (max-width: 375px) {
-    width: 65px;
+    width: 70px;
     height: 30px;
     font-size: 12px;
     float: right;

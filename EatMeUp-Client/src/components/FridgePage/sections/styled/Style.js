@@ -80,7 +80,7 @@ const FoodInfoBox = styled.div`
     margin: 0 auto;
     display: flex;
     margin-bottom: 10px;
-    
+
     input {
       font-size: 23px;
       font-weight: 500;
@@ -88,7 +88,6 @@ const FoodInfoBox = styled.div`
   }
 
   .foodlife-box {
-    
     label {
       font-size: 17px;
       color: #a8a7a3;
@@ -123,6 +122,18 @@ const FoodInfoBox = styled.div`
   .buydate-box > input {
     width: 200px;
     height: 30px;
+  }
+
+  @media screen and (max-width: 375px) {
+  
+    .foodlife-box {
+      label {
+        font-size: 17px;
+        color: #a8a7a3;
+        margin-left: 20px;
+        font-weight: 500;
+      }
+    }
   }
 `;
 

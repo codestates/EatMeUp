@@ -536,6 +536,12 @@ const CreateRecipe = () => {
 
 const BoxContainer = styled.div`
   width: 77%;
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+    margin: 70px 7px;
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -653,6 +659,7 @@ const DescriptionBox = styled.div`
   }
 
   @media screen and (max-width: 375px) {
+    width: 95%;
     display: flex;
     flex-direction: column-reverse;
   }
@@ -894,6 +901,11 @@ const Selector = styled.select`
   margin-left: 10px;
   outline: none;
   border: 2px solid lightgrey;
+  @media screen and (max-width: 375px) {
+    
+    width: 80%;
+    margin: 5px auto;
+  }
 `;
 
 /* add ingredient */
@@ -974,7 +986,7 @@ const TagContainer = styled.div`
     width: 260px;
   }
   @media screen and (max-width: 375px) {
-    width: 260px;
+    width: 300px;
   }
 `;
 
@@ -1145,7 +1157,7 @@ const AddRecipeBox = styled.div`
     .fa-times {
       position: absolute;
       top: 30px;
-      left: 230px;
+      left: 290px;
       z-index: 99999;
     }
 
