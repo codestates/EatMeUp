@@ -75,9 +75,12 @@ const CalendarContainer = styled(SectionBox)`
    
   }
 
-  @media screen and (max-width: 375px) {
-    
+  @media screen and (max-width: 375px) {   @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+    margin: 70px 7px;
   }
+  
 `;
 
 const TitleBox = styled.div`

@@ -58,7 +58,7 @@ const MyLikelist = () => {
           <ListContainer>
             {/* 좋아요한 레시피 리스트 페이지 타이틀 */}
             <TitleBox>
-              <div className='title'>My Favorite Recipes</div>
+              <div className='title'>Liked Recipes</div>
             </TitleBox>
 
             {/* 좋아요한 레시피들 */}
@@ -82,6 +82,12 @@ const ListContainer = styled(SectionBox)`
   @media screen and (max-width: 1035px) {
     width: 88%;
     margin: 7% 0 1% 0;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+    margin: 70px 7px;
   }
 `;
 

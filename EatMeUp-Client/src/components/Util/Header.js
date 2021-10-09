@@ -275,6 +275,17 @@ const Hamburger = styled.button`
 
   @media screen and (max-width: 875px) {
     display: flex;
+    margin-top: 8px;
+    font-size: 28px;
+    color: white;
+    width: 45px;
+    height: 45px;
+    background-color:  ${theme.colors.yellow};
+    border-radius: 50%;
+
+    i { 
+      margin: 6px 3px;
+    }
   }
 
   @media screen and (max-width: 575px) {
@@ -283,8 +294,18 @@ const Hamburger = styled.button`
 
   @media screen and (max-width: 375px) {
     display: flex;
-    margin-top: 13px;
-    font-size: 25px;
+    margin-top: 8px;
+    font-size: 28px;
+    color: white;
+    width: 45px;
+    height: 45px;
+    background-color:  ${theme.colors.yellow};
+    border-radius: 50%;
+
+    i { 
+      margin: 6px 3px;
+    }
+
   }
 `;
 
