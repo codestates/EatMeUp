@@ -93,6 +93,11 @@ const ListContainer = styled(SectionBox)`
     width: 88%;
     margin: 7% 0 1% 0;
   }
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+    margin: 70px 7px;
+  }
 `;
 
 const TitleBox = styled.div`

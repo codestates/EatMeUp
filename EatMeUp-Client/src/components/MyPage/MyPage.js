@@ -151,13 +151,20 @@ const MyPage = () => {
   );
 };
 
+
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
-
+  
   @media screen and (max-width: 1035px) {
     width: 88%;
     margin: 7% 0 1% 0;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+    margin: 70px 7px;
   }
 `;
 

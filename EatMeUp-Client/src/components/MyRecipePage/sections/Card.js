@@ -43,7 +43,7 @@ const Card = ({ recipes }) => {
             </div>
 
             {/* 삭제버튼과 수정버튼 영역 */}
-            <div>
+            <div className='dc_box'>
               <div className='recipe-dc-right_box'>
                 <Link to={`/user/myrecipe/edit/${recipe.id}`}>
                   <i className='far fa-edit'></i>
@@ -160,21 +160,22 @@ const Recipes = styled.div`
     width: 95%;
     height: 125px;
     display: flex;
-
+    margin: auto;
     margin-bottom: 10px;
 
     img {
       width: 100px;
-      height: 110px;
-      border-radius: 20px;
+      height: 100px;
+      border-radius: 50%;
       object-fit: cover;
-      margin: 7px 2px 0px 7px;
+      margin: 13px 5px 7px 10px;
     }
 
     .recipe-info_box {
-      font-size: 9px;
+      font-size: 13px;
       width: 100%;
-      margin: 30px 0px 0px 0px;
+      margin: 30px 0px 0px 5px;
+      
     }
 
     .ingres > button {
@@ -187,16 +188,16 @@ const Recipes = styled.div`
     }
 
     .fa-clock {
-      font-size: 9px;
+      font-size: 14px;
       margin: 0;
     }
 
     .fa-trash-alt {
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .fa-edit {
-      font-size: 14px;
+      font-size: 16px;
     }
 
     .recipe-ingre_box {

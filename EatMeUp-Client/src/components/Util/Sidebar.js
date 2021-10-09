@@ -69,8 +69,15 @@ const SideMenu = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-    width: 65px;
-    margin: 0 5px 0 0px;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    z-index: 99999;
+    bottom: 10px;
+    width: 100%;
+    height: 60px;
+    background: ${theme.colors.yellow};
+    border-radius: 30px;
   }
 `;
 
@@ -116,9 +123,11 @@ const MenuBtn = styled(XSmallBtn)`
     height: 50px;
     border-radius: 50%;
     display: flex;
-    margin: 0px 0xp 8px 0px;
+    margin-top: 10px;
+    /* margin: 0px 0xp 8px 0px; */
     justify-content: center;
-
+    border: none;
+    
 
     .menu {
       display: none;
@@ -143,23 +152,23 @@ const MenuBtn = styled(XSmallBtn)`
     height: 50px;
     border-radius: 50%;
     display: flex;
-    margin: 0px 0xp 8px 0px;
-    justify-content: center;
-
+    /* margin: 0px 0xp 8px 0px; */
+    margin: 5px 10px;
+    background-color: ${theme.colors.yellow};
 
     .menu {
       display: none;
     }
 
     .point {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
       border-radius: 100%;
-      margin: 0;
+      
       i {
-        margin: 8px 3px;
+        margin: 11px 10px;
         color: black;
-        font-size: 15px;
+        font-size: 20px;
       }
     }
   }

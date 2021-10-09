@@ -1,9 +1,8 @@
 import React from "react";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { removeFromLikelist } from "../../../_actions/userActions";
-
 
 import theme from "../../StyledComponent/theme";
 const { Swal } = window;
@@ -33,41 +32,43 @@ const Card = ({ recipes }) => {
         {/* 유저프로필과 삭제, 수정버튼을 감싸는 컨테이너 */}
 
         {/* 레시피메인이미지사진 영역 */}
-        <Link to={`/recipe/info/${recipe.id}`}><img src={recipe.main_image} alt='recipe' className='recipe-img' /></Link>
+        <Link to={`/recipe/info/${recipe.id}`}>
+          <img src={recipe.main_image} alt='recipe' className='recipe-img' />
+        </Link>
 
         {/* figure태그의 캡션 */}
-      <div>
-        <div className='recipe-info_box'>
-          {/* 요리시간 */}
-          <div className='time'>
-            <i className='far fa-clock'></i> 
-            {recipe.cooking_time.slice(0, 2)}min
-          </div>
-          <div className='userprofile_box'>
-            {/* 삭제버튼과 수정버튼 영역 */}
-            <div>
-              <div className='recipe-dc-right_box'>
-                <i className='fas fa-heart'></i>
-                <i
-                  className='far fa-trash-alt'
-                  onClick={() => deleteHandler(recipe.id)}
-                ></i>
+        <div>
+          <div className='recipe-info_box'>
+            {/* 요리시간 */}
+            <div className='time'>
+              <i className='far fa-clock'></i>
+              {recipe.cooking_time.slice(0, 2)}min
+            </div>
+            <div className='userprofile_box'>
+              {/* 삭제버튼과 수정버튼 영역 */}
+              <div>
+                <div className='recipe-dc-right_box'>
+                  <i className='fas fa-heart'></i>
+                  <i
+                    className='far fa-trash-alt'
+                    onClick={() => deleteHandler(recipe.id)}
+                  ></i>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* 레시피제목 */}
-        <div className='title_box'>{recipe.title}</div>
+          {/* 레시피제목 */}
+          <div className='title_box'>{recipe.title}</div>
 
-        {/* 레시피 주재료들 */}
-        <div className='recipe-ingre_box'>
-          <div className='ingres'>
-            {recipe.foods.slice(0, 3).map((food, idx) => {
-              return <button key={idx}>{food.name}</button>;
-            })}
+          {/* 레시피 주재료들 */}
+          <div className='recipe-ingre_box'>
+            <div className='ingres'>
+              {recipe.foods.slice(0, 3).map((food, idx) => {
+                return <button key={idx}>{food.name}</button>;
+              })}
+            </div>
           </div>
-        </div>
         </div>
       </Recipes>
     );
@@ -167,39 +168,43 @@ const Recipes = styled.div`
     width: 95%;
     height: 125px;
     display: flex;
+    margin: auto;
     margin-bottom: 10px;
 
     a > img {
     width: 100px;
-    height: 110px;
-    border-radius: 20px;
+    height: 100px;
+    border-radius: 50%;
     object-fit: cover;
-    margin: 7px 2px 0px 7px;
+    margin: 13px 5px 7px 10px;
   }
    
-  .fa-trash-alt {
-    font-size: 13px;
-    margin-right: 10px;
-  }
+  
   .recipe-info_box {
-    font-size:9px;
-    margin: 20px 0px 0px 0px;
+    font-size: 13px;
+      width: 100%;
+      margin: 30px 0px 0px 5px;
   }
 
-  .ingres > span {
-    padding: 3px 5px;
-    background-color: #EAEAEA;
-    border-radius: 30px;
-    margin-right:5px;
-    font-size: 10px;
-  }
+  .ingres > button {
+      font-size: 10px;
+      border: none;
+      padding: 3px 5px;
+      background-color: #eaeaea;
+      border-radius: 30px;
+      margin-right: 3px;
+    }
 
 
   .fa-clock {
-    font-size: 9px;
-    margin: 0;
+    font-size: 14px;
+      margin: 0;
   }
 
+  .fa-trash-alt {
+    font-size: 16px;
+    margin-right: 10px;
+  }
 
   .recipe-ingre_box {
     font-size: 12px;
@@ -209,20 +214,15 @@ const Recipes = styled.div`
   
   .title_box {
     text-indent: 5px;
-    margin: 0;
-    font-size: 14px;
+      margin: 0;
   }
 
   .fa-heart {
     color: ${theme.colors.red};
-    font-size: 14px;
+    font-size: 16px;
     margin-right: 5px;
   }
 
-  .ingres {
-    font-size: 4px;
-
-  }
   }
 `;
 

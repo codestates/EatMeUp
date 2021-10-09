@@ -148,9 +148,7 @@ const FooterBox = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-    & > div {
-      display: block;
-    }
+    display: none;
   }
 `;
 

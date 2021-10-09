@@ -155,7 +155,7 @@ const MealPlanCard = styled(SectionBox)`
   }
   @media screen and (max-width: 375px) {
     width: 95%;
-    max-height: 140px;
+    max-height: 180px;
   }
 `;
 
@@ -248,10 +248,10 @@ const PlanCard = styled.div`
   }
   @media screen and (max-width: 375px) {
     max-width: 70px;
-    height: 80px;
+    height: 120px;
     display: flex;
     margin: 5px;
-    border-radius: 10px;
+    border-radius: 30px;
     flex-direction: column;
     justify-content: center;
   }

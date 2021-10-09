@@ -231,8 +231,7 @@ const ButtonArea = styled.div`
     margin-top: 20px;
   }
 
-  @media screen and (max-width: 375px) {
-  }
+  
 `;
 
 const RecipesArea = styled.div`
@@ -240,10 +239,11 @@ const RecipesArea = styled.div`
   height: 90%;
   margin-top: 5px;
   overflow-y: auto;
-  @media screen and (max-width: 675px) {
-    max-height: 350px;
-  }
+  /* @media screen and (max-width: 675px) {
+    max-height: 400px;
+  } */
   @media screen and (max-width: 375px) {
+    
   }
 `;
 

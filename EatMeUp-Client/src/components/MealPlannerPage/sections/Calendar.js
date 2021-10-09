@@ -168,7 +168,7 @@ function Calendar({ plans }) {
         <div>
           <Link to='/user/myplanner/create'>
             <CalendarBtn fillColor={theme.colors.lightgrey}>
-              <span>식단짜기</span>
+              <span>식단 만들기</span>
             </CalendarBtn>
           </Link>
           <CalendarBtn
@@ -252,7 +252,7 @@ const CalendarBtn = styled(MiddleBtn)`
   }
 
   @media screen and (max-width: 375px) {
-    width: 65px;
+    width: 70px;
     height: 30px;
     font-size: 12px;
     float: right;
