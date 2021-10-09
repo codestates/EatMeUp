@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToLikelist, removeFromLikelist } from "../../_actions/userActions";
-import { logoutRequest } from '../../_actions/authActions'
+import { logoutRequest } from "../../_actions/authActions";
 import { getUserinfo, clearErrors } from "../../_actions/userActions";
 import {
   ADD_TO_LIKELIST_RESET,
@@ -77,7 +77,7 @@ const DetailePage = ({ match }) => {
     if (error) {
       swal("Please!", "로그인이 필요합니다.", "warning");
       dispatch(clearErrors());
-      dispatch(logoutRequest())
+      dispatch(logoutRequest());
       history.push("/recipes");
     }
   }, [dispatch, isAdded, isDeleted, isAuthenticated, error, history]);
@@ -225,11 +225,11 @@ const DetailePage = ({ match }) => {
                         step.image
                           ? step.image
                           : step.image === ""
-                          ? "https://i.ibb.co/2WWRRxL/cooking.png"
-                          : "https://i.ibb.co/2WWRRxL/cooking.png"
+                          ? "https://i.ibb.co/DVhnxm4/cooking.png"
+                          : "https://i.ibb.co/DVhnxm4/cooking.png"
                       }
                       alt='step_image'
-                      // height={step.image === "" && "200"}
+                      width={step.image === "" && "300"}
                     />
                   </div>
                   <div className='steps'>
@@ -261,8 +261,26 @@ const RecipeContainer = styled(Container)`
   width: 100%;
   height: 100%;
   padding: 8% 0 4% 0;
-
- 
+  @media screen and (max-width: 1023px) {
+    padding: 13% 0 4% 0;
+    width: 100%;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 20% 0 3% 0;
+    width: 100%;
+  }
+  @media screen and (max-width: 568px) {
+    padding: 20% 0 3% 0;
+    width: 100%;
+  }
+  @media screen and (max-width: 450px) {
+    padding: 23% 0 3% 0;
+    width: 100%;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 15% 0 3% 0;
+    width: 100%;
+  }
 `;
 
 const RecipeBox = styled(SectionBox)`
@@ -271,10 +289,12 @@ const RecipeBox = styled(SectionBox)`
   margin: 0 auto;
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 1023px) {
+    width: 80%;
+  }
   @media screen and (max-width: 768px) {
     width: 80%;
   }
-
   @media screen and (max-width: 568px) {
     width: 95%;
   }
@@ -289,7 +309,6 @@ const RecipeBox = styled(SectionBox)`
 const ImgBox = styled.div`
   position: relative;
   width: 500px;
-  /* height: 500px; */
   display: content;
   margin: 70px auto 20px auto;
   overflow: hidden;
@@ -298,19 +317,21 @@ const ImgBox = styled.div`
     width: 100%;
     object-fit: cover;
   }
-
+  @media screen and (max-width: 1023px) {
+    max-width: 80%;
+  }
   @media screen and (max-width: 768px) {
     width: 95%;
+    margin: 50px auto 20px auto;
   }
-
-
   @media screen and (max-width: 568px) {
     width: 95%;
+    margin: 50px auto 20px auto;
   }
   @media screen and (max-width: 450px) {
-    width: 95%;
+    width: 80%;
+    margin: 45px auto 20px auto;
   }
-
   @media screen and (max-width: 375px) {
     width: 95%;
   }
@@ -385,9 +406,29 @@ const Level = styled.div`
 const DescriptionBox = styled.div`
   color: #6f6f6f;
   margin: 5px auto;
+  box-sizing: border-box;
+  max-width: 60%;
   .description {
     border-bottom: 2px solid ${theme.colors.lightgrey};
+    box-sizing: border-box;
+    width: 100%;
     padding: 10px 5px;
+    text-align: center;
+  }
+  @media screen and (max-width: 1023px) {
+    max-width: 60%;
+  }
+  @media screen and (max-width: 768px) {
+    max-width: 60%;
+  }
+  @media screen and (max-width: 568px) {
+    max-width: 80%;
+  }
+  @media screen and (max-width: 450px) {
+    max-width: 80%;
+  }
+  @media screen and (max-width: 375px) {
+    max-width: 80%;
   }
 `;
 
@@ -426,20 +467,68 @@ const StepContainer = styled.div`
 
 const StepBox = styled.div`
   display: flex;
-  margin: 10px 0;
+  margin: 10px auto;
   .step_image {
     display: flex;
     width: 300px;
     height: 200px;
     border-radius: 20px;
+    @media screen and (max-width: 1024px) {
+      width: 100%;
+      height: 100%;
+    }
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      height: 100%;
+    }
+    @media screen and (max-width: 450px) {
+      width: 100%;
+      height: 100%;
+    }
+    @media screen and (max-width: 375px) {
+      width: 100%;
+      height: 100%;
+    }
     img {
       border-radius: 20px;
-      width: 300px;
       object-fit: cover;
+      @media screen and (max-width: 1024px) {
+        width: 60%;
+        height: 100%;
+        margin: 10px auto;
+      }
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+        margin: 10px auto;
+      }
+      @media screen and (max-width: 450px) {
+        width: 100%;
+        height: 100%;
+        margin: 10px auto;
+      }
+      @media screen and (max-width: 375px) {
+        width: 100%;
+        height: 100%;
+        margin: 10px auto;
+      }
     }
   }
   .steps {
     display: flex;
+    margin: 10px 0;
+    /* @media screen and (max-width: 1024px) {
+      margin: 10px 0;
+    }
+    @media screen and (max-width: 768px) {
+      margin: 10px 0;
+    }
+    @media screen and (max-width: 450px) {
+      margin: 10px 0;
+    }
+    @media screen and (max-width: 375px) {
+      margin: 10px 0;
+    } */
   }
   .stepNo {
     display: flex;
@@ -453,7 +542,6 @@ const StepBox = styled.div`
   @media screen and (max-width: 1024px) {
     display: block;
   }
-
   @media screen and (max-width: 768px) {
     display: block;
   }

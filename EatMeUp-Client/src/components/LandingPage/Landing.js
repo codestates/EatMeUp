@@ -17,6 +17,16 @@ const Landing = () => {
     setPosition(window.scrollY);
   };
 
+  const fadeIn = {
+    opacity: 1,
+    transition: '.5s'
+  };
+
+  const fadeOut = {
+    opacity: 0,
+    transition: '.5s'
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
     // component unmount 되기 전에 이벤트 제거
@@ -493,7 +503,7 @@ const Landing5 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-10%, -35%);
+    transform: translate(-10%, -43%);
   }
   .description {
     position: fixed;
@@ -547,6 +557,7 @@ const Landing7 = styled.div`
   height: 700px;
   .end {
     font-size: 35px;
+    font-weight: 500;
     margin: 250px 0 0px 0;
   }
 `;
