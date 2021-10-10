@@ -162,15 +162,19 @@ const MyPageContainer = styled(Container)`
     width: 93%;
   }
   @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
     width: 90%;
   }
   @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
     width: 85%;
   }
   @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
     width: 85%;
   }
   @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
     width: 100%;
   }
 `;
@@ -185,7 +189,6 @@ const MyInfoContainer = styled(SectionBox)`
   @media screen and (max-width: 375px) {
     width: 95%;
     margin: auto;
-    margin: 70px 7px;
   }
 `;
 
@@ -200,16 +203,43 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
-  .title {
+  .recipe_title {
     box-sizing: border-box;
+  }
+  @media screen and (max-width: 1200px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 568px) {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 20px;
+    width: 250px;
   }
   @media screen and (max-width: 375px) {
     width: 100%;
-    line-height: 40px;
-    height: 40px;
-    font-size: 24px;
-    padding: 0px;
-    margin: 30px 0px 10px 0px;
+    display: block;
+    font-size: 25px;
+    text-indent: 10px;
+    margin: 0;
   }
 `;
 
@@ -434,6 +464,47 @@ const ProfileContainer = styled.div`
       font-size: 14px;
     }
   }
+  @media screen and (max-width: 568px) {
+    width: 86%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    .img_box {
+      width: 30%;
+      img {
+        width: 100%;
+        margin: 50px auto 0px auto;
+      }
+    }
+    .userinfo_box {
+      width: 60%;
+      font-size: 12px;
+    }
+    .info_username {
+      width: 100%;
+      text-align: center;
+      margin: 5px auto 2px auto;
+      font-size: 12px;
+    }
+    .info_email {
+      width: 100%;
+      margin: 2px auto;
+      font-size: 12px;
+    }
+    .email {
+      width: 100%;
+      text-align: center;
+    }
+    .btn_container {
+      margin: 2px auto;
+    }
+    .btn_container > a > button {
+      width: 100%;
+      height: 35px;
+      /* margin: 5px auto; */
+      font-size: 12px;
+    }
+  }
   @media screen and (max-width: 450px) {
     width: 95%;
     margin: 0 auto;
@@ -481,48 +552,42 @@ const ProfileContainer = styled.div`
     display: flex;
     align-items: center;
     .img_box {
-      font-size: 70px;
-      width: 40%;
-      height: 100px;
-      margin: 0px;
+      width: 30%;
       img {
-        width: 100px;
-        height: 100px;
-      }
-      #userimg {
-        margin: 0px auto;
-        color: ${theme.colors.lightgrey};
+        width: 100%;
+        margin: 50px auto 0px auto;
       }
     }
     .userinfo_box {
       width: 60%;
+      font-size: 12px;
     }
     .info_username {
       width: 100%;
-      text-align: left;
-      margin-top: 5px;
-      margin: 0;
+      text-align: center;
+      margin: 5px auto 2px auto;
+      font-size: 12px;
     }
     .info_email {
       width: 100%;
-      margin: 0;
-      text-align: left;
-      height: auto;
+      margin: 2px auto;
+      font-size: 12px;
     }
     .email {
-      text-align: left;
-      margin: 0;
+      width: 100%;
+      text-align: center;
     }
     .btn_container {
-      margin: 5px 0px;
+      margin: 2px auto;
     }
     .btn_container > a > button {
-      width: 85%;
+      width: 100%;
       height: 35px;
-      margin: 0px auto;
-      font-size: 14px;
+      /* margin: 5px auto; */
+      font-size: 12px;
     }
   }
+
 `;
 
 const RecipeContainer = styled.div`
@@ -545,12 +610,12 @@ const RecipeContainer = styled.div`
   }
   @media screen and (max-width: 768px) {
     width: 90%;
-    height: 580px;
+    height: 650px;
     margin: 0 auto;
   }
   @media screen and (max-width: 450px) {
     width: 95%;
-    height: 580px;
+    height: 650px;
     margin: 0 auto;
   }
   @media screen and (max-width: 375px) {
@@ -594,6 +659,8 @@ const LikedRecipeBox = styled.div`
   }
   @media screen and (max-width: 768px) {
     min-height: 280px;
+    width: 95%;
+    margin: 30px auto;
   }
   @media screen and (max-width: 450px) {
     min-height: 200px;
@@ -612,6 +679,10 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 2px;
+  @media screen and (max-width: 568px) {
+    text-indent: 10px;
+    font-size: 20px;
+  }
   @media screen and (max-width: 375px) {
     font-size: 15px;
     text-indent: 10px;

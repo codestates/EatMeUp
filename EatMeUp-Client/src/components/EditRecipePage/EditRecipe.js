@@ -592,6 +592,10 @@ const EditRecipePage = ({ match }) => {
 
 const BoxContainer = styled.div`
   width: 77%;
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+  }
 `;
 
 const BtnContainer = styled.div`
@@ -648,7 +652,7 @@ const TitleBox = styled.div`
 
 const MainDCBox = styled(SectionBox)`
   width: 100%;
-  margin: 10px auto;
+  margin: 0px auto 20px auto;
   padding: 10px 0px;
   .subtitle {
     text-indent: 20px;
@@ -708,6 +712,7 @@ const DescriptionBox = styled.div`
     flex-direction: column-reverse;
   }
   @media screen and (max-width: 375px) {
+    width: 95%;
     display: flex;
     flex-direction: column-reverse;
   }
@@ -788,14 +793,16 @@ const ImageArea = styled.div`
   }
   @media screen and (max-width: 375px) {
     width: 95%;
+    margin: 5px auto;
     label {
-      padding: 0.5em 5em;
-      border-radius: 10px;
-      height: 30px;
-      border: 2px solid lightgrey;
       cursor: pointer;
-      background-color: #f8f8f8;
-      color: grey;
+      position: absolute;
+      top: 10px;
+      left: 0px;
+      font-size: 45px;
+      z-index: 999;
+      padding: 0 20px;
+      cursor: pointer;
     }
 
     input[type="file"] {

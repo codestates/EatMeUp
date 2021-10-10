@@ -74,15 +74,19 @@ const MealPlannerContainer = styled(Container)`
     width: 93%;
   }
   @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
     width: 90%;
   }
   @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
     width: 85%;
   }
   @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
     width: 85%;
   }
   @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
     width: 100%;
   }
 `
@@ -92,13 +96,11 @@ const CalendarContainer = styled(SectionBox)`
   min-height: 720px;
   @media screen and (max-width: 1035px) {
     width: 88%;
-    margin: 7% 0 1% 0;
   }
 
   @media screen and (max-width: 375px) {
     width: 95%;
     margin: auto;
-    margin: 70px 7px;
   }
 `;
 

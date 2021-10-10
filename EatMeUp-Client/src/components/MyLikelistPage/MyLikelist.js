@@ -77,34 +77,36 @@ const LikeListContainer = styled(Container)`
     width: 93%;
   }
   @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
     width: 90%;
   }
   @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
     width: 85%;
   }
   @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
     width: 85%;
   }
   @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
     width: 100%;
   }
 `;
 
 const ListContainer = styled(SectionBox)`
   width: 77%;
-  /* min-height: 720px;
-  @media screen and (max-width: 1500px){
-    width: 100%;
-  } */
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-    margin: 7% 0 1% 0;
+  @media screen and (max-width: 1023px) {
+    width: 90%;
   }
-
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
   @media screen and (max-width: 375px) {
-    width: 95%;
-    margin: auto;
-    margin: 70px 7px;
+    width: 100%;
   }
 `;
 
@@ -120,9 +122,38 @@ const TitleBox = styled.div`
   margin: 5px 20px 10px 20px;
   padding: 10px;
 
+  @media screen and (max-width: 1200px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 568px) {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 20px;
+    width: 250px;
+  }
   @media screen and (max-width: 375px) {
+    width: 100%;
     display: block;
-    font-size: 23px;
+    font-size: 25px;
     text-indent: 10px;
     margin: 0;
   }
@@ -145,18 +176,30 @@ const ListBox = styled.div`
   }
 
   @media screen and (max-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 15px;
     padding: 10px;
   }
 
   @media screen and (max-width: 1034px) {
     grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
+    gap: 0px;
+    padding: 0px;
   }
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 568px) {
+    width: 95%;
+    gap: 10px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 100%;
+    gap: 10px;
+    padding: 10px 0;
     display: flex;
     flex-direction: column;
     align-items: center;

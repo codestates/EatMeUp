@@ -490,6 +490,7 @@ const StepBox = styled.div`
       height: 100%;
     }
     img {
+      width: 300px;
       border-radius: 20px;
       object-fit: cover;
       @media screen and (max-width: 1024px) {

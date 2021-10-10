@@ -187,19 +187,15 @@ const FridgeMain = () => {
 const SearchBox = styled.div`
   width: 70%;
   margin: 0px auto;
-  margin-top: 20px;
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: 6% 0 0 0;
-
-
+  padding: 130px 0 0 0;
 
   @media screen and (max-width:1500px) {
     padding: 9% 0 0 0;
     width: 80%;
   }
- 
 
   @media screen and (max-width: 1035px) {
     display: block;
@@ -258,7 +254,6 @@ const FridgeTitle = styled.div`
   }
 
   @media screen and (max-width: 375px) {
-   
     opacity: 0;
   }
 `;

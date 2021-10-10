@@ -130,7 +130,7 @@ const AllRecipes = () => {
 const TitleContainer = styled.div`
   width: 80%;
   margin: 0 auto;
-  padding: 7% 0 2% 0;
+  padding: 130px 0 30px 0;
   display: flex;
   align-items: center;
   position: relative;

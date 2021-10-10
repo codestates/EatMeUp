@@ -125,6 +125,7 @@ const MenuBtn = styled(XSmallBtn)`
     display: flex;
     justify-content: center;
     border: none;
+    margin: 0 0 10px 0px;
     .menu {
       display: none;
     }
@@ -147,7 +148,6 @@ const MenuBtn = styled(XSmallBtn)`
     height: 50px;
     border-radius: 50%;
     display: flex;
-    /* margin: 0px 0xp 8px 0px; */
     margin: 5px 10px;
     background-color: ${theme.colors.yellow};
 
