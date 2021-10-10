@@ -104,7 +104,7 @@ const PlanningPage = () => {
     <>
       <Header id={2} />
       <section>
-        <Container>
+        <MealPlannerContainer>
           {/* 사이드바영역 */}
           <Sidebar id={3} />
 
@@ -180,12 +180,40 @@ const PlanningPage = () => {
               </PlannerBox>
             </MealPlaner>
           </PlannerContainer>
-        </Container>
+        </MealPlannerContainer>
       </section>
       <Footer />
     </>
   );
 };
+
+const MealPlannerContainer = styled(Container)`
+  width: 100%;
+  height: 100%;
+  padding: 140px 0 70px 0;
+  @media screen and (max-width: 1200px) {
+    width: 94.7%;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
+    width: 90%;
+  }
+  @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
+    width: 100%;
+  }
+`
 
 const PlannerContainer = styled(SectionBox)`
   width: 77%;
@@ -193,13 +221,11 @@ const PlannerContainer = styled(SectionBox)`
 
   @media screen and (max-width: 1035px) {
     width: 88%;
-    margin: 7% 0 1% 0;
   }
 
   @media screen and (max-width: 375px) {
     width: 95%;
     margin: auto;
-    margin: 70px 7px;
   }
 `;
 

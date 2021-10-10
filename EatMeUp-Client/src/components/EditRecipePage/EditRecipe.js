@@ -595,7 +595,6 @@ const BoxContainer = styled.div`
   @media screen and (max-width: 375px) {
     width: 95%;
     margin: auto;
-    margin: 70px 7px;
   }
 `;
 
@@ -653,7 +652,7 @@ const TitleBox = styled.div`
 
 const MainDCBox = styled(SectionBox)`
   width: 100%;
-  margin: 10px auto;
+  margin: 0px auto 20px auto;
   padding: 10px 0px;
   .subtitle {
     text-indent: 20px;

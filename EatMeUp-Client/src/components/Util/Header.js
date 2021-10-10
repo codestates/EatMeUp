@@ -177,7 +177,25 @@ const EatMeUpHeader = styled.div`
   }
   .left-menu {
     display: flex;
-    margin-left: 3vw;
+    margin-left: 50px;
+    @media screen and (max-width: 1200px) {
+      margin-left: 50px;
+    }
+    @media screen and (max-width: 1023px) {
+      margin-left: 30px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-left: 0px;
+    }
+    @media screen and (max-width: 568px) {
+      margin-left: 0px;
+    }
+    @media screen and (max-width: 450px) {
+      margin-left: 0px;
+    }
+    @media screen and (max-width: 375px) {
+      margin-left: 0px;
+    }
   }
   .menuBtns {
     display: flex;
@@ -217,7 +235,27 @@ const EatMeUpHeader = styled.div`
     color: #303030;
   }
   .right-menu {
-    margin-right: 3vw;
+    margin-right: 10px;
+    max-width: 50%;
+    box-sizing: border-box;
+    @media screen and (max-width: 1200px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 1023px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 767px) {
+      margin-right: 10px;
+    }
+    @media screen and (max-width: 568px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 450px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 375px) {
+      margin-right: 0px;
+    }
   }
   .right {
     width: 100px;
@@ -241,7 +279,7 @@ const EatMeUpHeader = styled.div`
     background-color: ${theme.colors.yellow};
     color: white;
   }
-  @media screen and (max-width: 875px) {
+  @media screen and (max-width: 767px) {
     .menuBtns {
       display: none;
     }
@@ -273,23 +311,24 @@ const Hamburger = styled.button`
   display: none;
   cursor: pointer;
 
-  @media screen and (max-width: 875px) {
+  @media screen and (max-width: 767px) {
     display: flex;
-    margin-top: 8px;
+    margin: 15px;
     font-size: 28px;
     color: white;
     width: 45px;
     height: 45px;
-    background-color:  ${theme.colors.yellow};
+    background-color: ${theme.colors.yellow};
     border-radius: 50%;
 
-    i { 
+    i {
       margin: 6px 3px;
     }
   }
 
   @media screen and (max-width: 575px) {
     display: flex;
+    margin: 15px;
   }
 
   @media screen and (max-width: 375px) {
@@ -299,13 +338,12 @@ const Hamburger = styled.button`
     color: white;
     width: 45px;
     height: 45px;
-    background-color:  ${theme.colors.yellow};
+    background-color: ${theme.colors.yellow};
     border-radius: 50%;
 
-    i { 
+    i {
       margin: 6px 3px;
     }
-
   }
 `;
 
@@ -329,7 +367,9 @@ const showM = keyframes`
 `;
 const ResponseMenu = styled.div`
   display: none;
-  @media screen and (max-width: 875px) {
+  position: fixed;
+  z-index: 99998;
+  @media screen and (max-width: 767px) {
     background-color: white;
     width: 100%;
 

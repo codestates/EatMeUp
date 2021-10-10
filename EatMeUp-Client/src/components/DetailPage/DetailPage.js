@@ -260,25 +260,25 @@ const DetailePage = ({ match }) => {
 const RecipeContainer = styled(Container)`
   width: 100%;
   height: 100%;
-  padding: 8% 0 4% 0;
+  padding: 150px 0 70px 0;
   @media screen and (max-width: 1023px) {
-    padding: 13% 0 4% 0;
+    padding: 130px 0 50px 0;
     width: 100%;
   }
   @media screen and (max-width: 768px) {
-    padding: 20% 0 3% 0;
+    padding: 130px 0 50px 0;
     width: 100%;
   }
   @media screen and (max-width: 568px) {
-    padding: 20% 0 3% 0;
+    padding: 95px 0 0px 0;
     width: 100%;
   }
   @media screen and (max-width: 450px) {
-    padding: 23% 0 3% 0;
+    padding: 90px 0 0px 0;
     width: 100%;
   }
   @media screen and (max-width: 375px) {
-    padding: 15% 0 3% 0;
+    padding: 90px 0 0px 0;
     width: 100%;
   }
 `;
@@ -329,8 +329,8 @@ const ImgBox = styled.div`
     margin: 50px auto 20px auto;
   }
   @media screen and (max-width: 450px) {
-    width: 80%;
-    margin: 45px auto 20px auto;
+    width: 100%;
+    margin: 45px auto 10px auto;
   }
   @media screen and (max-width: 375px) {
     width: 95%;
@@ -490,6 +490,7 @@ const StepBox = styled.div`
       height: 100%;
     }
     img {
+      width: 300px;
       border-radius: 20px;
       object-fit: cover;
       @media screen and (max-width: 1024px) {
