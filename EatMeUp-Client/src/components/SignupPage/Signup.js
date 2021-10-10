@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { signupRequest, clearErrors } from "../../_actions/authActions";
@@ -20,13 +20,7 @@ const Signup = ({ setShowSignup, setShowLogin }) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { success,  error } = useSelector((state) => state.auth);
-  const [alert, setAlert] = useState(false);
-
-
-  const Timer = setTimeout(() => {
-    setAlert(false);
-  }, 2000);
+  const { success, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (error) {
@@ -58,20 +52,20 @@ const Signup = ({ setShowSignup, setShowLogin }) => {
       email: data.email,
       password: data.pwd,
     };
-    
+
     dispatch(signupRequest(signupData));
     history.push("/");
-    setShowSignup(false)
-    setShowLogin(true)
+    setShowSignup(false);
+    setShowLogin(true);
   };
 
   const closeLoginModal = () => {
-    setShowSignup(false)
-  }
+    setShowSignup(false);
+  };
   const showLoginHandler = () => {
-    setShowSignup(false)
-    setShowLogin(true)
-  }
+    setShowSignup(false);
+    setShowLogin(true);
+  };
 
   return (
     <StyledContainer>
@@ -149,7 +143,7 @@ const Signup = ({ setShowSignup, setShowLogin }) => {
                 SignUp
               </SignUpButton>
               {/* <StyledLink to='/login'> */}
-                <BackButton onClick={showLoginHandler}>Go to Login</BackButton>
+              <BackButton onClick={showLoginHandler}>Go to Login</BackButton>
               {/* </StyledLink> */}
             </BtnContainer>
           </form>
@@ -178,14 +172,14 @@ const StyledContainer = styled.div`
 `;
 
 const showDialog = keyframes`
-   from {
+  from {
     opacity: 0;
     transform: translateY(-100px);
-   }
-   to{
+  }
+  to{
     opacity: 1;
     transform: translateY(0px);
-   }
+  }
 `;
 
 const LoginContainer = styled(SectionBox)`
@@ -270,14 +264,6 @@ const BackButton = styled(LargeBtn)`
   font-weight: 600;
   margin: 0 auto;
   cursor: pointer;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-weight: bold;
-  &:visited {
-    color: ${theme.colors.black};
-  }
 `;
 
 export default Signup;

@@ -53,7 +53,7 @@ const MyRecipe = () => {
     <>
       <Header id={2} />
       <section>
-        <Container>
+        <MyRecipeContainer>
           {/* 사이드바 영역 */}
           <Sidebar id={1} />
 
@@ -78,12 +78,36 @@ const MyRecipe = () => {
               {/* <EmptyState /> */}
             </ListBox>
           </ListContainer>
-        </Container>
+        </MyRecipeContainer>
       </section>
       <Footer />
     </>
   );
 };
+
+const MyRecipeContainer = styled(Container)`
+  width: 100%;
+  height: 100%;
+  padding: 140px 0 70px 0;
+  @media screen and (max-width: 1200px) {
+    width: 94.7%;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 568px) {
+    width: 85%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 85%;
+  }
+  @media screen and (max-width: 375px) {
+    width: 100%;
+  }
+`
 
 const ListContainer = styled(SectionBox)`
   width: 77%;

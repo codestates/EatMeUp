@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyLikelist } from "../../_actions/userActions";
 import { REMOVE_FROM_LIKELIST_RESET } from "../../_types/userTypes";
-import { clearErrors } from '../../_actions/userActions'
-import { logoutRequest } from '../../_actions/authActions'
+import { clearErrors } from "../../_actions/userActions";
+import { logoutRequest } from "../../_actions/authActions";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -18,13 +18,12 @@ import { Container, SectionBox } from "../StyledComponent/containers";
 
 const { swal } = window;
 const MyLikelist = () => {
-
   const dispatch = useDispatch();
   const history = useHistory();
 
   const { mylikelist, error } = useSelector((state) => state.mylikelist);
   const { isDeleted } = useSelector((state) => state.likelist);
-  
+
   useEffect(() => {
     dispatch(getMyLikelist());
 
@@ -32,25 +31,19 @@ const MyLikelist = () => {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
 
-    if(error) {
-      swal(
-        "Please!",
-        "로그인이 필요합니다.",
-        "warning",
-      );
-      dispatch(clearErrors())
-      dispatch(logoutRequest()) 
-      history.push('/')
+    if (error) {
+      swal("Please!", "로그인이 필요합니다.", "warning");
+      dispatch(clearErrors());
+      dispatch(logoutRequest());
+      history.push("/");
     }
-
-
   }, [dispatch, isDeleted, history, error]);
 
   return (
     <>
       <Header id={2} />
       <section>
-        <Container>
+        <LikeListContainer>
           {/* 사이드바영역 */}
           <Sidebar id={2} />
 
@@ -66,12 +59,36 @@ const MyLikelist = () => {
               <Card recipes={mylikelist} />
             </ListBox>
           </ListContainer>
-        </Container>
+        </LikeListContainer>
       </section>
       <Footer />
     </>
   );
 };
+
+const LikeListContainer = styled(Container)`
+  width: 100%;
+  height: 100%;
+  padding: 140px 0 70px 0;
+  @media screen and (max-width: 1200px) {
+    width: 94.7%;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 568px) {
+    width: 85%;
+  }
+  @media screen and (max-width: 450px) {
+    width: 85%;
+  }
+  @media screen and (max-width: 375px) {
+    width: 100%;
+  }
+`;
 
 const ListContainer = styled(SectionBox)`
   width: 77%;

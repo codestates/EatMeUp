@@ -15,7 +15,6 @@ import Loader from "../Util/Loader";
 import Slider from "./Slider";
 import FirstCard from "./sections/FirstCard";
 
-
 const AllRecipes = () => {
   // Todo
 
@@ -26,8 +25,6 @@ const AllRecipes = () => {
   const { isAuthenticated } = useSelector((state) => state.auth);
   const [page, setPage] = useState(1);
   const count = Math.ceil(recipeCount / 12);
-
-  
 
   useEffect(() => {
     const getPage = {
@@ -44,8 +41,6 @@ const AllRecipes = () => {
     setPage(value);
   };
 
-  
-
   return (
     <>
       <Header id={0} />
@@ -54,7 +49,6 @@ const AllRecipes = () => {
       ) : (
         <section>
           {/* 페이지 제목 */}
-       
 
           <TitleContainer>
             <div className='todays-pick'>오늘의 레시피</div>
@@ -66,11 +60,29 @@ const AllRecipes = () => {
                 return <FirstCard recipe={recipe} key={idx} />;
               })}
           </MainContainer>
-          <Stack sx={{ width: "80%", margin: "10px auto", backgroundColor: "white" }} spacing={2}>
-            
-            <Alert variant="outlined" severity="error">공지사항 👉 레시피 사진이 안 나올시에 
-            <button onClick={() => window.open('https://crawling-healer-570.notion.site/HTTP-07d3f56af26e4d6baf7fd4e16e77c3d7')} style={{ color: "#531f21" , border: "none", background: "none", fontWeight: "bold", cursor: "pointer"}}>여기를 클릭해 주세요</button> </Alert>
-            
+          <Stack
+            sx={{ width: "80%", margin: "10px auto", backgroundColor: "white" }}
+            spacing={2}
+          >
+            <Alert variant='outlined' severity='error'>
+              공지사항 👉 레시피 사진이 안 나올시에
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://crawling-healer-570.notion.site/HTTP-07d3f56af26e4d6baf7fd4e16e77c3d7",
+                  )
+                }
+                style={{
+                  color: "#531f21",
+                  border: "none",
+                  background: "none",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                }}
+              >
+                여기를 클릭해 주세요
+              </button>{" "}
+            </Alert>
           </Stack>
           <SearchBox>
             <div className='level-box'>
@@ -118,7 +130,7 @@ const AllRecipes = () => {
 const TitleContainer = styled.div`
   width: 80%;
   margin: 0 auto;
-  padding: 7% 0 1% 0;
+  padding: 7% 0 2% 0;
   display: flex;
   align-items: center;
   position: relative;
@@ -140,8 +152,6 @@ const TitleContainer = styled.div`
   }
 
   @media screen and (max-width: 550px) {
-   
-
     .todays-pick {
       opacity: 0;
     }
@@ -234,9 +244,9 @@ const Container = styled.div`
   }
 
   @media screen and (max-width: 550px) {
-    width: 70%;
+    width: 80%;
     grid-template-columns: 1fr;
-    gap: 15px;
+    gap: 0px;
   }
 
   @media screen and (max-width: 375px) {
@@ -247,7 +257,6 @@ const Container = styled.div`
 
 const PaginationBox = styled.div`
   width: 80%;
-
   margin: 15px auto;
   display: flex;
   justify-content: flex-end;

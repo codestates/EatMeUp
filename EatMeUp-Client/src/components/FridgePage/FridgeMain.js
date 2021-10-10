@@ -191,7 +191,7 @@ const SearchBox = styled.div`
   display: flex;
   justify-content: space-between;
   position: relative;
-  padding: 7% 0 0 0;
+  padding: 6% 0 0 0;
 
 
 

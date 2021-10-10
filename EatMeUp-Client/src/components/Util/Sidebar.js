@@ -58,14 +58,14 @@ const SideMenu = styled.div`
   width: 200px;
   border-radius: 30px;
   align-items: left;
-  margin: 7% 2vw 0 4vw;
+  margin: 0 2vw 0 4vw;
     
   a {
     text-decoration: none;
   }
-  @media screen and (max-width: 1035px) {
+  @media screen and (max-width: 1023px) {
+    margin: 0 2vw 0 4vw;
     width: 65px;
-    margin: 30% 5px 0 0px;
   }
 
   @media screen and (max-width: 375px) {
@@ -118,21 +118,16 @@ const MenuBtn = styled(XSmallBtn)`
     line-height: 8px;
   }
 
-  @media screen and (max-width: 1035px) {
+  @media screen and (max-width: 1023px) {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     display: flex;
-    margin-top: 10px;
-    /* margin: 0px 0xp 8px 0px; */
     justify-content: center;
     border: none;
-    
-
     .menu {
       display: none;
     }
-
     .point {
       width: 30px;
       height: 30px;
