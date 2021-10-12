@@ -42,12 +42,13 @@
 
 ## FlowChart
 ### Client
-![Flowchart](https://user-images.githubusercontent.com/80687195/132674884-c9203e5e-df75-40a9-8a55-280fd6b99d5a.jpg)
+![Client-Flow-Chart](https://user-images.githubusercontent.com/83802662/136331746-82f7c9b5-1afb-4398-a4d3-a966bde6002e.jpg)
 ### Server
-![SERVER - FlowChart](https://user-images.githubusercontent.com/83802662/132614622-88385355-c21b-4f37-bdee-10e00e100891.jpg)
-
+![Server-Flow-Chart](https://user-images.githubusercontent.com/83802662/136338857-32480ba7-1ebb-416d-b3b2-a0e30b7715c5.jpg)
 ## API Document
 > [EatMeUp - API Document](https://juy5437.gitbook.io/eatmeup/)
+## Wiki
+> [EatMeUp - Wiki](https://github.com/codestates/EatMeUp/wiki)
 
 ## 팀원소개
 | 역할 |  이름  |   담당    | Github                                                                                                                                                                      |
@@ -56,4 +57,5 @@
 | 팀원 | 강주오 | BACK-END  |  <a href="https://github.com/KangJuO" target="_blank"><img src="https://img.shields.io/badge/KangJuO-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 이세경 | FRONT-END |  <a href="https://github.com/segyong56" target="_blank"><img src="https://img.shields.io/badge/segyong56-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 오가영 | FRONT-END |  <a href="https://github.com/5gazero" target="_blank"><img src="https://img.shields.io/badge/5gazero-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
+
 
