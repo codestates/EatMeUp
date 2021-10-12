@@ -1,6 +1,11 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import styled, { keyframes } from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyLikelist } from "../../_actions/userActions";
+import { allFoods } from "../../_actions/fridgeActions";
+import { createMealPlan } from "../../_actions/calendarActions";
+import axios from "axios";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
@@ -14,29 +19,119 @@ import { MiddleBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
+const { Swal } = window;
+
 const PlanningPage = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { foods } = useSelector((state) => state.allFoods);
+  const { mylikelist } = useSelector((state) => state.mylikelist);
+
+  const [date, setDate] = useState("");
+  const [getRecommand, setGetRecommand] = useState([]);
+  const [addToPlan, setAddToPlan] = useState({
+    image: null,
+    title: "",
+    id: null,
+  });
+
+  const [mealPlan, setMealPlan] = useState([
+    { id: 0, meal: "아침", plan: [], recipeId: [] },
+    { id: 1, meal: "점심", plan: [], recipeId: [] },
+    { id: 2, meal: "저녁", plan: [], recipeId: [] },
+  ]);
+
+  useEffect(() => {
+    dispatch(getMyLikelist());
+    dispatch(allFoods());
+  }, [dispatch]);
+
+  useEffect(() => {
+    const food = [];
+    foods.forEach((type) => {
+      type.items.forEach((item) => {
+        food.push({ name: item.food_name });
+      });
+    });
+
+    const data = {
+      food: food,
+    };
+
+    axios
+      .post(`${process.env.REACT_APP_API}/recipe/food`, data, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data) {
+          setGetRecommand(response.data.recipeInfo[0]);
+        }
+      });
+  }, [foods]);
+
+  const today = new Date().toISOString().substring(0, 10);
+
+  const addMealplanHandler = () => {
+    if (date === "") {
+      alert("날짜를 추가해주세요.");
+      return;
+    }
+
+    const plan = {
+      date: date,
+      breakfast: mealPlan[0].recipeId,
+      lunch: mealPlan[1].recipeId,
+      dinner: mealPlan[2].recipeId,
+    };
+
+    Swal.fire({
+      title: "Success",
+      text: "식단을 추가 하시겠습니까?",
+      icon: "success",
+      showCancleButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "추가하기",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(createMealPlan(plan));
+        history.push("/user/myplanner");
+      }
+    });
+  };
+
   return (
     <>
       <Header id={2} />
       <section>
-        <Container>
+        <MealPlannerContainer>
           {/* 사이드바영역 */}
           <Sidebar id={3} />
 
           {/* 콘텐츠영역 */}
           <PlannerContainer>
-
             {/* 타이틀/날짜핸들러/달력보러가기버튼 영역 */}
             <TitleBox>
               <div>
-                <ThisMonth>식단짜기</ThisMonth>
+                <ThisMonth>식단 만들기</ThisMonth>
               </div>
               <div>
                 <ThisMonth>
-                  <input type='date' />
+                  <input
+                    type='date'
+                    defaultValue={today}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
                 </ThisMonth>
               </div>
               <div>
+                <CalendarBtn
+                  onClick={addMealplanHandler}
+                  fillColor={theme.colors.yellow}
+                  style={{ color: "white" }}
+                >
+                  식단 추가하기
+                </CalendarBtn>
                 <Link to='/user/myplanner'>
                   <CalendarBtn fillColor={theme.colors.lightgrey}>
                     달력보러 가기
@@ -49,38 +144,96 @@ const PlanningPage = () => {
             <MealPlaner>
               {/* 레시피 추천 */}
               <RecommandRecipesBox>
-                <RecipeCards />
+                <RecipeCards
+                  mylikelist={mylikelist}
+                  getRecommand={getRecommand}
+                  setAddToPlan={setAddToPlan}
+                />
               </RecommandRecipesBox>
 
               {/* 아침/점심/저녁 식단 */}
               <PlannerBox>
-                
                 {/* 사야할 재료 */}
-                <IngredientBox></IngredientBox>
+                <IngredientBox>
+                  <div className='title'>사야할 재료</div>
+                  <div className='emptybox'>
+                    <Material>
+                      <div className='food-img'>
+                        <img src='../../food_img/octopus.png' alt='food' />
+                      </div>
+                      <div className='food-name'>문어</div>
+                    </Material>
+                    <div className='empty'>
+                      <i className='fas fa-hourglass-start'></i>서비스 준비중..
+                    </div>
+                  </div>
+                </IngredientBox>
 
                 {/* 아침/점심/저녁 적는 식단 */}
                 <MealPlanCardBox>
-                  <MealPlanCard />
+                  <MealPlanCard
+                    addToPlan={addToPlan}
+                    mealPlan={mealPlan}
+                    setMealPlan={setMealPlan}
+                  />
                 </MealPlanCardBox>
               </PlannerBox>
             </MealPlaner>
           </PlannerContainer>
-        </Container>
+        </MealPlannerContainer>
       </section>
       <Footer />
     </>
   );
 };
 
+const MealPlannerContainer = styled(Container)`
+  width: 100%;
+  height: 100%;
+  padding: 140px 0 70px 0;
+  @media screen and (max-width: 1200px) {
+    width: 94.7%;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
+    width: 90%;
+  }
+  @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
+    width: 100%;
+  }
+`
+
 const PlannerContainer = styled(SectionBox)`
   width: 77%;
+  min-height: 770px;
+
+  @media screen and (max-width: 1035px) {
+    width: 88%;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: auto;
+  }
 `;
 
 const TitleBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 95%;
+  width: 90%;
   height: 100px;
   margin: 0 auto;
   input {
@@ -90,6 +243,37 @@ const TitleBox = styled.div`
     border-radius: 20px;
     border: none;
   }
+
+  /* 반응형 css */
+  @media screen and (max-width: 725px) {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0px;
+  }
+
+  @media screen and (max-width: 625px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+    input {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    margin-left: 20px;
+
+    input {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+  }
 `;
 
 const ThisMonth = styled.span`
@@ -97,7 +281,21 @@ const ThisMonth = styled.span`
   font-weight: bold;
   font-size: 30px;
   color: #303030;
+
   input {
+    width: 100%;
+    font-size: 30px;
+    font-family: "Noto Sans KR", sans-serif;
+  }
+  /* 반응형 css */
+  @media screen and (max-width: 725px) {
+    font-size: 18px;
+  }
+  @media screen and (max-width: 625px) {
+    font-size: 18px;
+  }
+  @media screen and (max-width: 375px) {
+    font-size: 18px;
   }
 `;
 
@@ -107,12 +305,42 @@ const CalendarBtn = styled(MiddleBtn)`
   font-weight: bold;
   color: #303030;
   width: 130px;
+
+  &:hover {
+    border: 2px solid ${theme.colors.lightgrey};
+  }
+
+  /* 반응형 css */
+
+  @media screen and (max-width: 725px) {
+    width: 120px;
+    height: 30px;
+  }
+  @media screen and (max-width: 625px) {
+    width: 120px;
+    height: 30px;
+  }
+  @media screen and (max-width: 375px) {
+    width: 120px;
+    height: 30px;
+  }
 `;
 
 const MealPlaner = styled.div`
-  width: 100%;
+  width: 95%;
+  margin: auto;
   margin-bottom: 20px;
   display: flex;
+
+  /* 반응형 css */
+  @media screen and (max-width: 625px) {
+    display: block;
+    margin-top: 15px;
+  }
+  @media screen and (max-width: 375px) {
+    display: block;
+    margin-top: 15px;
+  }
 `;
 
 const RecommandRecipesBox = styled.div`
@@ -120,23 +348,135 @@ const RecommandRecipesBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  height: 560px;
-  margin: 0px 10px 0px 20px;
+  height: 650px;
+  margin: 0px 15px 0px 20px;
+
+  /* 반응형 css */
+  @media screen and (max-width: 1300px) {
+    min-width: 300px;
+  }
+  @media screen and (max-width: 625px) {
+    width: 95%;
+    max-width: 300px;
+    margin: 5px auto;
+    max-height: 350px;
+  }
+  @media screen and (max-width: 375px) {
+    min-width: 95%;
+    margin: 5px auto;
+    overflow: hidden;
+  }
 `;
-// margin top right bottom left (시계방향)
-// margin 위아래, 오른쪽왼쪽
+
 const PlannerBox = styled.div`
-  width: 70%;
+  width: 65%;
   margin: 0px 20px 0px 10px;
+
+  /* 반응형 css */
+
+  @media screen and (max-width: 625px) {
+    width: 95%;
+    /* max-width: 260px; */
+    margin: 5px auto;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
+  @media screen and (max-width: 375px) {
+    max-width: 100%;
+    margin: 5px auto;
+    max-height: 250px;
+    overflow-x: scroll;
+  }
+`;
+
+const rotate = keyframes`
+  from {
+
+    transform: rotate(-180deg)
+  }
+
+  to {
+    transform: rotate(0deg)
+  }
 `;
 
 const IngredientBox = styled.div`
   width: 100%;
-  height: 150px;
+  height: 200px;
   margin: 0 auto;
+  margin-bottom: 10px;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
+  position: relative;
+
+  .title {
+    text-indent: 20px;
+    font-size: 20px;
+    font-weight: 500;
+    padding-top: 10px;
+  }
+
+  .emptybox {
+    display: flex;
+    margin-top: 20px;
+    font-size: 20px;
+    color: grey;
+  }
+
+  .fa-hourglass-start {
+    margin-right: 10px;
+    animation: ${rotate} 2s infinite;
+  }
+
+  .empty {
+    margin: 10px auto;
+    color: grey;
+    z-index: 10;
+  }
+
+  /* &::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+  } */
+
+  /* 반응형 css */
+  @media screen and (max-width: 1300px) {
+    display: none;
+  }
+  @media screen and (max-width: 375px) {
+    display: none;
+  }
+`;
+
+const Material = styled.div`
+  width: 100px;
+  height: 130px;
+  background: #ffffff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  margin-left: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .food-img {
+    margin-top: 15px;
+    img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+    }
+  }
+
+  .food-name {
+    font-size: 16px;
+    font-weight: 500;
+  }
 `;
 
 const MealPlanCardBox = styled.div`
@@ -144,6 +484,21 @@ const MealPlanCardBox = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 10px;
+
+  /* 반응형 css */
+  @media screen and (max-width: 1300px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 625px) {
+    display: block;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 100%;
+  }
 `;
 
 export default PlanningPage;

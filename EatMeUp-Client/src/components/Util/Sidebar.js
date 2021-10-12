@@ -28,7 +28,7 @@ const Sidebar = ({ id }) => {
       <SideMenu>
         {menu.map((item, idx) => {
           return (
-            <Link to={item.link}>
+            <Link to={item.link} key={idx}>
               <MenuBtn
                 onClick={() => {
                   menuHandler(idx);
@@ -40,8 +40,10 @@ const Sidebar = ({ id }) => {
                 }
                 color={currentId === idx ? "white" : theme.colors.black}
               >
-                <i className={item.icon} id='icon'></i>
-                {item.menu}
+                <div className='point'>
+                  <i className={item.icon} id='icon'></i>
+                </div>
+                <div className='menu'>{item.menu}</div>
               </MenuBtn>
             </Link>
           );
@@ -57,26 +59,113 @@ const SideMenu = styled.div`
   border-radius: 30px;
   align-items: left;
   margin: 0 2vw 0 4vw;
+    
+  a {
+    text-decoration: none;
+  }
+  @media screen and (max-width: 1023px) {
+    margin: 0 2vw 0 4vw;
+    width: 65px;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    z-index: 99999;
+    bottom: 10px;
+    width: 100%;
+    height: 60px;
+    background: ${theme.colors.yellow};
+    border-radius: 30px;
+  }
 `;
 
 const MenuBtn = styled(XSmallBtn)`
-  display: inline-block;
-  text-align: left;
   width: 170px;
-  height: 48px;
-  transition: 0.3s;
-  border-radius: 30px;
+  height: 50px;
+  display: flex;
+  align-items: center;
   border: solid 1px ${theme.colors.lightgrey};
   margin: 0 0 15px 15px;
   font-family: "Noto Sans KR";
-  font-size: 14px;
   font-weight: 500;
+
   &:hover {
     background-color: ${theme.colors.yellow};
     cursor: pointer;
+    color: white;
   }
-  #icon {
-    margin: 10px 15px 10px 15px;
+
+  .point {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: white;
+    text-align: center;
+    margin-left: 3px;
+
+    i {
+      margin: 9px 7px 9px 7px;
+      color: black;
+      font-size: 17px;
+    }
+  }
+
+  .menu {
+    margin-left: 10px;
+    font-size: 14px;
+    line-height: 8px;
+  }
+
+  @media screen and (max-width: 1023px) {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    border: none;
+    margin: 0 0 10px 0px;
+    .menu {
+      display: none;
+    }
+    .point {
+      width: 30px;
+      height: 30px;
+      border-radius: 100%;
+      margin: 0;
+      i {
+        margin: 8px 3px;
+        color: black;
+        font-size: 15px;
+      }
+    }
+  }
+
+
+  @media screen and (max-width: 375px) {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    margin: 5px 10px;
+    background-color: ${theme.colors.yellow};
+
+    .menu {
+      display: none;
+    }
+
+    .point {
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      
+      i {
+        margin: 11px 10px;
+        color: black;
+        font-size: 20px;
+      }
+    }
   }
 `;
 

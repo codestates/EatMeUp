@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import Dropzone from "react-dropzone";
+import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { addToFridge } from '../../../../_actions/fridgeActions'
+import { addToFridge } from "../../../../_actions/fridgeActions";
+import axios from "axios";
 
 /* 스타일 컴포넌트 */
 import {
@@ -13,37 +14,66 @@ import {
 } from "../styled/Style";
 import { Button } from "../../../StyledComponent/buttons";
 
-const AddIngre = ({ setOpenAddWindow,  }) => {
-
+const AddIngre = ({ setOpenAddWindow }) => {
   const dispatch = useDispatch();
-
   const [foodname, setFoodname] = useState("");
   const [foodlife, setFoodlife] = useState("");
-  const [registerDate, setRegisterDate] = useState("");
-  /* function area */
+  const [image, setImage] = useState(null);
+
   const closeHandler = () => {
     setOpenAddWindow(false);
   };
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    
-
-    const food = {
-      food_image: 'food2.jpeg',
-      food_name: foodname,
-      life: foodlife,
-      frez_type: 2,
-      created_at: registerDate,
-      update_at: "2021-01-02",
-    }
-
-    dispatch(addToFridge(food))
-      setOpenAddWindow(false);
-   
+  // 음식을 냉장고에 추가하는 핸들러
+  const imgFileHandler = (e) => {
+    setImage(e.target.files[0]);
   };
 
-  const dropHandler = () => {};
+
+  const today = new Date().toISOString().substring(0, 10)
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    let foodImage = null;
+
+    if (!image) {
+      foodImage = null;
+    } else {
+      const data = await axios.get(`${process.env.REACT_APP_API}/image/s3url`, {
+        withCredentials: true,
+      });
+
+      //url을 사용해서 S3 버킷에 업로드
+      //axios
+      const img = await fetch(
+        data.data.s3url,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "image/jpeg",
+          },
+          body: image,
+        },
+        {
+          withCredentials: true,
+        },
+      );
+
+      foodImage = img.url.split("?")[0];
+    }
+
+
+    const food = {
+      food_image: foodImage ? foodImage : null,
+      food_name: foodname,
+      life: foodlife ? foodlife : today,
+      frez_type: 0,
+    };
+
+    dispatch(addToFridge(food));
+    setOpenAddWindow(false);
+  };
 
   return (
     <>
@@ -53,50 +83,73 @@ const AddIngre = ({ setOpenAddWindow,  }) => {
             <i onClick={closeHandler} className='fas fa-times'></i>
           </div>
           <form onSubmit={submitHandler}>
-            <Dropzone onDrop={dropHandler} multiple={false} maxSize={800000000}>
-              {({ getRootProps, getInputProps }) => (
-                <DropzoneArea {...getRootProps()}>
-                  <input {...getInputProps()} />
-
-                  <div>
-                    <i className='bx bxs-camera-plus'></i>
-                  </div>
-                </DropzoneArea>
+            {/* 음식사진 업로드 */}
+            <DropzoneArea>
+              {image ? (
+                <div>
+                  <img
+                    src={URL.createObjectURL(image)}
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                    }}
+                    alt='foodimg'
+                  />
+                </div>
+              ) : (
+                <div>
+                  <img
+                    src="../food_img/octopus.png"
+                    style={{
+                      width: "120px",
+                      height: "120px",
+                      borderRadius: "50%",
+                    }}
+                    alt='foodimg'
+                  />
+                </div>
               )}
-            </Dropzone>
+            </DropzoneArea>
+            <InputBox>
+              <label htmlFor='foodimg'>
+              <i className='bx bxs-camera-plus'></i>
+              </label>
+              <input
+                type='file'
+                id='foodimg'
+                onChange={imgFileHandler}
+                accept='image/*'
+              />
+            </InputBox>
+
             <FoodInfoBox>
+              {/* 음식이름입력창 */}
               <div className='foodname-box'>
-                <span>음식이름 : </span>
                 <input
                   value={foodname}
                   onChange={(e) => setFoodname(e.currentTarget.value)}
                   type='text'
-                  placeholder='음식이름을 입력해주세요.'
+                  placeholder='재료명'
                 />
               </div>
 
-              <div className='buydate-box'>
-                <span>구매일자 : </span>
-                <input
-                  value={registerDate}
-                  onChange={(e) => setRegisterDate(e.currentTarget.value)}
-                  type='date'
-                />
-              </div>
-
+              {/* 유통기한 입력창 */}
               <div className='foodlife-box'>
-                <span>유통기한 : </span>
+                <label for="life">유통기한</label>
                 <input
+                  id="life"
                   type='date'
-                  value={foodlife}
+                  defaultValue={today}               
                   onChange={(e) => setFoodlife(e.currentTarget.value)}
                 />
               </div>
             </FoodInfoBox>
             <AddToRefriBtn>
               <Button
-                fillColor='#EAEAEA'
-                heightSize='30px'
+                fillColor='#eaeaea'
+                width='150px'
+                height='35px'
                 onClick={submitHandler}
               >
                 추가하기
@@ -108,5 +161,36 @@ const AddIngre = ({ setOpenAddWindow,  }) => {
     </>
   );
 };
+
+const InputBox = styled.div`
+  
+  display: flex;
+  justify-content: center;
+
+  label {
+    position: absolute;
+    top: 145px;
+    left: 205px;
+    padding: 0.3em 0.5em;
+    border-radius: 10px;
+    height: 27px;
+    cursor: pointer;
+    font-size: 30px;
+    line-height: 27px;
+    color: lightgrey;
+  }
+
+  input[type="file"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+`;
+
 
 export default AddIngre;

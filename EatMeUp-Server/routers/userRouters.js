@@ -13,19 +13,11 @@ const { auth } = require("../utils/checkAuth");
 
 const userRouter = express.Router();
 
-userRouter
-  .route("/info")
-  .all(auth)
-  .get(getInfo)
-  .put(putInfo)
-  .delete(deleteInfo);
+userRouter.delete("/info/:id", deleteInfo);
+userRouter.route("/info").all(auth).get(getInfo).put(putInfo);
 
-userRouter.route("/likelist").all(auth).get(getLikeList);
+userRouter.route("/likelist").all(auth).post(addLikeRecipe).get(getLikeList);
 
-userRouter
-  .route("/likelist/:id")
-  .all(auth)
-  .post(addLikeRecipe)
-  .delete(delLikeRecipe);
+userRouter.route("/likelist/:id").all(auth).delete(delLikeRecipe);
 
 module.exports = userRouter;

@@ -4,13 +4,25 @@ const config = require(__dirname + "/../config/config.js")[env];
 const jwt = require("jsonwebtoken");
 
 const getRecipe = async (req, res) => {
-  const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
-
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
   try {
-    const recipeInfo = await User.findOne({
-      where: user.id,
-      include: Recipe,
+    const recipeInfo = await Recipe.findAll({
+      include: [
+        { model: User, as: "user", attributes: ["username", "avatar"] },
+        {
+          model: User,
+          as: "likeUser",
+          attributes: ["id", "email"],
+        },
+        // { all: true },
+      ],
+      where: { post_user_id: id },
     });
+    // const recipeInfo = await User.findOne({
+    //   where: id,
+    //   attributes: ["username", "avatar"],
+    //   include: Recipe,
+    // });
     if (!recipeInfo) {
       return res
         .status(400)
@@ -18,7 +30,7 @@ const getRecipe = async (req, res) => {
     }
     return res.status(200).json({ recipeInfo, success: true });
   } catch (e) {
-    console.log(e);
+    return res.status(400).json({ error: e, message: "failed to recipe info" });
   }
 };
 
@@ -50,7 +62,7 @@ const putRecipe = async (req, res) => {
           .status(400)
           .json({ success: false, message: "failed to recipe edit" });
       }
-      recipeFood.foods = JSON.stringify(foods);
+      recipeFood.foods = foods;
       await recipeFood.save();
     }
     if (steps) {
@@ -60,17 +72,17 @@ const putRecipe = async (req, res) => {
           .status(400)
           .json({ success: false, message: "failed to recipe edit" });
       }
-      recipeStep.steps = JSON.stringify(steps);
+      recipeStep.steps = steps;
       await recipeStep.save();
     }
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
+    return res.status(400).json({ error, message: "failed to recipe edit" });
   }
 };
 
 const postRecipe = async (req, res) => {
-  const user = jwt.verify(req.cookies.accessToken, config.accessSecret);
+  const { id } = jwt.verify(req.cookies.accessToken, config.accessSecret);
   const { title, description, cooking_time, level, main_image, foods, steps } =
     req.body;
   try {
@@ -82,7 +94,7 @@ const postRecipe = async (req, res) => {
       main_image,
       foods,
       steps,
-      post_user_id: user.id,
+      post_user_id: id,
     });
     if (!recipeInfo) {
       return res
@@ -91,7 +103,7 @@ const postRecipe = async (req, res) => {
     }
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
+    return res.status(400).json({ error, message: "failed to recipe create" });
   }
 };
 
@@ -106,7 +118,7 @@ const deleteRecipe = async (req, res) => {
     }
     return res.status(200).json({ success: true });
   } catch (error) {
-    console.log(error);
+    return res.status(400).json({ error, message: "failed to recipe delete" });
   }
 };
 

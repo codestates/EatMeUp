@@ -1,138 +1,219 @@
 import React from "react";
-import styled from "styled-components";
-
-import theme from "../../StyledComponent/theme";
-
-const RecipeCard = styled.figure`
- border: 1px solid #e6e8e6;
-  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
-  border-radius: 20px;
-  background-color: #ffffff;
-  display: inline-block;
-  width: 100%;
-  margin: 0;
-  margin-bottom: 30px;
-  position: relative;
-  cursor: pointer;
-
-  img {
-    width: 95%;
-    height: 250px;
-    border-radius: 20px;
-    object-fit: cover;
-    margin: 10px 7px 0px 7px;
-  }
-
-  .recipe-info_box {
-    display: flex;
-    font-size: 12px;
-    color: ${theme.colors.gray};
-    padding: 5px;
-    margin-left: 10px;
-  }
-
-  .fa-stopwatch {
-    color: gray;
-    font-size: 14px;
-  }
-
-  .title_box {
-    font-size: 18px;
-    text-indent: 5px;
-    margin-left: 15px;
-    font-weight: 500;
-  }
-
-  .recipe-ingre_box {
-    font-size: 14px;
-    display: flex;
-    margin: 10px 0px 15px 10px;
-  }
-
-  .ingre-label {
-    text-indent: 10px;
-    font-size: 13px;
-  }
-
-  .ingres {
-    font-size: 11px;
-    margin-left: 5px;
-  }
-
-  .ingres > span {
-    padding: 3px 8px;
-    background-color: ${theme.colors.lightgrey};
-    border-radius: 30px;
-    margin-right:5px;ƒ
-  }
-
-  .userprofile_box {
-    display: flex;
-    width: 95%;
-    align-items:center;
-   
-  }
-
-  #userimg {
-    width: 40px;
-    height: 40px;
-  }
-
-  .username {
-    font-size: 12px;
-  }
-
-  .cooking-level {
-    position: absolute;
-    top: 270px;
-    left: 25px;
-    width: 80px;
-    height: 35px;
-    border-radius: 30px;
-    background-color: black;
-    color: white;
-    text-align: center;
-    line-height: 33px;
-    opacity: 0;
-    transition: all 0.3s;
-  }
-  
-  &:hover .cooking-level{
-    opacity: 1;
-  }
-
-`;
+import { Link } from "react-router-dom";
+import styled, { keyframes } from "styled-components";
 
 const Card = ({ recipe }) => {
+  const recipeLevel = (level) => {
+    if (level === "초보환영") {
+      return <i className='bx bxs-star' id='icon'></i>;
+    } else if (level === "보통") {
+      return (
+        <>
+          <i className='bx bxs-star' id='icon'></i>
+          <i className='bx bxs-star' id='icon'></i>
+        </>
+      );
+    } else if (level === "어려움") {
+      return (
+        <>
+          <i className='bx bxs-star' id='icon'></i>
+          <i className='bx bxs-star' id='icon'></i>
+          <i className='bx bxs-star' id='icon'></i>
+        </>
+      );
+    } else {
+      return <i className='bx bxs-star' id='icon'></i>;
+    }
+  };
+
   return (
-    <RecipeCard>
-      <div className='userprofile_box'>
-        <div className='userimg_box'>
-          <img src='../food_img/people.jpeg' alt='userimg' id='userimg' />
-        </div>
-        <div className='username_box'>
-          <span className='username'>Segyondgdgg</span>
-        </div>
-      </div>
-      <img src={recipe.main_image} alt='recipe' className='recipe-img' />
-      <figcaption>
-        <div className='recipe-info_box'>
-          <div className='time'>
-            <i class='fas fa-stopwatch'></i> 요리시간 20min
+    <>
+      <Link to={`/recipe/info/${recipe.id}`}>
+        <RecipeCard>
+          <div className='show-user'>
+            <ShowUser>
+              <div className='userimg'>
+                {recipe.user && recipe.user.avatar ? (
+                  <img
+                    src={recipe.user.avatar}
+                    alt='people'
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                ) : (
+                  <img
+                    src='../food_img/favicon.png'
+                    alt='eatmeup'
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                    }}
+                  />
+                )}
+              </div>
+              <div className='username'>
+                <div>
+                  {recipe.user && (
+                    <span>
+                      {recipe.user.username === "test1"
+                        ? "eatmeup"
+                        : recipe.user.username}
+                    </span>
+                  )}
+                  {recipe.user === null && <span>guest</span>}
+                </div>
+              </div>
+            </ShowUser>
           </div>
-        </div>
-        <div className='title_box'>{recipe.title}</div>
-        <div className='recipe-ingre_box'>
-          <div className='ingres'>
-            <span>#돼지전지</span>
-            <span>#양파</span>
-            <span>#대파</span>
+
+          {/* 요리사진 */}
+          <div className='recipeImgbox'>
+            <img src={recipe.main_image} alt='recipeImg' />
           </div>
-        </div>
-      </figcaption>
-      <div className="cooking-level">EASY</div>
-    </RecipeCard>
+
+          {/* 요리시간, 요리제목 */}
+          <CardInfo>
+            <CardLeft>
+              <div className='title'>
+                <span>{recipe.title}</span>
+              </div>
+
+              {/* 음식 주재료 */}
+              <div className='materials'>
+                {recipe.foods.slice(0, 3).map((food, idx) => {
+                  return <span key={idx}>{food.name}</span>;
+                })}
+              </div>
+            </CardLeft>
+            <CardRight>
+              <div className='cookingtime'>
+                <i className='far fa-clock'></i>
+                {recipe.cooking_time.slice(0, 2)}min
+              </div>
+              <div className='imgbox-right'>{recipeLevel(recipe.level)}</div>
+            </CardRight>
+          </CardInfo>
+        </RecipeCard>
+      </Link>
+    </>
   );
 };
 
+const showBtn = keyframes`
+  from{
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+`;
+
+const RecipeCard = styled.div`
+  width: 100%;
+  margin: 20px auto;
+  background-color: #ffffff;
+  display: inline-block;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  padding-bottom: 10px;
+  position: relative;
+  cursor: pointer;
+
+  .recipeImgbox > img {
+    width: 93%;
+    height: 220px;
+    border-radius: 30px;
+    object-fit: cover;
+    margin: 11.5px 11.5px 0px 11.5px;
+  }
+
+  /* 레시피카드 정보(제목, 시간, 주재료) css영역 */
+
+  .show-user {
+    opacity: 0;
+  }
+  &:hover .show-user {
+    animation: ${showBtn} 0.5s forwards;
+  }
+`;
+
+const CardInfo = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CardRight = styled.div`
+  margin-right: 13px;
+  .cookingtime {
+    font-size: 13px;
+    text-indent: 5px;
+    color: #a8a7a3;
+    margin: 10px 10px 6px 0px;
+  }
+
+  .iconBox {
+    margin-left: 5px;
+  }
+
+  .fa-clock {
+    margin-right: 5px;
+  }
+
+  .bxs-star {
+    color: #febd2f;
+    font-size: 20px;
+    text-indent: -8px;
+    margin-right: 7px;
+  }
+
+  .imgbox-right {
+    display: flex;
+    justify-content: flex-end;
+  }
+`;
+
+const CardLeft = styled.div`
+  .title {
+    font-size: 17px;
+    text-indent: 20px;
+    margin-top: 5px;
+     font-weight: 500;
+  }
+
+  .materials {
+    font-size: 11px;
+    margin: 10px 0px 5px 17px;
+  }
+
+  .materials > span {
+    padding: 3px 8px;
+    background-color: #eaeaea;
+    margin-right: 5px;
+    border-radius: 30px;
+  }
+`;
+
+const ShowUser = styled.div`
+  position: absolute;
+  width: 93%;
+  height: 45px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 11.5px 11.5px 0px 11.5px;
+  border-radius: 30px 30px 0px 0px;
+  display: flex;
+  align-items: center;
+
+  .userimg {
+    margin-left: 20px;
+  }
+
+  .username > div {
+    font-size: 14px;
+    margin-left: 5px;
+  }
+`;
 export default Card;

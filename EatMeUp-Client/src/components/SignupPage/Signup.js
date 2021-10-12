@@ -1,30 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { useHistory, Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
-import axios from "axios";
-import styled from "styled-components";
+import { signupRequest, clearErrors } from "../../_actions/authActions";
+import styled, { keyframes } from "styled-components";
 
 // 유효성검사 라이브러리
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
-// 컴포넌트
-import AlertBox from "./AlertBox";
-
 // 스타일 컴포넌트
 import { LargeBtn } from "../StyledComponent/buttons";
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { SectionBox } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
 
-const Signup = () => {
-  const [alert, setAlert] = useState(false);
-  const Timer = setTimeout(() => {
-    setAlert(false);
-  }, 2000);
+const { swal } = window;
 
-  useEffect(() => Timer, []);
-
+const Signup = ({ setShowSignup, setShowLogin }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
+
+  const { success, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (error) {
+      swal("Please!", "입력한 정보를 다시 확인해주세요.", "error");
+      dispatch(clearErrors());
+      return;
+    }
+  }, [dispatch, error, success]);
 
   const validationSchema = yup.object().shape({
     name: yup.string().min(2).max(10).required(),
@@ -49,18 +53,26 @@ const Signup = () => {
       password: data.pwd,
     };
 
-    axios
-      .post("https://api.eatmeup.me/auth/signup", signupData, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        res.data.success && history.push("/login");
-      });
+    dispatch(signupRequest(signupData));
+    history.push("/");
+    setShowSignup(false);
+    setShowLogin(true);
+  };
+
+  const closeLoginModal = () => {
+    setShowSignup(false);
+  };
+  const showLoginHandler = () => {
+    setShowSignup(false);
+    setShowLogin(true);
   };
 
   return (
     <StyledContainer>
       <LoginContainer>
+        <div className='closeBtn'>
+          <i onClick={closeLoginModal} className='fas fa-times'></i>
+        </div>
         <div className='logo_container'>
           <img
             className='loginLogo'
@@ -130,9 +142,9 @@ const Signup = () => {
               <SignUpButton type='submit' value='Sign up'>
                 SignUp
               </SignUpButton>
-              <StyledLink to='/login'>
-                <BackButton>Go to Login</BackButton>
-              </StyledLink>
+              {/* <StyledLink to='/login'> */}
+              <BackButton onClick={showLoginHandler}>Go to Login</BackButton>
+              {/* </StyledLink> */}
             </BtnContainer>
           </form>
         </InputContainer>
@@ -141,10 +153,33 @@ const Signup = () => {
   );
 };
 
-const StyledContainer = styled(Container)`
-  margin: 0 auto;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+const StyledContainer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 99999;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 15px 15px;
+  background: rgba(0, 0, 0, 0.3);
+  opacity: 1;
+  transition: opacity 0.15s linear;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const showDialog = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(-100px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0px);
+  }
 `;
 
 const LoginContainer = styled(SectionBox)`
@@ -155,6 +190,18 @@ const LoginContainer = styled(SectionBox)`
   justify-content: center;
   text-align: center;
   margin: 200px auto;
+  animation: ${showDialog} 0.5s forwards;
+  position: relative;
+
+  .closeBtn {
+    position: absolute;
+    top: 13px;
+    left: 450px;
+    font-size: 24px;
+    color: grey;
+    cursor: pointer;
+  }
+
   .logo_container {
     width: 100%;
     height: 70px;
@@ -217,14 +264,6 @@ const BackButton = styled(LargeBtn)`
   font-weight: 600;
   margin: 0 auto;
   cursor: pointer;
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
-  font-weight: bold;
-  &:visited {
-    color: ${theme.colors.black};
-  }
 `;
 
 export default Signup;

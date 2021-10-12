@@ -11,6 +11,8 @@ const imageRouter = require("./routers/imageRouters");
 const userRouter = require("./routers/userRouters");
 const apiRouter = require("./routers/apiRouters");
 const myRecipeRouter = require("./routers/myRecipeRouters");
+const cmRecipeRouter = require("./routers/cmRecipeRouters");
+const mealPlanRouter = require("./routers/mealPlanRouter");
 
 app.use(logger("tiny"));
 app.use(express.json());
@@ -29,6 +31,8 @@ app.use("/food", foodRouter);
 app.use("/recipeAPI", apiRouter);
 app.use("/auth", authRouter);
 app.use("/image", imageRouter);
+app.use("/recipe", cmRecipeRouter);
+app.use("/calendar", mealPlanRouter);
 
 sequelize
   .sync({ force: false })

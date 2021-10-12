@@ -1,169 +1,267 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import Chip from "@mui/material/Chip";
+import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-import { useDispatch, useSelector } from 'react-redux'
-import { allRecipes } from '../../_actions/recipeActions';
+import { useDispatch, useSelector } from "react-redux";
+import { allRecipes } from "../../_actions/recipeActions";
+import { getUserinfo } from "../../_actions/userActions";
+import Alert from "@mui/material/Alert";
 
 /* 컴포넌트 */
 import Header from "../Util/Header";
 import Card from "./sections/Card";
-import SwiperCompo from "./sections/SwiperCompo";
 import Footer from "../Util/Footer";
+import Loader from "../Util/Loader";
+import Slider from "./Slider";
+import FirstCard from "./sections/FirstCard";
 
 const AllRecipes = () => {
   // Todo
-  // 더보기 버튼 만들기
-  // 재료 삭제 핸들러만들기
 
   const dispatch = useDispatch();
-  const { loading, recipes } = useSelector(state => state.allRecipes)
-  
-  const slicedArr = recipes.slice(0, 8);
-  const loadMore = 4;
-  const [showRecipes, setShowRecipes] = useState(slicedArr);
-  
-  
+  const { loading, recipes, recipeCount } = useSelector(
+    (state) => state.allRecipes,
+  );
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const [page, setPage] = useState(1);
+  const count = Math.ceil(recipeCount / 12);
+
   useEffect(() => {
+    const getPage = {
+      page: page,
+    };
+    dispatch(allRecipes(getPage));
 
-    dispatch(allRecipes());
- 
-   
-  }, [dispatch])
+    if (isAuthenticated) {
+      dispatch(getUserinfo());
+    }
+  }, [dispatch, page, isAuthenticated]);
 
-  const loadMoreHandler = () => {
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
-    const loadmore = recipes.slice(0, showRecipes.length+loadMore);
-    setShowRecipes(loadmore)
-
-  }
-
-  const deleteIngredientHandler = () => {};
-  console.log(showRecipes)
   return (
     <>
       <Header id={0} />
-      <section>
-        {/* 페이지 제목 */}
-        <TitleBox>
-          <h1>
-            <i className='fas fa-utensils'></i> 오늘의 레시피
-          </h1>
-        </TitleBox>
+      {loading ? (
+        <Loader />
+      ) : (
+        <section>
+          {/* 페이지 제목 */}
 
-        {/* 오늘의 레시피 */}
-        <SwiperCompo />
-
-        {/* 냉장고 재료기반 추천된 재료리스트 */}
-        <SearchBox>
-          <div className='title'>추천 레시피</div>
-
-          <div className='search_box'>
-            <Stack direction='row' spacing={1}>
-              <i className='fas fa-shopping-basket'></i>
-              <Chip label='감자' onDelete={() => deleteIngredientHandler()} />
-            </Stack>
-          </div>
-          <div className='searchBtn_box'>검색하기</div>
-        </SearchBox>
-
-        {/* 카드리스트 컨테이너 */}
-        <Container>
-          {showRecipes.map((recipe, idx) => {
-            return <Card recipe={recipe} key={idx} />;
-          })}
-        </Container>
-        <LoadMoreBtn>
-          <div>
-          {recipes.length === showRecipes.length ? "" : (<button onClick={loadMoreHandler}>더보기</button>)}
-          </div>
-        </LoadMoreBtn>
-        
-      </section>
+          <TitleContainer>
+            <div className='todays-pick'>오늘의 레시피</div>
+          </TitleContainer>
+          <MainContainer>
+            <Slider />
+            {recipes &&
+              recipes.slice(5, 7).map((recipe, idx) => {
+                return <FirstCard recipe={recipe} key={idx} />;
+              })}
+          </MainContainer>
+          <Stack
+            sx={{ width: "80%", margin: "10px auto", backgroundColor: "white" }}
+            spacing={2}
+          >
+            <Alert variant='outlined' severity='error'>
+              공지사항 👉 레시피 사진이 안 나올시에
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://crawling-healer-570.notion.site/HTTP-07d3f56af26e4d6baf7fd4e16e77c3d7",
+                  )
+                }
+                style={{
+                  color: "#531f21",
+                  border: "none",
+                  background: "none",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                }}
+              >
+                여기를 클릭해 주세요
+              </button>{" "}
+            </Alert>
+          </Stack>
+          <SearchBox>
+            <div className='level-box'>
+              <i className='fas fa-concierge-bell'></i>
+              <span className='level'>난이도 :</span>
+              <span>초보환영 </span>
+              <i className='bx bxs-star' id='icon'></i>
+              <span>보통 </span>
+              <i className='bx bxs-star' id='icon'></i>
+              <i className='bx bxs-star' id='icon'></i>
+              <span>어려움</span>
+              <i className='bx bxs-star' id='icon'></i>
+              <i className='bx bxs-star' id='icon'></i>
+              <i className='bx bxs-star' id='icon'></i>
+            </div>
+          </SearchBox>
+          {/* 카드리스트 컨테이너 */}
+          <Container>
+            {recipes &&
+              recipes.map((recipe, idx) => {
+                return <Card recipe={recipe} key={idx} />;
+              })}
+          </Container>
+          <PaginationBox>
+            <div>
+              <Stack spacing={3}>
+                <Pagination
+                  count={count}
+                  size='large'
+                  shape='rounded'
+                  variant='outlined'
+                  page={page}
+                  onChange={handleChange}
+                />
+              </Stack>
+            </div>
+          </PaginationBox>
+        </section>
+      )}
       <Footer />
     </>
   );
 };
 
-const TitleBox = styled.div`
+const TitleContainer = styled.div`
   width: 80%;
-  text-indent: 10px;
-  margin: 20px auto;
+  margin: 0 auto;
+  padding: 130px 0 30px 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  .todays-pick {
+    font-size: 30px;
+    font-weight: bold;
+  }
+  @media screen and (max-width: 1500px) {
+    padding: 10% 0 1% 0;
+    margin-top: 60px;
+    width: 80%;
+    margin: 0 auto;
+
+    .todays-pick {
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+
+  @media screen and (max-width: 550px) {
+    .todays-pick {
+      opacity: 0;
+    }
+  }
 `;
 
 const SearchBox = styled.div`
   width: 80%;
-  display: flex;
-  margin: 50px auto;
+  margin: 5px auto;
   align-items: center;
 
-  .title {
-    font-size: 23px;
-    font-weight: 500;
-    margin-left: 30px;
+  .level-box {
+    margin-top: 15px;
+  }
+  .bxs-star {
+    color: #febd2f;
+    font-size: 17px;
   }
 
-  .search_box {
-    border: 1px solid #ced0ce;
-    width: 70%;
-    height: 43px;
-    border-radius: 30px 0px 0px 30px;
-    margin-left: 18px;
-    line-height: 40px;
-    align-items: center;
-    display: flex;
-
+  .level {
+    margin-left: 1px;
   }
 
-  .fa-shopping-basket {
-    margin-left: 15px;
-    font-size: 20px;
-    color: lightgrey;
-    margin: 6px 10px 0px 15px;
+  div > span {
+    margin-left: 10px;
+    color: #a9a7a3;
   }
-
-  .searchBtn_box {
-    border: 1px solid #ced0ce;
-   width: 150px;
-   height: 43px;
-   border-radius: 0px 30px 30px 0px;
-   font-weight: bold;
-   padding: 8px;
-   background: white;
-   text-align: center;
-   color: grey;
-  }
-
-  .
-`;
-const Container = styled.div`
-  width: 85%;
-  column-width: 350px;
-  margin: 30px auto;
-  gap: 15px;
-
-  @media screen and (max-width: 1700px) {
-    width: 90%;
-    column-width: 300px;
+  .fa-concierge-bell {
+    color: #a9a7a3;
   }
 `;
 
-const LoadMoreBtn = styled.div`
-  width: 90%;
-  margin: 20px auto;
+const MainContainer = styled.div`
   display: flex;
   justify-content: center;
-  
-  button {
-    width: 150px;
-    height: 40px;
-    background-color: #ced0ce;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    font-size: 15px;
-    cursor: pointer;
+  width: 80%;
+  margin: 0 auto;
+
+  @media screen and (max-width: 900px) {
+    width: 95%;
+  }
+`;
+const Container = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 15px;
+
+  a {
+    color: #404040;
+  }
+  @media screen and (max-width: 1500px) {
+    width: 80%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
   }
 
-`
+  @media screen and (max-width: 1200px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin: 0 auto;
+
+    a {
+      color: #404040;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  @media screen and (max-width: 550px) {
+    width: 80%;
+    grid-template-columns: 1fr;
+    gap: 0px;
+  }
+
+  @media screen and (max-width: 375px) {
+    width: 88%;
+    display: block;
+  }
+`;
+
+const PaginationBox = styled.div`
+  width: 80%;
+  margin: 15px auto;
+  display: flex;
+  justify-content: flex-end;
+  div {
+    font-size: 17px;
+  }
+`;
 export default AllRecipes;

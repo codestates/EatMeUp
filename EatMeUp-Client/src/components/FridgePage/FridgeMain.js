@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { foodData } from "../dummydata";
+import { useHistory } from "react-router-dom";
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
 import { useSelector, useDispatch } from "react-redux";
-import { allFoods, saveFridgeInfo } from "../../_actions/fridgeActions";
+import {
+  allFoods,
+  saveFridgeInfo,
+  clearErrors,
+} from "../../_actions/fridgeActions";
+import { getRecommandRecipe } from "../../_actions/recipeActions";
+import { logoutRequest } from "../../_actions/authActions";
+import {
+  NEW_FOOD_RESET,
+  EDIT_FOOD_RESET,
+  DELETE_FOOD_RESET,
+  SAVE_FOOD_RESET,
+} from "../../_types/fridgeTypes";
 
 /* 컴포넌트 */
 import FridgeInner from "./sections/FridgeInner";
@@ -12,180 +24,259 @@ import FridgeBtn from "./sections/FridgeBtn";
 import Header from "../Util/Header";
 import Footer from "../Util/Footer";
 import EditFridge from "./sections/EditFridge";
+import Loader from "../Util/Loader";
 
+const { swal } = window;
 /* 냉장고 페이지 */
 const FridgeMain = () => {
-
   const dispatch = useDispatch();
-  const { foods } = useSelector((state) => state.allFoods);
+  const history = useHistory();
+  const { foods, error, loading } = useSelector((state) => state.allFoods);
+  const { isEdited, isCreated, isDeleted } = useSelector((state) => state.food);
+  const { isArranged } = useSelector((state) => state.savedfoods);
+  const [foodList, setFoodList] = useState(foods);
 
-  // useEffect(() => {
-  //   dispatch(allFoods());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(allFoods());
 
-  /* 유통기한을 D-몇일로 나타내기 위해 계산하는 함수 */
-  // const FOODS = foods.map((type, typeIdx) => {
-  //  const itemarray = type.items.map((food) => {
-  //     const splited = food.life.split("-");
-  //     const getDate = new Date();
-  //     const today = new Date(
-  //       getDate.getFullYear(),
-  //       getDate.getMonth(),
-  //       getDate.getDay(),
-  //     );
-  //     const foodLife = new Date(
-  //       Number(splited[0]),
-  //       Number(splited[1]),
-  //       Number(splited[2]),
-  //     );
+    if (isCreated) {
+      dispatch({ type: NEW_FOOD_RESET });
+    }
+    if (isEdited) {
+      dispatch({ type: EDIT_FOOD_RESET });
+    }
 
-  //     const elapsedMSec = foodLife.getTime() - today.getTime(); // 172800000
-  //     const elapsedDay = elapsedMSec / 1000 / 60 / 60 / 24; // 2
+    if (isDeleted) {
+      dispatch({ type: DELETE_FOOD_RESET });
+    }
 
-  //     return {
-  //       id: food.id,
-  //       food_name: food.food_name,
-  //       food_image: food.food_image,
-  //       frez_type: food.frez_type,
-  //       life: elapsedDay,
-  //       created_at: food.created_at,
-  //       update_at: food.update_at,
-  //     };
-  //   });
+    if (isArranged) {
+      dispatch({ type: SAVE_FOOD_RESET });
+    }
 
-  //   return {
-  //     type: typeIdx,
-  //     items: itemarray,
-  //   };
-  // });
+    if (error) {
+      swal("Please!", "로그인이 필요합니다.", "warning");
+      dispatch(clearErrors());
+      dispatch(logoutRequest());
+      history.push("/");
+      return;
+    }
+  }, [dispatch, isEdited, isCreated, isArranged, isDeleted, error, history]);
 
-  // /* 유통기한이 임박한 냉장고 속 음식 보여주기 */
-  // let redFoods = []
-  // FOODS.forEach((food) => {
-
-  //   if (food.life <= 30) {
-  //     redFoods.push(food.food_name)
-  //   }
-  // });
-
-  // /* 보관타입별로 음식을 나눈 배열 */
-  // const foodlist = [
-  //   { type: 0, items: [] },
-  //   { type: 1, items: [] },
-  //   { type: 2, items: [] },
-  // ];
-
-  // console.log(foodlist)
-  // FOODS.forEach((food) => {
-  //   if (food.frez_type === 0) {
-  //     foodlist[0].items.push(food);
-  //   } else if (food.frez_type === 1) {
-  //     foodlist[1].items.push(food);
-  //   } else {
-  //     foodlist[2].items.push(food);
-  //   }
-  // });
+  useEffect(() => {
+    setFoodList(foods);
+  }, [foods]);
 
   const [checkedFoods, setCheckedFoods] = useState([]);
-  const [foodList, setFoodList] = useState(foods);
   const [showEditBtn, setShowEditBtn] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
 
-  const showEditBtnHandler = () => {
+  /* 수정하기 버튼, 수정한 음식리스트 저장 요청 핸들러 */
+  const showEditBtnHandler = (e) => {
+    e.preventDefault();
     setShowEditBtn(!showEditBtn);
-
-    if(showEditBtn) {
-      dispatch(saveFridgeInfo(foodList))
+    setFoodList(foods);
+    if (showEditBtn) {
+      dispatch(saveFridgeInfo(foodList));
+      setFoodList(foods);
     }
   };
 
+  /* 추가된 재료 삭제 핸들러 */
   const handleDelete = (idx) => {
     const deleteFood = checkedFoods.filter((food, id) => {
       if (id !== idx) return food;
+      return "";
     });
     setCheckedFoods(deleteFood);
     setCurrentIdx(idx);
   };
-  console.log(foodList)
+
+  const searchByFoodHandler = () => {
+    const foodArr = checkedFoods.map((food) => {
+      return {
+        name: food,
+      };
+    });
+
+    const data = {
+      food: foodArr,
+    };
+
+    if (foodArr.length === 0) {
+      swal("Please!", "마이냉장고 속 음식을 선택해주세요.", "error");
+      return;
+    }
+    dispatch(getRecommandRecipe(data));
+    history.push("/recipes/result");
+  };
 
   return (
     <>
       <Header id={1} />
-      <section>
-        {/* 유통기한이 임박한 음식 추천기능 */}
-       <SearchBox>
-          <FridgeTitle>마이 냉장고</FridgeTitle>
+      {loading ? (
+        <Loader />
+      ) : (
+        <section>
+          {/* 유통기한이 임박한 음식 추천기능 */}
 
-          <CheckedFoodsBox>
-            <Stack direction='row' spacing={1}>
-              <i className='fas fa-shopping-basket'></i>
-              {checkedFoods.map((food, idx) => {
-                return (
-                  <Chip
-                    key={idx}
-                    label={food}
-                    onDelete={() => handleDelete(idx)}
-                  />
-                );
-              })}
-            </Stack>
-          </CheckedFoodsBox>
+          <SearchBox>
+            <FridgeTitle>마이냉장고</FridgeTitle>
+            <FoodBox>
+              {/* 체크된 음식 담는 영역 */}
+              <CheckedFoodsBox>
+                <Stack direction='row' spacing={1}>
+                  <i className='fas fa-shopping-basket'></i>
+                  {checkedFoods.length === 0 ? (
+                    <span className='placeholder'>
+                      냉장고 재료를 추가해 주세요
+                    </span>
+                  ) : (
+                    checkedFoods.map((food, idx) => {
+                      return (
+                        <Chip
+                          key={idx}
+                          label={food}
+                          onDelete={() => handleDelete(idx)}
+                        />
+                      );
+                    })
+                  )}
+                </Stack>
+              </CheckedFoodsBox>
 
-          <GotoBtnBox>
-            레시피 보기 <i className='fas fa-chevron-right'></i>
-          </GotoBtnBox>
-        </SearchBox>
+              <GotoBtnBox onClick={searchByFoodHandler}>
+                레시피 보기 <i className="fas fa-chevron-right"></i>
+               
+              </GotoBtnBox>
+            </FoodBox>
+          </SearchBox>
 
-        {/* 냉장고 */}
-        <ContentBox>
+          {/* 냉장고 */}
+          <ContentBox>
+            {/* 냉장고 안 */}
+            {showEditBtn ? (
+              <EditFridge
+                foodList={foodList}
+                setFoodList={setFoodList}
+                showEditBtn={showEditBtn}
+                setShowEditBtn={setShowEditBtn}
+              />
+            ) : (
+              <FridgeInner
+                foods={foods}
+                checkedFoods={checkedFoods}
+                setCheckedFoods={setCheckedFoods}
+              />
+            )}
 
-          {/* 냉장고 안 */}
-          {showEditBtn ? (
-             <EditFridge
-              foodList={foodList}
-               setFoodList={setFoodList}
+            {/* 냉장고 핸들러 버튼들 */}
+            <FridgeBtn
+              showEditBtnHandler={showEditBtnHandler}
               showEditBtn={showEditBtn}
-             />
-           ) : (
-             <FridgeInner
-               foods={foodList}
-               checkedFoods={checkedFoods}
-               setCheckedFoods={setCheckedFoods}
-             />
-           )}
-
-           {/* 냉장고 핸들러 버튼들 */}
-           <FridgeBtn
-             showEditBtnHandler={showEditBtnHandler}
-             showEditBtn={showEditBtn}
-           />
-       </ContentBox> 
-      </section> 
+            />
+          </ContentBox>
+        </section>
+      )}
       <Footer />
     </>
   );
 };
 
+// 음식담는 영역 css
 const SearchBox = styled.div`
-  width: 85%;
-  margin: 0.5rem auto;
+  width: 70%;
+  margin: 0px auto;
   display: flex;
-  margin-top: 25px;
+  justify-content: space-between;
+  position: relative;
+  padding: 130px 0 0 0;
+
+  @media screen and (max-width:1500px) {
+    padding: 9% 0 0 0;
+    width: 80%;
+  }
+
+  @media screen and (max-width: 1035px) {
+    display: block;
+    width: 80%;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 575px) {
+    display: block;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 450px) {
+    display: block;
+    width: 90%;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 90%;
+  }
 `;
 
 const FridgeTitle = styled.div`
-  font-size: 40px;
+  width: 15%;
   font-weight: bold;
+  font-size: 35px;
+  text-indent: 10px;
+
+  @media screen and (max-width: 1200px) {
+    width: 15%;
+    font-size: 27px;
+  }
+
+  @media screen and (max-width: 1035px) {
+    display: block;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 775px) {
+    display: block;
+  }
+
+  @media screen and (max-width: 575px) {
+    display: block;
+    opacity: 0;
+  }
+
+  @media screen and (max-width: 450px) {
+    display: block;
+    opacity: 0;
+  }
+
+  @media screen and (max-width: 375px) {
+    opacity: 0;
+  }
 `;
 
+const FoodBox = styled.div`
+  width: 85%;
+  display: flex;
+  align-items: center;
+
+  @media screen and (max-width: 1035px) {
+    width: 100%;
+    margin: 8px 0px;
+  }
+`;
+
+// 클릭한 음식담는 영역
 const CheckedFoodsBox = styled.div`
-  width: 70%;
-  height: 43px;
-  border: 1px solid #ced0ce;
+  width: 85%;
+  height: 40px;
+  border: 2px solid #ebe9e5;
   border-radius: 30px 0px 0px 30px;
-  margin-top: 15px;
-  margin-left: 18px;
   padding-top: 5px;
+  margin-left: 8px;
 
   .fa-shopping-basket {
     margin-left: 20px;
@@ -199,23 +290,95 @@ const CheckedFoodsBox = styled.div`
     background-color: #e1e0dc;
     border-radius: 30px;
   }
+
+  .placeholder {
+    text-indent: 10px;
+    font-size: 14px;
+    line-height: 30px;
+    color: #a8a7a3;
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 80%;
+  }
+
+  @media screen and (max-width: 1035px) {
+    display: block;
+    width: 85%;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+    width: 90%;
+    overflow-x: scroll;
+  }
 `;
 
+// 재료기반 레시피 찾기버튼
 const GotoBtnBox = styled.div`
-  margin-top: 15px;
-  border: 1px solid #ced0ce;
-  width: 150px;
-  height: 43px;
+  width: 13%;
+  height: 32px;
   border-radius: 0px 30px 30px 0px;
+  line-height: 33px;
   background: white;
+  color: white;
   font-weight: bold;
   padding: 8px;
   text-align: center;
+  text-decoration: none;
+  color: #303030;
+  cursor: pointer;
+  border: 1px solid #ebe9e5;
+
+  @media screen and (max-width: 1035px) {
+    display: block;
+    
+  }
+
+  @media screen and (max-width: 775px) {
+    font-size: 13px;
+
+  }
+
+  @media screen and (max-width: 575px) {
+    width: 20%;
+   
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 20%;
+    font-size: 10px;
+  }
+
+  @media screen and (max-width: 375px) {
+    background: none;
+    border-top: 2px solid #ebe9e5;
+    border-right: 2px solid #ebe9e5;
+    border-bottom: 2px solid #ebe9e5;
+    border-left: none;
+    height: 30px;
+    color:grey;
+    .fa-chevron-right {
+      display: none;
+
+    }
+  }
 `;
 
+//냉장고
 const ContentBox = styled.div`
-  width: 85%;
+  width: 70%;
   margin: 2rem auto;
+
+ @media screen and (max-width: 1500px) {
+   width: 80%;
+ }
+
+  @media screen and (max-width: 375px) {
+    margin: 5px auto;
+    width: 95%;
+    
+  }
 `;
 
 export default FridgeMain;

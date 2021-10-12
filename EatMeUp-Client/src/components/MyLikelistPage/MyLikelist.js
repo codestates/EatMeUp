@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getMyLikelist } from "../../_actions/userActions";
+import { REMOVE_FROM_LIKELIST_RESET } from "../../_types/userTypes";
+import { clearErrors } from "../../_actions/userActions";
+import { logoutRequest } from "../../_actions/authActions";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -9,46 +14,100 @@ import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
 
 /* 스타일 컴포넌트 */
-import { LargeBtn } from "../StyledComponent/buttons";
 import { Container, SectionBox } from "../StyledComponent/containers";
 
-/* 데이터 */
-import { myRecipes } from "../dummydata";
-
+const { swal } = window;
 const MyLikelist = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { mylikelist, error } = useSelector((state) => state.mylikelist);
+  const { isDeleted } = useSelector((state) => state.likelist);
+
+  useEffect(() => {
+    dispatch(getMyLikelist());
+
+    if (isDeleted) {
+      dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
+    }
+
+    if (error) {
+      swal("Please!", "로그인이 필요합니다.", "warning");
+      dispatch(clearErrors());
+      dispatch(logoutRequest());
+      history.push("/");
+    }
+  }, [dispatch, isDeleted, history, error]);
+
   return (
     <>
       <Header id={2} />
       <section>
-        <Container>
+        <LikeListContainer>
           {/* 사이드바영역 */}
-          <Sidebar id={2}/>
+          <Sidebar id={2} />
 
           {/* 좋아요한 레시피 리스트 영역 */}
           <ListContainer>
             {/* 좋아요한 레시피 리스트 페이지 타이틀 */}
             <TitleBox>
-              <div className='title'>My Favorite Recipes</div>
+              <div className='title'>Liked Recipes</div>
             </TitleBox>
 
             {/* 좋아요한 레시피들 */}
             <ListBox>
-              <Card recipes={myRecipes} />
+              <Card recipes={mylikelist} />
             </ListBox>
           </ListContainer>
-        </Container>
+        </LikeListContainer>
       </section>
       <Footer />
     </>
   );
 };
 
+const LikeListContainer = styled(Container)`
+  width: 100%;
+  height: 100%;
+  padding: 140px 0 70px 0;
+  @media screen and (max-width: 1200px) {
+    width: 94.7%;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
+    width: 90%;
+  }
+  @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
+    width: 100%;
+  }
+`;
+
 const ListContainer = styled(SectionBox)`
   width: 77%;
-  /* min-height: 720px;
-  @media screen and (max-width: 1500px){
+  @media screen and (max-width: 1023px) {
+    width: 90%;
+  }
+  @media screen and (max-width: 768px) {
     width: 100%;
-  } */
+  }
+  @media screen and (max-width: 450px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 375px) {
+    width: 100%;
+  }
 `;
 
 const TitleBox = styled.div`
@@ -62,16 +121,42 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
-`;
 
-const Button = styled(LargeBtn)`
-  margin-right: 20px;
-  font-size: 15px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-  border: 1px solid white;
-  margin: 10px;
+  @media screen and (max-width: 1200px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 568px) {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 20px;
+    width: 250px;
+  }
+  @media screen and (max-width: 375px) {
+    width: 100%;
+    display: block;
+    font-size: 25px;
+    text-indent: 10px;
+    margin: 0;
+  }
 `;
 
 const ListBox = styled.div`
@@ -79,9 +164,50 @@ const ListBox = styled.div`
   max-width: 1329px;
   margin: 0 auto;
   min-height: 720px;
-  column-width: 300px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   gap: 15px;
   padding: 10px;
+
+  @media screen and (max-width: 1500px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 10px;
+  }
+
+  @media screen and (max-width: 1034px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 0px;
+    padding: 0px;
+  }
+
+  @media screen and (max-width: 568px) {
+    width: 95%;
+    gap: 10px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 450px) {
+    width: 100%;
+    gap: 10px;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 375px) {
+    display: block;
+  }
 `;
 
 export default MyLikelist;

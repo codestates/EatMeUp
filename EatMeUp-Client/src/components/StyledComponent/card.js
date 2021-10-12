@@ -81,7 +81,7 @@ export const RecipeCard = styled.div`
   }
 `;
 
-export const Recipe = styled.figure`
+export const Recipe = styled.div`
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
   display: inline-block;
@@ -92,7 +92,7 @@ export const Recipe = styled.figure`
 
   img {
     width: 95%;
-    height: 250px;
+    height: 200px;
     border-radius: 20px;
     object-fit: cover;
     margin: 10px 7px 0px 7px;
@@ -104,9 +104,11 @@ export const Recipe = styled.figure`
     color: #A9A7A3;
     padding: 5px;
     margin-left: 10px;
+    width: 100%;
+    justify-content: space-between;
   }
 
-  .fa-stopwatch {
+  .fa-clock {
     color: gray;
     font-size: 12px;
   }
@@ -120,6 +122,7 @@ export const Recipe = styled.figure`
   .recipe-ingre_box {
     font-size: 14px;
     display: flex;
+    
     margin: 10px 0px 15px 10px;
   }
 

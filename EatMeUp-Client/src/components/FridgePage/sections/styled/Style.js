@@ -34,10 +34,9 @@ const ModalDialog = styled.div`
   position: relative;
   box-sizing: border-box;
   margin: 0 auto;
-  width: 400px;
-  height: 400px;
+  width: 380px;
+  height: 380px;
   border-radius: 20px;
-  border: 2px solid gray;
   max-width: calc(100% - 0.01px) !important;
   background: #ffffff;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
@@ -52,7 +51,7 @@ const ModalDialog = styled.div`
 
   .fa-times {
     font-size: 25px;
-    padding: 15px;
+    padding: 10px 15px 10px 10px;
     color: lightgrey;
     cursor: pointer;
   }
@@ -65,28 +64,49 @@ const ModalDialog = styled.div`
 const DropzoneArea = styled.div`
   width: 150px;
   height: 150px;
-  background-color: #eaeaea;
   border-radius: 50%;
   margin: 0 auto;
-  margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  .bxs-camera-plus {
-    font-size: 30px;
-    color: grey;
-  }
 `;
 
 const FoodInfoBox = styled.div`
-  width: 70%;
+  width: 80%;
   padding: 8px;
-  margin: 0.5rem auto;
-  font-size: 13px;
+  margin: 0.3rem auto;
 
   .foodname-box {
-    margin-bottom: 8px;
-    font-size: 13px
+    margin: 0 auto;
+    display: flex;
+    margin-bottom: 10px;
+
+    input {
+      font-size: 23px;
+      font-weight: 500;
+    }
+  }
+
+  .foodlife-box {
+    label {
+      font-size: 17px;
+      color: #a8a7a3;
+      margin-left: 50px;
+      font-weight: 500;
+    }
+  }
+
+  input {
+    border: none;
+    margin: 5px auto;
+    font-size: 17px;
+    font-family: "Noto Sans KR", sans-serif;
+    text-align: center;
+    &:focus {
+      outline: none;
+      border-bottom: 1px solid black;
+      transition: all 0.2s ease-in-out;
+    }
   }
 
   .foodname-box > input {
@@ -96,12 +116,24 @@ const FoodInfoBox = styled.div`
 
   .buydate-box {
     margin-bottom: 8px;
-    font-size: 13px
+    font-size: 13px;
   }
 
   .buydate-box > input {
-    width: 177px;
+    width: 200px;
     height: 30px;
+  }
+
+  @media screen and (max-width: 375px) {
+  
+    .foodlife-box {
+      label {
+        font-size: 17px;
+        color: #a8a7a3;
+        margin-left: 20px;
+        font-weight: 500;
+      }
+    }
   }
 `;
 
@@ -109,6 +141,11 @@ const AddToRefriBtn = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+
+  button {
+    font-size: 15px;
+    margin: 0px 3px;
+  }
 `;
 
 export {
