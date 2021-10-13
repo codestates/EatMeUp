@@ -15,6 +15,8 @@
 
 
 ## 🛠 Tech stack 🛠
+![stack](https://user-images.githubusercontent.com/75926861/137096969-c122ca44-a162-4777-aa03-358ddd948dd5.png)
+
 ### COMMON
 
 <img src="https://img.shields.io/badge/GITHUB-181717?style=for-the-badge&logo=GitHub&logoColor=white"/></a> 
@@ -37,14 +39,29 @@
 <img src="https://img.shields.io/badge/PostgreSQL-47A248?style=for-the-badge&logo=postgreSQL&logoColor=white"/></a> 
 <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white"/></a>
 
-<!-- ### DEPLOY -->
+### DEPLOY
+<img src="https://img.shields.io/badge/Clinet-6f6f6f?style=for-the-badge&logo=&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS Cloud Front-569A31?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS Route53-569A31?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS CodePipeLine-569A31?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS CodeBuild-569A31?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
 
+<img src="https://img.shields.io/badge/Server-6f6f6f?style=for-the-badge&logo=&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS EC2-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS Route53-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Elastic Load Balance-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS CodePipeLine-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
+
+<img src="https://img.shields.io/badge/DB-6f6f6f?style=for-the-badge&logo=&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/AWS RDS PostgreSQL-4053D6?style=for-the-badge&logo=postgreSQL&logoColor=white"/></a>
 
 ## FlowChart
 ### Client
-![Client-Flow-Chart](https://user-images.githubusercontent.com/83802662/136331746-82f7c9b5-1afb-4398-a4d3-a966bde6002e.jpg)
+![Flowchart](https://user-images.githubusercontent.com/80687195/132674884-c9203e5e-df75-40a9-8a55-280fd6b99d5a.jpg)
 ### Server
-![Server-Flow-Chart](https://user-images.githubusercontent.com/83802662/136338857-32480ba7-1ebb-416d-b3b2-a0e30b7715c5.jpg)
+![SERVER - FlowChart](https://user-images.githubusercontent.com/83802662/132614622-88385355-c21b-4f37-bdee-10e00e100891.jpg)
+
 ## API Document
 > [EatMeUp - API Document](https://juy5437.gitbook.io/eatmeup/)
 ## Wiki
@@ -57,5 +74,4 @@
 | 팀원 | 강주오 | BACK-END  |  <a href="https://github.com/KangJuO" target="_blank"><img src="https://img.shields.io/badge/KangJuO-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 이세경 | FRONT-END |  <a href="https://github.com/segyong56" target="_blank"><img src="https://img.shields.io/badge/segyong56-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
 | 팀원 | 오가영 | FRONT-END |  <a href="https://github.com/5gazero" target="_blank"><img src="https://img.shields.io/badge/5gazero-F4C050?style=for-the-badge&logo=GitHub&logoColor=black"/></a>      |
-
 
