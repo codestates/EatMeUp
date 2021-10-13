@@ -40,7 +40,7 @@
 <img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=for-the-badge&logo=JSON Web Tokens&logoColor=white"/></a>
 
 ### DEPLOY
-<img src="https://img.shields.io/badge/Clinet-6f6f6f?style=for-the-badge&logo=&logoColor=white"/></a>
+<img src="https://img.shields.io/badge/Client-6f6f6f?style=for-the-badge&logo=&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/AWS Cloud Front-569A31?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
 <img src="https://img.shields.io/badge/AWS Route53-569A31?style=for-the-badge&logo=Amazon AWS&logoColor=white"/></a>
