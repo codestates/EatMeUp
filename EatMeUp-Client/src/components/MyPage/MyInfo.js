@@ -104,8 +104,6 @@ const MyInfo = () => {
       id: id,
     };
 
-    console.log(data);
-
     Swal.fire({
       title: "내 계정 삭제",
       text: "정보를 삭제 하시겠습니까?",
@@ -130,7 +128,7 @@ const MyInfo = () => {
     <div>
       <Header id={2} />
       <section>
-        <Container>
+        <InfoContainer>
           <Sidebar id={4} />
           {loading ? (
             <Loader />
@@ -205,12 +203,40 @@ const MyInfo = () => {
               </div>
             </MyInfoContainer>
           )}
-        </Container>
+        </InfoContainer>
       </section>
       <Footer />
     </div>
   );
 };
+
+const InfoContainer = styled(Container)`
+  width: 100%;
+  height: 100%;
+  padding: 140px 0 70px 0;
+  @media screen and (max-width: 1200px) {
+    width: 94.7%;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
+    width: 90%;
+  }
+  @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
+    width: 100%;
+  }
+`;
 
 const TitleBox = styled.div`
   width: 100%;
@@ -223,18 +249,15 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
-
   @media screen and (max-width: 375px) {
     font-size: 25px;
     text-indent: 10px;
-    margin: 5px 20px 10px 0px;
   }
 `;
 
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
-
   .info_container {
     width: 100%;
     height: 485px;
@@ -287,30 +310,34 @@ const MyInfoContainer = styled(SectionBox)`
     width: 100%;
   }
   .input_box {
-    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin: 0 auto;
     input {
-      width: 40%;
-      margin: 10px 0;
+      max-width: 100%;
+      box-sizing: border-box;
+      border-bottom: 1px solid ${theme.colors.lightgrey};
+      text-align: center;
+      margin: 10px auto;
+      &:focus {
+        outline: none;
+        border-bottom: 1px solid ${theme.colors.black};
+        transition: all 0.2s ease-in-out;
+      }
     }
   }
   input {
     background-color: transparent;
     border: none;
-    border-bottom: 1px solid ${theme.colors.lightgrey};
     color: #555;
     box-sizing: border-box;
     font-size: 18px;
     height: 50px;
-    width: 90%;
+    max-width: 100%;
     text-align: center;
     box-sizing: border-box;
     font-family: "Noto Sans KR";
-    /* margin: 0 30px; */
-    &:focus {
-      outline: none;
-      border-bottom: 1px solid ${theme.colors.black};
-      transition: all 0.2s ease-in-out;
-    }
+    margin: 0 30px;
   }
   input[type="file"] {
     position: absolute;
@@ -327,13 +354,10 @@ const MyInfoContainer = styled(SectionBox)`
     margin: 0 auto;
   }
   @media screen and (max-width: 575px) {
-
-    margin: 7% 0 1% 0;
     .info_box {
       max-width: 260px;
       margin: 50px auto;
     }
-
     .info_container {
       width: 100%;
       height: 445px;
@@ -341,30 +365,21 @@ const MyInfoContainer = styled(SectionBox)`
     .btn_container {
       width: 90%;
       margin: 0 auto;
-
       display: flex;
       justify-content: center;
     }
-    
   }
-
   @media screen and (max-width: 375px) {
-
-
     width: 95%;
     margin: auto;
-    margin: 70px 7px;
-
     .info_box {
       max-width: 260px;
       margin: 50px auto;
     }
-
     .info_container {
       width: 100%;
       height: 445px;
     }
-    
   }
 `;
 

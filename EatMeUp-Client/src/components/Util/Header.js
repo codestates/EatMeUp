@@ -123,7 +123,9 @@ const Header = () => {
       {showMenu ? (
         isAuthenticated ? (
           <ResponseMenu onClick={menuHandler}>
-            <div className='menu right top'>홈</div>
+            <Link to='/'>
+              <div className='menu right top'>홈</div>
+            </Link>
             <Link to='/recipes'>
               <div className='menu right'>모든레시피</div>
             </Link>
@@ -177,7 +179,25 @@ const EatMeUpHeader = styled.div`
   }
   .left-menu {
     display: flex;
-    margin-left: 3vw;
+    margin-left: 50px;
+    @media screen and (max-width: 1200px) {
+      margin-left: 50px;
+    }
+    @media screen and (max-width: 1023px) {
+      margin-left: 30px;
+    }
+    @media screen and (max-width: 768px) {
+      margin-left: 0px;
+    }
+    @media screen and (max-width: 568px) {
+      margin-left: 0px;
+    }
+    @media screen and (max-width: 450px) {
+      margin-left: 0px;
+    }
+    @media screen and (max-width: 375px) {
+      margin-left: 0px;
+    }
   }
   .menuBtns {
     display: flex;
@@ -217,7 +237,27 @@ const EatMeUpHeader = styled.div`
     color: #303030;
   }
   .right-menu {
-    margin-right: 3vw;
+    margin-right: 10px;
+    max-width: 50%;
+    box-sizing: border-box;
+    @media screen and (max-width: 1200px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 1023px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 767px) {
+      margin-right: 10px;
+    }
+    @media screen and (max-width: 568px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 450px) {
+      margin-right: 0px;
+    }
+    @media screen and (max-width: 375px) {
+      margin-right: 0px;
+    }
   }
   .right {
     width: 100px;
@@ -241,7 +281,7 @@ const EatMeUpHeader = styled.div`
     background-color: ${theme.colors.yellow};
     color: white;
   }
-  @media screen and (max-width: 875px) {
+  @media screen and (max-width: 767px) {
     .menuBtns {
       display: none;
     }
@@ -273,23 +313,24 @@ const Hamburger = styled.button`
   display: none;
   cursor: pointer;
 
-  @media screen and (max-width: 875px) {
+  @media screen and (max-width: 767px) {
     display: flex;
-    margin-top: 8px;
+    margin: 15px;
     font-size: 28px;
     color: white;
     width: 45px;
     height: 45px;
-    background-color:  ${theme.colors.yellow};
+    background-color: ${theme.colors.yellow};
     border-radius: 50%;
 
-    i { 
+    i {
       margin: 6px 3px;
     }
   }
 
   @media screen and (max-width: 575px) {
     display: flex;
+    margin: 15px;
   }
 
   @media screen and (max-width: 375px) {
@@ -299,13 +340,12 @@ const Hamburger = styled.button`
     color: white;
     width: 45px;
     height: 45px;
-    background-color:  ${theme.colors.yellow};
+    background-color: ${theme.colors.yellow};
     border-radius: 50%;
 
-    i { 
+    i {
       margin: 6px 3px;
     }
-
   }
 `;
 
@@ -329,30 +369,41 @@ const showM = keyframes`
 `;
 const ResponseMenu = styled.div`
   display: none;
-  @media screen and (max-width: 875px) {
+  position: fixed;
+  z-index: 99998;
+  text-align: center;
+  @media screen and (max-width: 767px) {
     background-color: white;
     width: 100%;
-
     transition: all 0.5s;
     animation: ${showM} 0.5s forwards;
     opacity: 1;
-
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     a {
       color: #404040;
       text-decoration: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
     }
     .menu {
-      margin: 15px 0px 7.5px 0px;
+      height: 40px;
+      width: 100%;
+      padding: 14px 0px 0 0;
       font-weight: bold;
       cursor: pointer;
+      align-items: center;
+      :active {
+        background-color: ${theme.colors.yellow};
+      }
     }
 
     .top {
-      margin-top: 100px;
+      margin-top: 80px;
     }
   }
 `;

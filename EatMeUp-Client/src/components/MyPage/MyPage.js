@@ -51,7 +51,7 @@ const MyPage = () => {
         {loading ? (
           <Loader />
         ) : (
-          <Container>
+          <MyPageContainer>
             <Sidebar id={0} />
             <MyInfoContainer>
               <TitleBox>
@@ -143,7 +143,7 @@ const MyPage = () => {
                 </RecipeContainer>
               </InfoConatainer>
             </MyInfoContainer>
-          </Container>
+          </MyPageContainer>
         )}
       </section>
       <Footer />
@@ -151,20 +151,44 @@ const MyPage = () => {
   );
 };
 
+const MyPageContainer = styled(Container)`
+  width: 100%;
+  height: 100%;
+  padding: 140px 0 70px 0;
+  @media screen and (max-width: 1200px) {
+    width: 92%;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 93%;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 130px 0 70px 0;
+    width: 90%;
+  }
+  @media screen and (max-width: 568px) {
+    padding: 110px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 450px) {
+    padding: 100px 0 70px 0;
+    width: 85%;
+  }
+  @media screen and (max-width: 375px) {
+    padding: 90px 0 70px 0;
+    width: 100%;
+  }
+`;
 
 const MyInfoContainer = styled(SectionBox)`
   width: 77%;
   min-height: 720px;
-  
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-    margin: 7% 0 1% 0;
-  }
 
+  @media screen and (max-width: 1023px) {
+    width: 88%;
+  }
   @media screen and (max-width: 375px) {
     width: 95%;
     margin: auto;
-    margin: 70px 7px;
   }
 `;
 
@@ -179,29 +203,54 @@ const TitleBox = styled.div`
   justify-content: space-between;
   margin: 5px 20px 10px 20px;
   padding: 10px;
-  .title {
+  .recipe_title {
     box-sizing: border-box;
+  }
+  @media screen and (max-width: 1200px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 1023px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 768px) {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 568px) {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  @media screen and (max-width: 450px) {
+    font-size: 20px;
+    width: 250px;
   }
   @media screen and (max-width: 375px) {
     width: 100%;
-    line-height: 40px;
-    height: 40px;
-    font-size: 24px;
-    padding: 0px;
-    margin: 30px 0px 10px 0px;
+    display: block;
+    font-size: 25px;
+    text-indent: 10px;
+    margin: 0;
   }
 `;
 
 const InfoConatainer = styled.div`
-  width: 100%;
   display: flex;
-  margin: 30px 60px 50px 60px;
-
-  @media screen and (max-width: 1024px) {
+  margin: 0px 0px 60px 60px;
+  @media screen and (max-width: 1023px) {
     display: block;
     margin: 0;
   }
-  @media screen and (max-width: 775px) {
+  @media screen and (max-width: 768px) {
     display: block;
     margin: 0;
   }
@@ -216,47 +265,45 @@ const InfoConatainer = styled.div`
 `;
 
 const ProfileContainer = styled.div`
-  width: 20%;
+  width: 240px;
+  height: 580px;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  height: 100%;
   font-size: 14px;
+  align-items: center;
+  box-sizing: border-box;
+
   .img_box {
     text-align: center;
+    align-items: center;
+    box-sizing: border-box;
     font-size: 180px;
-    width: 100%;
-    height: 190px;
-    margin: 0 0 80px 0;
+    width: 90%;
     color: ${theme.colors.lightgrey};
+    margin: 50px auto 0 auto;
     #userimg {
       margin: 20px auto;
       color: ${theme.colors.lightgrey};
     }
-   img {
-     width: 190px;
-     height: 190px;
-     border-radius: 50%;
-   }  
+    img {
+      width: 100%;
+      border-radius: 50%;
+    }
   }
   .info_username {
     text-align: center;
-    margin: 20px 0;
     font-size: 17px;
     width: 100%;
-    height: 50px;
     color: ${theme.colors.gray};
   }
   .info_email {
     text-align: center;
-    margin: 20px 0;
     font-size: 17px;
     width: 100%;
-    height: 100px;
     color: ${theme.colors.gray};
   }
   .email {
-    height: 40px;
     width: 80%;
     color: ${theme.colors.black};
     text-align: center;
@@ -277,211 +324,343 @@ const ProfileContainer = styled.div`
   }
   .btn_container {
     width: 85%;
-    margin: 15% auto;
+    margin: 10% auto;
   }
 
-  @media screen and (max-width: 1024px) {
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
+  @media screen and (max-width: 1200px) {
+    width: 85%;
+    height: 580px;
     align-items: center;
-
+    box-sizing: border-box;
     .img_box {
-      font-size: 140px;
-      width: 50%;
-      margin: 0px;
+      width: 100%;
+      height: 350px;
+      margin: 10px auto;
       img {
-        width: 50%;
-
+        margin: 30px 5px 0px 5px;
+        width: 80%;
       }
-      #userimg {
-        margin: 0px auto;
-        color: ${theme.colors.lightgrey};
-      }
-
-
     }
-
     .userinfo_box {
-      width: 50%;
+      width: 100%;
+      margin: 0 auto;
     }
-
     .info_username {
       width: 100%;
       text-align: center;
       margin-top: 5px;
       margin: 0;
     }
-
     .info_email {
       width: 100%;
       margin: 0;
       text-align: center;
       height: auto;
     }
-
     .email {
       width: 100%;
       text-align: center;
       margin: 0;
     }
     .btn_container {
-      margin: 5px 0px;
+      /* margin: 0 auto; */
     }
-
     .btn_container > a > button {
-      width: 85%;
+      width: 100%;
       height: 35px;
-      margin: 0px auto;
+      margin: 10px auto;
       font-size: 14px;
     }
   }
 
-  }
-  @media screen and (max-width: 775px) {
-    width: 95%;
+  @media screen and (max-width: 1023px) {
+    width: 85%;
+    height: 250px;
     margin: 0 auto;
     display: flex;
     align-items: center;
+    box-sizing: border-box;
     .img_box {
+      box-sizing: border-box;
+      font-size: 30%;
       width: 40%;
+      height: 100%;
+      margin: 0 10px;
       img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  @media screen and (max-width: 450px) {
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-
-    .img_box {
-      width: 40%;
-      img {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  @media screen and (max-width: 375px) {
-    width: 95%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-
-    .img_box {
-      font-size: 70px;
-      width: 40%;
-      height: 100px;
-      margin: 0px;
-      img {
-       width: 100px;
-       height: 100px;
+        width: 75%;
       }
       #userimg {
         margin: 0px auto;
         color: ${theme.colors.lightgrey};
+      }
+    }
+    .userinfo_box {
+      width: 70%;
+    }
+    .info_username {
+      width: 100%;
+      text-align: center;
+      margin: 20px auto 10px auto;
+    }
+    .info_email {
+      width: 100%;
+      margin: 10px auto;
+    }
+    .email {
+      width: 100%;
+      text-align: center;
+      margin: 10px auto;
+    }
+    .btn_container {
+      margin: 10px auto;
+    }
+    .btn_container > a > button {
+      width: 100%;
+      height: 40px;
+      margin: 10px auto;
+      font-size: 14px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 86%;
+    height: 200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    .img_box {
+      width: 40%;
+      height: 100%;
+      img {
+        align-items: center;
+        width: 80%;
+        margin: 20px auto;
+      }
+    }
+    .userinfo_box {
+      width: 50%;
+    }
+    .info_username {
+      width: 100%;
+      text-align: center;
+      margin: 10px auto 5px auto;
+    }
+    .info_email {
+      width: 100%;
+      margin: 5px auto;
+    }
+    .email {
+      width: 100%;
+      text-align: center;
+      margin: 5px auto;
+    }
+    .btn_container {
+      /* margin: 5px auto; */
+    }
+    .btn_container > a > button {
+      width: 100%;
+      height: 35px;
+      /* margin: 5px auto; */
+      font-size: 14px;
+    }
+  }
+  @media screen and (max-width: 568px) {
+    width: 86%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    .img_box {
+      width: 30%;
+      img {
+        width: 100%;
+        margin: 50px auto 0px auto;
       }
     }
     .userinfo_box {
       width: 60%;
+      font-size: 12px;
     }
-
     .info_username {
       width: 100%;
-      text-align: left;
-      margin-top: 5px;
-      margin: 0;
+      text-align: center;
+      margin: 5px auto 2px auto;
+      font-size: 12px;
     }
-
     .info_email {
       width: 100%;
-      margin: 0;
-      text-align: left;
-      height: auto;
+      margin: 2px auto;
+      font-size: 12px;
     }
-
     .email {
-      text-align: left;
-      margin: 0;
+      width: 100%;
+      text-align: center;
     }
     .btn_container {
-      margin: 5px 0px;
+      margin: 2px auto;
     }
-
     .btn_container > a > button {
-      width: 85%;
+      width: 100%;
       height: 35px;
-      margin: 0px auto;
-      font-size: 14px;
+      /* margin: 5px auto; */
+      font-size: 12px;
     }
   }
-`;
-
-const RecipeContainer = styled.div`
-  width: 70%;
-  margin: 0px 20px 0px 10px;
-  @media screen and (max-width: 1034px) {
-  
-    width: 95%;
-    margin: 10px auto;
-  }
-  @media screen and (max-width: 775px) {
-    width: 95%;
-    margin: 10px auto;
-  }
-
   @media screen and (max-width: 450px) {
     width: 95%;
-    margin: 10px auto;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    .img_box {
+      width: 30%;
+      img {
+        width: 100%;
+        margin: 50px auto 0px auto;
+      }
+    }
+    .userinfo_box {
+      width: 60%;
+      font-size: 12px;
+    }
+    .info_username {
+      width: 100%;
+      text-align: center;
+      margin: 5px auto 2px auto;
+      font-size: 12px;
+    }
+    .info_email {
+      width: 100%;
+      margin: 2px auto;
+      font-size: 12px;
+    }
+    .email {
+      width: 100%;
+      text-align: center;
+    }
+    .btn_container {
+      margin: 2px auto;
+    }
+    .btn_container > a > button {
+      width: 100%;
+      height: 35px;
+      /* margin: 5px auto; */
+      font-size: 12px;
+    }
   }
   @media screen and (max-width: 375px) {
     width: 95%;
-    margin: 10px auto;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    .img_box {
+      width: 30%;
+      img {
+        width: 100%;
+        margin: 50px auto 0px auto;
+      }
+    }
+    .userinfo_box {
+      width: 60%;
+      font-size: 12px;
+    }
+    .info_username {
+      width: 100%;
+      text-align: center;
+      margin: 5px auto 2px auto;
+      font-size: 12px;
+    }
+    .info_email {
+      width: 100%;
+      margin: 2px auto;
+      font-size: 12px;
+    }
+    .email {
+      width: 100%;
+      text-align: center;
+    }
+    .btn_container {
+      margin: 2px auto;
+    }
+    .btn_container > a > button {
+      width: 100%;
+      height: 35px;
+      /* margin: 5px auto; */
+      font-size: 12px;
+    }
+  }
+
+`;
+
+const RecipeContainer = styled.div`
+  width: 78%;
+  height: 580px;
+  margin: 0 50px 0 0;
+  @media screen and (max-width: 1440px) {
+    width: 70%;
+    margin: 0 70px 0 0;
+    height: 580px;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 65%;
+    height: 580px;
+  }
+  @media screen and (max-width: 1023px) {
+    width: 95%;
+    height: 650px;
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 768px) {
+    width: 90%;
+    height: 650px;
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 450px) {
+    width: 95%;
+    height: 650px;
+    margin: 0 auto;
+  }
+  @media screen and (max-width: 375px) {
+    width: 95%;
+    margin: 0 auto;
   }
 `;
 
 const MyRecipeBox = styled.div`
   width: 100%;
-  height: 47%;
-  margin: 0 0 3% 2%;
+  height: 280px;
+  margin: 0px 0 20px 20px;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-
-  @media screen and (max-width: 1034px) {
-    min-height: 280px;
-    margin: 5px auto;
+  @media screen and (max-width: 1023px) {
+    width: 90%;
+    margin: 30px auto;
   }
-  @media screen and (max-width: 775px) {
-    min-height: 280px;
+  @media screen and (max-width: 768px) {
+    width: 95%;
+    margin: 30px auto;
   }
   @media screen and (max-width: 450px) {
-    min-height: 280px;
   }
   @media screen and (max-width: 375px) {
-    min-height: 200px;
   }
 `;
 
 const LikedRecipeBox = styled.div`
   width: 100%;
-  height: 47%;
-  margin: 3% 0 0 2%;
+  height: 280px;
+  margin: 0px 0 0 20px;
   background: #ffffff;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
-  /* background-color: #f90d; */
-  @media screen and (max-width: 1034px) {
+  @media screen and (max-width: 1023px) {
     min-height: 280px;
-    margin: 5px auto;
+    width: 90%;
+    margin: 10px auto;
   }
-  @media screen and (max-width: 775px) {
+  @media screen and (max-width: 768px) {
     min-height: 280px;
+    width: 95%;
+    margin: 30px auto;
   }
   @media screen and (max-width: 450px) {
     min-height: 200px;
@@ -500,6 +679,10 @@ const Title = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 2px;
+  @media screen and (max-width: 568px) {
+    text-indent: 10px;
+    font-size: 20px;
+  }
   @media screen and (max-width: 375px) {
     font-size: 15px;
     text-indent: 10px;
@@ -530,7 +713,6 @@ const AddBtn = styled(LargeBtn)`
   &:active {
     background-color: ${theme.colors.lightgrey};
   }
-
   @media screen and (max-width: 375px) {
     width: 80px;
     margin: 0 20px;
@@ -561,7 +743,6 @@ const MyCard = styled.li`
   margin: 0 15px;
   border-radius: 30px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-
   .img_container {
     width: 110px;
     height: 110px;
@@ -579,7 +760,6 @@ const MyCard = styled.li`
     width: 100%;
     font-size: 16px;
   }
-
   @media screen and (max-width: 375px) {
     width: 120px;
     height: 160px;

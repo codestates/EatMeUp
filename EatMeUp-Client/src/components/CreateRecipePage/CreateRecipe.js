@@ -524,7 +524,7 @@ const BoxContainer = styled.div`
   @media screen and (max-width: 375px) {
     width: 95%;
     margin: auto;
-    margin: 70px 7px;
+    /* margin: 70px 7px; */
   }
 `;
 

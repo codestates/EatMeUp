@@ -104,6 +104,9 @@ const FooterBox = styled.div`
 
   .right {
     margin: 3vw 5vw;
+    @media screen and (max-width: 575px) {
+      padding: 20px;
+    }
   }
 
   .names {

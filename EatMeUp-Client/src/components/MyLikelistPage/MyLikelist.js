@@ -4,8 +4,8 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getMyLikelist } from "../../_actions/userActions";
 import { REMOVE_FROM_LIKELIST_RESET } from "../../_types/userTypes";
-import { clearErrors } from '../../_actions/userActions'
-import { logoutRequest } from '../../_actions/authActions'
+import { clearErrors } from "../../_actions/userActions";
+import { logoutRequest } from "../../_actions/authActions";
 
 /* 컴포넌트 */
 import Footer from "../Util/Footer";
@@ -19,13 +19,12 @@ import { TitleBox, ListBox, ListContainer } from '../StyledComponent/mypage_styl
 
 const { swal } = window;
 const MyLikelist = () => {
-
   const dispatch = useDispatch();
   const history = useHistory();
 
   const { mylikelist, error } = useSelector((state) => state.mylikelist);
   const { isDeleted } = useSelector((state) => state.likelist);
-  
+
   useEffect(() => {
     dispatch(getMyLikelist());
 
@@ -33,18 +32,12 @@ const MyLikelist = () => {
       dispatch({ type: REMOVE_FROM_LIKELIST_RESET });
     }
 
-    if(error) {
-      swal(
-        "Please!",
-        "로그인이 필요합니다.",
-        "warning",
-      );
-      dispatch(clearErrors())
-      dispatch(logoutRequest()) 
-      history.push('/')
+    if (error) {
+      swal("Please!", "로그인이 필요합니다.", "warning");
+      dispatch(clearErrors());
+      dispatch(logoutRequest());
+      history.push("/");
     }
-
-
   }, [dispatch, isDeleted, history, error]);
 
   return (
