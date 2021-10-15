@@ -147,7 +147,6 @@ const FridgeMain = () => {
 
               <GotoBtnBox onClick={searchByFoodHandler}>
                 레시피 보기 <i className="fas fa-chevron-right"></i>
-               
               </GotoBtnBox>
             </FoodBox>
           </SearchBox>
@@ -193,7 +192,7 @@ const SearchBox = styled.div`
   padding: 130px 0 0 0;
 
   @media screen and (max-width:1500px) {
-    padding: 9% 0 0 0;
+    padding: 70px 0 0 0;
     width: 80%;
   }
 
