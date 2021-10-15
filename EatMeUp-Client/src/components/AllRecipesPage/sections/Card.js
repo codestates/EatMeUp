@@ -2,40 +2,22 @@ import React from "react";
 import { Link } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 
+import CardLower from './CardLower';
+
 const Card = ({ recipe }) => {
-  const recipeLevel = (level) => {
-    if (level === "초보환영") {
-      return <i className='bx bxs-star' id='icon'></i>;
-    } else if (level === "보통") {
-      return (
-        <>
-          <i className='bx bxs-star' id='icon'></i>
-          <i className='bx bxs-star' id='icon'></i>
-        </>
-      );
-    } else if (level === "어려움") {
-      return (
-        <>
-          <i className='bx bxs-star' id='icon'></i>
-          <i className='bx bxs-star' id='icon'></i>
-          <i className='bx bxs-star' id='icon'></i>
-        </>
-      );
-    } else {
-      return <i className='bx bxs-star' id='icon'></i>;
-    }
-  };
+
+  const { user, id, main_image, title, foods, cooking_time, level } = recipe
 
   return (
     <>
-      <Link to={`/recipe/info/${recipe.id}`}>
+      <Link to={`/recipe/info/${id}`}>
         <RecipeCard>
           <div className='show-user'>
             <ShowUser>
               <div className='userimg'>
-                {recipe.user && recipe.user.avatar ? (
+                {user && user.avatar ? (
                   <img
-                    src={recipe.user.avatar}
+                    src={user.avatar}
                     alt='people'
                     style={{
                       width: "30px",
@@ -57,46 +39,21 @@ const Card = ({ recipe }) => {
               </div>
               <div className='username'>
                 <div>
-                  {recipe.user && (
+                  {user && (
                     <span>
-                      {recipe.user.username === "test1"
+                      {user.username === "test1"
                         ? "eatmeup"
-                        : recipe.user.username}
+                        : user.username}
                     </span>
                   )}
-                  {recipe.user === null && <span>guest</span>}
+                  {user === null && <span>guest</span>}
                 </div>
               </div>
             </ShowUser>
           </div>
 
           {/* 요리사진 */}
-          <div className='recipeImgbox'>
-            <img src={recipe.main_image} alt='recipeImg' />
-          </div>
-
-          {/* 요리시간, 요리제목 */}
-          <CardInfo>
-            <CardLeft>
-              <div className='title'>
-                <span>{recipe.title}</span>
-              </div>
-
-              {/* 음식 주재료 */}
-              <div className='materials'>
-                {recipe.foods.slice(0, 3).map((food, idx) => {
-                  return <span key={idx}>{food.name}</span>;
-                })}
-              </div>
-            </CardLeft>
-            <CardRight>
-              <div className='cookingtime'>
-                <i className='far fa-clock'></i>
-                {recipe.cooking_time.slice(0, 2)}min
-              </div>
-              <div className='imgbox-right'>{recipeLevel(recipe.level)}</div>
-            </CardRight>
-          </CardInfo>
+         <CardLower main_image={main_image} title={title} cooking_time={cooking_time} foods={foods} level={level} />
         </RecipeCard>
       </Link>
     </>
@@ -131,69 +88,11 @@ const RecipeCard = styled.div`
     margin: 11.5px 11.5px 0px 11.5px;
   }
 
-  /* 레시피카드 정보(제목, 시간, 주재료) css영역 */
-
   .show-user {
     opacity: 0;
   }
   &:hover .show-user {
     animation: ${showBtn} 0.5s forwards;
-  }
-`;
-
-const CardInfo = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CardRight = styled.div`
-  margin-right: 13px;
-  .cookingtime {
-    font-size: 13px;
-    text-indent: 5px;
-    color: #a8a7a3;
-    margin: 10px 10px 6px 0px;
-  }
-
-  .iconBox {
-    margin-left: 5px;
-  }
-
-  .fa-clock {
-    margin-right: 5px;
-  }
-
-  .bxs-star {
-    color: #febd2f;
-    font-size: 20px;
-    text-indent: -8px;
-    margin-right: 7px;
-  }
-
-  .imgbox-right {
-    display: flex;
-    justify-content: flex-end;
-  }
-`;
-
-const CardLeft = styled.div`
-  .title {
-    font-size: 17px;
-    text-indent: 20px;
-    margin-top: 5px;
-     font-weight: 500;
-  }
-
-  .materials {
-    font-size: 11px;
-    margin: 10px 0px 5px 17px;
-  }
-
-  .materials > span {
-    padding: 3px 8px;
-    background-color: #eaeaea;
-    margin-right: 5px;
-    border-radius: 30px;
   }
 `;
 

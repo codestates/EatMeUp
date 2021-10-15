@@ -16,10 +16,12 @@ import Sidebar from "../Util/Sidebar";
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { Container } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
+import { TitleBox, ListBox, ListContainer } from '../StyledComponent/mypage_style'
 
 const { swal } = window;
+
 const MyRecipe = () => {
 
   const { myrecipe, error } = useSelector(state => state.myrecipes);
@@ -74,8 +76,9 @@ const MyRecipe = () => {
 
             {/* 레시피 리스트 */}
             <ListBox>
-              <Card recipes={myrecipe} />
-              {/* <EmptyState /> */}
+              {myrecipe && myrecipe.map((recipe, idx) => {
+                return <Card recipe={recipe} key={idx} />
+              })}             
             </ListBox>
           </ListContainer>
         </Container>
@@ -84,46 +87,6 @@ const MyRecipe = () => {
     </>
   );
 };
-
-const ListContainer = styled(SectionBox)`
-  width: 77%;
-  min-height: 720px;
-
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-    margin: 7% 0 1% 0;
-  }
-  @media screen and (max-width: 375px) {
-    width: 95%;
-    margin: auto;
-    margin: 70px 7px;
-  }
-`;
-
-const TitleBox = styled.div`
-  width: 100%;
-  height: 90px;
-  font-weight: bold;
-  font-size: 30px;
-  text-indent: 30px;
-  line-height: 90px;
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 20px 10px 20px;
-  padding: 10px;
-
-
-  @media screen and (max-width: 575px) {
-    display: block;
-  }
-
-  @media screen and (max-width: 375px) {
-    display: block;
-    font-size: 25px;
-    text-indent: 10px;
-    margin: 0;
-  }
-`;
 
 const Button = styled(LargeBtn)`
   margin-right: 70px;
@@ -159,45 +122,5 @@ const Button = styled(LargeBtn)`
   }
 `;
 
-const ListBox = styled.div`
-
-   width: 95%;
-  max-width: 1329px;
-  margin: 0 auto;
-  min-height: 720px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 15px;
-  padding: 10px;
-
-@media screen and (max-width: 1500px) {
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 15px;
-  padding: 10px;
-}
-
-@media screen and (max-width: 1200px) {
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  padding: 10px;
-}
-
-@media screen and (max-width: 1034px) {
-  grid-template-columns: 1fr 1fr;
-  gap: 15px;
-  padding: 10px;
-}
-
-@media screen and (max-width: 550px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-@media screen and (max-width: 375px) {
-    display: block;
-   
-  }
-`;
 
 export default MyRecipe;

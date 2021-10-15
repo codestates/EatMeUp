@@ -12,8 +12,6 @@ import ResultCard from "./sections/ResultCard";
 
 const ResultRecipes = () => {
   // Todo
-  // 더보기 버튼 만들기
-  // 재료 삭제 핸들러만들기
 
   const { loading, food, recommandRecipes } = useSelector(
     (state) => state.recommandrecipes,
@@ -40,7 +38,7 @@ const ResultRecipes = () => {
                       냉장고 재료를 추가해 주세요
                     </span>
                   ) : (
-                    food.map((food, idx) => {
+                   food && food.map((food, idx) => {
                       return <Chip key={idx} label={food.name} />;
                     })
                   )}
@@ -57,7 +55,7 @@ const ResultRecipes = () => {
 
           {/* 카드리스트 컨테이너 */}
 
-          {recommandRecipes.length === 0 ? (
+          {recommandRecipes && recommandRecipes.length === 0 ? (
             <NoResultBox>
               <div className='box'>
                 <div className='icon'>
@@ -68,8 +66,8 @@ const ResultRecipes = () => {
             </NoResultBox>
           ) : (
             <Container>
-              {recommandRecipes.map((recipe, idx) => {
-                return <ResultCard recipe={recipe} key={idx} />;
+              {recommandRecipes && recommandRecipes.map((recipe, idx) => {
+                  return <ResultCard recipe={recipe} key={idx} />;
               })}
             </Container>
           )}
@@ -152,7 +150,7 @@ const SearchBox = styled.div`
 const FridgeTitle = styled.div`
   width: 15%;
   font-weight: bold;
-  font-size:  30px;
+  font-size: 30px;
   text-indent: 80px;
 
   @media screen and (max-width: 1500px) {

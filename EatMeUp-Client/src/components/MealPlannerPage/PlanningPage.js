@@ -18,6 +18,7 @@ import Sidebar from "../Util/Sidebar";
 import { MiddleBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
+import { ListContainer } from '../StyledComponent/mypage_style';
 
 const { Swal } = window;
 
@@ -109,7 +110,7 @@ const PlanningPage = () => {
           <Sidebar id={3} />
 
           {/* 콘텐츠영역 */}
-          <PlannerContainer>
+          <ListContainer>
             {/* 타이틀/날짜핸들러/달력보러가기버튼 영역 */}
             <TitleBox>
               <div>
@@ -179,7 +180,7 @@ const PlanningPage = () => {
                 </MealPlanCardBox>
               </PlannerBox>
             </MealPlaner>
-          </PlannerContainer>
+          </ListContainer>
         </Container>
       </section>
       <Footer />
@@ -187,21 +188,6 @@ const PlanningPage = () => {
   );
 };
 
-const PlannerContainer = styled(SectionBox)`
-  width: 77%;
-  min-height: 770px;
-
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-    margin: 7% 0 1% 0;
-  }
-
-  @media screen and (max-width: 375px) {
-    width: 95%;
-    margin: auto;
-    margin: 70px 7px;
-  }
-`;
 
 const TitleBox = styled.div`
   display: flex;

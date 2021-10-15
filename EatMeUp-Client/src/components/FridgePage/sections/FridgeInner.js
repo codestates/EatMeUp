@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Snackbar from "@mui/material/Snackbar";
 import { foodLife } from "./utils/convertDate";
+
+
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
 import { SmallBtn } from "../../StyledComponent/buttons";

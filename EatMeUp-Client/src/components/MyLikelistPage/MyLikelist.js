@@ -14,7 +14,8 @@ import Header from "../Util/Header";
 import Sidebar from "../Util/Sidebar";
 
 /* 스타일 컴포넌트 */
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { Container } from "../StyledComponent/containers"
+import { TitleBox, ListBox, ListContainer } from '../StyledComponent/mypage_style'
 
 const { swal } = window;
 const MyLikelist = () => {
@@ -63,7 +64,10 @@ const MyLikelist = () => {
 
             {/* 좋아요한 레시피들 */}
             <ListBox>
-              <Card recipes={mylikelist} />
+              {mylikelist && mylikelist.map((recipe, idx) => {
+                return <Card recipe={recipe} key={idx} />
+              })}
+            
             </ListBox>
           </ListContainer>
         </Container>
@@ -73,81 +77,7 @@ const MyLikelist = () => {
   );
 };
 
-const ListContainer = styled(SectionBox)`
-  width: 77%;
-  /* min-height: 720px;
-  @media screen and (max-width: 1500px){
-    width: 100%;
-  } */
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-    margin: 7% 0 1% 0;
-  }
 
-  @media screen and (max-width: 375px) {
-    width: 95%;
-    margin: auto;
-    margin: 70px 7px;
-  }
-`;
 
-const TitleBox = styled.div`
-  width: 100%;
-  height: 90px;
-  font-weight: bold;
-  font-size: 30px;
-  text-indent: 30px;
-  line-height: 90px;
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 20px 10px 20px;
-  padding: 10px;
-
-  @media screen and (max-width: 375px) {
-    display: block;
-    font-size: 23px;
-    text-indent: 10px;
-    margin: 0;
-  }
-`;
-
-const ListBox = styled.div`
-  width: 95%;
-  max-width: 1329px;
-  margin: 0 auto;
-  min-height: 720px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 15px;
-  padding: 10px;
-
-  @media screen and (max-width: 1500px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-  }
-
-  @media screen and (max-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-  }
-
-  @media screen and (max-width: 1034px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-  }
-
-  @media screen and (max-width: 550px) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  @media screen and (max-width: 375px) {
-    display: block;
-  }
-`;
 
 export default MyLikelist;

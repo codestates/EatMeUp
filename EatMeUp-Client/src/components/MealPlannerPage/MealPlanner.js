@@ -16,6 +16,7 @@ import Loader from "../Util/Loader";
 
 /* 스타일 컴포넌트 */
 import { Container, SectionBox } from "../StyledComponent/containers";
+import { ListContainer } from "../StyledComponent/mypage_style"
 
 const MealPlanner = () => {
   const dispatch = useDispatch();
@@ -48,13 +49,13 @@ const MealPlanner = () => {
           {loading ? (
             <Loader />
           ) : (
-            <CalendarContainer>
+            <ListContainer>
               <TitleBox>
               <div className='title'>Meal Planner</div>
             </TitleBox>
               {/* 월별/주별 핸들러 */}
               <Calendar plans={plans} />
-            </CalendarContainer>
+            </ListContainer>
           )}
         </Container>
       </section>
@@ -63,25 +64,6 @@ const MealPlanner = () => {
   );
 };
 
-const CalendarContainer = styled(SectionBox)`
-  width: 77%;
-  min-height: 720px;
-
-  
-
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-    margin: 7% 0 1% 0;
-   
-  }
-
-  @media screen and (max-width: 375px) {   @media screen and (max-width: 375px) {
-    width: 94%;
-    margin: auto;
-    margin: 70px 7px;
-  }
-  
-`;
 
 const TitleBox = styled.div`
   width: 100%;
