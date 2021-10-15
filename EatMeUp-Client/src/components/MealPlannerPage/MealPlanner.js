@@ -16,6 +16,7 @@ import Loader from "../Util/Loader";
 
 /* 스타일 컴포넌트 */
 import { Container, SectionBox } from "../StyledComponent/containers";
+import { ListContainer } from "../StyledComponent/mypage_style"
 
 const MealPlanner = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const MealPlanner = () => {
     <>
       <Header id={2} />
       <section>
-        <MealPlannerContainer>
+        <Container>
           {/* 사이드바영역 */}
           <Sidebar id={3} />
 
@@ -48,61 +49,21 @@ const MealPlanner = () => {
           {loading ? (
             <Loader />
           ) : (
-            <CalendarContainer>
+            <ListContainer>
               <TitleBox>
               <div className='title'>Meal Planner</div>
             </TitleBox>
               {/* 월별/주별 핸들러 */}
               <Calendar plans={plans} />
-            </CalendarContainer>
+            </ListContainer>
           )}
-        </MealPlannerContainer>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
 
-const MealPlannerContainer = styled(Container)`
-  width: 100%;
-  height: 100%;
-  padding: 140px 0 70px 0;
-  @media screen and (max-width: 1200px) {
-    width: 94.7%;
-  }
-  @media screen and (max-width: 1023px) {
-    width: 93%;
-  }
-  @media screen and (max-width: 768px) {
-    padding: 130px 0 70px 0;
-    width: 90%;
-  }
-  @media screen and (max-width: 568px) {
-    padding: 110px 0 70px 0;
-    width: 85%;
-  }
-  @media screen and (max-width: 450px) {
-    padding: 100px 0 70px 0;
-    width: 85%;
-  }
-  @media screen and (max-width: 375px) {
-    padding: 90px 0 70px 0;
-    width: 100%;
-  }
-`
-
-const CalendarContainer = styled(SectionBox)`
-  width: 77%;
-  min-height: 720px;
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-  }
-
-  @media screen and (max-width: 375px) {
-    width: 95%;
-    margin: auto;
-  }
-`;
 
 const TitleBox = styled.div`
   width: 100%;

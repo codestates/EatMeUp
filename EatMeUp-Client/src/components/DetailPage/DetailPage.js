@@ -111,7 +111,7 @@ const DetailePage = ({ match }) => {
       <RecipeContainer>
         <RecipeBox>
           <ImgBox>
-            <img src={getRecipe.main_image} alt='recipe_img' />
+            <img src={getRecipe.main_image ? getRecipe.main_image : "https://i.pinimg.com/564x/e6/e5/db/e6e5db26f94b03080c09615438ba8c8b.jpg"} alt='recipe_img' />
             <ProfileContainer>
               <div className='profile_img'>
                 {posteduser.avatar === null ? (

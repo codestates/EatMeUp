@@ -15,10 +15,12 @@ import Sidebar from "../Util/Sidebar";
 
 /* 스타일 컴포넌트 */
 import { LargeBtn } from "../StyledComponent/buttons";
-import { Container, SectionBox } from "../StyledComponent/containers";
+import { Container } from "../StyledComponent/containers";
 import theme from "../StyledComponent/theme";
+import { TitleBox, ListBox, ListContainer } from '../StyledComponent/mypage_style'
 
 const { swal } = window;
+
 const MyRecipe = () => {
   const { myrecipe, error } = useSelector((state) => state.myrecipes);
   const { isDeleted } = useSelector((state) => state.myrecipe);
@@ -45,7 +47,7 @@ const MyRecipe = () => {
     <>
       <Header id={2} />
       <section>
-        <MyRecipeContainer>
+        <Container>
           {/* 사이드바 영역 */}
           <Sidebar id={1} />
 
@@ -66,123 +68,17 @@ const MyRecipe = () => {
 
             {/* 레시피 리스트 */}
             <ListBox>
-              <Card recipes={myrecipe} />
-              {/* <EmptyState /> */}
+              {myrecipe && myrecipe.map((recipe, idx) => {
+                return <Card recipe={recipe} key={idx} />
+              })}             
             </ListBox>
           </ListContainer>
-        </MyRecipeContainer>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
-
-const MyRecipeContainer = styled(Container)`
-  width: 100%;
-  height: 100%;
-  padding: 140px 0 70px 0;
-  @media screen and (max-width: 1200px) {
-    width: 94.7%;
-  }
-  @media screen and (max-width: 1023px) {
-    width: 93%;
-  }
-  @media screen and (max-width: 768px) {
-    padding: 130px 0 70px 0;
-    width: 90%;
-  }
-  @media screen and (max-width: 568px) {
-    padding: 110px 0 70px 0;
-    width: 95%;
-  }
-  @media screen and (max-width: 450px) {
-    padding: 100px 0 70px 0;
-    width: 95%;
-  }
-  @media screen and (max-width: 375px) {
-    padding: 90px 0 70px 0;
-    width: 100%;
-  }
-`;
-
-const ListContainer = styled(SectionBox)`
-  width: 77%;
-  min-height: 720px;
-
-  @media screen and (max-width: 1023px) {
-    width: 90%;
-  }
-  @media screen and (max-width: 768px) {
-    width: 100%;
-  }
-  @media screen and (max-width: 450px) {
-    width: 100%;
-  }
-  @media screen and (max-width: 375px) {
-    width: 100%;
-  }
-`;
-
-const TitleBox = styled.div`
-  width: 95%;
-  height: 90px;
-  font-weight: bold;
-  font-size: 30px;
-  text-indent: 30px;
-  line-height: 90px;
-  display: flex;
-  justify-content: space-between;
-  margin: 5px 20px 10px 20px;
-  padding: 10px;
-
-  .btn_container {
-    width: 170px;
-    margin: 0px 30px;
-    @media screen and (max-width: 568px) {
-      width: 100px;
-    }
-    @media screen and (max-width: 450px) {
-      width: 100px;
-      margin: 0;
-    }
-  }
-
-  @media screen and (max-width: 1200px) {
-    font-size: 28px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  @media screen and (max-width: 1023px) {
-    font-size: 28px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  @media screen and (max-width: 768px) {
-    font-size: 28px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  @media screen and (max-width: 568px) {
-    font-size: 24px;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  @media screen and (max-width: 450px) {
-    font-size: 20px;
-    width: 250px;
-  }
-  @media screen and (max-width: 375px) {
-    width: 100%;
-    display: block;
-    font-size: 25px;
-    text-indent: 10px;
-    margin: 0;
-  }
-`;
 
 const Button = styled(LargeBtn)`
   width: 90%;
@@ -217,55 +113,5 @@ const Button = styled(LargeBtn)`
   }
 `;
 
-const ListBox = styled.div`
-  width: 95%;
-  max-width: 1329px;
-  margin: 0 auto;
-  min-height: 720px;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  gap: 15px;
-  padding: 10px;
-
-  @media screen and (max-width: 1500px) {
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-  }
-
-  @media screen and (max-width: 1200px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    padding: 10px;
-  }
-
-  @media screen and (max-width: 1034px) {
-    grid-template-columns: 1fr 1fr;
-    gap: 0px;
-    padding: 0px;
-  }
-
-  @media screen and (max-width: 568px) {
-    width: 95%;
-    gap: 10px;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  @media screen and (max-width: 450px) {
-    width: 100%;
-    gap: 10px;
-    padding: 10px 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  @media screen and (max-width: 375px) {
-    display: block;
-  }
-`;
 
 export default MyRecipe;

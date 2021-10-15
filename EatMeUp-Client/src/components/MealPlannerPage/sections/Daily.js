@@ -256,6 +256,8 @@ const PlanCard = styled.div`
     justify-content: center;
   }
 `;
+
+
 const SubTitle = styled.div`
   font-size: 13px;
   @media screen and (max-width: 575px) {
@@ -267,6 +269,7 @@ const SubTitle = styled.div`
     font-size: 11px;
   }
 `;
+
 const ShowRecipe = styled.div`
   margin-right: 10px;
   font-size: 20px;

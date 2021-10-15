@@ -129,7 +129,6 @@ const EditFridge = ({
     }
 
     return foodLife(life)
-    
   }
 
   return (
@@ -146,6 +145,8 @@ const EditFridge = ({
             }
             onDragOver={handlerDragOver}
           >
+
+            {/* 냉장고해더 */}
             <FridgeHeader>
               <div className='type_box'>
                 <span className='type'>{convertStr(typeIdx)}</span>
@@ -162,6 +163,8 @@ const EditFridge = ({
                 </FridgeButton>
               </div>
             </FridgeHeader>
+
+            {/* 냉장고 재료 컨테이너 */}
             <FoodBoxs>
               {type.items.map((food, foodIdx) => {
                 return (
