@@ -93,11 +93,11 @@ const MyRecipeContainer = styled(Container)`
   }
   @media screen and (max-width: 568px) {
     padding: 110px 0 70px 0;
-    width: 85%;
+    width: 95%;
   }
   @media screen and (max-width: 450px) {
     padding: 100px 0 70px 0;
-    width: 85%;
+    width: 95%;
   }
   @media screen and (max-width: 375px) {
     padding: 90px 0 70px 0;

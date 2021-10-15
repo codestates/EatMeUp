@@ -123,7 +123,9 @@ const Header = () => {
       {showMenu ? (
         isAuthenticated ? (
           <ResponseMenu onClick={menuHandler}>
-            <div className='menu right top'>홈</div>
+            <Link to='/'>
+              <div className='menu right top'>홈</div>
+            </Link>
             <Link to='/recipes'>
               <div className='menu right'>모든레시피</div>
             </Link>
@@ -369,30 +371,39 @@ const ResponseMenu = styled.div`
   display: none;
   position: fixed;
   z-index: 99998;
+  text-align: center;
   @media screen and (max-width: 767px) {
     background-color: white;
     width: 100%;
-
     transition: all 0.5s;
     animation: ${showM} 0.5s forwards;
     opacity: 1;
-
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    
     a {
       color: #404040;
       text-decoration: none;
+      width: 100%;
+      height: 100%;
+      align-items: center;
     }
     .menu {
-      margin: 15px 0px 7.5px 0px;
+      height: 40px;
+      width: 100%;
+      padding: 14px 0px 0 0;
       font-weight: bold;
       cursor: pointer;
+      align-items: center;
+      :active {
+        background-color: ${theme.colors.yellow};
+      }
     }
 
     .top {
-      margin-top: 100px;
+      margin-top: 80px;
     }
   }
 `;
