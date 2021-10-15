@@ -909,6 +909,13 @@ const Landing7 = styled.div`
     }
   }
 
+  @media screen and (max-width: 1919px) {
+    height: 700px;
+    margin: 400px 0 0px 0;
+    h1 {
+      font-size: 35px;
+    }
+  }
   @media screen and (max-width: 1023px) {
     height: 500px;
     margin: 300px 0 0px 0;
@@ -944,9 +951,8 @@ const Landing7 = styled.div`
 
   .md {
     display: none;
-    /* margin: 10%; */
     @media screen and (max-width: 1919px) {
-      display: flex;
+      display: block;
     }
   }
 
@@ -955,9 +961,9 @@ const Landing7 = styled.div`
     font-weight: 500;
     margin: 450px 0 0px 0;
     @media screen and (max-width: 1919px) {
-      font-size: 25px;
+      font-size: 35px;
       font-weight: 500;
-      margin: 300px 0 0px 0;
+      margin: 100px 0 0px 0;
     }
     @media screen and (max-width: 1023px) {
       font-size: 25px;
