@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useDispatch, useSelector } from "react-redux";
 import theme from "../StyledComponent/theme";
 
 /* 스타일 컴포넌트 */
@@ -15,16 +13,6 @@ const Landing = () => {
 
   const onScroll = () => {
     setPosition(window.scrollY);
-  };
-
-  const fadeIn = {
-    opacity: 1,
-    transition: '.5s'
-  };
-
-  const fadeOut = {
-    opacity: 0,
-    transition: '.5s'
   };
 
   useEffect(() => {
@@ -126,6 +114,7 @@ const Landing = () => {
               </div>
             </>
           )}
+
           {/* 2150 가운데 나타남 */}
           {position > 2150 ? (
             <div>
@@ -169,6 +158,7 @@ const Landing = () => {
               </div>
             </div>
           )}
+
           {position > 2780 ? (
             <div className='move_octopus'>
               <img
@@ -193,6 +183,31 @@ const Landing = () => {
                   opacity: position - 2639,
                   left: 1450,
                   zIndex: 9999,
+                }}
+              />
+            </div>
+          )}
+
+          {position > 750 ? (
+            <div className='oct_cooler'>
+              <img
+                src='../food_img/oct_cooler.png'
+                alt='octopus in cooler'
+                style={{
+                  opacity: (2500 - position) / 80,
+                  height: position + 50,
+                  // top: 450
+                }}
+              />
+            </div>
+          ) : (
+            <div className='oct_cooler'>
+              <img
+                src='../food_img/oct_cooler.png'
+                alt='octopus in cooler'
+                style={{
+                  opacity: (position - 750) / 80,
+                  height: position + 100,
                 }}
               />
             </div>
@@ -271,11 +286,35 @@ const Landing = () => {
               />
             </div>
           )}
+
+          <div className='md'>
+            <div className='img_container'>
+              <img src='../food_img/mycooler_drag.png' alt='my_cooler' />
+            </div>
+            <div className='des_container'>
+              <span>마이 냉장고</span>
+              <div className='p'>
+                재료를 손쉽게 등록하고, drag&drop으로 관리하세요
+              </div>
+            </div>
+          </div>
         </Landing4>
 
         <Landing5>
+          <div className='md'>
+            <div className='img_container'>
+              <img src='../food_img/recommend.png' alt='my_cooler' />
+            </div>
+            <div className='des_container'>
+              <span>재료 기반 레시피 추천</span>
+              <div className='p'>
+                원하는 재료를 골라, 레시피를 추천받아 보세요
+              </div>
+            </div>
+          </div>
+
           {position > 3975 ? ( // 3975
-            <div>
+            <div className='move'>
               <img
                 src='../food_img/recommend.png'
                 alt='recommend recipe'
@@ -292,7 +331,7 @@ const Landing = () => {
               </div>
             </div>
           ) : (
-            <div>
+            <div className='move'>
               <img
                 src='../food_img/recommend.png'
                 alt='recommend recipe'
@@ -311,8 +350,18 @@ const Landing = () => {
           )}
         </Landing5>
         <Landing6>
+          <div className='md'>
+            <div className='img_container'>
+              <img src='../food_img/meal_plan.png' alt='my_cooler' />
+            </div>
+            <div className='des_container'>
+              <span>식단표</span>
+              <div className='p'>추천받은 레시피로 식단을 계획해 보세요</div>
+            </div>
+          </div>
+
           {position > 4580 ? ( // 3975
-            <div>
+            <div className='end'>
               <img
                 src='../food_img/meal_plan.png'
                 alt='meal planner'
@@ -327,7 +376,7 @@ const Landing = () => {
               </div>
             </div>
           ) : (
-            <div>
+            <div className='end'>
               <img
                 src='../food_img/meal_plan.png'
                 alt='meal planner'
@@ -346,7 +395,7 @@ const Landing = () => {
         <Landing7>
           <div className='ending' style={{ opacity: (position - 4780) / 80 }}>
             {position > 4780 && (
-              <div>
+              <div className='end'>
                 <h1>
                   식재료 구입 후 냉장고 한 구석에 방치해 놓고 있진 않으신가요?
                 </h1>
@@ -354,10 +403,19 @@ const Landing = () => {
                   사용하고 애매하게 남은 식재료로 뭘 해먹을 수 있을지
                   고민이라구요?
                 </h1>
+                <div>지금 바로, EatMeUp 하세요!</div>
               </div>
             )}
-            <div className='end'>지금 바로, EatMeUp 하세요!</div>
           </div>
+          <div className='md'>
+            <h1>
+              식재료 구입 후 냉장고 한 구석에 방치해 놓고 있진 않으신가요?
+            </h1>
+            <h1>
+              사용하고 애매하게 남은 식재료로 뭘 해먹을 수 있을지 고민이라구요?
+            </h1>
+          </div>
+          <div className='md_p'>지금 바로, EatMeUp 하세요!</div>
         </Landing7>
         <ScrollDown />
         <GoToTop />
@@ -377,7 +435,7 @@ const LandingContainer = styled.div`
 
 const Landing1 = styled.div`
   width: 100vw;
-  height: 945px;
+  height: 100vh;
   background-color: black;
   place-items: center;
   justify-content: center;
@@ -395,7 +453,7 @@ const Landing1 = styled.div`
 
 const Landing2 = styled.div`
   width: 100vw;
-  height: 945px;
+  height: 100vh;
   background-color: black;
   place-items: center;
   justify-content: center;
@@ -421,15 +479,18 @@ const Landing2 = styled.div`
 
 const Landing3 = styled.div`
   width: 100vw;
-  height: 945px;
+  height: 100vh;
   background: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0) 100%);
   .cooler_full > img {
-    height: 90vh;
+    height: 95vh;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -45%);
     margin: 0 auto;
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
 
   .octopus1 > img {
@@ -437,16 +498,35 @@ const Landing3 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-170%, -30%);
+    transform: translate(-170%, -20%);
     margin: 0 auto;
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
   .octopus2 > img {
     width: 10%;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-170%, -30%);
+    transform: translate(-170%, -20%);
     margin: 0 auto;
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
+  }
+
+  .oct_cooler > img {
+    height: 95vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-24%, -49%);
+    margin: 0 auto;
+    display: none;
+    @media screen and (max-width: 1919px) {
+      display: block;
+    }
   }
 
   .move_octopus > img {
@@ -454,7 +534,10 @@ const Landing3 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -30%);
+    transform: translate(-50%, -20%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
 
   .eatmeup > img {
@@ -463,82 +546,249 @@ const Landing3 = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(40%, -140%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
 `;
 
 const Landing4 = styled.div`
   width: 100vw;
-  height: 945px;
+  height: 100vh;
   .cooler_in > img {
-    height: 60vh;
+    height: 65vh;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(50%, -40%);
+    transform: translate(35%, -42%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
   .description {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-140%, -35%);
-    /* margin: 10% 0; */
+    transform: translate(-150%, -30%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
+
+  @media screen and (max-width: 1919px) {
+    height: 900px;
+  }
+  @media screen and (max-width: 1023px) {
+    height: 600px;
+  }
+  @media screen and (max-width: 768px) {
+    height: 700px;
+  }
+  @media screen and (max-width: 568px) {
+    height: 600px;
+  }
+  @media screen and (max-width: 450px) {
+    height: 700px;
+  }
+  @media screen and (max-width: 375px) {
+    height: 600px;
+  }
+
   span {
     margin: 22px 0;
     font-size: 40px;
     font-weight: 600;
+    @media screen and (max-width: 1023px) {
+      font-size: 35px;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 30px;
+    }
+    @media screen and (max-width: 568px) {
+      font-size: 25px;
+    }
+    @media screen and (max-width: 450px) {
+      font-size: 23px;
+    }
   }
   .p {
     margin: 20px 0;
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 300;
+    @media screen and (max-width: 1400px) {
+      font-size: 20px;
+    }
+    @media screen and (max-width: 1023px) {
+      font-size: 18px;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 16px;
+    }
+    @media screen and (max-width: 568px) {
+      font-size: 14px;
+    }
+  }
+
+  .md {
+    display: none;
+    margin: 10%;
+    @media screen and (max-width: 1919px) {
+      display: flex;
+    }
+    @media screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      margin: 3%;
+    }
+    .img_container {
+      width: 70%;
+      img {
+        width: 100%;
+      }
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+    .des_container {
+      width: 30%;
+      margin: auto;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
   }
 `;
 
 const Landing5 = styled.div`
   width: 100vw;
-  height: 945px;
-  img {
+  height: 100vh;
+  .move > img {
     height: 70vh;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-10%, -43%);
+    transform: translate(-15%, -45%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
   .description {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-150%, -35%);
+    transform: translate(-160%, -30%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
-  .title {
+  @media screen and (max-width: 1919px) {
+    height: 900px;
+  }
+  @media screen and (max-width: 1023px) {
+    height: 600px;
+  }
+  @media screen and (max-width: 768px) {
+    height: 700px;
+  }
+  @media screen and (max-width: 568px) {
+    height: 600px;
+  }
+  @media screen and (max-width: 450px) {
+    height: 700px;
+  }
+  @media screen and (max-width: 375px) {
+    height: 600px;
+  }
+
+  span {
     margin: 22px 0;
     font-size: 40px;
     font-weight: 600;
+    @media screen and (max-width: 1023px) {
+      font-size: 35px;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 30px;
+    }
+    @media screen and (max-width: 568px) {
+      font-size: 25px;
+    }
+    @media screen and (max-width: 450px) {
+      font-size: 23px;
+    }
   }
   .p {
     margin: 20px 0;
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 300;
+    @media screen and (max-width: 1400px) {
+      font-size: 20px;
+    }
+    @media screen and (max-width: 1023px) {
+      font-size: 18px;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 16px;
+    }
+    @media screen and (max-width: 568px) {
+      font-size: 14px;
+    }
+  }
+
+  .md {
+    display: none;
+    margin: 10%;
+    @media screen and (max-width: 1919px) {
+      display: flex;
+    }
+    @media screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      margin: 3%;
+    }
+    .img_container {
+      width: 70%;
+      img {
+        width: 100%;
+      }
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+    .des_container {
+      width: 30%;
+      margin: auto;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
   }
 `;
 
 const Landing6 = styled.div`
   width: 100vw;
   height: 500px;
-  img {
+  .end > img {
     height: 80vh;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-20%, -40%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
   .description {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-170%, -35%);
-    /* margin: 10% 0; */
+    transform: translate(-190%, -30%);
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
   }
   .title {
     margin: 22px 0;
@@ -548,7 +798,93 @@ const Landing6 = styled.div`
   .p {
     margin: 20px 0;
     font-size: 24px;
-    font-weight: 400;
+    font-weight: 300;
+  }
+  @media screen and (max-width: 1919px) {
+    height: 900px;
+  }
+  @media screen and (max-width: 1023px) {
+    height: 600px;
+  }
+  @media screen and (max-width: 768px) {
+    height: 700px;
+  }
+  @media screen and (max-width: 568px) {
+    height: 600px;
+  }
+  @media screen and (max-width: 450px) {
+    height: 700px;
+  }
+  @media screen and (max-width: 375px) {
+    height: 600px;
+  }
+
+  span {
+    margin: 22px 0;
+    font-size: 40px;
+    font-weight: 600;
+    @media screen and (max-width: 1023px) {
+      font-size: 35px;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 30px;
+    }
+    @media screen and (max-width: 568px) {
+      font-size: 25px;
+    }
+    @media screen and (max-width: 450px) {
+      font-size: 23px;
+    }
+  }
+  .p {
+    margin: 20px 0;
+    font-size: 24px;
+    font-weight: 300;
+    @media screen and (max-width: 1400px) {
+      font-size: 20px;
+    }
+    @media screen and (max-width: 1023px) {
+      font-size: 18px;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 16px;
+    }
+    @media screen and (max-width: 568px) {
+      font-size: 14px;
+    }
+  }
+
+  .md {
+    display: none;
+    margin: 10%;
+    /* transition: all .5s ease; */
+    /* transform: translate(-20%, -45%); */
+    @media screen and (max-width: 1919px) {
+      display: flex;
+    }
+    @media screen and (max-width: 768px) {
+      display: flex;
+      flex-direction: column;
+      margin: 3%;
+    }
+    .img_container {
+      width: 70%;
+      img {
+        width: 100%;
+      }
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
+    .des_container {
+      width: 30%;
+      margin: auto;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        margin: 0 auto;
+      }
+    }
   }
 `;
 
@@ -559,6 +895,59 @@ const Landing7 = styled.div`
     font-size: 35px;
     font-weight: 500;
     margin: 250px 0 0px 0;
+    @media screen and (max-width: 1919px) {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    height: 500px;
+    margin: 300px 0 0px 0;
+    h1 {
+      font-size: 25px;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    /* height: 700px; */
+    margin: 300px auto 0px auto;
+    width: 80vw;
+    h1 {
+      font-size: 20px;
+    }
+  }
+  @media screen and (max-width: 568px) {
+    height: 400px;
+    margin: 200px auto 0px auto;
+    h1 {
+      font-size: 16px;
+    }
+  }
+  @media screen and (max-width: 450px) {
+    height: 500px;
+    margin: 100px auto 0px auto;
+  }
+  @media screen and (max-width: 375px) {
+    height: 400px;
+    h1 {
+      font-size: 14px;
+    }
+  }
+
+  .md_p {
+    font-size: 35px;
+    font-weight: 500;
+    margin: 250px 0 0px 0;
+    @media screen and (max-width: 1023px) {
+      font-size: 25px;
+      font-weight: 500;
+      margin: 100px 0 0px 0;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 25px;
+    }
+    @media screen and (max-width: 375px) {
+      font-size: 20px;
+    }
   }
 `;
 
