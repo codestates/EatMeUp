@@ -403,7 +403,7 @@ const Landing = () => {
                   사용하고 애매하게 남은 식재료로 뭘 해먹을 수 있을지
                   고민이라구요?
                 </h1>
-                <div>지금 바로, EatMeUp 하세요!</div>
+                <div className='p'>지금 바로, EatMeUp 하세요!</div>
               </div>
             )}
           </div>
@@ -414,8 +414,8 @@ const Landing = () => {
             <h1>
               사용하고 애매하게 남은 식재료로 뭘 해먹을 수 있을지 고민이라구요?
             </h1>
+            <div className='md_p'>지금 바로, EatMeUp 하세요!</div>
           </div>
-          <div className='md_p'>지금 바로, EatMeUp 하세요!</div>
         </Landing7>
         <ScrollDown />
         <GoToTop />
@@ -777,6 +777,7 @@ const Landing6 = styled.div`
     position: fixed;
     top: 50%;
     left: 50%;
+    transform: translate(-15%, -40%);
     @media screen and (max-width: 1919px) {
       display: none;
     }
@@ -890,7 +891,15 @@ const Landing6 = styled.div`
 
 const Landing7 = styled.div`
   width: 100vw;
-  height: 700px;
+  height: 900px;
+  h1 {
+      font-size: 30px;
+    }
+  .p {
+    font-size: 35px;
+    font-weight: 500;
+    margin: 250px 0 0px 0;
+  }
   .end {
     font-size: 35px;
     font-weight: 500;
@@ -900,6 +909,13 @@ const Landing7 = styled.div`
     }
   }
 
+  @media screen and (max-width: 1919px) {
+    height: 700px;
+    margin: 400px 0 0px 0;
+    h1 {
+      font-size: 35px;
+    }
+  }
   @media screen and (max-width: 1023px) {
     height: 500px;
     margin: 300px 0 0px 0;
@@ -933,10 +949,22 @@ const Landing7 = styled.div`
     }
   }
 
+  .md {
+    display: none;
+    @media screen and (max-width: 1919px) {
+      display: block;
+    }
+  }
+
   .md_p {
     font-size: 35px;
     font-weight: 500;
-    margin: 250px 0 0px 0;
+    margin: 450px 0 0px 0;
+    @media screen and (max-width: 1919px) {
+      font-size: 35px;
+      font-weight: 500;
+      margin: 100px 0 0px 0;
+    }
     @media screen and (max-width: 1023px) {
       font-size: 25px;
       font-weight: 500;
