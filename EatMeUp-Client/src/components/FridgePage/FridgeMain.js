@@ -192,7 +192,7 @@ const SearchBox = styled.div`
   padding: 130px 0 0 0;
 
   @media screen and (max-width:1500px) {
-    padding: 70px 0 0 0;
+    padding: 100px 0 0 0;
     width: 80%;
   }
 
