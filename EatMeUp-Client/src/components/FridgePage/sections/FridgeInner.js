@@ -6,8 +6,6 @@ import { foodLife } from "./utils/convertDate";
 import Fridge from "./Fridge";
 
 /* 스타일 컴포넌트 */
-import theme from "../../StyledComponent/theme";
-import { SmallBtn } from "../../StyledComponent/buttons";
 import MuiAlert from "@mui/material/Alert";
 
 const Alert = React.forwardRef(function Alert(props, ref) {

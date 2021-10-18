@@ -18,7 +18,7 @@ import Sidebar from "../Util/Sidebar";
 import { MiddleBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
-import { ListContainer } from '../StyledComponent/mypage_style';
+import { ListContainer } from "../StyledComponent/mypage_style";
 
 const { Swal } = window;
 
@@ -160,7 +160,7 @@ const PlanningPage = () => {
                   <div className='emptybox'>
                     <Material>
                       <div className='food-img'>
-                        <img src='../../food_img/octopus.png' alt='food' />
+                        <i className='fas fa-fish'></i>
                       </div>
                       <div className='food-name'>문어</div>
                     </Material>
@@ -187,7 +187,6 @@ const PlanningPage = () => {
     </>
   );
 };
-
 
 const TitleBox = styled.div`
   display: flex;
@@ -395,15 +394,6 @@ const IngredientBox = styled.div`
     z-index: 10;
   }
 
-  /* &::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 30px;
-  } */
-
   /* 반응형 css */
   @media screen and (max-width: 1300px) {
     display: none;
@@ -426,14 +416,11 @@ const Material = styled.div`
 
   .food-img {
     margin-top: 15px;
-    img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-    }
+    font-size: 40px;
   }
 
   .food-name {
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 500;
   }

@@ -18,7 +18,7 @@ const ListContainer = styled(SectionBox)`
 `;
 
 const TitleBox = styled.div`
-width: 100%;
+width: 90%;
 height: 90px;
 font-weight: bold;
 font-size: 30px;
