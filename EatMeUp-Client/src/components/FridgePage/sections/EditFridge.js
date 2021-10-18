@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 /* 컴포넌트 */
 import EditIngre from "./EditFood/EditIngre";
-import { foodLife } from './utils/convertDate'
+import { foodLife, convertStr, sliceHandler, calculatorLife } from './utils/convertDate'
 
 /* 스타일 컴포넌트 */
 import theme from "../../StyledComponent/theme";
@@ -29,24 +29,6 @@ const EditFridge = ({
     setOpenEditWindow(true);
   };
 
-  // 냉장고 타입 핸들러
-  const convertStr = (idx) => {
-    if (idx === 0) {
-      return "실온";
-    } else if (idx === 1) {
-      return "냉장";
-    } else {
-      return "냉동";
-    }
-  };
-
-  const sliceHandler = (date) => {
-    const createAt = date.slice(0, 10);
-    const Y = createAt.slice(0, 4);
-    const M = createAt.slice(5, 7);
-    const D = createAt.slice(8, 10);
-    return `${Y}.${M}.${D}`;
-  };
 
   /* drag and drop 구현 코드*/
   const handlerDragStart = (e, params) => {
@@ -117,19 +99,6 @@ const EditFridge = ({
     }
     return { opacity: 1 };
   };
-
-  const calculatorLife = (life) => {
-
-    if(Number(foodLife(life)) < 0) {
-      return Math.abs(foodLife(life))
-    }
-
-    if(Number(foodLife(life)) === 0) {
-      return "day"
-    }
-
-    return foodLife(life)
-  }
 
   return (
     <FridgeInnerBox>

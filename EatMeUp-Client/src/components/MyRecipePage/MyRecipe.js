@@ -83,10 +83,10 @@ const MyRecipe = () => {
 const Button = styled(LargeBtn)`
   width: 90%;
   box-sizing: border-box;
-
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
+  
   span {
     margin: 5px;
   }
