@@ -104,8 +104,6 @@ const MyInfo = () => {
       id: id,
     };
 
-    console.log(data);
-
     Swal.fire({
       title: "내 계정 삭제",
       text: "정보를 삭제 하시겠습니까?",

@@ -18,6 +18,7 @@ import Sidebar from "../Util/Sidebar";
 import { MiddleBtn } from "../StyledComponent/buttons";
 import theme from "../StyledComponent/theme";
 import { Container, SectionBox } from "../StyledComponent/containers";
+import { ListContainer } from "../StyledComponent/mypage_style";
 
 const { Swal } = window;
 
@@ -104,12 +105,12 @@ const PlanningPage = () => {
     <>
       <Header id={2} />
       <section>
-        <MealPlannerContainer>
+        <Container>
           {/* 사이드바영역 */}
           <Sidebar id={3} />
 
           {/* 콘텐츠영역 */}
-          <PlannerContainer>
+          <ListContainer>
             {/* 타이틀/날짜핸들러/달력보러가기버튼 영역 */}
             <TitleBox>
               <div>
@@ -159,7 +160,7 @@ const PlanningPage = () => {
                   <div className='emptybox'>
                     <Material>
                       <div className='food-img'>
-                        <img src='../../food_img/octopus.png' alt='food' />
+                        <i className='fas fa-fish'></i>
                       </div>
                       <div className='food-name'>문어</div>
                     </Material>
@@ -179,55 +180,13 @@ const PlanningPage = () => {
                 </MealPlanCardBox>
               </PlannerBox>
             </MealPlaner>
-          </PlannerContainer>
-        </MealPlannerContainer>
+          </ListContainer>
+        </Container>
       </section>
       <Footer />
     </>
   );
 };
-
-const MealPlannerContainer = styled(Container)`
-  width: 100%;
-  height: 100%;
-  padding: 140px 0 70px 0;
-  @media screen and (max-width: 1200px) {
-    width: 94.7%;
-  }
-  @media screen and (max-width: 1023px) {
-    width: 93%;
-  }
-  @media screen and (max-width: 768px) {
-    padding: 130px 0 70px 0;
-    width: 90%;
-  }
-  @media screen and (max-width: 568px) {
-    padding: 110px 0 70px 0;
-    width: 85%;
-  }
-  @media screen and (max-width: 450px) {
-    padding: 100px 0 70px 0;
-    width: 85%;
-  }
-  @media screen and (max-width: 375px) {
-    padding: 90px 0 70px 0;
-    width: 100%;
-  }
-`
-
-const PlannerContainer = styled(SectionBox)`
-  width: 77%;
-  min-height: 770px;
-
-  @media screen and (max-width: 1035px) {
-    width: 88%;
-  }
-
-  @media screen and (max-width: 375px) {
-    width: 95%;
-    margin: auto;
-  }
-`;
 
 const TitleBox = styled.div`
   display: flex;
@@ -435,15 +394,6 @@ const IngredientBox = styled.div`
     z-index: 10;
   }
 
-  /* &::before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.3);
-    border-radius: 30px;
-  } */
-
   /* 반응형 css */
   @media screen and (max-width: 1300px) {
     display: none;
@@ -466,14 +416,11 @@ const Material = styled.div`
 
   .food-img {
     margin-top: 15px;
-    img {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-    }
+    font-size: 40px;
   }
 
   .food-name {
+    margin-top: 10px;
     font-size: 16px;
     font-weight: 500;
   }

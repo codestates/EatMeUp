@@ -23,7 +23,6 @@ import theme from "../StyledComponent/theme";
 const { swal } = window;
 
 const Login = ({ setShowLogin, setShowSignup }) => {
-  // console.log(process.env.REACT_APP_GOOGLE_API_KEY)
   const history = useHistory();
   const dispatch = useDispatch();
   const { isAuthenticated, error } = useSelector(
@@ -174,7 +173,7 @@ const Login = ({ setShowLogin, setShowSignup }) => {
               </button>
             </form>
 
-            <GoogleBtn
+            <GoogleLogin
               // icon={false}
               clientId={process.env.REACT_APP_GOOGLE_API_KEY}
               // buttonText=''
@@ -220,6 +219,8 @@ const Login = ({ setShowLogin, setShowSignup }) => {
 };
 
 const StyledContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
   position: fixed;
   top: 0;
   right: 0;
@@ -228,7 +229,6 @@ const StyledContainer = styled.div`
   z-index: 99999;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 15px 15px;
   background: rgba(0, 0, 0, 0.3);
   opacity: 1;
   transition: opacity 0.15s linear;
@@ -313,38 +313,6 @@ const LoginButton = styled(LargeBtn)`
   cursor: pointer;
 `;
 
-// const SocialButton = styled(LargeBtn)`
-//   width: 50%;
-//   height: 50px;
-//   margin: 0 auto 10px auto;
-//   background-color: white;
-//   color: ${theme.colors.black};
-//   border: 1px solid ${theme.colors.lightgrey};
-//   cursor: pointer;
-//   .google_logo {
-//     vertical-align: top;
-//     width: 22px;
-//   }
-//   .google_text {
-//     color: ${theme.colors.black};
-//     font-size: 18px;
-//     font-weight: 600;
-//     margin: 0 0 0 5px;
-//   }
-//   .kakao_logo {
-//     vertical-align: middle;
-//     height: 28px;
-//   }
-//   .kakao_text {
-//     color: ${theme.colors.black};
-//     font-size: 18px;
-//     font-weight: 600;
-//     margin: 0 0 0 5px;
-//   }
-// `;
-
-const GoogleBtn = styled(GoogleLogin)``;
-
 const KakaoBtn = styled(KakaoLogin)`
   background-color: white;
   border: none;
@@ -385,14 +353,5 @@ const LoginEnd = styled.div`
     border: none;
   }
 `;
-
-// const StyledLink = styled(Link)`
-//   text-decoration: none;
-//   font-weight: bold;
-//   cursor: pointer;
-//   &:visited {
-//     color: ${theme.colors.black};
-//   }
-// `;
 
 export default Login;
